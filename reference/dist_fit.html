@@ -122,12 +122,12 @@
     </div>
 
     <pre class="usage"><span class='fu'>dist_fit</span>(
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>chains</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"exp"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  values = <span class='kw'>NULL</span>,
+  samples = <span class='kw'>NULL</span>,
+  cores = <span class='fl'>1</span>,
+  chains = <span class='fl'>2</span>,
+  dist = <span class='st'>"exp"</span>,
+  verbose = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,19 +165,19 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
     <p>A <code>stan</code> fit of an interval censored distribution</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## Integer adjusted exponential model</span>
-<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='fl'>2</span>), <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"exp"</span>,
-         <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>2</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"exp"</span>, 
+         cores = <span class='fl'>2</span>, verbose = <span class='fl'>TRUE</span>)
 
 
 <span class='co'>## Integer adjusted gamma model</span>
-<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"gamma"</span>,
-         <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"gamma"</span>, 
+         cores = <span class='fl'>2</span>, verbose = <span class='fl'>TRUE</span>)
 
 <span class='co'>## Integer adjusted lognormal model</span>
-<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>), <span class='fl'>0.2</span>), <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"lognormal"</span>,
-         <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>), <span class='fl'>0.2</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"lognormal"</span>,
+         cores = <span class='fl'>2</span>, verbose = <span class='fl'>TRUE</span>)
 
 }</div></pre>
   </div>
@@ -195,7 +195,7 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

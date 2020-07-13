@@ -122,16 +122,16 @@
     </div>
 
     <pre class="usage"><span class='fu'>regional_epinow</span>(
-  <span class='no'>reported_cases</span>,
-  <span class='no'>target_folder</span>,
-  <span class='no'>target_date</span>,
-  <span class='kw'>case_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>summary_dir</span>,
-  <span class='kw'>region_scale</span> <span class='kw'>=</span> <span class='st'>"Region"</span>,
-  <span class='kw'>return_estimates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+  <span class='kw'>reported_cases</span>,
+  <span class='kw'>target_folder</span>,
+  <span class='kw'>target_date</span>,
+  case_limit = <span class='fl'>20</span>,
+  cores = <span class='fl'>1</span>,
+  summary = <span class='fl'>TRUE</span>,
+  <span class='kw'>summary_dir</span>,
+  region_scale = <span class='st'>"Region"</span>,
+  return_estimates = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -185,42 +185,42 @@ in which to store summary of results.</p></td>
     <p>A list of output stratified at the top level into regional output and across region output summary output</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'> <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## Construct example distributions</span>
-<span class='no'>generation_time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]$<span class='no'>mean</span>,
-                        <span class='kw'>mean_sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]$<span class='no'>mean_sd</span>,
-                        <span class='kw'>sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]$<span class='no'>sd</span>,
-                        <span class='kw'>sd_sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]$<span class='no'>sd_sd</span>,
-                        <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>30</span>)
-
-<span class='no'>incubation_period</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]$<span class='no'>mean</span>,
-                          <span class='kw'>mean_sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]$<span class='no'>mean_sd</span>,
-                          <span class='kw'>sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]$<span class='no'>sd</span>,
-                          <span class='kw'>sd_sd</span> <span class='kw'>=</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]$<span class='no'>sd_sd</span>,
-                          <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>30</span>)
-
-<span class='no'>reporting_delay</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>10</span>),
-                        <span class='kw'>mean_sd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        <span class='kw'>sd_sd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>1.1</span>),
-                        <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>30</span>)
-
+<span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
+                        mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
+                        sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
+                        sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
+                        max = <span class='fl'>30</span>)
+                          
+<span class='kw'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
+                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
+                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
+                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
+                          max = <span class='fl'>30</span>)
+                   
+<span class='kw'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>10</span>),
+                        mean_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
+                        sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
+                        sd_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>1.1</span>),
+                        max = <span class='fl'>30</span>)
+                        
 <span class='co'>## Uses example case vector</span>
-<span class='no'>cases</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>EpiNow2</span><span class='kw ns'>::</span><span class='no'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span>:<span class='fl'>40</span>]
+<span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
 
-<span class='no'>cases</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span>(<span class='no'>cases</span>)[, <span class='no'>region</span> <span class='kw'>:=</span> <span class='st'>"testland"</span>],
-  <span class='no'>cases</span>[, <span class='no'>region</span> <span class='kw'>:=</span> <span class='st'>"realland"</span>]))
-
+<span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+  <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span>(<span class='kw'>cases</span>)[, <span class='kw'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span>],
+  <span class='kw'>cases</span>[, <span class='kw'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span>]))
+  
 <span class='co'>## Run basic nowcasting pipeline</span>
 <span class='co'>## Here we reduce the accuracy of the GP approximation in order to reduce runtime</span>
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>regional_epinow</span>(<span class='kw'>reported_cases</span> <span class='kw'>=</span> <span class='no'>cases</span>,
-                       <span class='kw'>generation_time</span> <span class='kw'>=</span> <span class='no'>generation_time</span>,
-                       <span class='kw'>delays</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>incubation_period</span>, <span class='no'>reporting_delay</span>),
-                       <span class='kw'>gp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>basis_prop</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>boundary_scale</span> <span class='kw'>=</span> <span class='fl'>2</span>),
-                       <span class='kw'>adapt_delta</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-                       <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>warmup</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-                       <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>chains</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'>regional_epinow</span>(reported_cases = <span class='kw'>cases</span>,
+                       generation_time = <span class='kw'>generation_time</span>,
+                       delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
+                       gp = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(basis_prop = <span class='fl'>0.1</span>, boundary_scale = <span class='fl'>2</span>),
+                       adapt_delta = <span class='fl'>0.9</span>,
+                       samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>,
+                       cores = <span class='fl'>4</span>, chains = <span class='fl'>4</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -237,7 +237,7 @@ in which to store summary of results.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -122,11 +122,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>summarise_results</span>(
-  <span class='no'>regions</span>,
-  <span class='no'>summaries</span>,
-  <span class='no'>results_dir</span>,
-  <span class='no'>target_date</span>,
-  <span class='kw'>region_scale</span> <span class='kw'>=</span> <span class='st'>"Region"</span>
+  <span class='kw'>regions</span>,
+  <span class='kw'>summaries</span>,
+  <span class='kw'>results_dir</span>,
+  <span class='kw'>target_date</span>,
+  region_scale = <span class='st'>"Region"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,14 +162,15 @@ for this date.</p></td>
     <p>A list of summary data</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># see ?regional_epinow for code to generate regional results to use with this example.</span>
 
-<span class='no'>region_sum_tab</span> <span class='kw'>&lt;-</span> <span class='fu'>summarise_results</span>(<span class='kw'>regions</span> <span class='kw'>=</span> <span class='no'>regions</span>,
-                                    <span class='kw'>summaries</span> <span class='kw'>=</span> <span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='no'>out</span>$<span class='no'>regional</span>, ~ <span class='no'>.</span>$<span class='no'>summary</span>))
-
-<span class='no'>region_sum_tab</span>
-}</div></pre>
+<span class='kw'>region_sum_tab</span> <span class='op'>&lt;-</span> <span class='fu'>summarise_results</span>(regions = <span class='kw'>regions</span>,
+                                    summaries = <span class='kw'>purrr</span>::<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span>(<span class='kw'>out</span><span class='op'>$</span><span class='kw'>regional</span>, <span class='op'>~</span> <span class='kw'>.</span><span class='op'>$</span><span class='kw'>summary</span>))
+                  
+<span class='kw'>region_sum_tab</span>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -185,7 +186,7 @@ for this date.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
