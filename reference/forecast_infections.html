@@ -193,18 +193,18 @@ summarised forecasts.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>forecastHybrid</span>)
 
 <span class='co'>## Example case data</span>
-<span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
+<span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
  
-<span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                        mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                        sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                        sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
+<span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
+                        mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
+                        sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
+                        sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
                         max = <span class='fl'>30</span>)
                           
-<span class='kw'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='https://rdrr.io/pkg/EpiNow2/man/covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
+<span class='kw'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
+                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
+                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
+                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
                           max = <span class='fl'>30</span>)
                    
 <span class='kw'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>),
@@ -214,7 +214,7 @@ summarised forecasts.</p>
                         max = <span class='fl'>30</span>)
                         
 <span class='co'>## Estimate Rt and infections from data</span>
-<span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
+<span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                            generation_time = <span class='kw'>generation_time</span>,
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
@@ -250,7 +250,7 @@ summarised forecasts.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">
