@@ -73,7 +73,7 @@ of report and then save summary measures and plots." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -143,6 +143,7 @@ of report and then save summary measures and plots.</p>
   estimate_week_eff = <span class='fl'>TRUE</span>,
   estimate_breakpoints = <span class='fl'>FALSE</span>,
   stationary = <span class='fl'>FALSE</span>,
+  fixed = <span class='fl'>FALSE</span>,
   return_fit = <span class='fl'>FALSE</span>,
   <span class='kw'>forecast_model</span>,
   horizon = <span class='fl'>7</span>,
@@ -249,6 +250,13 @@ a global non-parametric effect and so represent a conservative estimate of break
       <td><p>Logical, defaults to FALSE. Should Rt be estimated with a global mean. When estimating Rt
 this should substantially improve run times but will revert to the global average for real time and forecasted estimates.
 This setting is most appropriate when estimating historic Rt or when combined with breakpoints.</p></td>
+    </tr>
+    <tr>
+      <th>fixed</th>
+      <td><p>Logical, defaults to FALSE. If TRUE then a Gaussian process is not used and Rt is assumed to be constant over time
+(apart from any manually included breakpoints). If <code>estimate_rt</code> is FALSE then this reduces the backcalculation to a simple mean shift.
+This option can be used to produce a null model estimate, to produce a single Rt estimate for a short timeseries or as part of a wider
+analysis on the impact of interventions.</p></td>
     </tr>
     <tr>
       <th>return_fit</th>
