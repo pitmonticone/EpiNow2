@@ -222,11 +222,11 @@ Defaults to <code>TRUE</code>.</p></td>
 #&gt; 137: 2020-06-30    35</div><div class='input'>  
 <span class='co'>## Check that sum is equal to reported cases</span>
 <span class='kw'>total_onsets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(
-   <span class='kw'>purrr</span>::<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span>, 
+   <span class='kw'>purrr</span>::<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, 
                   <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='fu'>sample_approx_dist</span>(cases = <span class='kw'>cases</span>,
                   dist_fn = <span class='kw'>delay_fn</span>)<span class='op'>$</span><span class='kw'>cases</span>))) 
                    
-<span class='kw'>total_onsets</span></div><div class='output co'>#&gt; [1] 240551</div><div class='input'> 
+<span class='kw'>total_onsets</span></div><div class='output co'>#&gt; [1] 240547</div><div class='input'> 
                    
 <span class='co'>## Map from onset cases to reported                  </span>
 <span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span>(cases = <span class='kw'>cases</span>,

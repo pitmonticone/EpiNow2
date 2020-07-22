@@ -312,7 +312,7 @@ analysis on the impact of interventions.</p></td>
                       reported = <span class='kw'>reported_cases</span>)
                       
 
-<span class='co'>## Run model with stationary Rt assumption (likely to provide biased realtime estimates)</span>
+<span class='co'>## Run model with stationary Rt assumption (likely to provide biased real-time estimates)</span>
 <span class='kw'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                             generation_time = <span class='kw'>generation_time</span>,
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
