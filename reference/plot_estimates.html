@@ -155,7 +155,7 @@ as points (linked using a line).</p></td>
     <p>A <code>ggplot2</code> object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Define example cases</span>
 <span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
 
@@ -183,27 +183,119 @@ as points (linked using a line).</p></td>
 <span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span>(<span class='kw'>cases</span>, family = <span class='st'>"negbin"</span>,
                                     generation_time = <span class='kw'>generation_time</span>,
                                     delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                                    samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fl'>4</span>, chains = <span class='fl'>4</span>,
-                                    horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)
-<span class='co'>## Plot infections</span>
+                                    samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, 
+                                    cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
+                                    chains = <span class='fl'>4</span>, horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast</span></div><div class='output co'>#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
+#&gt; Chain 1: 
+#&gt; Chain 1: Gradient evaluation took 0.000291 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 2.91 seconds.
+#&gt; Chain 1: Adjust your expectations accordingly!
+#&gt; Chain 1: 
+#&gt; Chain 1: 
+#&gt; Chain 1: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 1: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 1: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 1: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 1: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 1: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 1: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 1: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 1: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 1: 
+#&gt; Chain 1:  Elapsed Time: 72.3848 seconds (Warm-up)
+#&gt; Chain 1:                36.9241 seconds (Sampling)
+#&gt; Chain 1:                109.309 seconds (Total)
+#&gt; Chain 1: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
+#&gt; Chain 2: 
+#&gt; Chain 2: Gradient evaluation took 0.000326 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.26 seconds.
+#&gt; Chain 2: Adjust your expectations accordingly!
+#&gt; Chain 2: 
+#&gt; Chain 2: 
+#&gt; Chain 2: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 2: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 2: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 2: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 2: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 2: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 2: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 2: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 2: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 2: 
+#&gt; Chain 2:  Elapsed Time: 52.1871 seconds (Warm-up)
+#&gt; Chain 2:                45.5478 seconds (Sampling)
+#&gt; Chain 2:                97.7349 seconds (Total)
+#&gt; Chain 2: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
+#&gt; Chain 3: 
+#&gt; Chain 3: Gradient evaluation took 0.000318 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.18 seconds.
+#&gt; Chain 3: Adjust your expectations accordingly!
+#&gt; Chain 3: 
+#&gt; Chain 3: 
+#&gt; Chain 3: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 3: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 3: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 3: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 3: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 3: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 3: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 3: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 3: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 3: 
+#&gt; Chain 3:  Elapsed Time: 44.9005 seconds (Warm-up)
+#&gt; Chain 3:                35.9335 seconds (Sampling)
+#&gt; Chain 3:                80.834 seconds (Total)
+#&gt; Chain 3: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
+#&gt; Chain 4: 
+#&gt; Chain 4: Gradient evaluation took 0.000335 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.35 seconds.
+#&gt; Chain 4: Adjust your expectations accordingly!
+#&gt; Chain 4: 
+#&gt; Chain 4: 
+#&gt; Chain 4: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 4: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 4: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 4: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 4: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 4: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 4: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 4: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 4: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 4: 
+#&gt; Chain 4:  Elapsed Time: 55.7764 seconds (Warm-up)
+#&gt; Chain 4:                36.2327 seconds (Sampling)
+#&gt; Chain 4:                92.0091 seconds (Total)
+#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'><span class='co'>## Plot infections</span>
 <span class='fu'>plot_estimates</span>(
   estimate = <span class='kw'>out</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span>],
   reported = <span class='kw'>cases</span>, 
-  ylab = <span class='st'>"Cases"</span>)
-
+  ylab = <span class='st'>"Cases"</span>)</div><div class='img'><img src='plot_estimates-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Plot reported cases estimated via Rt</span>
 <span class='fu'>plot_estimates</span>(estimate = <span class='kw'>out</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"reported_cases"</span>],
                reported = <span class='kw'>cases</span>, 
-               ylab = <span class='st'>"Cases"</span>)
-               
+               ylab = <span class='st'>"Cases"</span>)</div><div class='img'><img src='plot_estimates-2.png' alt='' width='700' height='433' /></div><div class='input'>               
 <span class='co'>## Plot Rt estimates</span>
 <span class='fu'>plot_estimates</span>(estimate = <span class='kw'>out</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"R"</span>],
                ylab = <span class='st'>"Effective Reproduction No."</span>,
-               hline = <span class='fl'>1</span>)
-
-}
-
-</div></pre>
+               hline = <span class='fl'>1</span>)</div><div class='img'><img src='plot_estimates-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -215,7 +307,7 @@ as points (linked using a line).</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

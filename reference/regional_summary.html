@@ -173,8 +173,7 @@ in which to store summary of results.</p></td>
     <p>A list of summary measures and plots</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Construct example distributions</span>
 <span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
                         mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
@@ -208,14 +207,14 @@ in which to store summary of results.</p></td>
                                 reporting_delay = <span class='kw'>reporting_delay</span>,
                                 samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fl'>4</span>,
                                 adapt_delta = <span class='fl'>0.95</span>, chains = <span class='fl'>4</span>, verbose = <span class='fl'>TRUE</span>,
-                                summary = <span class='fl'>FALSE</span>)
-                       
+                                summary = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Reporting estimates using data up to: 2020-03-22</span></div><div class='output co'>#&gt; <span class='message'>Running the pipeline for: testland, realland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: testland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: realland</span></div><div class='input'>
+<span class='kw'>results_dir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()             
+
 <span class='fu'>regional_summary</span>(regional_output = <span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>,
                  reported_cases = <span class='kw'>cases</span>,
-                 summary_dir = <span class='st'>"../summary"</span>,
-                 region_scale = <span class='st'>"Country"</span>)
-
-}
+                 summary_dir = <span class='kw'>results_dir</span>,
+                 region_scale = <span class='st'>"Country"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; <span class='error'>Error in .checkTypos(e, names_x): Object 'measure' not found amongst </span></div><div class='input'>
+<span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -228,7 +227,7 @@ in which to store summary of results.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

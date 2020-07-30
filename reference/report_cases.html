@@ -168,7 +168,7 @@ which approximates sampling or "median" would shift by the median of the distrib
 being summarised across samples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Define example cases</span>
 <span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
 
@@ -197,17 +197,113 @@ being summarised across samples.</p>
                                     generation_time = <span class='kw'>generation_time</span>,
                                     delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                     samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, 
-                                    cores = <span class='fl'>4</span>, chains = <span class='fl'>4</span>,
-                                    estimate_rt =  <span class='fl'>FALSE</span>, verbose = <span class='fl'>TRUE</span>)
-                            
+                                    cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
+                                    estimate_rt =  <span class='fl'>FALSE</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast</span></div><div class='output co'>#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
+#&gt; Chain 1: 
+#&gt; Chain 1: Gradient evaluation took 0.000148 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.48 seconds.
+#&gt; Chain 1: Adjust your expectations accordingly!
+#&gt; Chain 1: 
+#&gt; Chain 1: 
+#&gt; Chain 1: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 1: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 1: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 1: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 1: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 1: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 1: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 1: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 1: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 1: 
+#&gt; Chain 1:  Elapsed Time: 22.0255 seconds (Warm-up)
+#&gt; Chain 1:                0.986783 seconds (Sampling)
+#&gt; Chain 1:                23.0123 seconds (Total)
+#&gt; Chain 1: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
+#&gt; Chain 2: 
+#&gt; Chain 2: Gradient evaluation took 0.000132 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.32 seconds.
+#&gt; Chain 2: Adjust your expectations accordingly!
+#&gt; Chain 2: 
+#&gt; Chain 2: 
+#&gt; Chain 2: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 2: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 2: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 2: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 2: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 2: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 2: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 2: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 2: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 2: 
+#&gt; Chain 2:  Elapsed Time: 22.9707 seconds (Warm-up)
+#&gt; Chain 2:                0.992592 seconds (Sampling)
+#&gt; Chain 2:                23.9633 seconds (Total)
+#&gt; Chain 2: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
+#&gt; Chain 3: 
+#&gt; Chain 3: Gradient evaluation took 0.000141 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.41 seconds.
+#&gt; Chain 3: Adjust your expectations accordingly!
+#&gt; Chain 3: 
+#&gt; Chain 3: 
+#&gt; Chain 3: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 3: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 3: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 3: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 3: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 3: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 3: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 3: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 3: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 3: 
+#&gt; Chain 3:  Elapsed Time: 16.5187 seconds (Warm-up)
+#&gt; Chain 3:                1.17328 seconds (Sampling)
+#&gt; Chain 3:                17.692 seconds (Total)
+#&gt; Chain 3: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
+#&gt; Chain 4: 
+#&gt; Chain 4: Gradient evaluation took 0.000133 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.33 seconds.
+#&gt; Chain 4: Adjust your expectations accordingly!
+#&gt; Chain 4: 
+#&gt; Chain 4: 
+#&gt; Chain 4: Iteration:   1 / 450 [  0%]  (Warmup)
+#&gt; Chain 4: Iteration:  50 / 450 [ 11%]  (Warmup)
+#&gt; Chain 4: Iteration: 100 / 450 [ 22%]  (Warmup)
+#&gt; Chain 4: Iteration: 150 / 450 [ 33%]  (Warmup)
+#&gt; Chain 4: Iteration: 200 / 450 [ 44%]  (Warmup)
+#&gt; Chain 4: Iteration: 201 / 450 [ 44%]  (Sampling)
+#&gt; Chain 4: Iteration: 250 / 450 [ 55%]  (Sampling)
+#&gt; Chain 4: Iteration: 300 / 450 [ 66%]  (Sampling)
+#&gt; Chain 4: Iteration: 350 / 450 [ 77%]  (Sampling)
+#&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
+#&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
+#&gt; Chain 4: 
+#&gt; Chain 4:  Elapsed Time: 16.0062 seconds (Warm-up)
+#&gt; Chain 4:                1.00612 seconds (Sampling)
+#&gt; Chain 4:                17.0124 seconds (Total)
+#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
+#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'>                            
                      
 <span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>report_cases</span>(case_estimates = <span class='kw'>out</span><span class='op'>$</span><span class='kw'>samples</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span>][, 
                                                             <span class='kw'>cases</span> <span class='op'>:=</span> <span class='kw'>value</span>][, <span class='kw'>value</span> <span class='op'>:=</span> <span class='kw'>NULL</span>],
                                delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                               type = <span class='st'>"sample"</span>)
-                               
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>reported_cases</span>)
-}</div></pre>
+                               type = <span class='st'>"sample"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs produced</span></div><div class='output co'>#&gt; <span class='error'>Error in rep(0, length(reversed_cases) - .): invalid 'times' argument</span></div><div class='input'>                               
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in print(reported_cases): object 'reported_cases' not found</span></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -219,7 +315,7 @@ being summarised across samples.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

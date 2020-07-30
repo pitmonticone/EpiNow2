@@ -168,7 +168,7 @@ When the sample size of the supplied delay distribution is less than 100 this is
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \donttest{</span>
 <span class='co'># lognormal</span>
 <span class='kw'>delays</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>500</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>), <span class='fl'>1</span>)
 
@@ -176,9 +176,22 @@ When the sample size of the supplied delay distribution is less than 100 this is
                              dist = <span class='st'>"lognormal"</span>)
 
 <span class='co'>## Inspect</span>
-<span class='kw'>out</span>
-
-}</div></pre>
+<span class='kw'>out</span></div><div class='output co'>#&gt; $mean
+#&gt; [1] 1.507095
+#&gt; 
+#&gt; $mean_sd
+#&gt; [1] 0.09082939
+#&gt; 
+#&gt; $sd
+#&gt; [1] 1.06571
+#&gt; 
+#&gt; $sd_sd
+#&gt; [1] 0.06924434
+#&gt; 
+#&gt; $max
+#&gt; [1] 57
+#&gt; </div><div class='input'>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -190,7 +203,7 @@ When the sample size of the supplied delay distribution is less than 100 this is
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

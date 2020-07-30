@@ -147,7 +147,7 @@ and r (rate of growth).</p></td>
     <p>A <code>ggplot2</code> object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Define example cases</span>
 <span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
 
@@ -176,15 +176,19 @@ and r (rate of growth).</p></td>
                                     generation_time = <span class='kw'>generation_time</span>,
                                     delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                     samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fl'>4</span>, chains = <span class='fl'>4</span>,
-                                    horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)
-                            
+                                    horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>                            
                      
 <span class='co'>## Plot infections</span>
 <span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'>report_plots</span>(summarised_estimates = <span class='kw'>out</span><span class='op'>$</span><span class='kw'>summarised</span>,
                       reported = <span class='kw'>cases</span>)
                       
-<span class='kw'>plots</span>
-}</div></pre>
+<span class='kw'>plots</span></div><div class='output co'>#&gt; $infections</div><div class='img'><img src='report_plots-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $reports</div><div class='img'><img src='report_plots-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $reff</div><div class='img'><img src='report_plots-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $growth_rate</div><div class='img'><img src='report_plots-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='report_plots-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -196,7 +200,7 @@ and r (rate of growth).</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

@@ -154,7 +154,7 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \donttest{</span>
 <span class='co'># Construct example distributions</span>
 <span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
                         mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
@@ -186,13 +186,34 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
                                 generation_time = <span class='kw'>generation_time</span>,
                                 incubation_period = <span class='kw'>incubation_period</span>,
                                 reporting_delay = <span class='kw'>reporting_delay</span>,
-                                samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fl'>4</span>,
+                                samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                                 adapt_delta = <span class='fl'>0.95</span>, chains = <span class='fl'>4</span>, verbose = <span class='fl'>TRUE</span>,
-                                summary = <span class='fl'>FALSE</span>)
-                                
-<span class='fu'>get_regional_results</span>(<span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>, forecast = <span class='fl'>TRUE</span>)
-
-}</div></pre>
+                                summary = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Reporting estimates using data up to: 2020-03-22</span></div><div class='output co'>#&gt; <span class='message'>Running the pipeline for: testland, realland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: testland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: realland</span></div><div class='input'>                                
+<span class='fu'>get_regional_results</span>(<span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>, forecast = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $estimates
+#&gt; $estimates$samples
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; $estimates$summarised
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; 
+#&gt; $forecast
+#&gt; $forecast$samples
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; $forecast$summarised
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; 
+#&gt; $estimated_reported_cases
+#&gt; $estimated_reported_cases$samples
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; $estimated_reported_cases$summarised
+#&gt; Null data.table (0 rows and 0 cols)
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +225,7 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

@@ -186,11 +186,10 @@ for forecasting future Rt and case co An example of the required structure is: <
 summarised forecasts.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>## This function requires the following packages to be installed.</span>
-<span class='co'>## install.packages("drat"); drat:::add("epiforecasts"); install.packages("EpiSoon")</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>EpiSoon</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>forecastHybrid</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+
+<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"EpiSoon"</span>)){
+   <span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"forecastHybrid"</span>)){
 
 <span class='co'>## Example case data</span>
 <span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
@@ -219,7 +218,7 @@ summarised forecasts.</p>
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>500</span>,
-                           cores = <span class='fl'>4</span>, chains = <span class='fl'>4</span>,
+                           cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
                            estimate_rt = <span class='fl'>TRUE</span>,
                            verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)
 
@@ -238,7 +237,260 @@ summarised forecasts.</p>
      samples = <span class='fl'>1000</span>)
                                 
 <span class='kw'>forecast</span>
-}                              </div></pre>
+  }
+ }</div><div class='output co'>#&gt; <span class='message'>Running for 1000 samples (across 4 chains each with a warm up of 500 iterations each) and 58 time steps of which 7 are a forecast</span></div><div class='output co'>#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
+#&gt; Chain 1: 
+#&gt; Chain 1: Gradient evaluation took 0.0003 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3 seconds.
+#&gt; Chain 1: Adjust your expectations accordingly!
+#&gt; Chain 1: 
+#&gt; Chain 1: 
+#&gt; Chain 1: Iteration:   1 / 750 [  0%]  (Warmup)
+#&gt; Chain 1: Iteration:  50 / 750 [  6%]  (Warmup)
+#&gt; Chain 1: Iteration: 100 / 750 [ 13%]  (Warmup)
+#&gt; Chain 1: Iteration: 150 / 750 [ 20%]  (Warmup)
+#&gt; Chain 1: Iteration: 200 / 750 [ 26%]  (Warmup)
+#&gt; Chain 1: Iteration: 250 / 750 [ 33%]  (Warmup)
+#&gt; Chain 1: Iteration: 300 / 750 [ 40%]  (Warmup)
+#&gt; Chain 1: Iteration: 350 / 750 [ 46%]  (Warmup)
+#&gt; Chain 1: Iteration: 400 / 750 [ 53%]  (Warmup)
+#&gt; Chain 1: Iteration: 450 / 750 [ 60%]  (Warmup)
+#&gt; Chain 1: Iteration: 500 / 750 [ 66%]  (Warmup)
+#&gt; Chain 1: Iteration: 501 / 750 [ 66%]  (Sampling)
+#&gt; Chain 1: Iteration: 550 / 750 [ 73%]  (Sampling)
+#&gt; Chain 1: Iteration: 600 / 750 [ 80%]  (Sampling)
+#&gt; Chain 1: Iteration: 650 / 750 [ 86%]  (Sampling)
+#&gt; Chain 1: Iteration: 700 / 750 [ 93%]  (Sampling)
+#&gt; Chain 1: Iteration: 750 / 750 [100%]  (Sampling)
+#&gt; Chain 1: 
+#&gt; Chain 1:  Elapsed Time: 109.714 seconds (Warm-up)
+#&gt; Chain 1:                35.7138 seconds (Sampling)
+#&gt; Chain 1:                145.428 seconds (Total)
+#&gt; Chain 1: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
+#&gt; Chain 2: 
+#&gt; Chain 2: Gradient evaluation took 0.000282 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.82 seconds.
+#&gt; Chain 2: Adjust your expectations accordingly!
+#&gt; Chain 2: 
+#&gt; Chain 2: 
+#&gt; Chain 2: Iteration:   1 / 750 [  0%]  (Warmup)
+#&gt; Chain 2: Iteration:  50 / 750 [  6%]  (Warmup)
+#&gt; Chain 2: Iteration: 100 / 750 [ 13%]  (Warmup)
+#&gt; Chain 2: Iteration: 150 / 750 [ 20%]  (Warmup)
+#&gt; Chain 2: Iteration: 200 / 750 [ 26%]  (Warmup)
+#&gt; Chain 2: Iteration: 250 / 750 [ 33%]  (Warmup)
+#&gt; Chain 2: Iteration: 300 / 750 [ 40%]  (Warmup)
+#&gt; Chain 2: Iteration: 350 / 750 [ 46%]  (Warmup)
+#&gt; Chain 2: Iteration: 400 / 750 [ 53%]  (Warmup)
+#&gt; Chain 2: Iteration: 450 / 750 [ 60%]  (Warmup)
+#&gt; Chain 2: Iteration: 500 / 750 [ 66%]  (Warmup)
+#&gt; Chain 2: Iteration: 501 / 750 [ 66%]  (Sampling)
+#&gt; Chain 2: Iteration: 550 / 750 [ 73%]  (Sampling)
+#&gt; Chain 2: Iteration: 600 / 750 [ 80%]  (Sampling)
+#&gt; Chain 2: Iteration: 650 / 750 [ 86%]  (Sampling)
+#&gt; Chain 2: Iteration: 700 / 750 [ 93%]  (Sampling)
+#&gt; Chain 2: Iteration: 750 / 750 [100%]  (Sampling)
+#&gt; Chain 2: 
+#&gt; Chain 2:  Elapsed Time: 106.423 seconds (Warm-up)
+#&gt; Chain 2:                35.4703 seconds (Sampling)
+#&gt; Chain 2:                141.893 seconds (Total)
+#&gt; Chain 2: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
+#&gt; Chain 3: 
+#&gt; Chain 3: Gradient evaluation took 0.000339 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.39 seconds.
+#&gt; Chain 3: Adjust your expectations accordingly!
+#&gt; Chain 3: 
+#&gt; Chain 3: 
+#&gt; Chain 3: Iteration:   1 / 750 [  0%]  (Warmup)
+#&gt; Chain 3: Iteration:  50 / 750 [  6%]  (Warmup)
+#&gt; Chain 3: Iteration: 100 / 750 [ 13%]  (Warmup)
+#&gt; Chain 3: Iteration: 150 / 750 [ 20%]  (Warmup)
+#&gt; Chain 3: Iteration: 200 / 750 [ 26%]  (Warmup)
+#&gt; Chain 3: Iteration: 250 / 750 [ 33%]  (Warmup)
+#&gt; Chain 3: Iteration: 300 / 750 [ 40%]  (Warmup)
+#&gt; Chain 3: Iteration: 350 / 750 [ 46%]  (Warmup)
+#&gt; Chain 3: Iteration: 400 / 750 [ 53%]  (Warmup)
+#&gt; Chain 3: Iteration: 450 / 750 [ 60%]  (Warmup)
+#&gt; Chain 3: Iteration: 500 / 750 [ 66%]  (Warmup)
+#&gt; Chain 3: Iteration: 501 / 750 [ 66%]  (Sampling)
+#&gt; Chain 3: Iteration: 550 / 750 [ 73%]  (Sampling)
+#&gt; Chain 3: Iteration: 600 / 750 [ 80%]  (Sampling)
+#&gt; Chain 3: Iteration: 650 / 750 [ 86%]  (Sampling)
+#&gt; Chain 3: Iteration: 700 / 750 [ 93%]  (Sampling)
+#&gt; Chain 3: Iteration: 750 / 750 [100%]  (Sampling)
+#&gt; Chain 3: 
+#&gt; Chain 3:  Elapsed Time: 108.787 seconds (Warm-up)
+#&gt; Chain 3:                37.0314 seconds (Sampling)
+#&gt; Chain 3:                145.819 seconds (Total)
+#&gt; Chain 3: 
+#&gt; 
+#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
+#&gt; Chain 4: 
+#&gt; Chain 4: Gradient evaluation took 0.000311 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.11 seconds.
+#&gt; Chain 4: Adjust your expectations accordingly!
+#&gt; Chain 4: 
+#&gt; Chain 4: 
+#&gt; Chain 4: Iteration:   1 / 750 [  0%]  (Warmup)
+#&gt; Chain 4: Iteration:  50 / 750 [  6%]  (Warmup)
+#&gt; Chain 4: Iteration: 100 / 750 [ 13%]  (Warmup)
+#&gt; Chain 4: Iteration: 150 / 750 [ 20%]  (Warmup)
+#&gt; Chain 4: Iteration: 200 / 750 [ 26%]  (Warmup)
+#&gt; Chain 4: Iteration: 250 / 750 [ 33%]  (Warmup)
+#&gt; Chain 4: Iteration: 300 / 750 [ 40%]  (Warmup)
+#&gt; Chain 4: Iteration: 350 / 750 [ 46%]  (Warmup)
+#&gt; Chain 4: Iteration: 400 / 750 [ 53%]  (Warmup)
+#&gt; Chain 4: Iteration: 450 / 750 [ 60%]  (Warmup)
+#&gt; Chain 4: Iteration: 500 / 750 [ 66%]  (Warmup)
+#&gt; Chain 4: Iteration: 501 / 750 [ 66%]  (Sampling)
+#&gt; Chain 4: Iteration: 550 / 750 [ 73%]  (Sampling)
+#&gt; Chain 4: Iteration: 600 / 750 [ 80%]  (Sampling)
+#&gt; Chain 4: Iteration: 650 / 750 [ 86%]  (Sampling)
+#&gt; Chain 4: Iteration: 700 / 750 [ 93%]  (Sampling)
+#&gt; Chain 4: Iteration: 750 / 750 [100%]  (Sampling)
+#&gt; Chain 4: 
+#&gt; Chain 4:  Elapsed Time: 115.873 seconds (Warm-up)
+#&gt; Chain 4:                36.9723 seconds (Sampling)
+#&gt; Chain 4:                152.845 seconds (Total)
+#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; $samples
+#&gt;        sample       date horizon        value type forecast_type
+#&gt;     1:      1 2020-04-09       1 9.519944e-01   rt          &lt;NA&gt;
+#&gt;     2:      2 2020-04-09       1 1.459277e+00   rt          &lt;NA&gt;
+#&gt;     3:      3 2020-04-09       1 1.273975e+00   rt          &lt;NA&gt;
+#&gt;     4:      4 2020-04-09       1 1.248591e+00   rt          &lt;NA&gt;
+#&gt;     5:      5 2020-04-09       1 1.604573e+00   rt          &lt;NA&gt;
+#&gt;    ---                                                          
+#&gt; 55996:    996 2020-04-22      14 3.873626e+06 case      ensemble
+#&gt; 55997:    997 2020-04-22      14 2.679323e+06 case      ensemble
+#&gt; 55998:    998 2020-04-22      14 1.221193e+06 case      ensemble
+#&gt; 55999:    999 2020-04-22      14 1.493394e+06 case      ensemble
+#&gt; 56000:   1000 2020-04-22      14 1.214069e+06 case      ensemble
+#&gt; 
+#&gt; $summarised
+#&gt;           date type forecast_type       bottom          top        lower
+#&gt;  1: 2020-04-09 case          case 1.137436e+03 4.006069e+06 1.773834e+05
+#&gt;  2: 2020-04-10 case          case 5.191559e+03 3.909127e+06 3.330077e+04
+#&gt;  3: 2020-04-11 case          case 1.088377e+03 4.077188e+06 5.451655e+05
+#&gt;  4: 2020-04-12 case          case 6.706600e+03 4.009126e+06 1.765582e+05
+#&gt;  5: 2020-04-13 case          case 1.382070e+04 4.220663e+06 1.118898e+04
+#&gt;  6: 2020-04-14 case          case 6.433452e+03 4.095473e+06 1.645612e+05
+#&gt;  7: 2020-04-15 case          case 4.932648e+03 4.090818e+06 4.116492e+04
+#&gt;  8: 2020-04-16 case          case 2.471047e+04 4.234743e+06 3.768320e+04
+#&gt;  9: 2020-04-17 case          case 8.450442e+02 4.170036e+06 1.017453e+05
+#&gt; 10: 2020-04-18 case          case 1.004919e+04 4.214568e+06 3.802872e+05
+#&gt; 11: 2020-04-19 case          case 2.373637e+04 4.849991e+06 2.476029e+04
+#&gt; 12: 2020-04-20 case          case 1.903145e+03 5.053584e+06 1.429957e+05
+#&gt; 13: 2020-04-21 case          case 4.934448e+02 5.331966e+06 4.765216e+03
+#&gt; 14: 2020-04-22 case          case 1.580793e+04 6.133330e+06 9.710861e+04
+#&gt; 15: 2020-04-09 case      ensemble 4.223865e+05 3.410380e+06 7.944490e+05
+#&gt; 16: 2020-04-10 case      ensemble 2.079107e+05 3.332013e+06 9.208014e+05
+#&gt; 17: 2020-04-11 case      ensemble 4.647461e+05 3.536126e+06 7.649402e+05
+#&gt; 18: 2020-04-12 case      ensemble 2.632016e+05 3.377165e+06 9.816192e+05
+#&gt; 19: 2020-04-13 case      ensemble 2.962210e+05 3.366492e+06 8.201110e+05
+#&gt; 20: 2020-04-14 case      ensemble 2.054910e+05 3.384986e+06 1.014355e+06
+#&gt; 21: 2020-04-15 case      ensemble 4.445330e+05 3.551966e+06 7.715118e+05
+#&gt; 22: 2020-04-16 case      ensemble 2.984760e+05 3.386283e+06 1.030128e+06
+#&gt; 23: 2020-04-17 case      ensemble 1.879403e+05 3.418723e+06 8.661478e+05
+#&gt; 24: 2020-04-18 case      ensemble 3.487763e+05 3.561283e+06 1.092577e+06
+#&gt; 25: 2020-04-19 case      ensemble 3.908456e+05 3.861011e+06 1.085207e+06
+#&gt; 26: 2020-04-20 case      ensemble 3.172326e+05 3.836888e+06 8.015755e+05
+#&gt; 27: 2020-04-21 case      ensemble 1.960811e+05 4.094347e+06 1.117499e+06
+#&gt; 28: 2020-04-22 case      ensemble 2.012791e+05 4.330901e+06 1.128971e+06
+#&gt; 29: 2020-04-09 case            rt 1.877300e+04 3.818077e+06 4.295600e+04
+#&gt; 30: 2020-04-10 case            rt 2.747000e+03 3.748166e+06 1.576150e+05
+#&gt; 31: 2020-04-11 case            rt 6.330000e+02 3.972324e+06 9.172900e+04
+#&gt; 32: 2020-04-12 case            rt 3.308000e+03 3.831723e+06 1.269200e+04
+#&gt; 33: 2020-04-13 case            rt 6.056000e+03 3.628530e+06 1.016910e+05
+#&gt; 34: 2020-04-14 case            rt 1.050000e+03 3.733141e+06 8.155000e+04
+#&gt; 35: 2020-04-15 case            rt 4.820000e+03 3.667840e+06 4.820000e+03
+#&gt; 36: 2020-04-16 case            rt 3.290000e+02 3.617539e+06 3.113200e+04
+#&gt; 37: 2020-04-17 case            rt 1.398000e+03 3.818905e+06 4.280200e+04
+#&gt; 38: 2020-04-18 case            rt 1.595000e+03 3.853004e+06 2.685000e+03
+#&gt; 39: 2020-04-19 case            rt 4.520000e+02 3.885130e+06 4.520000e+02
+#&gt; 40: 2020-04-20 case            rt 3.147000e+03 3.866614e+06 3.147000e+03
+#&gt; 41: 2020-04-21 case            rt 1.000000e+03 3.928455e+06 2.183160e+05
+#&gt; 42: 2020-04-22 case            rt 1.107000e+03 3.896843e+06 2.557300e+04
+#&gt; 43: 2020-04-09   rt          &lt;NA&gt; 4.751177e-04 1.980707e+00 4.175840e-01
+#&gt; 44: 2020-04-10   rt          &lt;NA&gt; 4.682287e-02 2.001927e+00 5.184973e-01
+#&gt; 45: 2020-04-11   rt          &lt;NA&gt; 5.086254e-02 1.970387e+00 6.338417e-01
+#&gt; 46: 2020-04-12   rt          &lt;NA&gt; 1.000350e-01 2.006976e+00 4.278122e-01
+#&gt; 47: 2020-04-13   rt          &lt;NA&gt; 9.094740e-03 1.985910e+00 6.592790e-01
+#&gt; 48: 2020-04-14   rt          &lt;NA&gt; 7.537406e-03 1.937348e+00 3.550656e-01
+#&gt; 49: 2020-04-15   rt          &lt;NA&gt; 1.564573e-01 2.079000e+00 4.519936e-01
+#&gt; 50: 2020-04-16   rt          &lt;NA&gt; 3.868733e-03 1.990346e+00 4.782888e-01
+#&gt; 51: 2020-04-17   rt          &lt;NA&gt; 1.021447e-02 1.972224e+00 5.092574e-01
+#&gt; 52: 2020-04-18   rt          &lt;NA&gt; 5.283051e-03 2.031273e+00 5.969033e-01
+#&gt; 53: 2020-04-19   rt          &lt;NA&gt; 1.097677e-01 2.072376e+00 4.675617e-01
+#&gt; 54: 2020-04-20   rt          &lt;NA&gt; 8.387041e-02 2.033292e+00 4.153957e-01
+#&gt; 55: 2020-04-21   rt          &lt;NA&gt; 2.291354e-03 2.042227e+00 4.226281e-01
+#&gt; 56: 2020-04-22   rt          &lt;NA&gt; 1.078902e-01 2.134185e+00 5.143311e-01
+#&gt;           date type forecast_type       bottom          top        lower
+#&gt;            upper       median         mean           sd
+#&gt;  1: 1.772067e+06 1.620199e+06 1.945822e+06 1.431245e+06
+#&gt;  2: 1.526606e+06 1.520140e+06 1.861226e+06 1.457551e+06
+#&gt;  3: 2.248827e+06 1.800747e+06 2.013418e+06 1.433271e+06
+#&gt;  4: 1.839157e+06 1.685617e+06 1.975138e+06 1.446599e+06
+#&gt;  5: 1.723921e+06 1.718501e+06 2.026876e+06 1.481479e+06
+#&gt;  6: 1.819907e+06 1.689477e+06 1.983566e+06 1.494320e+06
+#&gt;  7: 1.795928e+06 1.766716e+06 2.042720e+06 1.521658e+06
+#&gt;  8: 1.739150e+06 1.725680e+06 2.046613e+06 1.500864e+06
+#&gt;  9: 1.853307e+06 1.753599e+06 2.036039e+06 1.504792e+06
+#&gt; 10: 2.234972e+06 1.948522e+06 2.158359e+06 1.485340e+06
+#&gt; 11: 2.025962e+06 2.020071e+06 2.358345e+06 1.701693e+06
+#&gt; 12: 2.155906e+06 2.043732e+06 2.404931e+06 1.841474e+06
+#&gt; 13: 2.081033e+06 2.078207e+06 2.577156e+06 2.061721e+06
+#&gt; 14: 2.475370e+06 2.406683e+06 2.944792e+06 2.365352e+06
+#&gt; 15: 2.103337e+06 1.792470e+06 1.901061e+06 9.974247e+05
+#&gt; 16: 2.237571e+06 1.743558e+06 1.865980e+06 9.942945e+05
+#&gt; 17: 2.085872e+06 1.800930e+06 1.949582e+06 1.000719e+06
+#&gt; 18: 2.347514e+06 1.785327e+06 1.914671e+06 1.024951e+06
+#&gt; 19: 2.157792e+06 1.806574e+06 1.901381e+06 9.977117e+05
+#&gt; 20: 2.316299e+06 1.812989e+06 1.923528e+06 1.014460e+06
+#&gt; 21: 2.081266e+06 1.761738e+06 1.901794e+06 9.933646e+05
+#&gt; 22: 2.330931e+06 1.755278e+06 1.916964e+06 1.027973e+06
+#&gt; 23: 2.253899e+06 1.814037e+06 1.941751e+06 1.059268e+06
+#&gt; 24: 2.371800e+06 1.848731e+06 1.988012e+06 1.036146e+06
+#&gt; 25: 2.503554e+06 1.933163e+06 2.113046e+06 1.123609e+06
+#&gt; 26: 2.318089e+06 2.031159e+06 2.142156e+06 1.156001e+06
+#&gt; 27: 2.617410e+06 2.011215e+06 2.247883e+06 1.266519e+06
+#&gt; 28: 2.813815e+06 2.221485e+06 2.427234e+06 1.400557e+06
+#&gt; 29: 1.596867e+06 1.571623e+06 1.856300e+06 1.405201e+06
+#&gt; 30: 1.723316e+06 1.589956e+06 1.870735e+06 1.361683e+06
+#&gt; 31: 1.634593e+06 1.573039e+06 1.885746e+06 1.432933e+06
+#&gt; 32: 1.542029e+06 1.530770e+06 1.854203e+06 1.399248e+06
+#&gt; 33: 1.606865e+06 1.511076e+06 1.775886e+06 1.364671e+06
+#&gt; 34: 1.637758e+06 1.589264e+06 1.863490e+06 1.379290e+06
+#&gt; 35: 1.474479e+06 1.473958e+06 1.760869e+06 1.353464e+06
+#&gt; 36: 1.513568e+06 1.485584e+06 1.787314e+06 1.394301e+06
+#&gt; 37: 1.649232e+06 1.609652e+06 1.847463e+06 1.417252e+06
+#&gt; 38: 1.550703e+06 1.546552e+06 1.817664e+06 1.424194e+06
+#&gt; 39: 1.662103e+06 1.660460e+06 1.867747e+06 1.399447e+06
+#&gt; 40: 1.608471e+06 1.607664e+06 1.879381e+06 1.431287e+06
+#&gt; 41: 1.832943e+06 1.657627e+06 1.918611e+06 1.413487e+06
+#&gt; 42: 1.606586e+06 1.595559e+06 1.909677e+06 1.436664e+06
+#&gt; 43: 1.289713e+00 1.025020e+00 1.096687e+00 6.317528e-01
+#&gt; 44: 1.412843e+00 1.057046e+00 1.104377e+00 6.474701e-01
+#&gt; 45: 1.472332e+00 1.043022e+00 1.092441e+00 6.208606e-01
+#&gt; 46: 1.332215e+00 1.070326e+00 1.114393e+00 6.200150e-01
+#&gt; 47: 1.553963e+00 1.062507e+00 1.113331e+00 6.425795e-01
+#&gt; 48: 1.272011e+00 1.012147e+00 1.091127e+00 6.567634e-01
+#&gt; 49: 1.329778e+00 1.112736e+00 1.129766e+00 6.162113e-01
+#&gt; 50: 1.371395e+00 1.078113e+00 1.125621e+00 6.440276e-01
+#&gt; 51: 1.410291e+00 1.036061e+00 1.097205e+00 6.333096e-01
+#&gt; 52: 1.440493e+00 1.082258e+00 1.130660e+00 6.403728e-01
+#&gt; 53: 1.360729e+00 1.095507e+00 1.126867e+00 6.344440e-01
+#&gt; 54: 1.288352e+00 1.041814e+00 1.105942e+00 6.177932e-01
+#&gt; 55: 1.386322e+00 1.061226e+00 1.115434e+00 6.677686e-01
+#&gt; 56: 1.409120e+00 1.078006e+00 1.147321e+00 6.539430e-01
+#&gt;            upper       median         mean           sd
+#&gt; </div><div class='input'><span class='co'># }                              </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -250,7 +502,7 @@ summarised forecasts.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

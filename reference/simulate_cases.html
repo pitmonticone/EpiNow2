@@ -192,7 +192,75 @@ which approximates sampling or "median" would shift by the median of the distrib
     <p>A dataframe containing three variables: <code>date</code>, <code>cases</code> and <code>reference</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"EpiSoon"</span>)){
+
+<span class='co'># Define an initial rt vector </span>
+<span class='kw'>rts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>20</span>), (<span class='fl'>2</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span> <span class='op'>*</span> <span class='fl'>0.1</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>, <span class='fl'>10</span>))
+<span class='kw'>rts</span>
+<span class='co'># Use the mean default generation interval for covid</span>
+<span class='co'># Generation time</span>
+<span class='kw'>generation_defs</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='fu'><a href='gamma_dist_def.html'>gamma_dist_def</a></span>(mean = <span class='kw'>generation_time</span><span class='op'>$</span><span class='kw'>mean</span>,
+                                          mean_sd = <span class='kw'>generation_time</span><span class='op'>$</span><span class='kw'>mean_sd</span>,
+                                          sd = <span class='kw'>generation_time</span><span class='op'>$</span><span class='kw'>sd</span>,
+                                          sd_sd = <span class='kw'>generation_time</span><span class='op'>$</span><span class='kw'>sd_sd</span>,
+                                          max_value = <span class='kw'>generation_time</span><span class='op'>$</span><span class='kw'>max</span>, samples = <span class='fl'>1</span>)
+                                          
+<span class='kw'>generate_pdf</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>dist</span>, <span class='kw'>max_value</span>) {
+   <span class='co'>## Define with 0 day padding</span>
+   <span class='kw'>sample_fn</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>n</span>, <span class='kw'>...</span>) {
+     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='kw'>EpiNow2</span>::<span class='fu'><a href='dist_skel.html'>dist_skel</a></span>(n = <span class='kw'>n</span>,
+                 model = <span class='kw'>dist</span><span class='op'>$</span><span class='kw'>model</span>[[<span class='fl'>1</span>]],
+                 params = <span class='kw'>dist</span><span class='op'>$</span><span class='kw'>params</span>[[<span class='fl'>1</span>]],
+                 max_value = <span class='kw'>dist</span><span class='op'>$</span><span class='kw'>max_value</span>[[<span class='fl'>1</span>]] <span class='op'>-</span> <span class='fl'>1</span>, 
+                 <span class='kw'>...</span>))
+                  }
+ <span class='kw'>dist_pdf</span> <span class='op'>&lt;-</span> <span class='fu'>sample_fn</span>(<span class='fl'>0</span><span class='op'>:</span>(<span class='kw'>max_value</span> <span class='op'>-</span> <span class='fl'>1</span>), dist = <span class='fl'>TRUE</span>, cum = <span class='fl'>FALSE</span>)
+ 
+ <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='kw'>dist_pdf</span>)}
+ 
+ <span class='kw'>generation_pdf</span> <span class='op'>&lt;-</span> <span class='fu'>generate_pdf</span>(<span class='kw'>generation_defs</span>, max_value = <span class='kw'>generation_defs</span><span class='op'>$</span><span class='kw'>max</span>)
+
+<span class='co'># Sample a report delay as a lognormal</span>
+<span class='kw'>delay_def</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span>(mean = <span class='fl'>5</span>, mean_sd = <span class='fl'>1</span>,
+                                      sd = <span class='fl'>3</span>, sd_sd = <span class='fl'>1</span>, max_value = <span class='fl'>30</span>,
+                                      samples = <span class='fl'>1</span>, to_log = <span class='fl'>TRUE</span>)
+                                      
+
+<span class='co'># Sample a incubation period (again using the default for covid)</span>
+<span class='kw'>incubation_def</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
+                                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
+                                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
+                                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
+                                          max_value = <span class='fl'>30</span>, samples = <span class='fl'>1</span>)
+
+<span class='co'># Simulate cases with a decrease in reporting at weekends </span>
+<span class='co'># and an increase on Monday                                     </span>
+<span class='kw'>simulated_cases</span> <span class='op'>&lt;-</span> <span class='fu'>simulate_cases</span>(<span class='kw'>rts</span>, initial_cases = <span class='fl'>100</span> , 
+                                  initial_date = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2020-03-01"</span>),
+                                  generation_interval = <span class='kw'>generation_pdf</span>,
+                                  delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>),
+                                  reporting_effect = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>), <span class='fl'>0.95</span>, <span class='fl'>0.95</span>))
+                   
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>simulated_cases</span>)
+
+
+
+<span class='co'># Simulate cases with a weekly reporting effect and </span>
+<span class='co'># stochastic noise in reporting (beyond the delay)                                  </span>
+<span class='kw'>simulated_cases</span> <span class='op'>&lt;-</span> <span class='fu'>simulate_cases</span>(<span class='kw'>rts</span>, initial_cases = <span class='fl'>100</span> ,
+                                  initial_date = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2020-03-01"</span>),
+                                  generation_interval = <span class='kw'>generation_pdf</span>, 
+                                  delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>),
+                                  reporting_effect = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>), <span class='fl'>0.95</span>, <span class='fl'>0.95</span>),
+                                  reporting_model = <span class='fu'>function</span>(<span class='kw'>n</span>) {
+                                      <span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/NegBinomial.html'>rnbinom</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>n</span>), 
+                                                             <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='kw'>n</span>), <span class='fl'>0.5</span>))
+                                      <span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='kw'>out</span>), <span class='fl'>0</span>, <span class='kw'>out</span>)
+                                  })
+                   
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>simulated_cases</span>)
+}</div><div class='output co'>#&gt; <span class='error'>Error in stopifnot(length(a) &gt; 0, length(b) &gt; 0, length(mean) &gt; 0, length(sd) &gt;     0): object 'generation_time' not found</span></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,7 +272,7 @@ which approximates sampling or "median" would shift by the median of the distrib
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

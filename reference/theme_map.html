@@ -177,40 +177,6 @@ which can be used for percentage data.</p></td>
 
     <p>A <code>ggplot2</code> object</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'>## Code </span>
-<span class='kw'>theme_map</span></div><div class='output co'>#&gt; function (map = NULL, continuous = FALSE, variable_label = NULL, 
-#&gt;     trans = "identity", fill_labels = NULL, scale_fill = NULL, 
-#&gt;     breaks = NULL, ...) 
-#&gt; {
-#&gt;     if (is.null(scale_fill)) {
-#&gt;         scale_fill = ggplot2::scale_fill_manual
-#&gt;         values &lt;- c(Increasing = "#e75f00", `Likely increasing` = "#fd9e49", 
-#&gt;             `Likely decreasing` = "#5fa2ce", Decreasing = "#1170aa", 
-#&gt;             Unsure = "#7b848f")
-#&gt;     }
-#&gt;     if (is.null(breaks)) {
-#&gt;         breaks &lt;- ggplot2::waiver()
-#&gt;     }
-#&gt;     map &lt;- map + cowplot::theme_map() + ggplot2::theme(legend.position = "bottom")
-#&gt;     if (continuous) {
-#&gt;         map &lt;- map + ggplot2::guides(fill = ggplot2::guide_colorbar(title = variable_label, 
-#&gt;             barwidth = 15, barheight = 0.5)) + scale_fill(trans = trans, 
-#&gt;             alpha = 0.7, labels = fill_labels, option = viridis_palette, 
-#&gt;             na.value = "#c8d0d9")
-#&gt;     }
-#&gt;     else {
-#&gt;         map &lt;- map + ggplot2::guides(fill = ggplot2::guide_legend(title = variable_label, 
-#&gt;             ncol = 2)) + scale_fill(values = values, labels = fill_labels, 
-#&gt;             breaks = breaks, na.value = "#c8d0d9", drop = FALSE, 
-#&gt;             ...)
-#&gt;     }
-#&gt;     return(map)
-#&gt; }
-#&gt; &lt;bytecode: 0x7fdc9f79e3c0&gt;
-#&gt; &lt;environment: namespace:EpiNow2&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -222,7 +188,7 @@ which can be used for percentage data.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">

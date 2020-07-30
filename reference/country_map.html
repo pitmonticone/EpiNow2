@@ -181,36 +181,6 @@ which can be used for percentage data.</p></td>
 
     <p>A <code>ggplot2</code> object containing a country map.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>country_map</span></div><div class='output co'>#&gt; function (data = NULL, country = NULL, variable = NULL, variable_label = NULL, 
-#&gt;     trans = "identity", fill_labels = NULL, scale_fill = NULL, 
-#&gt;     ...) 
-#&gt; {
-#&gt;     if (is.null(variable_label)) {
-#&gt;         variable_label &lt;- variable
-#&gt;     }
-#&gt;     country &lt;- rnaturalearth::ne_countries(scale = "large", country = country, 
-#&gt;         returnclass = "sf")
-#&gt;     regions &lt;- rnaturalearth::ne_states(country, returnclass = "sf")
-#&gt;     data &lt;- data.table::as.data.table(date)[, `:=`(provnum_ne, 
-#&gt;         region_code)]
-#&gt;     regions_with_data &lt;- merge(regions, data, by = c("provnum_ne"), 
-#&gt;         all.x = TRUE)
-#&gt;     if (is.null(fill_labels)) {
-#&gt;         fill_labels &lt;- ggplot2::waiver()
-#&gt;     }
-#&gt;     map &lt;- ggplot(regions_with_data) + ggplot2::geom_sf(aes(fill = .data[[variable]]), 
-#&gt;         col = "white", alpha = 0.8, size = 0.2) + ggplot2::geom_sf(data = country, 
-#&gt;         col = "darkgrey", fill = NA, alpha = 1, size = 0.4)
-#&gt;     map &lt;- EpiNow2::theme_map(map, continuous = is.numeric(regions_with_data[[variable]]), 
-#&gt;         variable_label = variable_label, trans = trans, fill_labels = fill_labels, 
-#&gt;         scale_fill = NULL, breaks = levels(regions_with_data[[variable]]), 
-#&gt;         ...)
-#&gt;     return(map)
-#&gt; }
-#&gt; &lt;bytecode: 0x7fdca044d390&gt;
-#&gt; &lt;environment: namespace:EpiNow2&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -222,7 +192,7 @@ which can be used for percentage data.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">
