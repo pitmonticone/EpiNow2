@@ -133,6 +133,7 @@ the installation of the <code>rnaturalearth</code> package.</p>
   trans = <span class='st'>"identity"</span>,
   fill_labels = <span class='kw'>NULL</span>,
   scale_fill = <span class='kw'>NULL</span>,
+  region_col_ne = <span class='st'>"provnum_ne"</span>,
   <span class='kw'>...</span>
 )</pre>
 
@@ -169,7 +170,14 @@ which can be used for percentage data.</p></td>
     </tr>
     <tr>
       <th>scale_fill</th>
-      <td><p>Function to use for scaling the fill. Defaults to a custom <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual</a></code></p></td>
+      <td><p>Function to use for scaling the fill. Defaults to a custom <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual</a></code>, which
+expects the possible values to be "Increasing", "Likely increasing", "Likely decreasing", "Decreasing" or "Unsure".</p></td>
+    </tr>
+    <tr>
+      <th>region_col_ne</th>
+      <td><p>Character string indicating the name of a column in the data returned by
+<code><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_states.html'>rnaturalearth::ne_states()</a></code> that <code>data$region_code</code> corresponds to. Possibilities include
+<code>provnum_ne</code>, <code>name</code>, <code>fips</code> and others and will depend on which country you are mapping.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -181,6 +189,45 @@ which can be used for percentage data.</p></td>
 
     <p>A <code>ggplot2</code> object containing a country map.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"rnaturalearth"</span>) <span class='op'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"scales"</span>)){
+<span class='co'># Example 1</span>
+<span class='co'># If you know the provnum_ne codes you can use them directly</span>
+<span class='kw'>eg_data</span> <span class='op'>&lt;-</span> <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(variable = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Increasing"</span>, 
+                                               <span class='st'>"Decreasing"</span>, 
+                                               <span class='st'>"Unsure"</span>, 
+                                               <span class='st'>"Likely decreasing"</span>,
+                                               <span class='st'>"Likely increasing"</span>),
+                                  region_code = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>6</span>, <span class='fl'>8</span>, <span class='fl'>9</span>))
+<span class='co'># Make variable a factor so the ordering is sensible</span>
+<span class='kw'>eg_data</span><span class='op'>$</span><span class='kw'>variable</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>eg_data</span><span class='op'>$</span><span class='kw'>variable</span>, levels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Decreasing"</span>, <span class='st'>"Likely decreasing"</span>,
+                                                        <span class='st'>"Unsure"</span>, <span class='st'>"Likely increasing"</span>,
+                                                        <span class='st'>"Increasing"</span>))
+
+<span class='fu'>country_map</span>(data = <span class='kw'>eg_data</span>, country = <span class='st'>"Australia"</span>, variable = <span class='st'>"variable"</span>)
+
+
+<span class='co'># Example 2</span>
+<span class='co'># Sometimes it will be more convenient to join your data by name than provnum_ne code:</span>
+<span class='kw'>us_data</span> <span class='op'>&lt;-</span> <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span>(variable = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Increasing"</span>, 
+                                               <span class='st'>"Decreasing"</span>, 
+                                               <span class='st'>"Unsure"</span>, 
+                                               <span class='st'>"Likely decreasing"</span>,
+                                               <span class='st'>"Likely increasing"</span>),
+                                  region_code = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"California"</span>,
+                                                  <span class='st'>"Texas"</span>,
+                                                  <span class='st'>"Florida"</span>,
+                                                  <span class='st'>"Arizona"</span>,
+                                                  <span class='st'>"New York"</span>))
+<span class='co'># Make variable a factor so the ordering is sensible in the legend</span>
+<span class='kw'>us_data</span><span class='op'>$</span><span class='kw'>variable</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>us_data</span><span class='op'>$</span><span class='kw'>variable</span>, levels = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Decreasing"</span>, <span class='st'>"Likely decreasing"</span>,
+                                                        <span class='st'>"Unsure"</span>, <span class='st'>"Likely increasing"</span>,
+                                                        <span class='st'>"Increasing"</span>))
+
+<span class='fu'>country_map</span>(data = <span class='kw'>us_data</span>, country = <span class='st'>"United States of America"</span>, variable = <span class='st'>"variable"</span>, region_col_ne = <span class='st'>"name"</span>)
+
+}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: rnaturalearth</span></div><div class='output co'>#&gt; <span class='error'>Error in st_as_sfc.SpatialPolygons(sp::geometry(x), ...): package rgeos required for finding out which hole belongs to which exterior ring</span></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
