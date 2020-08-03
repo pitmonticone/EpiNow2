@@ -220,7 +220,7 @@ summarised forecasts.</p>
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>500</span>,
                            cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
                            estimate_rt = <span class='fl'>TRUE</span>,
-                           verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)
+                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
 
 <span class='co'>## Forecast Rt and infections from estimates</span>
 <span class='kw'>forecast</span> <span class='op'>&lt;-</span> <span class='fu'>forecast_infections</span>(
@@ -236,145 +236,11 @@ summarised forecasts.</p>
      horizon = <span class='fl'>14</span>, 
      samples = <span class='fl'>1000</span>)
                                 
-<span class='kw'>forecast</span>
+<span class='kw'>forecast</span><span class='op'>$</span><span class='kw'>summarised</span>
   }
- }</div><div class='output co'>#&gt; <span class='message'>Running for 1000 samples (across 4 chains each with a warm up of 500 iterations each) and 58 time steps of which 7 are a forecast</span></div><div class='output co'>#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
-#&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000333 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.33 seconds.
-#&gt; Chain 1: Adjust your expectations accordingly!
-#&gt; Chain 1: 
-#&gt; Chain 1: 
-#&gt; Chain 1: Iteration:   1 / 750 [  0%]  (Warmup)
-#&gt; Chain 1: Iteration:  50 / 750 [  6%]  (Warmup)
-#&gt; Chain 1: Iteration: 100 / 750 [ 13%]  (Warmup)
-#&gt; Chain 1: Iteration: 150 / 750 [ 20%]  (Warmup)
-#&gt; Chain 1: Iteration: 200 / 750 [ 26%]  (Warmup)
-#&gt; Chain 1: Iteration: 250 / 750 [ 33%]  (Warmup)
-#&gt; Chain 1: Iteration: 300 / 750 [ 40%]  (Warmup)
-#&gt; Chain 1: Iteration: 350 / 750 [ 46%]  (Warmup)
-#&gt; Chain 1: Iteration: 400 / 750 [ 53%]  (Warmup)
-#&gt; Chain 1: Iteration: 450 / 750 [ 60%]  (Warmup)
-#&gt; Chain 1: Iteration: 500 / 750 [ 66%]  (Warmup)
-#&gt; Chain 1: Iteration: 501 / 750 [ 66%]  (Sampling)
-#&gt; Chain 1: Iteration: 550 / 750 [ 73%]  (Sampling)
-#&gt; Chain 1: Iteration: 600 / 750 [ 80%]  (Sampling)
-#&gt; Chain 1: Iteration: 650 / 750 [ 86%]  (Sampling)
-#&gt; Chain 1: Iteration: 700 / 750 [ 93%]  (Sampling)
-#&gt; Chain 1: Iteration: 750 / 750 [100%]  (Sampling)
-#&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 112.012 seconds (Warm-up)
-#&gt; Chain 1:                36.143 seconds (Sampling)
-#&gt; Chain 1:                148.155 seconds (Total)
-#&gt; Chain 1: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
-#&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000297 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.97 seconds.
-#&gt; Chain 2: Adjust your expectations accordingly!
-#&gt; Chain 2: 
-#&gt; Chain 2: 
-#&gt; Chain 2: Iteration:   1 / 750 [  0%]  (Warmup)
-#&gt; Chain 2: Iteration:  50 / 750 [  6%]  (Warmup)
-#&gt; Chain 2: Iteration: 100 / 750 [ 13%]  (Warmup)
-#&gt; Chain 2: Iteration: 150 / 750 [ 20%]  (Warmup)
-#&gt; Chain 2: Iteration: 200 / 750 [ 26%]  (Warmup)
-#&gt; Chain 2: Iteration: 250 / 750 [ 33%]  (Warmup)
-#&gt; Chain 2: Iteration: 300 / 750 [ 40%]  (Warmup)
-#&gt; Chain 2: Iteration: 350 / 750 [ 46%]  (Warmup)
-#&gt; Chain 2: Iteration: 400 / 750 [ 53%]  (Warmup)
-#&gt; Chain 2: Iteration: 450 / 750 [ 60%]  (Warmup)
-#&gt; Chain 2: Iteration: 500 / 750 [ 66%]  (Warmup)
-#&gt; Chain 2: Iteration: 501 / 750 [ 66%]  (Sampling)
-#&gt; Chain 2: Iteration: 550 / 750 [ 73%]  (Sampling)
-#&gt; Chain 2: Iteration: 600 / 750 [ 80%]  (Sampling)
-#&gt; Chain 2: Iteration: 650 / 750 [ 86%]  (Sampling)
-#&gt; Chain 2: Iteration: 700 / 750 [ 93%]  (Sampling)
-#&gt; Chain 2: Iteration: 750 / 750 [100%]  (Sampling)
-#&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 107.622 seconds (Warm-up)
-#&gt; Chain 2:                34.247 seconds (Sampling)
-#&gt; Chain 2:                141.869 seconds (Total)
-#&gt; Chain 2: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
-#&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000326 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.26 seconds.
-#&gt; Chain 3: Adjust your expectations accordingly!
-#&gt; Chain 3: 
-#&gt; Chain 3: 
-#&gt; Chain 3: Iteration:   1 / 750 [  0%]  (Warmup)
-#&gt; Chain 3: Iteration:  50 / 750 [  6%]  (Warmup)
-#&gt; Chain 3: Iteration: 100 / 750 [ 13%]  (Warmup)
-#&gt; Chain 3: Iteration: 150 / 750 [ 20%]  (Warmup)
-#&gt; Chain 3: Iteration: 200 / 750 [ 26%]  (Warmup)
-#&gt; Chain 3: Iteration: 250 / 750 [ 33%]  (Warmup)
-#&gt; Chain 3: Iteration: 300 / 750 [ 40%]  (Warmup)
-#&gt; Chain 3: Iteration: 350 / 750 [ 46%]  (Warmup)
-#&gt; Chain 3: Iteration: 400 / 750 [ 53%]  (Warmup)
-#&gt; Chain 3: Iteration: 450 / 750 [ 60%]  (Warmup)
-#&gt; Chain 3: Iteration: 500 / 750 [ 66%]  (Warmup)
-#&gt; Chain 3: Iteration: 501 / 750 [ 66%]  (Sampling)
-#&gt; Chain 3: Iteration: 550 / 750 [ 73%]  (Sampling)
-#&gt; Chain 3: Iteration: 600 / 750 [ 80%]  (Sampling)
-#&gt; Chain 3: Iteration: 650 / 750 [ 86%]  (Sampling)
-#&gt; Chain 3: Iteration: 700 / 750 [ 93%]  (Sampling)
-#&gt; Chain 3: Iteration: 750 / 750 [100%]  (Sampling)
-#&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 106.567 seconds (Warm-up)
-#&gt; Chain 3:                35.1907 seconds (Sampling)
-#&gt; Chain 3:                141.758 seconds (Total)
-#&gt; Chain 3: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
-#&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000291 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.91 seconds.
-#&gt; Chain 4: Adjust your expectations accordingly!
-#&gt; Chain 4: 
-#&gt; Chain 4: 
-#&gt; Chain 4: Iteration:   1 / 750 [  0%]  (Warmup)
-#&gt; Chain 4: Iteration:  50 / 750 [  6%]  (Warmup)
-#&gt; Chain 4: Iteration: 100 / 750 [ 13%]  (Warmup)
-#&gt; Chain 4: Iteration: 150 / 750 [ 20%]  (Warmup)
-#&gt; Chain 4: Iteration: 200 / 750 [ 26%]  (Warmup)
-#&gt; Chain 4: Iteration: 250 / 750 [ 33%]  (Warmup)
-#&gt; Chain 4: Iteration: 300 / 750 [ 40%]  (Warmup)
-#&gt; Chain 4: Iteration: 350 / 750 [ 46%]  (Warmup)
-#&gt; Chain 4: Iteration: 400 / 750 [ 53%]  (Warmup)
-#&gt; Chain 4: Iteration: 450 / 750 [ 60%]  (Warmup)
-#&gt; Chain 4: Iteration: 500 / 750 [ 66%]  (Warmup)
-#&gt; Chain 4: Iteration: 501 / 750 [ 66%]  (Sampling)
-#&gt; Chain 4: Iteration: 550 / 750 [ 73%]  (Sampling)
-#&gt; Chain 4: Iteration: 600 / 750 [ 80%]  (Sampling)
-#&gt; Chain 4: Iteration: 650 / 750 [ 86%]  (Sampling)
-#&gt; Chain 4: Iteration: 700 / 750 [ 93%]  (Sampling)
-#&gt; Chain 4: Iteration: 750 / 750 [100%]  (Sampling)
-#&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 108.908 seconds (Warm-up)
-#&gt; Chain 4:                35.5414 seconds (Sampling)
-#&gt; Chain 4:                144.45 seconds (Total)
-#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+ }</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; $samples
-#&gt;        sample       date horizon        value type forecast_type
-#&gt;     1:      1 2020-04-09       1 9.519944e-01   rt          &lt;NA&gt;
-#&gt;     2:      2 2020-04-09       1 1.459277e+00   rt          &lt;NA&gt;
-#&gt;     3:      3 2020-04-09       1 1.273975e+00   rt          &lt;NA&gt;
-#&gt;     4:      4 2020-04-09       1 1.248591e+00   rt          &lt;NA&gt;
-#&gt;     5:      5 2020-04-09       1 1.604573e+00   rt          &lt;NA&gt;
-#&gt;    ---                                                          
-#&gt; 55996:    996 2020-04-22      14 3.873626e+06 case      ensemble
-#&gt; 55997:    997 2020-04-22      14 2.679323e+06 case      ensemble
-#&gt; 55998:    998 2020-04-22      14 1.221193e+06 case      ensemble
-#&gt; 55999:    999 2020-04-22      14 1.493394e+06 case      ensemble
-#&gt; 56000:   1000 2020-04-22      14 1.214069e+06 case      ensemble
-#&gt; 
-#&gt; $summarised
-#&gt;           date type forecast_type       bottom          top        lower
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt;           date type forecast_type       bottom          top        lower
 #&gt;  1: 2020-04-09 case          case 1.137436e+03 4.006069e+06 1.773834e+05
 #&gt;  2: 2020-04-10 case          case 5.191559e+03 3.909127e+06 3.330077e+04
 #&gt;  3: 2020-04-11 case          case 1.088377e+03 4.077188e+06 5.451655e+05
@@ -489,8 +355,7 @@ summarised forecasts.</p>
 #&gt; 54: 1.288352e+00 1.041814e+00 1.105942e+00 6.177932e-01
 #&gt; 55: 1.386322e+00 1.061226e+00 1.115434e+00 6.677686e-01
 #&gt; 56: 1.409120e+00 1.078006e+00 1.147321e+00 6.539430e-01
-#&gt;            upper       median         mean           sd
-#&gt; </div><div class='input'><span class='co'># }                              </span></div></pre>
+#&gt;            upper       median         mean           sd</div><div class='input'><span class='co'># }                              </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -502,7 +367,7 @@ summarised forecasts.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Paul Mee, EpiForecasts, Sebastian Funk.</p>
+  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, EpiForecasts, Sebastian Funk.</p>
 </div>
 
 <div class="pkgdown">
