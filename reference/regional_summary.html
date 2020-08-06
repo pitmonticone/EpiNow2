@@ -207,13 +207,18 @@ in which to store summary of results.</p></td>
                                 reporting_delay = <span class='kw'>reporting_delay</span>,
                                 samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fl'>4</span>,
                                 adapt_delta = <span class='fl'>0.95</span>, chains = <span class='fl'>4</span>, verbose = <span class='fl'>TRUE</span>,
-                                summary = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Reporting estimates using data up to: 2020-03-22</span></div><div class='output co'>#&gt; <span class='message'>Running the pipeline for: testland, realland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: testland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: realland</span></div><div class='output co'>#&gt; <span class='error'>Error in regional_epinow(reported_cases = cases, generation_time = generation_time,     incubation_period = incubation_period, reporting_delay = reporting_delay,     samples = 2000, warmup = 200, cores = 4, adapt_delta = 0.95,     chains = 4, verbose = TRUE, summary = FALSE): 'list' object cannot be coerced to type 'double'</span></div><div class='input'>
+                                summary = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Reporting estimates using data up to: 2020-03-22</span></div><div class='output co'>#&gt; <span class='message'>Running the pipeline for: testland, realland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: testland</span></div><div class='output co'>#&gt; <span class='message'>Reporting estimates for: realland</span></div><div class='output co'>#&gt; <span class='message'>Runtime errors caught: </span></div><div class='output co'>#&gt; $testland
+#&gt; &lt;simpleError in EpiNow2::epinow(reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_estimates = TRUE, cores = cores,     ...): unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30))&gt;
+#&gt; 
+#&gt; $realland
+#&gt; &lt;simpleError in EpiNow2::epinow(reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_estimates = TRUE, cores = cores,     ...): unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30))&gt;
+#&gt; </div><div class='input'>
 <span class='kw'>results_dir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()             
 
 <span class='fu'>regional_summary</span>(regional_output = <span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>,
                  reported_cases = <span class='kw'>cases</span>,
                  summary_dir = <span class='kw'>results_dir</span>,
-                 region_scale = <span class='st'>"Country"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in regional_summary(regional_output = regional_out$regional, reported_cases = cases,     summary_dir = results_dir, region_scale = "Country"): object 'regional_out' not found</span></div><div class='input'>
+                 region_scale = <span class='st'>"Country"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .checkTypos(e, names_x): Object 'measure' not found amongst </span></div><div class='input'>
 <span class='co'># }</span>
 </div></pre>
   </div>
