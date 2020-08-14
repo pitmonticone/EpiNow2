@@ -145,6 +145,7 @@ of report and then save summary measures and plots.</p>
   burn_in = <span class='fl'>0</span>,
   stationary = <span class='fl'>FALSE</span>,
   fixed = <span class='fl'>FALSE</span>,
+  fixed_future_rt = <span class='fl'>FALSE</span>,
   return_fit = <span class='fl'>FALSE</span>,
   <span class='kw'>forecast_model</span>,
   horizon = <span class='fl'>7</span>,
@@ -267,6 +268,11 @@ This option can be used to produce a null model estimate, to produce a single Rt
 analysis on the impact of interventions.</p></td>
     </tr>
     <tr>
+      <th>fixed_future_rt</th>
+      <td><p>Logical, defaults to FALSE. IF TRUE then the estimated Rt from the last time point with data is used for all
+future time points without data.</p></td>
+    </tr>
+    <tr>
       <th>return_fit</th>
       <td><p>Logical, defaults to FALSE. Should the fitted stan model be returned.</p></td>
     </tr>
@@ -337,12 +343,12 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
               delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
               rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
               samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
-              verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-14 16:01:56] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 61 time steps of which 7 are a forecast
+              verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-14 18:14:14] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 61 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000394 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.94 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000388 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.88 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -358,15 +364,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 63.8079 seconds (Warm-up)
-#&gt; Chain 1:                39.2107 seconds (Sampling)
-#&gt; Chain 1:                103.019 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 56.7783 seconds (Warm-up)
+#&gt; Chain 1:                36.4627 seconds (Sampling)
+#&gt; Chain 1:                93.241 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000382 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.82 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000358 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.58 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -382,15 +388,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 119.918 seconds (Warm-up)
-#&gt; Chain 2:                82.1013 seconds (Sampling)
-#&gt; Chain 2:                202.019 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 114.184 seconds (Warm-up)
+#&gt; Chain 2:                80.0766 seconds (Sampling)
+#&gt; Chain 2:                194.261 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000362 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.62 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000371 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.71 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -406,15 +412,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 56.9792 seconds (Warm-up)
-#&gt; Chain 3:                38.0438 seconds (Sampling)
-#&gt; Chain 3:                95.023 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 54.6134 seconds (Warm-up)
+#&gt; Chain 3:                37.4012 seconds (Sampling)
+#&gt; Chain 3:                92.0146 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000315 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.15 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000323 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.23 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -430,9 +436,9 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 72.2372 seconds (Warm-up)
-#&gt; Chain 4:                19.6539 seconds (Sampling)
-#&gt; Chain 4:                91.8911 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 71.2343 seconds (Warm-up)
+#&gt; Chain 4:                19.1811 seconds (Sampling)
+#&gt; Chain 4:                90.4154 seconds (Total)
 #&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
@@ -1197,7 +1203,7 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; r[47]                      0.06      0.38   899 1.00
 #&gt; lp__                     -72.18    -66.86   315 1.00
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Fri Aug 14 16:10:08 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Fri Aug 14 18:22:05 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).
