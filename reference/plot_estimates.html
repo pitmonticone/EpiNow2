@@ -185,12 +185,12 @@ as points (linked using a line).</p></td>
                                     delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                     samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, 
                                     cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                                    chains = <span class='fl'>4</span>, horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-13 18:49:52] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast
+                                    chains = <span class='fl'>4</span>, horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-14 17:24:04] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000302 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.02 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000455 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 4.55 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -206,15 +206,15 @@ as points (linked using a line).</p></td>
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 66.712 seconds (Warm-up)
-#&gt; Chain 1:                34.3711 seconds (Sampling)
-#&gt; Chain 1:                101.083 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 67.9696 seconds (Warm-up)
+#&gt; Chain 1:                35.4755 seconds (Sampling)
+#&gt; Chain 1:                103.445 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000314 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.14 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000321 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.21 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -230,15 +230,15 @@ as points (linked using a line).</p></td>
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 49.4404 seconds (Warm-up)
-#&gt; Chain 2:                43.115 seconds (Sampling)
-#&gt; Chain 2:                92.5554 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 51.4956 seconds (Warm-up)
+#&gt; Chain 2:                45.2457 seconds (Sampling)
+#&gt; Chain 2:                96.7413 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000293 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.93 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000287 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.87 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -254,15 +254,15 @@ as points (linked using a line).</p></td>
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 42.9146 seconds (Warm-up)
-#&gt; Chain 3:                34.1994 seconds (Sampling)
-#&gt; Chain 3:                77.114 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 44.5281 seconds (Warm-up)
+#&gt; Chain 3:                35.7614 seconds (Sampling)
+#&gt; Chain 3:                80.2894 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000312 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.12 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000336 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.36 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -278,9 +278,9 @@ as points (linked using a line).</p></td>
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 53.361 seconds (Warm-up)
-#&gt; Chain 4:                34.231 seconds (Sampling)
-#&gt; Chain 4:                87.592 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 55.4078 seconds (Warm-up)
+#&gt; Chain 4:                36.9952 seconds (Sampling)
+#&gt; Chain 4:                92.403 seconds (Total)
 #&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'><span class='co'>## Plot infections</span>
