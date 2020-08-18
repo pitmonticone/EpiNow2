@@ -318,7 +318,7 @@ future time points without data.</p></td>
                            generation_time = <span class='kw'>generation_time</span>,
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 11:36:51] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: There were 1 divergent transitions after warmup. See</span>
+                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 15:58:17] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: There were 1 divergent transitions after warmup. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
 #&gt; <span class='warning'>to find out why this is a problem and how to eliminate them.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='input'>
 
@@ -335,12 +335,12 @@ future time points without data.</p></td>
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                                 chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed_future_rt = <span class='fl'>TRUE</span>,
-                                return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 11:44:53] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
+                                return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:06:23] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000284 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 2.84 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000305 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.05 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -356,15 +356,15 @@ future time points without data.</p></td>
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 157.999 seconds (Warm-up)
-#&gt; Chain 1:                72.0798 seconds (Sampling)
-#&gt; Chain 1:                230.079 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 162.121 seconds (Warm-up)
+#&gt; Chain 1:                74.0859 seconds (Sampling)
+#&gt; Chain 1:                236.207 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000306 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.06 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000312 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.12 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -380,15 +380,15 @@ future time points without data.</p></td>
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 66.7865 seconds (Warm-up)
-#&gt; Chain 2:                70.7267 seconds (Sampling)
-#&gt; Chain 2:                137.513 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 68.854 seconds (Warm-up)
+#&gt; Chain 2:                73.126 seconds (Sampling)
+#&gt; Chain 2:                141.98 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000276 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.76 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000296 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.96 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -404,15 +404,15 @@ future time points without data.</p></td>
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 74.0074 seconds (Warm-up)
-#&gt; Chain 3:                36.0843 seconds (Sampling)
-#&gt; Chain 3:                110.092 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 76.998 seconds (Warm-up)
+#&gt; Chain 3:                37.624 seconds (Sampling)
+#&gt; Chain 3:                114.622 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000294 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.94 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000295 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.95 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -428,9 +428,9 @@ future time points without data.</p></td>
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 81.1362 seconds (Warm-up)
-#&gt; Chain 4:                36.9476 seconds (Sampling)
-#&gt; Chain 4:                118.084 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 84.4848 seconds (Warm-up)
+#&gt; Chain 4:                37.6041 seconds (Sampling)
+#&gt; Chain 4:                122.089 seconds (Total)
 #&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
@@ -453,7 +453,7 @@ future time points without data.</p></td>
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>400</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
                                 chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>,
-                                burn_in = <span class='fl'>7</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 11:54:53] Running for 1000 samples (across 4 chains each with a warm up of 400 iterations each) and 69 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                                burn_in = <span class='fl'>7</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:16:42] Running for 1000 samples (across 4 chains each with a warm up of 400 iterations each) and 69 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
@@ -472,7 +472,7 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, stationary = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:02:22] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:24:27] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>stat</span><span class='op'>$</span><span class='kw'>summarised</span>,
@@ -487,7 +487,7 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:07:31] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:29:47] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
@@ -504,7 +504,7 @@ future time points without data.</p></td>
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, 
-                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:08:23] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
+                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:30:40] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>bkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
@@ -523,7 +523,7 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:19:46] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:42:30] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
@@ -547,7 +547,7 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:35:18] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:58:23] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
@@ -568,7 +568,7 @@ future time points without data.</p></td>
                                 generation_time = <span class='kw'>generation_time</span>,
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>FALSE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-17 12:35:55] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
+                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>FALSE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 16:59:00] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'>
  
