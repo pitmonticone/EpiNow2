@@ -318,29 +318,25 @@ future time points without data.</p></td>
                            generation_time = <span class='kw'>generation_time</span>,
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:10:26] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 17:36:09] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>def</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
+                      reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>
 <span class='co'># Run model with default settings</span>
 <span class='kw'>fixed_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                                 generation_time = <span class='kw'>generation_time</span>,
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                                 chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed_future_rt = <span class='fl'>TRUE</span>,
-                                return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:19:06] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
+                                return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 17:45:01] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000341 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.41 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.00033 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.3 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -356,15 +352,15 @@ future time points without data.</p></td>
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 80.8095 seconds (Warm-up)
-#&gt; Chain 1:                75.4978 seconds (Sampling)
-#&gt; Chain 1:                156.307 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 80.4393 seconds (Warm-up)
+#&gt; Chain 1:                76.3586 seconds (Sampling)
+#&gt; Chain 1:                156.798 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.00051 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 5.1 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000315 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.15 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -380,15 +376,15 @@ future time points without data.</p></td>
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 72.8045 seconds (Warm-up)
-#&gt; Chain 2:                39.7762 seconds (Sampling)
-#&gt; Chain 2:                112.581 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 72.1313 seconds (Warm-up)
+#&gt; Chain 2:                39.6214 seconds (Sampling)
+#&gt; Chain 2:                111.753 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000306 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.06 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000317 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.17 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -404,15 +400,15 @@ future time points without data.</p></td>
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 56.3365 seconds (Warm-up)
-#&gt; Chain 3:                38.3216 seconds (Sampling)
-#&gt; Chain 3:                94.6582 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 56.144 seconds (Warm-up)
+#&gt; Chain 3:                38.5285 seconds (Sampling)
+#&gt; Chain 3:                94.6725 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000312 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.12 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000321 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.21 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -428,9 +424,9 @@ future time points without data.</p></td>
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 69.9988 seconds (Warm-up)
-#&gt; Chain 4:                37.3676 seconds (Sampling)
-#&gt; Chain 4:                107.366 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 71.5051 seconds (Warm-up)
+#&gt; Chain 4:                38.7313 seconds (Sampling)
+#&gt; Chain 4:                110.236 seconds (Total)
 #&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
 #&gt; <span class='warning'>to find out why this is a problem and how to eliminate them.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
@@ -439,11 +435,7 @@ future time points without data.</p></td>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fixed_rt</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-9.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-10.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
+                      reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>
 <span class='co'># Run the model with default setting on a later snapshot of </span>
 <span class='co'># data (use burn_in here to remove the first week of</span>
 <span class='co'># estimates that may be impacted by this most).</span>
@@ -453,66 +445,54 @@ future time points without data.</p></td>
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>400</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
                                 chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>,
-                                burn_in = <span class='fl'>7</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:27:00] Running for 1000 samples (across 4 chains each with a warm up of 400 iterations each) and 69 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
+                                burn_in = <span class='fl'>7</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 17:52:57] Running for 1000 samples (across 4 chains each with a warm up of 400 iterations each) and 69 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>snapshot</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>snapshot_cases</span>)     </div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-11.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-12.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-13.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-14.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-15.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
+                      reported = <span class='kw'>snapshot_cases</span>)     </div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $reports</div><div class='img'><img src='estimate_infections-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $reff</div><div class='img'><img src='estimate_infections-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
 <span class='co'>## Run model with stationary Rt assumption (likely to provide biased real-time estimates)</span>
 <span class='kw'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                             generation_time = <span class='kw'>generation_time</span>,
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, stationary = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:33:31] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 17:59:36] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>stat</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-16.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-17.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-18.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-19.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-20.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>       
+             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>       
 <span class='co'># Run model with fixed Rt assumption </span>
 <span class='kw'>fixed</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                             generation_time = <span class='kw'>generation_time</span>,
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:38:48] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 18:04:48] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fixed</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-21.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-22.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-23.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-24.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-25.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>
+             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>
 <span class='co'># Run model with breakpoints                                                                      </span>
 <span class='kw'>bkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
                            generation_time = <span class='kw'>generation_time</span>,
                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, 
-                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:39:36] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 18:05:36] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>bkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-26.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-27.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-28.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-29.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-30.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>             
+             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>             
 <span class='co'># Run model with breakpoints but with constrained non-linear change over time </span>
 <span class='co'># This formulation may increase the apparent effect of the breakpoint but needs to be tested using</span>
 <span class='co'># model fit criteria (i.e LFO).                                                                    </span>
@@ -523,7 +503,7 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:48:52] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. See</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 18:14:51] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
 #&gt; <span class='warning'>to find out why this is a problem and how to eliminate them.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
@@ -531,11 +511,7 @@ future time points without data.</p></td>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>cbkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-31.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-32.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-33.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-34.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-35.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>             
+             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>             
 <span class='co'># Pull out breakpoint summary</span>
 <span class='kw'>cbkp</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span>]</div><div class='output co'>#&gt;    date    variable strat type    bottom      top     lower     upper    median
 #&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; 0.7888803 1.085601 0.8615237 0.9781673 0.9411166
@@ -549,17 +525,13 @@ future time points without data.</p></td>
                             delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                             samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                             chains = <span class='fl'>4</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 12:03:41] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 18:29:41] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'>
 
 <span class='co'># Plot output</span>
 <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fbkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; $infections</div><div class='img'><img src='estimate_infections-36.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reports</div><div class='img'><img src='estimate_infections-37.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $reff</div><div class='img'><img src='estimate_infections-38.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $growth_rate</div><div class='img'><img src='estimate_infections-39.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='estimate_infections-40.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>             
+             reported = <span class='kw'>reported_cases</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'>             
 <span class='co'># Pull out breakpoint summary</span>
 <span class='kw'>fbkp</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span>]</div><div class='output co'>#&gt;    date    variable strat type    bottom       top     lower     upper
 #&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; 0.5371855 0.6276033 0.5660943 0.6043057
@@ -570,7 +542,7 @@ future time points without data.</p></td>
                                 generation_time = <span class='kw'>generation_time</span>,
                                 delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                                 samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>FALSE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 12:04:22] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>FALSE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 18:30:20] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
@@ -578,7 +550,7 @@ future time points without data.</p></td>
  
 <span class='co'># plot just infections as report_plots does not support the backcalculation only model</span>
 <span class='fu'><a href='plot_estimates.html'>plot_estimates</a></span>(estimate = <span class='kw'>backcalc</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span>],
-               reported = <span class='kw'>reported_cases</span>, ylab = <span class='st'>"Cases"</span>)</div><div class='img'><img src='estimate_infections-41.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }                                </span></div></pre>
+               reported = <span class='kw'>reported_cases</span>, ylab = <span class='st'>"Cases"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnamesInt(x, names(on), check_dups = FALSE): argument specifying columns specify non existing column(s): cols[1]='breakpoint'</span></div><div class='input'><span class='co'># }                                </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
