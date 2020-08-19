@@ -198,34 +198,34 @@ a third variable <code>reference</code> which indicates what the date variable r
 <span class='kw'>report</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span>(<span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>))   
 
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report</span>)   </div><div class='output co'>#&gt;            date cases reference
-#&gt;   1: 2020-02-24     3    report
-#&gt;   2: 2020-02-25     6    report
-#&gt;   3: 2020-02-26    14    report
+#&gt;   1: 2020-02-24     2    report
+#&gt;   2: 2020-02-25     9    report
+#&gt;   3: 2020-02-26    12    report
 #&gt;   4: 2020-02-27    21    report
-#&gt;   5: 2020-02-28    27    report
+#&gt;   5: 2020-02-28    41    report
 #&gt;  ---                           
-#&gt; 124: 2020-06-26   233    report
-#&gt; 125: 2020-06-27   247    report
-#&gt; 126: 2020-06-28   254    report
-#&gt; 127: 2020-06-29   269    report
-#&gt; 128: 2020-06-30   261    report</div><div class='input'>
+#&gt; 124: 2020-06-26   232    report
+#&gt; 125: 2020-06-27   231    report
+#&gt; 126: 2020-06-28   256    report
+#&gt; 127: 2020-06-29   250    report
+#&gt; 128: 2020-06-30   252    report</div><div class='input'>
 <span class='co'>## Mapping with a weekly reporting effect</span>
 <span class='kw'>report_weekly</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span>(
                       <span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>),
                       reporting_effect = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>), <span class='fl'>0.95</span>, <span class='fl'>0.95</span>))          
                              
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_weekly</span>) </div><div class='output co'>#&gt;            date cases reference
-#&gt;   1: 2020-02-24     2    report
-#&gt;   2: 2020-02-25     6    report
-#&gt;   3: 2020-02-26    16    report
-#&gt;   4: 2020-02-27    26    report
-#&gt;   5: 2020-02-28    23    report
+#&gt;   1: 2020-02-23     2    report
+#&gt;   2: 2020-02-24     3    report
+#&gt;   3: 2020-02-25    15    report
+#&gt;   4: 2020-02-26    22    report
+#&gt;   5: 2020-02-27    18    report
 #&gt;  ---                           
-#&gt; 124: 2020-06-26   230    report
-#&gt; 125: 2020-06-27   229    report
-#&gt; 126: 2020-06-28   232    report
-#&gt; 127: 2020-06-29   281    report
-#&gt; 128: 2020-06-30   258    report</div><div class='input'>
+#&gt; 125: 2020-06-26   205    report
+#&gt; 126: 2020-06-27   237    report
+#&gt; 127: 2020-06-28   221    report
+#&gt; 128: 2020-06-29   267    report
+#&gt; 129: 2020-06-30   253    report</div><div class='input'>
 <span class='co'>## Map using a deterministic median shift for both delays</span>
 <span class='kw'>report_median</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span>(<span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>), 
                                            type = <span class='st'>"median"</span>)      
@@ -233,17 +233,17 @@ a third variable <code>reference</code> which indicates what the date variable r
                                                    
 
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_median</span>)</div><div class='output co'>#&gt;            date confirm cases reference
-#&gt;   1: 2020-03-01      14    14    report
-#&gt;   2: 2020-03-02      62    62    report
-#&gt;   3: 2020-03-03      53    53    report
-#&gt;   4: 2020-03-04      97    97    report
-#&gt;   5: 2020-03-05      93    93    report
+#&gt;   1: 2020-02-28      14    14    report
+#&gt;   2: 2020-02-29      62    62    report
+#&gt;   3: 2020-03-01      53    53    report
+#&gt;   4: 2020-03-02      97    97    report
+#&gt;   5: 2020-03-03      93    93    report
 #&gt;  ---                                   
-#&gt; 126: 2020-07-04     296   296    report
-#&gt; 127: 2020-07-05     255   255    report
-#&gt; 128: 2020-07-06     175   175    report
-#&gt; 129: 2020-07-07     174   174    report
-#&gt; 130: 2020-07-08     126   126    report</div><div class='input'>                                                         
+#&gt; 126: 2020-07-02     296   296    report
+#&gt; 127: 2020-07-03     255   255    report
+#&gt; 128: 2020-07-04     175   175    report
+#&gt; 129: 2020-07-05     174   174    report
+#&gt; 130: 2020-07-06     126   126    report</div><div class='input'>                                                         
 <span class='co'>## Map with a weekly reporting effect and stochastic reporting model</span>
 <span class='kw'>report_stochastic</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span>(
                       <span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>),
@@ -254,17 +254,17 @@ a third variable <code>reference</code> which indicates what the date variable r
                       })          
                              
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_stochastic</span>)         </div><div class='output co'>#&gt;            date cases reference
-#&gt;   1: 2020-02-24     0    report
-#&gt;   2: 2020-02-25     5    report
-#&gt;   3: 2020-02-26    10    report
-#&gt;   4: 2020-02-27    16    report
-#&gt;   5: 2020-02-28    21    report
+#&gt;   1: 2020-02-22     0    report
+#&gt;   2: 2020-02-23     1    report
+#&gt;   3: 2020-02-24     9    report
+#&gt;   4: 2020-02-25     8    report
+#&gt;   5: 2020-02-26    20    report
 #&gt;  ---                           
-#&gt; 124: 2020-06-26   262    report
-#&gt; 125: 2020-06-27   197    report
-#&gt; 126: 2020-06-28   215    report
-#&gt; 127: 2020-06-29   317    report
-#&gt; 128: 2020-06-30   267    report</div></pre>
+#&gt; 126: 2020-06-26   247    report
+#&gt; 127: 2020-06-27   253    report
+#&gt; 128: 2020-06-28   203    report
+#&gt; 129: 2020-06-29   255    report
+#&gt; 130: 2020-06-30   203    report</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

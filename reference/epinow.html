@@ -343,12 +343,12 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
               delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
               rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
               samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
-              verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-18 15:50:28] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 61 time steps of which 7 are a forecast
+              verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; DEBUG [2020-08-19 11:01:01] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 67 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000383 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.83 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000414 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 4.14 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -364,15 +364,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 55.8024 seconds (Warm-up)
-#&gt; Chain 1:                35.6893 seconds (Sampling)
-#&gt; Chain 1:                91.4916 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 116.579 seconds (Warm-up)
+#&gt; Chain 1:                98.3716 seconds (Sampling)
+#&gt; Chain 1:                214.95 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000328 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.28 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000315 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.15 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -388,15 +388,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 111.325 seconds (Warm-up)
-#&gt; Chain 2:                78.8414 seconds (Sampling)
-#&gt; Chain 2:                190.167 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 67.3824 seconds (Warm-up)
+#&gt; Chain 2:                34.1693 seconds (Sampling)
+#&gt; Chain 2:                101.552 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000339 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.39 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.00033 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.3 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -412,15 +412,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 53.7545 seconds (Warm-up)
-#&gt; Chain 3:                36.1778 seconds (Sampling)
-#&gt; Chain 3:                89.9323 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 76.7151 seconds (Warm-up)
+#&gt; Chain 3:                41.4809 seconds (Sampling)
+#&gt; Chain 3:                118.196 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000309 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.09 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.0003 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -436,28 +436,30 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 69.3494 seconds (Warm-up)
-#&gt; Chain 4:                18.9085 seconds (Sampling)
-#&gt; Chain 4:                88.2579 seconds (Total)
-#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; Chain 4:  Elapsed Time: 79.8036 seconds (Warm-up)
+#&gt; Chain 4:                41.0155 seconds (Sampling)
+#&gt; Chain 4:                120.819 seconds (Total)
+#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 4 divergent transitions after warmup. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
+#&gt; <span class='warning'>to find out why this is a problem and how to eliminate them.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'>
 <span class='kw'>out</span></div><div class='output co'>#&gt; $estimates
 #&gt; $estimates$samples
-#&gt;                 variable        parameter time       date sample      value
-#&gt;      1:       infections       infections    1 2020-02-08      1    2.15286
-#&gt;      2:       infections       infections    2 2020-02-09      1   10.00229
-#&gt;      3:       infections       infections    3 2020-02-10      1   18.50581
-#&gt;      4:       infections       infections    4 2020-02-11      1   38.93808
-#&gt;      5:       infections       infections    5 2020-02-12      1   43.08178
-#&gt;     ---                                                                    
-#&gt; 215057: prior_infections prior_infections   57 2020-04-04      1 4562.01956
-#&gt; 215058: prior_infections prior_infections   58 2020-04-05      1 4517.39200
-#&gt; 215059: prior_infections prior_infections   59 2020-04-06      1 4473.20099
-#&gt; 215060: prior_infections prior_infections   60 2020-04-07      1 4429.44228
-#&gt; 215061: prior_infections prior_infections   61 2020-04-08      1 4386.11164
+#&gt;                 variable        parameter time       date sample       value
+#&gt;      1:       infections       infections    1 2020-02-02      1    2.022583
+#&gt;      2:       infections       infections    2 2020-02-03      1   10.969704
+#&gt;      3:       infections       infections    3 2020-02-04      1   17.078714
+#&gt;      4:       infections       infections    4 2020-02-05      1   31.699916
+#&gt;      5:       infections       infections    5 2020-02-06      1   45.288280
+#&gt;     ---                                                                     
+#&gt; 221063: prior_infections prior_infections   63 2020-04-04      1 4300.717845
+#&gt; 221064: prior_infections prior_infections   64 2020-04-05      1 4258.646439
+#&gt; 221065: prior_infections prior_infections   65 2020-04-06      1 4216.986592
+#&gt; 221066: prior_infections prior_infections   66 2020-04-07      1 4175.734279
+#&gt; 221067: prior_infections prior_infections   67 2020-04-08      1 4134.885514
 #&gt;         strat     type
 #&gt;      1:  &lt;NA&gt; estimate
 #&gt;      2:  &lt;NA&gt; estimate
@@ -465,745 +467,769 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt;      4:  &lt;NA&gt; estimate
 #&gt;      5:  &lt;NA&gt; estimate
 #&gt;     ---               
-#&gt; 215057:  &lt;NA&gt; forecast
-#&gt; 215058:  &lt;NA&gt; forecast
-#&gt; 215059:  &lt;NA&gt; forecast
-#&gt; 215060:  &lt;NA&gt; forecast
-#&gt; 215061:  &lt;NA&gt; forecast
+#&gt; 221063:  &lt;NA&gt; forecast
+#&gt; 221064:  &lt;NA&gt; forecast
+#&gt; 221065:  &lt;NA&gt; forecast
+#&gt; 221066:  &lt;NA&gt; forecast
+#&gt; 221067:  &lt;NA&gt; forecast
 #&gt; 
 #&gt; $estimates$summarised
 #&gt;            date       variable strat     type      bottom          top
-#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate   0.9182669     1.639802
-#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate   0.9874229     1.590427
-#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate   1.1193815     1.612862
-#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate   1.2147273     1.609523
-#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate   1.3192086     1.634074
+#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate   0.4197057     1.335879
+#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate   0.5178805     1.344766
+#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate   0.6088222     1.345125
+#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate   0.6980264     1.333866
+#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate   0.8162492     1.347290
 #&gt;  ---                                                                  
-#&gt; 272: 2020-04-04 reported_cases  &lt;NA&gt; forecast 718.0000000  9901.000000
-#&gt; 273: 2020-04-05 reported_cases  &lt;NA&gt; forecast 747.0000000 12807.000000
-#&gt; 274: 2020-04-06 reported_cases  &lt;NA&gt; forecast 346.0000000 12685.000000
-#&gt; 275: 2020-04-07 reported_cases  &lt;NA&gt; forecast 637.0000000 13287.000000
-#&gt; 276: 2020-04-08 reported_cases  &lt;NA&gt; forecast 327.0000000 11276.000000
-#&gt;            lower       upper      median        mean           sd
-#&gt;   1:    1.128687    1.437829    1.269385    1.268029 2.232790e-01
-#&gt;   2:    1.178647    1.431921    1.317462    1.313375 1.864923e-01
-#&gt;   3:    1.257545    1.460773    1.366763    1.364611 1.509828e-01
-#&gt;   4:    1.339336    1.495540    1.420927    1.420584 1.194044e-01
-#&gt;   5:    1.422515    1.543955    1.477669    1.479696 9.657146e-02
-#&gt;  ---                                                             
-#&gt; 272: 2216.000000 5839.000000 4501.500000 5294.692000 3.621292e+03
-#&gt; 273: 1196.000000 5179.000000 4847.000000 6362.743000 5.510115e+03
-#&gt; 274: 1414.000000 5122.000000 4706.500000 6653.819000 7.112134e+03
-#&gt; 275: 1331.000000 4915.000000 4348.000000 6264.335000 7.414708e+03
-#&gt; 276:  725.000000 3620.000000 3411.500000 5628.622000 1.050819e+04
+#&gt; 284: 2020-04-04 reported_cases  &lt;NA&gt; forecast  40.0000000 16635.000000
+#&gt; 285: 2020-04-05 reported_cases  &lt;NA&gt; forecast  51.0000000 20524.000000
+#&gt; 286: 2020-04-06 reported_cases  &lt;NA&gt; forecast 144.0000000 21788.000000
+#&gt; 287: 2020-04-07 reported_cases  &lt;NA&gt; forecast  60.0000000 26384.000000
+#&gt; 288: 2020-04-08 reported_cases  &lt;NA&gt; forecast  45.0000000 24193.000000
+#&gt;            lower        upper       median         mean           sd
+#&gt;   1:   0.5722705    0.9865800    0.8477715 8.684672e-01 2.939618e-01
+#&gt;   2:   0.6187021    0.9935813    0.8886211 9.078448e-01 2.667629e-01
+#&gt;   3:   0.7066474    1.0386423    0.9471854 9.561120e-01 2.365712e-01
+#&gt;   4:   0.7932691    1.0854731    1.0030443 1.013428e+00 2.036988e-01
+#&gt;   5:   0.9178318    1.1641206    1.0724087 1.079546e+00 1.696638e-01
+#&gt;  ---                                                                
+#&gt; 284: 460.0000000 4823.0000000 4636.0000000 7.360503e+03 8.505041e+03
+#&gt; 285: 294.0000000 5346.0000000 5210.5000000 1.148514e+04 5.838907e+04
+#&gt; 286: 237.0000000 5067.0000000 5022.5000000 1.234807e+04 5.383213e+04
+#&gt; 287: 502.0000000 5241.0000000 4983.5000000 1.871440e+04 1.539545e+05
+#&gt; 288: 239.0000000 4096.0000000 4054.0000000 3.371624e+04 4.373986e+05
 #&gt; 
 #&gt; $estimates$fit
 #&gt; Inference for Stan model: estimate_infections.
 #&gt; 4 chains, each with iter=450; warmup=200; thin=1; 
 #&gt; post-warmup draws per chain=250, total post-warmup draws=1000.
 #&gt; 
-#&gt;                            mean  se_mean         sd    2.5%     25%     50%
-#&gt; day_of_week_eff_raw[1]     0.15     0.00       0.03    0.10    0.13    0.15
-#&gt; day_of_week_eff_raw[2]     0.14     0.00       0.03    0.09    0.12    0.13
-#&gt; day_of_week_eff_raw[3]     0.12     0.00       0.03    0.08    0.10    0.11
-#&gt; day_of_week_eff_raw[4]     0.14     0.00       0.03    0.09    0.12    0.13
-#&gt; day_of_week_eff_raw[5]     0.17     0.00       0.04    0.11    0.15    0.17
-#&gt; day_of_week_eff_raw[6]     0.13     0.00       0.03    0.09    0.11    0.13
-#&gt; day_of_week_eff_raw[7]     0.15     0.00       0.03    0.10    0.13    0.15
-#&gt; delay_mean[1]              1.62     0.00       0.01    1.60    1.62    1.62
-#&gt; delay_mean[2]              1.52     0.00       0.02    1.47    1.50    1.52
-#&gt; delay_sd[1]                0.42     0.00       0.01    0.40    0.41    0.42
-#&gt; delay_sd[2]                1.13     0.00       0.02    1.09    1.11    1.13
-#&gt; rep_phi[1]                 4.48     0.04       1.16    2.55    3.66    4.40
-#&gt; rho[1]                     1.70     0.03       1.10    0.18    0.85    1.52
-#&gt; alpha[1]                   0.10     0.00       0.05    0.03    0.06    0.09
-#&gt; eta[1]                    -0.21     0.02       0.78   -1.74   -0.72   -0.21
-#&gt; eta[2]                     0.40     0.03       0.91   -1.28   -0.21    0.39
-#&gt; eta[3]                    -0.14     0.03       0.97   -1.94   -0.85   -0.12
-#&gt; eta[4]                    -0.41     0.03       0.93   -2.33   -0.99   -0.43
-#&gt; eta[5]                     0.47     0.02       0.94   -1.37   -0.16    0.51
-#&gt; eta[6]                     0.27     0.02       0.86   -1.32   -0.36    0.26
-#&gt; eta[7]                    -0.67     0.03       0.97   -2.59   -1.35   -0.68
-#&gt; eta[8]                     0.16     0.03       0.91   -1.61   -0.43    0.17
-#&gt; eta[9]                     0.58     0.03       0.92   -1.19   -0.02    0.54
-#&gt; eta[10]                   -0.38     0.02       0.92   -2.22   -0.99   -0.38
-#&gt; eta[11]                   -0.34     0.03       0.95   -2.24   -0.98   -0.33
-#&gt; eta[12]                    0.46     0.02       0.91   -1.26   -0.20    0.48
-#&gt; eta[13]                    0.14     0.03       0.99   -1.75   -0.51    0.12
-#&gt; eta[14]                   -0.36     0.03       0.94   -2.21   -0.99   -0.33
-#&gt; eta[15]                    0.00     0.03       0.96   -1.82   -0.67   -0.02
-#&gt; initial_R[1]               1.27     0.01       0.22    0.83    1.11    1.27
-#&gt; initial_infections[1]      0.00     0.00       0.10   -0.19   -0.07    0.00
-#&gt; initial_infections[2]      0.00     0.00       0.09   -0.18   -0.06    0.00
-#&gt; initial_infections[3]      0.00     0.00       0.10   -0.19   -0.07    0.00
-#&gt; initial_infections[4]      0.00     0.00       0.10   -0.21   -0.07    0.00
-#&gt; initial_infections[5]      0.00     0.00       0.10   -0.20   -0.07    0.00
-#&gt; initial_infections[6]      0.00     0.00       0.11   -0.21   -0.08    0.00
-#&gt; initial_infections[7]      0.00     0.00       0.10   -0.20   -0.08    0.00
-#&gt; initial_infections[8]     -0.01     0.00       0.10   -0.20   -0.07   -0.01
-#&gt; initial_infections[9]     -0.01     0.00       0.10   -0.21   -0.08   -0.01
-#&gt; initial_infections[10]    -0.02     0.00       0.10   -0.21   -0.09   -0.02
-#&gt; initial_infections[11]    -0.02     0.00       0.10   -0.22   -0.08   -0.02
-#&gt; initial_infections[12]    -0.03     0.00       0.10   -0.23   -0.09   -0.03
-#&gt; initial_infections[13]    -0.03     0.00       0.10   -0.22   -0.10   -0.03
-#&gt; initial_infections[14]    -0.03     0.00       0.10   -0.21   -0.09   -0.03
-#&gt; gt_mean[1]                 3.64     0.00       0.10    3.45    3.56    3.64
-#&gt; gt_sd[1]                   3.08     0.00       0.11    2.86    3.01    3.08
-#&gt; noise[1]                   1.04     0.00       0.05    0.97    1.01    1.04
-#&gt; noise[2]                   1.04     0.00       0.04    0.98    1.01    1.04
-#&gt; noise[3]                   1.04     0.00       0.04    0.98    1.02    1.04
-#&gt; noise[4]                   1.04     0.00       0.04    0.99    1.02    1.04
-#&gt; noise[5]                   1.04     0.00       0.03    0.99    1.02    1.04
-#&gt; noise[6]                   1.04     0.00       0.03    0.99    1.02    1.04
-#&gt; noise[7]                   1.03     0.00       0.02    0.99    1.02    1.03
-#&gt; noise[8]                   1.03     0.00       0.02    0.99    1.01    1.03
-#&gt; noise[9]                   1.02     0.00       0.02    0.99    1.01    1.02
-#&gt; noise[10]                  1.02     0.00       0.02    0.99    1.01    1.02
-#&gt; noise[11]                  1.01     0.00       0.02    0.98    1.00    1.01
-#&gt; noise[12]                  1.00     0.00       0.02    0.97    0.99    1.00
-#&gt; noise[13]                  0.99     0.00       0.02    0.96    0.98    0.99
-#&gt; noise[14]                  0.99     0.00       0.02    0.95    0.98    0.99
-#&gt; noise[15]                  0.98     0.00       0.02    0.94    0.97    0.98
-#&gt; noise[16]                  0.97     0.00       0.02    0.94    0.96    0.97
-#&gt; noise[17]                  0.97     0.00       0.02    0.93    0.96    0.97
-#&gt; noise[18]                  0.96     0.00       0.02    0.93    0.95    0.96
-#&gt; noise[19]                  0.96     0.00       0.02    0.92    0.95    0.96
-#&gt; noise[20]                  0.95     0.00       0.02    0.92    0.94    0.95
-#&gt; noise[21]                  0.95     0.00       0.02    0.91    0.94    0.95
-#&gt; noise[22]                  0.95     0.00       0.02    0.91    0.94    0.95
-#&gt; noise[23]                  0.95     0.00       0.02    0.91    0.94    0.95
-#&gt; noise[24]                  0.95     0.00       0.02    0.91    0.94    0.95
-#&gt; noise[25]                  0.95     0.00       0.02    0.91    0.94    0.95
-#&gt; noise[26]                  0.95     0.00       0.02    0.90    0.94    0.96
-#&gt; noise[27]                  0.96     0.00       0.03    0.90    0.94    0.96
-#&gt; noise[28]                  0.96     0.00       0.03    0.90    0.94    0.96
-#&gt; noise[29]                  0.97     0.00       0.03    0.90    0.95    0.97
-#&gt; noise[30]                  0.97     0.00       0.03    0.90    0.95    0.97
-#&gt; noise[31]                  0.97     0.00       0.04    0.89    0.95    0.98
-#&gt; noise[32]                  0.98     0.00       0.04    0.89    0.96    0.98
-#&gt; noise[33]                  0.98     0.00       0.04    0.89    0.96    0.99
-#&gt; noise[34]                  0.99     0.00       0.04    0.89    0.96    0.99
-#&gt; noise[35]                  0.99     0.00       0.05    0.89    0.96    0.99
-#&gt; noise[36]                  0.99     0.00       0.05    0.88    0.97    1.00
-#&gt; noise[37]                  1.00     0.00       0.05    0.88    0.97    1.00
-#&gt; noise[38]                  1.00     0.00       0.05    0.88    0.97    1.00
-#&gt; noise[39]                  1.00     0.00       0.05    0.89    0.97    1.00
-#&gt; noise[40]                  1.00     0.00       0.05    0.90    0.98    1.00
-#&gt; noise[41]                  1.00     0.00       0.05    0.90    0.98    1.00
-#&gt; noise[42]                  1.00     0.00       0.05    0.90    0.98    1.00
-#&gt; noise[43]                  1.00     0.00       0.05    0.90    0.98    1.00
-#&gt; noise[44]                  1.00     0.00       0.05    0.90    0.97    1.00
-#&gt; noise[45]                  1.00     0.00       0.05    0.90    0.97    1.00
-#&gt; noise[46]                  1.00     0.00       0.05    0.90    0.97    1.00
-#&gt; infections[1]              2.01     0.01       0.20    1.65    1.87    2.00
-#&gt; infections[2]             10.92     0.03       1.00    9.04   10.22   10.87
-#&gt; infections[3]             18.52     0.05       1.84   15.23   17.19   18.51
-#&gt; infections[4]             32.37     0.08       3.26   26.27   30.03   32.21
-#&gt; infections[5]             45.90     0.12       4.75   37.35   42.67   45.57
-#&gt; infections[6]             56.93     0.19       6.07   46.16   52.45   56.60
-#&gt; infections[7]             92.62     0.25       9.55   75.84   85.56   92.41
-#&gt; infections[8]            124.16     0.31      12.77  101.46  115.54  123.08
-#&gt; infections[9]            148.94     0.37      15.50  121.79  137.91  147.82
-#&gt; infections[10]           219.86     0.70      22.89  179.68  204.28  217.78
-#&gt; infections[11]           253.97     0.74      24.83  206.15  238.05  253.60
-#&gt; infections[12]           304.50     0.88      30.62  247.67  284.85  302.65
-#&gt; infections[13]           373.68     0.83      37.95  307.96  346.26  371.28
-#&gt; infections[14]           447.33     1.16      42.80  371.53  418.67  445.36
-#&gt; infections[15]           370.94     3.32      64.79  241.43  325.45  369.72
-#&gt; infections[16]           418.36     3.93      77.96  271.21  365.53  414.17
-#&gt; infections[17]           473.76     4.54      92.62  305.55  410.98  464.65
-#&gt; infections[18]           541.32     5.15     108.31  350.06  465.21  530.76
-#&gt; infections[19]           625.04     5.66     125.02  411.28  534.92  614.15
-#&gt; infections[20]           729.41     6.06     143.00  496.54  627.54  715.07
-#&gt; infections[21]           859.82     6.25     162.82  589.32  745.07  842.37
-#&gt; infections[22]          1022.56     6.29     185.49  721.77  895.72  998.77
-#&gt; infections[23]          1224.85     6.57     212.66  872.92 1081.06 1200.20
-#&gt; infections[24]          1474.47     7.39     246.79 1038.07 1306.48 1448.09
-#&gt; infections[25]          1779.22     8.65     291.05 1271.70 1585.50 1754.09
-#&gt; infections[26]          2145.92    10.46     348.89 1540.62 1899.18 2111.38
-#&gt; infections[27]          2579.14    15.25     423.16 1853.06 2272.89 2526.80
-#&gt; infections[28]          3079.63    21.48     515.27 2201.58 2688.39 3022.97
-#&gt; infections[29]          3642.79    27.95     624.47 2604.87 3164.51 3588.00
-#&gt; infections[30]          4257.43    33.65     747.60 3062.35 3695.04 4197.57
-#&gt; infections[31]          4905.35    38.82     879.22 3485.69 4243.34 4821.22
-#&gt; infections[32]          5561.99    42.89    1012.02 3876.45 4836.56 5455.44
-#&gt; infections[33]          6198.36    45.62    1137.32 4287.59 5383.82 6094.63
-#&gt; infections[34]          6784.02    47.06    1246.08 4689.49 5892.98 6676.17
-#&gt; infections[35]          7290.71    48.54    1330.33 5010.83 6323.25 7189.36
-#&gt; infections[36]          7695.89    49.30    1385.30 5310.81 6695.31 7578.17
-#&gt; infections[37]          7985.39    49.16    1411.26 5576.34 6968.39 7850.66
-#&gt; infections[38]          8154.65    48.62    1414.33 5671.61 7184.79 8030.96
-#&gt; infections[39]          8208.48    48.36    1406.06 5899.31 7185.10 8094.75
-#&gt; infections[40]          8159.43    51.80    1402.03 5804.64 7159.25 8044.68
-#&gt; infections[41]          8025.50    56.76    1419.33 5603.37 7068.11 7910.53
-#&gt; infections[42]          7827.62    62.52    1472.77 5387.40 6790.39 7695.88
-#&gt; infections[43]          7587.41    68.74    1571.05 4915.32 6487.42 7413.78
-#&gt; infections[44]          7325.58    74.99    1715.51 4456.93 6094.53 7138.84
-#&gt; infections[45]          7060.87    81.20    1902.51 4065.45 5706.38 6856.87
-#&gt; infections[46]          6809.67    88.76    2127.47 3348.10 5309.24 6522.05
-#&gt; infections[47]          6586.08    98.57    2388.31 2827.10 4850.15 6301.37
-#&gt; infections[48]          6402.27   109.23    2687.86 2309.57 4431.61 6066.95
-#&gt; infections[49]          6269.23   120.88    3035.74 1814.42 4054.02 5857.41
-#&gt; infections[50]          6197.70   133.83    3450.98 1448.63 3653.44 5684.85
-#&gt; infections[51]          6199.55   148.74    3966.97 1170.39 3283.62 5367.52
-#&gt; infections[52]          6289.76   167.02    4641.40  940.01 2942.89 5117.21
-#&gt; infections[53]          6489.30   190.94    5575.97  700.00 2625.61 4909.06
-#&gt; infections[54]          6829.82   226.16    6955.61  492.18 2321.40 4799.07
-#&gt; infections[55]          7361.87   288.79    9130.17  370.74 2071.86 4692.29
-#&gt; infections[56]          8171.48   400.68   12812.44  293.76 1878.48 4586.06
-#&gt; infections[57]          9420.60   617.23   19730.14  223.97 1618.97 4452.04
-#&gt; infections[58]         11469.99  1116.64   35514.24  161.30 1412.29 4246.17
-#&gt; infections[59]         15337.60  2627.64   83533.92  116.91 1272.20 4132.36
-#&gt; infections[60]         24743.05  8443.88  268978.62   88.28 1128.12 4071.38
-#&gt; infections[61]         56798.90 34936.08 1110301.57   65.50  978.31 3830.05
-#&gt; reports[1]               102.69     0.67      20.40   68.04   88.15  100.74
-#&gt; reports[2]               146.78     1.08      30.57   96.91  124.47  144.18
-#&gt; reports[3]               173.05     1.14      36.88  112.56  147.76  167.33
-#&gt; reports[4]               179.32     1.15      38.88  119.05  150.98  175.32
-#&gt; reports[5]               174.34     1.40      40.86  109.94  146.06  169.21
-#&gt; reports[6]               237.03     2.13      62.98  139.92  194.16  227.44
-#&gt; reports[7]               331.53     3.05      84.26  205.19  273.54  321.57
-#&gt; reports[8]               287.46     3.15      71.39  182.21  239.70  277.45
-#&gt; reports[9]               380.45     3.54      97.23  225.50  312.74  366.95
-#&gt; reports[10]              432.51     3.68     108.89  267.72  355.67  415.84
-#&gt; reports[11]              450.62     3.71     118.66  269.25  362.15  434.05
-#&gt; reports[12]              449.08     4.18     120.95  271.17  368.60  432.69
-#&gt; reports[13]              636.55     6.20     185.57  363.07  508.95  608.09
-#&gt; reports[14]              936.49     8.47     263.61  555.48  751.32  905.18
-#&gt; reports[15]              848.44     7.83     212.20  521.78  702.68  809.44
-#&gt; reports[16]             1174.53    10.13     305.42  719.33  959.69 1132.73
-#&gt; reports[17]             1385.35    10.98     358.46  846.92 1132.60 1323.91
-#&gt; reports[18]             1469.28    10.60     363.99  902.38 1219.69 1411.74
-#&gt; reports[19]             1484.22    12.88     394.31  897.75 1212.67 1429.96
-#&gt; reports[20]             2081.22    17.74     544.57 1262.52 1699.90 2008.27
-#&gt; reports[21]             3015.66    26.39     837.69 1783.33 2433.78 2896.13
-#&gt; reports[22]             2636.37    21.69     639.41 1611.25 2184.31 2569.70
-#&gt; reports[23]             3487.34    36.46     934.96 2088.38 2818.92 3382.14
-#&gt; reports[24]             3888.35    34.85    1099.11 2258.22 3133.30 3733.28
-#&gt; reports[25]             3825.88    31.66     962.63 2380.62 3154.62 3679.98
-#&gt; reports[26]             3582.28    35.27     983.93 2075.37 2885.00 3424.65
-#&gt; reports[27]             4619.73    38.99    1219.60 2755.59 3750.79 4443.39
-#&gt; reports[28]             6138.29    53.50    1705.23 3664.89 4927.70 5897.98
-#&gt; reports[29]             4921.38    37.25    1186.26 3046.77 4100.20 4785.16
-#&gt; reports[30]             5958.12    55.04    1522.52 3545.50 4889.27 5741.71
-#&gt; reports[31]             6106.68    50.34    1639.79 3668.78 4968.16 5863.36
-#&gt; reports[32]             5563.04    45.71    1384.57 3454.07 4618.50 5376.07
-#&gt; reports[33]             4808.93    43.19    1212.89 2981.88 3978.11 4628.92
-#&gt; reports[34]             5831.13    52.23    1614.99 3497.51 4681.42 5577.80
-#&gt; reports[35]             7270.06    77.25    2130.54 4121.62 5849.17 6921.60
-#&gt; reports[36]             5510.61    57.68    1460.74 3381.86 4572.89 5251.41
-#&gt; reports[37]             6342.03    66.23    1740.42 3772.80 5108.53 6111.19
-#&gt; reports[38]             6251.04    72.37    1928.09 3537.94 4931.49 5900.28
-#&gt; reports[39]             5542.46    63.81    1795.88 3035.64 4297.60 5222.18
-#&gt; reports[40]             4683.99    58.96    1672.61 2433.12 3572.66 4351.90
-#&gt; reports[41]             5664.83    85.76    2446.23 2537.30 3906.32 5111.18
-#&gt; reports[42]             7057.31   133.96    3422.09 2760.97 4722.87 6249.59
-#&gt; reports[43]             5381.86   112.05    2832.89 2023.47 3526.26 4684.48
-#&gt; reports[44]             6343.00   132.39    3862.78 2159.53 3742.91 5439.35
-#&gt; reports[45]             6567.42   174.90    5403.96 1928.32 3522.66 5118.69
-#&gt; reports[46]             6107.91   199.34    6173.60 1609.59 2983.71 4587.22
-#&gt; reports[47]             5805.53   331.69   10479.72 1237.18 2351.56 3752.19
-#&gt; day_of_week_eff[1]         1.06     0.01       0.23    0.69    0.91    1.03
-#&gt; day_of_week_eff[2]         0.95     0.01       0.20    0.64    0.81    0.93
-#&gt; day_of_week_eff[3]         0.81     0.01       0.18    0.53    0.68    0.79
-#&gt; day_of_week_eff[4]         0.97     0.01       0.22    0.62    0.81    0.94
-#&gt; day_of_week_eff[5]         1.21     0.01       0.26    0.78    1.03    1.18
-#&gt; day_of_week_eff[6]         0.92     0.01       0.18    0.61    0.80    0.90
-#&gt; day_of_week_eff[7]         1.07     0.01       0.22    0.71    0.91    1.05
-#&gt; R[1]                       1.27     0.01       0.22    0.83    1.11    1.27
-#&gt; R[2]                       1.31     0.01       0.19    0.95    1.19    1.32
-#&gt; R[3]                       1.36     0.01       0.15    1.07    1.26    1.37
-#&gt; R[4]                       1.42     0.00       0.12    1.19    1.34    1.42
-#&gt; R[5]                       1.48     0.00       0.10    1.30    1.42    1.48
-#&gt; R[6]                       1.54     0.00       0.09    1.36    1.48    1.54
-#&gt; R[7]                       1.60     0.00       0.10    1.41    1.54    1.59
-#&gt; R[8]                       1.65     0.01       0.11    1.45    1.58    1.65
-#&gt; R[9]                       1.70     0.01       0.13    1.48    1.61    1.69
-#&gt; R[10]                      1.74     0.01       0.14    1.51    1.64    1.73
-#&gt; R[11]                      1.77     0.01       0.15    1.53    1.66    1.75
-#&gt; R[12]                      1.79     0.01       0.15    1.53    1.67    1.77
-#&gt; R[13]                      1.79     0.01       0.15    1.53    1.68    1.77
-#&gt; R[14]                      1.78     0.01       0.15    1.52    1.67    1.77
-#&gt; R[15]                      1.75     0.01       0.14    1.50    1.65    1.74
-#&gt; R[16]                      1.72     0.01       0.14    1.46    1.62    1.71
-#&gt; R[17]                      1.67     0.00       0.13    1.43    1.58    1.66
-#&gt; R[18]                      1.61     0.00       0.13    1.38    1.52    1.61
-#&gt; R[19]                      1.55     0.00       0.12    1.33    1.47    1.54
-#&gt; R[20]                      1.49     0.00       0.11    1.28    1.41    1.48
-#&gt; R[21]                      1.42     0.00       0.11    1.22    1.34    1.41
-#&gt; R[22]                      1.35     0.00       0.11    1.16    1.28    1.34
-#&gt; R[23]                      1.28     0.00       0.11    1.09    1.21    1.28
-#&gt; R[24]                      1.22     0.00       0.11    1.02    1.15    1.22
-#&gt; R[25]                      1.16     0.00       0.11    0.95    1.09    1.16
-#&gt; R[26]                      1.11     0.01       0.11    0.89    1.03    1.11
-#&gt; R[27]                      1.06     0.01       0.12    0.83    0.98    1.05
-#&gt; R[28]                      1.01     0.01       0.13    0.78    0.93    1.01
-#&gt; R[29]                      0.98     0.01       0.14    0.72    0.88    0.97
-#&gt; R[30]                      0.94     0.01       0.15    0.67    0.84    0.94
-#&gt; R[31]                      0.92     0.01       0.16    0.60    0.80    0.92
-#&gt; R[32]                      0.90     0.01       0.17    0.56    0.78    0.90
-#&gt; R[33]                      0.88     0.01       0.19    0.50    0.75    0.88
-#&gt; R[34]                      0.87     0.01       0.21    0.47    0.72    0.88
-#&gt; R[35]                      0.86     0.01       0.23    0.43    0.71    0.86
-#&gt; R[36]                      0.86     0.01       0.25    0.39    0.68    0.86
-#&gt; R[37]                      0.86     0.01       0.28    0.35    0.66    0.86
-#&gt; R[38]                      0.87     0.01       0.31    0.31    0.65    0.86
-#&gt; R[39]                      0.88     0.01       0.34    0.27    0.64    0.86
-#&gt; R[40]                      0.89     0.01       0.38    0.26    0.63    0.86
-#&gt; R[41]                      0.90     0.01       0.41    0.25    0.61    0.87
-#&gt; R[42]                      0.91     0.01       0.45    0.24    0.60    0.87
-#&gt; R[43]                      0.93     0.02       0.50    0.23    0.59    0.86
-#&gt; R[44]                      0.95     0.02       0.54    0.20    0.58    0.87
-#&gt; R[45]                      0.96     0.02       0.60    0.19    0.57    0.86
-#&gt; R[46]                      0.98     0.02       0.67    0.18    0.56    0.86
-#&gt; R[47]                      1.00     0.03       0.75    0.18    0.55    0.86
-#&gt; imputed_reports[1]       103.03     1.69      55.70   27.00   63.00   92.00
-#&gt; imputed_reports[2]       146.52     2.54      77.76   38.00   89.00  130.00
-#&gt; imputed_reports[3]       173.09     2.89      95.12   42.00  105.00  154.00
-#&gt; imputed_reports[4]       183.76     3.12      94.34   43.98  111.00  170.00
-#&gt; imputed_reports[5]       174.88     3.44      99.41   47.00  105.00  154.00
-#&gt; imputed_reports[6]       230.92     4.61     127.73   56.00  139.00  203.00
-#&gt; imputed_reports[7]       336.89     6.21     184.38   88.00  214.00  297.50
-#&gt; imputed_reports[8]       282.42     5.26     154.78   73.97  173.00  250.00
-#&gt; imputed_reports[9]       383.44     7.77     212.38  100.83  235.75  341.00
-#&gt; imputed_reports[10]      432.83     8.29     260.77  107.00  262.75  378.00
-#&gt; imputed_reports[11]      440.08     7.69     256.74  110.98  260.00  382.50
-#&gt; imputed_reports[12]      461.54     8.44     261.73  105.97  280.75  417.00
-#&gt; imputed_reports[13]      625.14    11.99     372.37  140.98  360.75  550.00
-#&gt; imputed_reports[14]      915.90    15.32     519.50  214.93  555.75  807.00
-#&gt; imputed_reports[15]      848.22    15.26     500.16  211.95  493.75  734.00
-#&gt; imputed_reports[16]     1176.84    24.14     732.69  279.75  683.75 1012.00
-#&gt; imputed_reports[17]     1395.19    24.22     786.86  363.90  853.00 1216.50
-#&gt; imputed_reports[18]     1475.11    26.93     824.16  373.53  876.25 1332.00
-#&gt; imputed_reports[19]     1459.83    24.61     802.76  358.60  884.75 1277.00
-#&gt; imputed_reports[20]     2077.91    36.06    1150.62  484.90 1305.75 1865.50
-#&gt; imputed_reports[21]     3007.20    53.93    1783.31  627.98 1773.50 2613.50
-#&gt; imputed_reports[22]     2635.83    53.62    1516.61  553.98 1602.50 2372.50
-#&gt; imputed_reports[23]     3495.36    65.83    2059.59  879.30 2072.75 3090.00
-#&gt; imputed_reports[24]     3908.41    74.45    2299.29  826.98 2290.25 3363.50
-#&gt; imputed_reports[25]     3798.50    70.86    2188.05  930.82 2230.00 3315.50
-#&gt; imputed_reports[26]     3554.53    63.30    1953.78  829.92 2206.25 3186.50
-#&gt; imputed_reports[27]     4756.30    99.04    2881.47 1112.75 2849.50 4057.50
-#&gt; imputed_reports[28]     6267.20   126.94    3778.19 1659.95 3770.00 5363.50
-#&gt; imputed_reports[29]     5095.58    90.07    2940.66 1245.83 3057.00 4514.50
-#&gt; imputed_reports[30]     5871.85   110.61    3286.86 1554.15 3489.75 5248.00
-#&gt; imputed_reports[31]     6163.19   110.19    3466.17 1521.45 3671.00 5392.50
-#&gt; imputed_reports[32]     5720.82   104.22    3277.95 1554.43 3470.00 5005.50
-#&gt; imputed_reports[33]     4804.87    86.74    2756.91 1153.80 2910.00 4301.50
-#&gt; imputed_reports[34]     5615.06   116.22    3263.48 1308.00 3352.75 4979.00
-#&gt; imputed_reports[35]     7430.01   167.99    4437.51 1770.88 4358.25 6558.00
-#&gt; imputed_reports[36]     5261.03    96.02    2913.97 1494.88 3182.75 4656.00
-#&gt; imputed_reports[37]     6376.19   125.24    3671.03 1725.47 3848.00 5552.00
-#&gt; imputed_reports[38]     6252.93   119.40    3902.39 1558.58 3631.75 5382.50
-#&gt; imputed_reports[39]     5313.51   107.51    3284.94 1205.73 3007.75 4583.50
-#&gt; imputed_reports[40]     4585.70    98.05    2862.80 1023.88 2651.50 3834.00
-#&gt; imputed_reports[41]     5622.18   128.42    4063.37 1144.30 2981.50 4624.50
-#&gt; imputed_reports[42]     7147.16   192.60    5264.98 1404.15 3522.25 5812.50
-#&gt; imputed_reports[43]     5294.69   123.20    3621.29 1008.22 2822.75 4501.50
-#&gt; imputed_reports[44]     6362.74   166.53    5510.11 1045.80 2896.75 4847.00
-#&gt; imputed_reports[45]     6653.82   234.61    7112.13 1111.70 2742.50 4706.50
-#&gt; imputed_reports[46]     6264.34   254.08    7414.71  872.90 2493.75 4348.00
-#&gt; imputed_reports[47]     5628.62   335.91   10508.19  640.88 1875.00 3411.50
-#&gt; r[1]                       0.07     0.00       0.06   -0.05    0.03    0.07
-#&gt; r[2]                       0.08     0.00       0.05   -0.01    0.05    0.08
-#&gt; r[3]                       0.10     0.00       0.04    0.02    0.07    0.10
-#&gt; r[4]                       0.11     0.00       0.03    0.05    0.09    0.11
-#&gt; r[5]                       0.12     0.00       0.02    0.08    0.11    0.12
-#&gt; r[6]                       0.14     0.00       0.02    0.09    0.13    0.14
-#&gt; r[7]                       0.15     0.00       0.02    0.11    0.14    0.15
-#&gt; r[8]                       0.17     0.00       0.03    0.12    0.15    0.16
-#&gt; r[9]                       0.18     0.00       0.03    0.13    0.16    0.18
-#&gt; r[10]                      0.19     0.00       0.03    0.13    0.16    0.18
-#&gt; r[11]                      0.19     0.00       0.04    0.13    0.17    0.19
-#&gt; r[12]                      0.20     0.00       0.04    0.13    0.17    0.19
-#&gt; r[13]                      0.20     0.00       0.04    0.14    0.17    0.20
-#&gt; r[14]                      0.20     0.00       0.04    0.13    0.17    0.19
-#&gt; r[15]                      0.19     0.00       0.03    0.13    0.17    0.19
-#&gt; r[16]                      0.18     0.00       0.03    0.12    0.16    0.18
-#&gt; r[17]                      0.17     0.00       0.03    0.11    0.15    0.17
-#&gt; r[18]                      0.16     0.00       0.03    0.10    0.14    0.16
-#&gt; r[19]                      0.14     0.00       0.03    0.09    0.12    0.14
-#&gt; r[20]                      0.13     0.00       0.03    0.07    0.11    0.12
-#&gt; r[21]                      0.11     0.00       0.03    0.06    0.09    0.11
-#&gt; r[22]                      0.09     0.00       0.03    0.04    0.07    0.09
-#&gt; r[23]                      0.07     0.00       0.03    0.02    0.06    0.07
-#&gt; r[24]                      0.06     0.00       0.03    0.01    0.04    0.06
-#&gt; r[25]                      0.04     0.00       0.03   -0.01    0.02    0.04
-#&gt; r[26]                      0.03     0.00       0.03   -0.03    0.01    0.03
-#&gt; r[27]                      0.01     0.00       0.03   -0.05   -0.01    0.01
-#&gt; r[28]                      0.00     0.00       0.03   -0.06   -0.02    0.00
-#&gt; r[29]                     -0.01     0.00       0.04   -0.08   -0.03   -0.01
-#&gt; r[30]                     -0.02     0.00       0.04   -0.10   -0.04   -0.02
-#&gt; r[31]                     -0.02     0.00       0.04   -0.12   -0.06   -0.02
-#&gt; r[32]                     -0.03     0.00       0.05   -0.13   -0.06   -0.03
-#&gt; r[33]                     -0.04     0.00       0.05   -0.15   -0.07   -0.03
-#&gt; r[34]                     -0.04     0.00       0.06   -0.16   -0.08   -0.04
-#&gt; r[35]                     -0.04     0.00       0.07   -0.17   -0.08   -0.04
-#&gt; r[36]                     -0.04     0.00       0.07   -0.19   -0.09   -0.04
-#&gt; r[37]                     -0.04     0.00       0.08   -0.20   -0.10   -0.04
-#&gt; r[38]                     -0.04     0.00       0.09   -0.22   -0.10   -0.04
-#&gt; r[39]                     -0.04     0.00       0.10   -0.23   -0.11   -0.04
-#&gt; r[40]                     -0.04     0.00       0.11   -0.24   -0.11   -0.04
-#&gt; r[41]                     -0.04     0.00       0.12   -0.24   -0.12   -0.04
-#&gt; r[42]                     -0.03     0.00       0.13   -0.25   -0.12   -0.04
-#&gt; r[43]                     -0.03     0.00       0.14   -0.25   -0.12   -0.04
-#&gt; r[44]                     -0.03     0.00       0.15   -0.26   -0.12   -0.04
-#&gt; r[45]                     -0.02     0.01       0.16   -0.27   -0.13   -0.04
-#&gt; r[46]                     -0.02     0.01       0.17   -0.27   -0.13   -0.04
-#&gt; r[47]                     -0.02     0.01       0.19   -0.27   -0.13   -0.04
-#&gt; lp__                     -75.66     0.28       4.96  -86.46  -78.79  -75.34
-#&gt;                             75%     97.5% n_eff Rhat
-#&gt; day_of_week_eff_raw[1]     0.17      0.23  1088 1.00
-#&gt; day_of_week_eff_raw[2]     0.15      0.20  1160 1.00
-#&gt; day_of_week_eff_raw[3]     0.13      0.18   963 1.00
-#&gt; day_of_week_eff_raw[4]     0.16      0.21   988 1.00
-#&gt; day_of_week_eff_raw[5]     0.20      0.25  1085 1.00
-#&gt; day_of_week_eff_raw[6]     0.15      0.19   892 1.00
-#&gt; day_of_week_eff_raw[7]     0.17      0.22   803 1.00
-#&gt; delay_mean[1]              1.63      1.64  1389 1.00
-#&gt; delay_mean[2]              1.53      1.56  1878 1.00
-#&gt; delay_sd[1]                0.42      0.44  2020 1.00
-#&gt; delay_sd[2]                1.14      1.16  1998 1.00
-#&gt; rep_phi[1]                 5.17      7.22   897 1.00
-#&gt; rho[1]                     2.31      4.36   983 1.00
-#&gt; alpha[1]                   0.12      0.20   420 1.00
-#&gt; eta[1]                     0.29      1.39  1172 1.00
-#&gt; eta[2]                     1.03      2.19  1222 1.00
-#&gt; eta[3]                     0.55      1.71  1303 1.00
-#&gt; eta[4]                     0.17      1.48  1377 1.00
-#&gt; eta[5]                     1.08      2.32  1947 1.00
-#&gt; eta[6]                     0.86      1.97  1435 1.00
-#&gt; eta[7]                    -0.03      1.24  1323 1.00
-#&gt; eta[8]                     0.75      1.96  1076 1.00
-#&gt; eta[9]                     1.20      2.36  1142 1.00
-#&gt; eta[10]                    0.25      1.46  1625 1.00
-#&gt; eta[11]                    0.32      1.49  1417 1.00
-#&gt; eta[12]                    1.06      2.28  1417 1.00
-#&gt; eta[13]                    0.79      2.08  1347 1.00
-#&gt; eta[14]                    0.28      1.41   997 1.00
-#&gt; eta[15]                    0.71      1.84  1043 1.00
-#&gt; initial_R[1]               1.43      1.68   375 1.01
-#&gt; initial_infections[1]      0.07      0.19  1374 1.00
-#&gt; initial_infections[2]      0.06      0.18  1248 1.00
-#&gt; initial_infections[3]      0.07      0.18  1169 1.00
-#&gt; initial_infections[4]      0.07      0.19  1565 1.00
-#&gt; initial_infections[5]      0.08      0.20  1695 1.00
-#&gt; initial_infections[6]      0.07      0.20  1114 1.00
-#&gt; initial_infections[7]      0.07      0.19  1489 1.00
-#&gt; initial_infections[8]      0.07      0.20  1768 1.00
-#&gt; initial_infections[9]      0.06      0.20  1695 1.00
-#&gt; initial_infections[10]     0.05      0.19  1127 1.00
-#&gt; initial_infections[11]     0.04      0.17  1084 1.00
-#&gt; initial_infections[12]     0.04      0.16  1194 1.00
-#&gt; initial_infections[13]     0.04      0.16  2140 1.00
-#&gt; initial_infections[14]     0.04      0.16  1388 1.00
-#&gt; gt_mean[1]                 3.70      3.84  1776 1.00
-#&gt; gt_sd[1]                   3.15      3.29  1653 1.00
-#&gt; noise[1]                   1.07      1.15   370 1.01
-#&gt; noise[2]                   1.07      1.15   357 1.01
-#&gt; noise[3]                   1.07      1.14   348 1.01
-#&gt; noise[4]                   1.07      1.13   346 1.01
-#&gt; noise[5]                   1.06      1.11   351 1.01
-#&gt; noise[6]                   1.06      1.10   368 1.01
-#&gt; noise[7]                   1.05      1.08   403 1.01
-#&gt; noise[8]                   1.04      1.07   480 1.00
-#&gt; noise[9]                   1.03      1.06   646 1.00
-#&gt; noise[10]                  1.03      1.05   893 1.00
-#&gt; noise[11]                  1.02      1.04  1063 1.00
-#&gt; noise[12]                  1.01      1.03   950 1.00
-#&gt; noise[13]                  1.00      1.03   737 1.01
-#&gt; noise[14]                  1.00      1.02   544 1.01
-#&gt; noise[15]                  0.99      1.01   460 1.01
-#&gt; noise[16]                  0.98      1.00   428 1.01
-#&gt; noise[17]                  0.98      1.00   418 1.01
-#&gt; noise[18]                  0.97      0.99   430 1.01
-#&gt; noise[19]                  0.97      0.99   470 1.00
-#&gt; noise[20]                  0.97      0.99   542 1.00
-#&gt; noise[21]                  0.96      0.99   636 1.00
-#&gt; noise[22]                  0.96      0.99   733 1.00
-#&gt; noise[23]                  0.96      0.99   846 1.00
-#&gt; noise[24]                  0.97      0.99   955 1.00
-#&gt; noise[25]                  0.97      1.00  1020 1.00
-#&gt; noise[26]                  0.97      1.00  1094 1.00
-#&gt; noise[27]                  0.98      1.00  1175 1.00
-#&gt; noise[28]                  0.98      1.01  1230 1.00
-#&gt; noise[29]                  0.99      1.02  1259 1.00
-#&gt; noise[30]                  0.99      1.03  1276 1.00
-#&gt; noise[31]                  1.00      1.04  1282 1.00
-#&gt; noise[32]                  1.00      1.05  1282 1.00
-#&gt; noise[33]                  1.01      1.06  1278 1.00
-#&gt; noise[34]                  1.01      1.07  1271 1.00
-#&gt; noise[35]                  1.02      1.08  1262 1.00
-#&gt; noise[36]                  1.02      1.09  1251 1.00
-#&gt; noise[37]                  1.02      1.09  1237 1.00
-#&gt; noise[38]                  1.03      1.09  1204 1.00
-#&gt; noise[39]                  1.03      1.09  1176 1.00
-#&gt; noise[40]                  1.03      1.10  1162 1.00
-#&gt; noise[41]                  1.03      1.10  1195 1.00
-#&gt; noise[42]                  1.03      1.11  1156 1.00
-#&gt; noise[43]                  1.03      1.11  1126 1.00
-#&gt; noise[44]                  1.03      1.12  1106 1.00
-#&gt; noise[45]                  1.03      1.12  1097 1.00
-#&gt; noise[46]                  1.03      1.13  1098 1.00
-#&gt; infections[1]              2.14      2.43  1391 1.00
-#&gt; infections[2]             11.57     12.98  1217 1.00
-#&gt; infections[3]             19.74     22.10  1184 1.00
-#&gt; infections[4]             34.53     39.11  1566 1.00
-#&gt; infections[5]             49.13     55.60  1691 1.00
-#&gt; infections[6]             60.90     69.12  1057 1.00
-#&gt; infections[7]             98.77    111.58  1424 1.00
-#&gt; infections[8]            132.84    152.41  1697 1.00
-#&gt; infections[9]            159.10    183.61  1711 1.00
-#&gt; infections[10]           234.34    268.13  1075 1.00
-#&gt; infections[11]           268.71    305.64  1127 1.00
-#&gt; infections[12]           322.80    367.26  1221 1.00
-#&gt; infections[13]           398.74    451.11  2091 1.00
-#&gt; infections[14]           475.64    536.87  1365 1.00
-#&gt; infections[15]           418.45    491.13   380 1.01
-#&gt; infections[16]           474.70    566.30   394 1.01
-#&gt; infections[17]           537.94    659.21   416 1.01
-#&gt; infections[18]           614.40    759.16   443 1.00
-#&gt; infections[19]           704.14    888.74   488 1.00
-#&gt; infections[20]           818.68   1040.26   557 1.00
-#&gt; infections[21]           961.57   1205.03   678 1.00
-#&gt; infections[22]          1137.11   1418.53   870 1.00
-#&gt; infections[23]          1349.90   1689.89  1047 1.00
-#&gt; infections[24]          1613.85   2008.27  1114 1.00
-#&gt; infections[25]          1946.55   2461.69  1133 1.00
-#&gt; infections[26]          2344.17   2951.30  1111 1.00
-#&gt; infections[27]          2836.99   3496.41   770 1.00
-#&gt; infections[28]          3409.97   4188.78   575 1.00
-#&gt; infections[29]          4049.93   5026.49   499 1.00
-#&gt; infections[30]          4733.70   5841.31   494 1.00
-#&gt; infections[31]          5477.05   6813.56   513 1.00
-#&gt; infections[32]          6204.94   7725.57   557 1.00
-#&gt; infections[33]          6910.96   8705.16   621 1.00
-#&gt; infections[34]          7567.22   9545.55   701 1.00
-#&gt; infections[35]          8135.62  10323.10   751 1.00
-#&gt; infections[36]          8515.40  10612.33   789 1.00
-#&gt; infections[37]          8802.83  10995.60   824 1.00
-#&gt; infections[38]          8985.46  11191.01   846 1.00
-#&gt; infections[39]          9012.99  11210.26   845 1.00
-#&gt; infections[40]          8974.11  11268.49   733 1.00
-#&gt; infections[41]          8885.83  11091.95   625 1.00
-#&gt; infections[42]          8677.98  10942.10   555 1.00
-#&gt; infections[43]          8473.23  11006.17   522 1.00
-#&gt; infections[44]          8326.28  11157.37   523 1.00
-#&gt; infections[45]          8171.19  11409.74   549 1.00
-#&gt; infections[46]          7970.38  11843.68   574 1.00
-#&gt; infections[47]          7909.73  12299.62   587 1.00
-#&gt; infections[48]          7799.94  12882.51   606 1.00
-#&gt; infections[49]          7906.73  13529.49   631 1.00
-#&gt; infections[50]          8028.59  14299.29   665 1.00
-#&gt; infections[51]          8166.87  15620.48   711 1.00
-#&gt; infections[52]          8543.64  17841.43   772 1.00
-#&gt; infections[53]          8907.29  21614.70   853 1.00
-#&gt; infections[54]          9200.12  26608.30   946 1.00
-#&gt; infections[55]          9565.82  32642.01  1000 1.00
-#&gt; infections[56]          9910.63  38097.44  1023 1.00
-#&gt; infections[57]         10571.47  47244.37  1022 1.00
-#&gt; infections[58]         10945.23  63226.17  1012 1.00
-#&gt; infections[59]         11526.79  81881.65  1011 1.00
-#&gt; infections[60]         12244.07 118784.21  1015 1.00
-#&gt; infections[61]         13005.06 165786.85  1010 1.00
-#&gt; reports[1]               114.92    150.01   919 1.00
-#&gt; reports[2]               165.64    216.93   807 1.00
-#&gt; reports[3]               193.50    259.13  1043 1.00
-#&gt; reports[4]               201.96    268.73  1143 1.00
-#&gt; reports[5]               196.55    272.24   854 1.00
-#&gt; reports[6]               269.24    383.40   877 1.00
-#&gt; reports[7]               375.48    525.37   763 1.00
-#&gt; reports[8]               323.43    447.50   515 1.00
-#&gt; reports[9]               436.44    600.44   756 1.00
-#&gt; reports[10]              493.20    704.25   875 1.00
-#&gt; reports[11]              519.11    724.70  1025 1.00
-#&gt; reports[12]              512.75    732.16   838 1.00
-#&gt; reports[13]              722.63   1075.62   897 1.00
-#&gt; reports[14]             1074.56   1551.26   968 1.00
-#&gt; reports[15]              952.73   1345.03   735 1.00
-#&gt; reports[16]             1339.58   1945.73   909 1.00
-#&gt; reports[17]             1578.55   2186.34  1066 1.00
-#&gt; reports[18]             1658.85   2358.17  1180 1.00
-#&gt; reports[19]             1691.63   2411.77   937 1.00
-#&gt; reports[20]             2380.28   3372.67   942 1.00
-#&gt; reports[21]             3497.35   4853.22  1008 1.00
-#&gt; reports[22]             2985.04   4153.91   869 1.00
-#&gt; reports[23]             3941.70   5872.66   657 1.00
-#&gt; reports[24]             4461.61   6465.66   995 1.00
-#&gt; reports[25]             4329.65   6115.04   925 1.00
-#&gt; reports[26]             4130.21   5864.31   778 1.00
-#&gt; reports[27]             5242.80   7530.12   979 1.00
-#&gt; reports[28]             7037.66  10055.77  1016 1.00
-#&gt; reports[29]             5566.48   7605.51  1014 1.00
-#&gt; reports[30]             6730.39   9704.01   765 1.00
-#&gt; reports[31]             6945.14  10034.78  1061 1.00
-#&gt; reports[32]             6269.06   8801.88   918 1.00
-#&gt; reports[33]             5441.94   7718.16   789 1.00
-#&gt; reports[34]             6637.59   9830.23   956 1.00
-#&gt; reports[35]             8340.61  12471.60   761 1.00
-#&gt; reports[36]             6213.11   9188.58   641 1.00
-#&gt; reports[37]             7277.11  10792.42   691 1.00
-#&gt; reports[38]             7139.24  10834.98   710 1.00
-#&gt; reports[39]             6460.58   9872.94   792 1.00
-#&gt; reports[40]             5375.24   8898.02   805 1.00
-#&gt; reports[41]             6828.74  11728.33   814 1.00
-#&gt; reports[42]             8578.12  16224.58   653 1.00
-#&gt; reports[43]             6419.59  12636.28   639 1.00
-#&gt; reports[44]             7611.32  16136.08   851 1.00
-#&gt; reports[45]             7992.15  18976.15   955 1.00
-#&gt; reports[46]             7328.25  19663.87   959 1.00
-#&gt; reports[47]             6377.83  20517.16   998 1.00
-#&gt; day_of_week_eff[1]         1.19      1.60  1088 1.00
-#&gt; day_of_week_eff[2]         1.07      1.41  1160 1.00
-#&gt; day_of_week_eff[3]         0.91      1.23   963 1.00
-#&gt; day_of_week_eff[4]         1.11      1.47   988 1.00
-#&gt; day_of_week_eff[5]         1.37      1.77  1085 1.00
-#&gt; day_of_week_eff[6]         1.03      1.35   892 1.00
-#&gt; day_of_week_eff[7]         1.20      1.56   803 1.00
-#&gt; R[1]                       1.43      1.68   375 1.01
-#&gt; R[2]                       1.45      1.66   394 1.01
-#&gt; R[3]                       1.47      1.65   442 1.00
-#&gt; R[4]                       1.50      1.66   571 1.00
-#&gt; R[5]                       1.54      1.68  1010 1.00
-#&gt; R[6]                       1.60      1.72  1219 1.00
-#&gt; R[7]                       1.66      1.79   639 1.01
-#&gt; R[8]                       1.72      1.89   434 1.01
-#&gt; R[9]                       1.78      1.98   375 1.01
-#&gt; R[10]                      1.83      2.06   355 1.01
-#&gt; R[11]                      1.87      2.09   356 1.01
-#&gt; R[12]                      1.89      2.10   376 1.01
-#&gt; R[13]                      1.90      2.10   417 1.01
-#&gt; R[14]                      1.89      2.09   471 1.00
-#&gt; R[15]                      1.86      2.04   557 1.00
-#&gt; R[16]                      1.81      2.00   695 1.00
-#&gt; R[17]                      1.76      1.94   841 1.00
-#&gt; R[18]                      1.69      1.87  1008 1.00
-#&gt; R[19]                      1.63      1.79  1104 1.00
-#&gt; R[20]                      1.56      1.72  1115 1.00
-#&gt; R[21]                      1.49      1.64   956 1.00
-#&gt; R[22]                      1.42      1.57   741 1.00
-#&gt; R[23]                      1.35      1.50   585 1.00
-#&gt; R[24]                      1.29      1.42   516 1.00
-#&gt; R[25]                      1.23      1.37   482 1.00
-#&gt; R[26]                      1.18      1.33   477 1.00
-#&gt; R[27]                      1.13      1.29   505 1.00
-#&gt; R[28]                      1.09      1.27   563 1.00
-#&gt; R[29]                      1.06      1.26   656 1.00
-#&gt; R[30]                      1.04      1.25   710 1.00
-#&gt; R[31]                      1.02      1.24   772 1.00
-#&gt; R[32]                      1.01      1.23   820 1.00
-#&gt; R[33]                      1.01      1.24   872 1.00
-#&gt; R[34]                      1.01      1.26   926 1.00
-#&gt; R[35]                      1.02      1.31   980 1.00
-#&gt; R[36]                      1.03      1.37  1032 1.00
-#&gt; R[37]                      1.05      1.44  1078 1.00
-#&gt; R[38]                      1.06      1.53  1111 1.00
-#&gt; R[39]                      1.08      1.63  1130 1.00
-#&gt; R[40]                      1.10      1.76  1132 1.00
-#&gt; R[41]                      1.12      1.88  1103 1.00
-#&gt; R[42]                      1.14      2.02  1056 1.00
-#&gt; R[43]                      1.15      2.13  1000 1.00
-#&gt; R[44]                      1.17      2.22   953 1.00
-#&gt; R[45]                      1.19      2.31   906 1.00
-#&gt; R[46]                      1.22      2.49   863 1.00
-#&gt; R[47]                      1.23      2.67   827 1.00
-#&gt; imputed_reports[1]       131.25    238.00  1082 1.00
-#&gt; imputed_reports[2]       187.25    343.15   937 1.00
-#&gt; imputed_reports[3]       218.00    411.02  1086 1.00
-#&gt; imputed_reports[4]       241.00    389.05   914 1.00
-#&gt; imputed_reports[5]       223.25    404.27   836 1.00
-#&gt; imputed_reports[6]       291.00    552.35   766 1.00
-#&gt; imputed_reports[7]       418.00    790.10   881 1.00
-#&gt; imputed_reports[8]       362.50    689.15   865 1.00
-#&gt; imputed_reports[9]       476.25    931.07   747 1.00
-#&gt; imputed_reports[10]      558.00    995.00   989 1.00
-#&gt; imputed_reports[11]      563.25   1080.32  1114 1.00
-#&gt; imputed_reports[12]      585.00   1127.10   963 1.00
-#&gt; imputed_reports[13]      810.00   1553.57   964 1.00
-#&gt; imputed_reports[14]     1178.25   2105.05  1149 1.00
-#&gt; imputed_reports[15]     1082.50   2070.70  1074 1.00
-#&gt; imputed_reports[16]     1468.25   2948.42   921 1.00
-#&gt; imputed_reports[17]     1736.75   3372.07  1055 1.00
-#&gt; imputed_reports[18]     1820.25   3530.17   936 1.00
-#&gt; imputed_reports[19]     1880.00   3451.65  1064 1.00
-#&gt; imputed_reports[20]     2592.25   4830.47  1018 1.00
-#&gt; imputed_reports[21]     3772.50   7441.90  1094 1.00
-#&gt; imputed_reports[22]     3333.00   6762.67   800 1.00
-#&gt; imputed_reports[23]     4317.50   8837.22   979 1.00
-#&gt; imputed_reports[24]     5077.50   9679.55   954 1.00
-#&gt; imputed_reports[25]     4807.00   9436.80   954 1.00
-#&gt; imputed_reports[26]     4555.00   8079.07   953 1.00
-#&gt; imputed_reports[27]     5972.25  11615.47   847 1.00
-#&gt; imputed_reports[28]     7770.50  15474.12   886 1.00
-#&gt; imputed_reports[29]     6458.25  12655.82  1066 1.00
-#&gt; imputed_reports[30]     7508.25  14523.95   883 1.00
-#&gt; imputed_reports[31]     7868.25  14239.52   990 1.00
-#&gt; imputed_reports[32]     7228.25  13715.65   989 1.00
-#&gt; imputed_reports[33]     6037.75  11537.75  1010 1.00
-#&gt; imputed_reports[34]     7068.00  13933.87   789 1.00
-#&gt; imputed_reports[35]     9517.25  18824.70   698 1.00
-#&gt; imputed_reports[36]     6714.00  12679.60   921 1.00
-#&gt; imputed_reports[37]     7927.00  15116.45   859 1.00
-#&gt; imputed_reports[38]     7886.25  15349.55  1068 1.00
-#&gt; imputed_reports[39]     6751.25  14206.10   934 1.00
-#&gt; imputed_reports[40]     5732.25  12091.60   853 1.00
-#&gt; imputed_reports[41]     6954.75  16259.02  1001 1.00
-#&gt; imputed_reports[42]     9080.75  19871.22   747 1.00
-#&gt; imputed_reports[43]     6823.25  14472.92   864 1.00
-#&gt; imputed_reports[44]     7742.25  21612.25  1095 1.00
-#&gt; imputed_reports[45]     7985.75  24424.65   919 1.00
-#&gt; imputed_reports[46]     7476.50  21865.92   852 1.00
-#&gt; imputed_reports[47]     6239.75  21603.70   979 1.00
-#&gt; r[1]                       0.11      0.18   376 1.01
-#&gt; r[2]                       0.12      0.17   401 1.01
-#&gt; r[3]                       0.12      0.17   457 1.00
-#&gt; r[4]                       0.13      0.17   611 1.00
-#&gt; r[5]                       0.14      0.17  1078 1.00
-#&gt; r[6]                       0.15      0.18  1240 1.00
-#&gt; r[7]                       0.17      0.20   791 1.00
-#&gt; r[8]                       0.18      0.22   455 1.01
-#&gt; r[9]                       0.20      0.24   378 1.01
-#&gt; r[10]                      0.21      0.26   355 1.01
-#&gt; r[11]                      0.22      0.27   360 1.01
-#&gt; r[12]                      0.22      0.27   382 1.01
-#&gt; r[13]                      0.22      0.27   414 1.01
-#&gt; r[14]                      0.22      0.27   468 1.00
-#&gt; r[15]                      0.21      0.26   555 1.00
-#&gt; r[16]                      0.20      0.25   684 1.00
-#&gt; r[17]                      0.19      0.23   842 1.00
-#&gt; r[18]                      0.18      0.22  1015 1.00
-#&gt; r[19]                      0.16      0.20  1112 1.00
-#&gt; r[20]                      0.14      0.19  1067 1.00
-#&gt; r[21]                      0.13      0.17   895 1.00
-#&gt; r[22]                      0.11      0.15   708 1.00
-#&gt; r[23]                      0.09      0.13   573 1.00
-#&gt; r[24]                      0.08      0.11   514 1.00
-#&gt; r[25]                      0.06      0.10   489 1.00
-#&gt; r[26]                      0.05      0.09   492 1.00
-#&gt; r[27]                      0.04      0.08   528 1.00
-#&gt; r[28]                      0.03      0.07   598 1.00
-#&gt; r[29]                      0.02      0.07   685 1.00
-#&gt; r[30]                      0.01      0.07   743 1.00
-#&gt; r[31]                      0.00      0.06   803 1.00
-#&gt; r[32]                      0.00      0.06   852 1.00
-#&gt; r[33]                      0.00      0.06   902 1.00
-#&gt; r[34]                      0.00      0.07   952 1.00
-#&gt; r[35]                      0.01      0.08  1001 1.00
-#&gt; r[36]                      0.01      0.10  1047 1.00
-#&gt; r[37]                      0.01      0.11  1087 1.00
-#&gt; r[38]                      0.02      0.13  1119 1.00
-#&gt; r[39]                      0.02      0.16  1141 1.00
-#&gt; r[40]                      0.03      0.19  1152 1.00
-#&gt; r[41]                      0.03      0.22  1143 1.00
-#&gt; r[42]                      0.04      0.25  1108 1.00
-#&gt; r[43]                      0.04      0.27  1063 1.00
-#&gt; r[44]                      0.05      0.30  1022 1.00
-#&gt; r[45]                      0.05      0.31   981 1.00
-#&gt; r[46]                      0.06      0.35   938 1.00
-#&gt; r[47]                      0.06      0.38   899 1.00
-#&gt; lp__                     -72.18    -66.86   315 1.00
+#&gt;                               mean     se_mean           sd    2.5%     25%
+#&gt; day_of_week_eff_raw[1]        0.14        0.00         0.05    0.07    0.11
+#&gt; day_of_week_eff_raw[2]        0.14        0.00         0.05    0.07    0.10
+#&gt; day_of_week_eff_raw[3]        0.11        0.00         0.04    0.05    0.09
+#&gt; day_of_week_eff_raw[4]        0.15        0.00         0.05    0.07    0.11
+#&gt; day_of_week_eff_raw[5]        0.18        0.00         0.07    0.08    0.13
+#&gt; day_of_week_eff_raw[6]        0.13        0.00         0.04    0.06    0.10
+#&gt; day_of_week_eff_raw[7]        0.15        0.00         0.05    0.08    0.12
+#&gt; delay_mean[1]                 1.62        0.00         0.01    1.60    1.62
+#&gt; delay_mean[2]                 1.78        0.00         0.02    1.74    1.77
+#&gt; delay_sd[1]                   0.42        0.00         0.01    0.40    0.41
+#&gt; delay_sd[2]                   1.37        0.00         0.02    1.32    1.35
+#&gt; rep_phi[1]                    2.04        0.02         0.50    1.23    1.66
+#&gt; rho[1]                        1.85        0.04         1.24    0.13    0.90
+#&gt; alpha[1]                      0.11        0.00         0.06    0.00    0.06
+#&gt; eta[1]                        0.08        0.03         0.88   -1.61   -0.53
+#&gt; eta[2]                        0.15        0.03         0.96   -1.68   -0.48
+#&gt; eta[3]                       -0.29        0.03         0.94   -2.19   -0.95
+#&gt; eta[4]                       -0.17        0.03         0.94   -2.02   -0.80
+#&gt; eta[5]                        0.56        0.03         0.97   -1.41   -0.06
+#&gt; eta[6]                        0.03        0.03         1.01   -2.04   -0.65
+#&gt; eta[7]                       -0.63        0.03         0.96   -2.49   -1.26
+#&gt; eta[8]                        0.27        0.03         0.98   -1.63   -0.40
+#&gt; eta[9]                        0.52        0.03         0.96   -1.35   -0.16
+#&gt; eta[10]                      -0.44        0.03         0.98   -2.35   -1.10
+#&gt; eta[11]                      -0.25        0.04         0.98   -2.12   -0.93
+#&gt; eta[12]                       0.60        0.03         1.01   -1.42   -0.08
+#&gt; eta[13]                       0.08        0.03         0.95   -1.75   -0.55
+#&gt; eta[14]                      -0.42        0.03         0.93   -2.14   -1.10
+#&gt; eta[15]                       0.07        0.03         0.93   -1.73   -0.60
+#&gt; initial_R[1]                  0.87        0.03         0.29    0.37    0.64
+#&gt; initial_infections[1]         0.00        0.00         0.10   -0.20   -0.07
+#&gt; initial_infections[2]         0.00        0.00         0.10   -0.21   -0.07
+#&gt; initial_infections[3]         0.00        0.00         0.11   -0.21   -0.08
+#&gt; initial_infections[4]         0.00        0.00         0.10   -0.19   -0.07
+#&gt; initial_infections[5]         0.00        0.00         0.10   -0.20   -0.07
+#&gt; initial_infections[6]         0.00        0.00         0.10   -0.18   -0.07
+#&gt; initial_infections[7]         0.00        0.00         0.09   -0.19   -0.07
+#&gt; initial_infections[8]         0.00        0.00         0.10   -0.21   -0.08
+#&gt; initial_infections[9]         0.00        0.00         0.10   -0.18   -0.07
+#&gt; initial_infections[10]        0.00        0.00         0.10   -0.20   -0.06
+#&gt; initial_infections[11]        0.00        0.00         0.10   -0.19   -0.07
+#&gt; initial_infections[12]        0.00        0.00         0.10   -0.20   -0.07
+#&gt; initial_infections[13]       -0.01        0.00         0.10   -0.21   -0.07
+#&gt; initial_infections[14]       -0.01        0.00         0.10   -0.21   -0.08
+#&gt; initial_infections[15]       -0.01        0.00         0.10   -0.21   -0.08
+#&gt; initial_infections[16]       -0.01        0.00         0.10   -0.19   -0.08
+#&gt; initial_infections[17]       -0.02        0.00         0.10   -0.22   -0.09
+#&gt; initial_infections[18]       -0.02        0.00         0.10   -0.21   -0.08
+#&gt; initial_infections[19]       -0.03        0.00         0.10   -0.21   -0.09
+#&gt; initial_infections[20]       -0.03        0.00         0.09   -0.20   -0.09
+#&gt; gt_mean[1]                    3.64        0.00         0.10    3.46    3.57
+#&gt; gt_sd[1]                      3.08        0.00         0.12    2.86    3.00
+#&gt; noise[1]                      1.07        0.01         0.07    0.97    1.01
+#&gt; noise[2]                      1.07        0.01         0.07    0.98    1.01
+#&gt; noise[3]                      1.07        0.01         0.07    0.99    1.02
+#&gt; noise[4]                      1.08        0.01         0.07    0.99    1.02
+#&gt; noise[5]                      1.08        0.01         0.06    0.99    1.03
+#&gt; noise[6]                      1.07        0.00         0.06    1.00    1.03
+#&gt; noise[7]                      1.07        0.00         0.05    1.00    1.03
+#&gt; noise[8]                      1.07        0.00         0.05    1.00    1.03
+#&gt; noise[9]                      1.06        0.00         0.04    1.00    1.02
+#&gt; noise[10]                     1.05        0.00         0.04    1.00    1.02
+#&gt; noise[11]                     1.04        0.00         0.03    0.99    1.02
+#&gt; noise[12]                     1.03        0.00         0.03    0.99    1.01
+#&gt; noise[13]                     1.02        0.00         0.02    0.98    1.00
+#&gt; noise[14]                     1.01        0.00         0.02    0.96    0.99
+#&gt; noise[15]                     1.00        0.00         0.02    0.95    0.99
+#&gt; noise[16]                     0.99        0.00         0.02    0.93    0.97
+#&gt; noise[17]                     0.98        0.00         0.03    0.92    0.96
+#&gt; noise[18]                     0.97        0.00         0.03    0.91    0.95
+#&gt; noise[19]                     0.96        0.00         0.03    0.90    0.94
+#&gt; noise[20]                     0.95        0.00         0.03    0.88    0.93
+#&gt; noise[21]                     0.95        0.00         0.04    0.88    0.93
+#&gt; noise[22]                     0.95        0.00         0.04    0.87    0.92
+#&gt; noise[23]                     0.95        0.00         0.04    0.86    0.92
+#&gt; noise[24]                     0.95        0.00         0.04    0.86    0.92
+#&gt; noise[25]                     0.95        0.00         0.04    0.86    0.92
+#&gt; noise[26]                     0.95        0.00         0.04    0.86    0.92
+#&gt; noise[27]                     0.95        0.00         0.04    0.86    0.93
+#&gt; noise[28]                     0.96        0.00         0.04    0.86    0.93
+#&gt; noise[29]                     0.96        0.00         0.05    0.86    0.94
+#&gt; noise[30]                     0.97        0.00         0.05    0.86    0.94
+#&gt; noise[31]                     0.97        0.00         0.05    0.86    0.95
+#&gt; noise[32]                     0.98        0.00         0.05    0.86    0.95
+#&gt; noise[33]                     0.99        0.00         0.06    0.86    0.96
+#&gt; noise[34]                     0.99        0.00         0.06    0.86    0.96
+#&gt; noise[35]                     1.00        0.00         0.06    0.86    0.97
+#&gt; noise[36]                     1.00        0.00         0.06    0.86    0.97
+#&gt; noise[37]                     1.00        0.00         0.07    0.86    0.98
+#&gt; noise[38]                     1.01        0.00         0.07    0.86    0.98
+#&gt; noise[39]                     1.01        0.00         0.07    0.86    0.98
+#&gt; noise[40]                     1.01        0.00         0.07    0.86    0.98
+#&gt; noise[41]                     1.01        0.00         0.07    0.86    0.98
+#&gt; noise[42]                     1.01        0.00         0.07    0.86    0.98
+#&gt; noise[43]                     1.00        0.00         0.07    0.86    0.97
+#&gt; noise[44]                     1.00        0.00         0.07    0.86    0.97
+#&gt; noise[45]                     1.00        0.00         0.07    0.86    0.97
+#&gt; noise[46]                     1.00        0.00         0.07    0.86    0.97
+#&gt; infections[1]                 2.02        0.01         0.21    1.63    1.87
+#&gt; infections[2]                10.92        0.03         1.13    8.82   10.11
+#&gt; infections[3]                18.50        0.06         1.97   14.96   17.08
+#&gt; infections[4]                32.41        0.08         3.17   26.71   30.09
+#&gt; infections[5]                45.71        0.10         4.49   37.31   42.60
+#&gt; infections[6]                57.10        0.14         5.60   47.31   53.09
+#&gt; infections[7]                92.46        0.23         8.79   76.59   86.19
+#&gt; infections[8]               124.67        0.34        12.86  100.94  115.39
+#&gt; infections[9]               149.99        0.33        14.72  124.79  139.86
+#&gt; infections[10]              223.51        0.47        22.25  182.03  208.50
+#&gt; infections[11]              259.09        0.83        26.77  214.04  239.95
+#&gt; infections[12]              311.50        0.82        30.30  255.63  291.40
+#&gt; infections[13]              383.12        0.96        38.13  312.82  356.68
+#&gt; infections[14]              456.44        1.35        45.99  372.72  423.51
+#&gt; infections[15]              530.89        1.36        53.61  434.96  493.71
+#&gt; infections[16]              675.69        1.73        65.69  563.14  627.99
+#&gt; infections[17]              801.53        2.23        81.34  652.03  745.63
+#&gt; infections[18]             1008.77        2.69       103.39  824.25  937.25
+#&gt; infections[19]             1069.74        3.10       105.48  886.53  999.93
+#&gt; infections[20]             1310.73        3.26       120.62 1091.34 1228.72
+#&gt; infections[21]              784.58       25.19       269.28  325.20  573.59
+#&gt; infections[22]              824.52       28.61       300.44  344.41  585.06
+#&gt; infections[23]              868.40       32.02       333.33  362.98  600.81
+#&gt; infections[24]              923.24       35.25       366.95  386.76  628.88
+#&gt; infections[25]              993.59       38.17       400.64  427.55  678.54
+#&gt; infections[26]             1083.80       40.64       433.85  489.11  743.67
+#&gt; infections[27]             1198.96       42.46       466.08  548.99  833.74
+#&gt; infections[28]             1345.35       43.39       496.97  652.08  957.91
+#&gt; infections[29]             1530.86       43.14       526.68  757.68 1126.00
+#&gt; infections[30]             1765.12       41.41       556.87  920.89 1342.51
+#&gt; infections[31]             2059.42       37.98       592.26 1111.52 1633.87
+#&gt; infections[32]             2426.20       34.06       642.69 1391.92 1984.78
+#&gt; infections[33]             2877.71       30.61       723.86 1759.33 2409.12
+#&gt; infections[34]             3423.84       32.67       853.88 2159.17 2851.82
+#&gt; infections[35]             4068.87       40.21      1045.89 2548.86 3372.74
+#&gt; infections[36]             4807.69       57.40      1301.73 2983.67 3947.26
+#&gt; infections[37]             5622.15       82.77      1609.79 3348.16 4502.78
+#&gt; infections[38]             6479.13      101.70      1944.86 3730.00 5084.90
+#&gt; infections[39]             7331.95      117.63      2269.63 4076.49 5713.11
+#&gt; infections[40]             8125.97      128.97      2540.50 4429.85 6307.98
+#&gt; infections[41]             8808.01      134.19      2718.96 4828.55 6899.24
+#&gt; infections[42]             9336.77      132.50      2785.12 5197.15 7351.88
+#&gt; infections[43]             9690.85      119.21      2747.58 5520.69 7761.96
+#&gt; infections[44]             9871.41      106.59      2645.53 5745.64 8003.54
+#&gt; infections[45]             9899.39       96.72      2541.65 5950.14 8085.45
+#&gt; infections[46]             9808.82       94.23      2505.68 5853.40 8021.16
+#&gt; infections[47]             9639.38      103.68      2590.75 5509.97 7841.03
+#&gt; infections[48]             9430.24      127.46      2814.78 4900.86 7565.15
+#&gt; infections[49]             9216.37      161.70      3163.49 4116.03 7146.35
+#&gt; infections[50]             9026.96      203.96      3609.88 3355.24 6622.81
+#&gt; infections[51]             8885.60      251.57      4130.93 2657.78 6030.03
+#&gt; infections[52]             8811.51      303.47      4715.12 2137.99 5452.23
+#&gt; infections[53]             8821.50      354.86      5364.95 1612.76 4936.34
+#&gt; infections[54]             8932.70      405.32      6099.02 1225.90 4445.69
+#&gt; infections[55]             9166.36      455.00      6958.81  914.66 3943.81
+#&gt; infections[56]             9553.48      503.54      8029.86  698.56 3500.66
+#&gt; infections[57]            10144.93      551.19      9505.31  486.38 3175.14
+#&gt; infections[58]            11032.08      608.47     11880.91  347.00 2799.28
+#&gt; infections[59]            12395.18      698.88     16571.20  227.59 2468.00
+#&gt; infections[60]            14630.20      946.81     27826.06  157.32 2238.93
+#&gt; infections[61]            18726.71     1811.21     58986.38  107.35 1907.94
+#&gt; infections[62]            27563.85     4889.34    157554.88   73.98 1674.65
+#&gt; infections[63]            51127.73    16477.22    526561.89   52.17 1443.82
+#&gt; infections[64]           131476.55    68856.83   2191887.25   35.20 1282.73
+#&gt; infections[65]           484401.75   349940.22  11122122.16   23.44 1153.28
+#&gt; infections[66]          2434278.63  2097647.85  66628853.42   16.97  999.97
+#&gt; infections[67]         15375819.48 14393905.64 457093970.51   11.99  878.26
+#&gt; reports[1]                  292.67        3.05        98.47  145.59  221.53
+#&gt; reports[2]                  407.59        4.81       140.84  207.14  311.32
+#&gt; reports[3]                  436.51        4.56       149.97  221.25  331.31
+#&gt; reports[4]                  452.07        6.83       164.61  236.04  340.58
+#&gt; reports[5]                  406.05        6.60       157.89  200.67  302.82
+#&gt; reports[6]                  552.12        9.36       224.42  258.77  397.47
+#&gt; reports[7]                  709.75       17.06       320.86  318.60  498.97
+#&gt; reports[8]                  523.45        9.07       207.54  249.76  377.08
+#&gt; reports[9]                  662.38       18.50       291.78  298.64  467.55
+#&gt; reports[10]                 666.80       12.73       289.48  311.29  468.54
+#&gt; reports[11]                 685.77       21.79       332.34  304.97  471.36
+#&gt; reports[12]                 626.10       15.87       313.89  288.93  427.94
+#&gt; reports[13]                 888.87       23.54       436.92  347.60  592.28
+#&gt; reports[14]                1216.97       38.29       668.51  492.73  798.20
+#&gt; reports[15]                 954.14       18.31       420.25  417.17  665.16
+#&gt; reports[16]                1295.89       27.54       572.71  584.40  903.84
+#&gt; reports[17]                1411.48       21.10       597.09  659.26 1006.48
+#&gt; reports[18]                1552.07       32.32       682.34  735.57 1094.65
+#&gt; reports[19]                1511.78       24.84       649.47  698.65 1091.84
+#&gt; reports[20]                2247.66       34.00       949.62 1059.25 1575.03
+#&gt; reports[21]                3216.79       69.17      1757.74 1429.04 2201.01
+#&gt; reports[22]                2588.06       37.55      1076.88 1197.09 1852.55
+#&gt; reports[23]                3502.87       50.95      1491.97 1618.11 2498.10
+#&gt; reports[24]                3769.27       60.64      1647.40 1655.69 2679.24
+#&gt; reports[25]                3971.91       69.50      1738.09 1741.44 2757.91
+#&gt; reports[26]                3660.59       66.12      1566.96 1504.22 2618.07
+#&gt; reports[27]                5093.72       81.60      2238.69 2184.09 3482.38
+#&gt; reports[28]                6737.22      137.04      3489.01 2799.79 4559.58
+#&gt; reports[29]                4978.49       73.50      2031.49 2359.34 3568.58
+#&gt; reports[30]                6190.91       87.71      2532.71 2967.88 4491.00
+#&gt; reports[31]                6127.07       72.23      2498.36 2765.99 4417.09
+#&gt; reports[32]                6012.25      103.74      2658.91 2711.06 4234.01
+#&gt; reports[33]                5123.62       84.71      2168.82 2435.39 3779.89
+#&gt; reports[34]                6777.55      111.89      3149.33 2927.85 4627.09
+#&gt; reports[35]                8487.16      201.77      4496.34 3379.44 5650.72
+#&gt; reports[36]                5930.86       95.24      2518.40 2802.24 4239.92
+#&gt; reports[37]                7165.33      153.89      3280.25 3118.11 5028.56
+#&gt; reports[38]                6905.12      126.43      3375.14 2958.68 4665.17
+#&gt; reports[39]                6828.00      245.38      4550.81 2570.55 4274.75
+#&gt; reports[40]                5774.97      186.03      3949.47 2186.29 3548.43
+#&gt; reports[41]                7857.77      258.80      5756.09 2183.79 4227.10
+#&gt; reports[42]               10170.63      455.45      8748.16 2390.73 5038.87
+#&gt; reports[43]                7514.22      302.15      8287.10 1793.27 3530.44
+#&gt; reports[44]               10831.99     1085.09     33681.16 1941.77 4059.10
+#&gt; reports[45]               12522.87     1777.84     57063.98 1859.73 3584.73
+#&gt; reports[46]               23718.35     9505.94    302778.96 1487.07 3285.15
+#&gt; reports[47]               44870.33    25855.34    822349.30 1261.11 2659.09
+#&gt; day_of_week_eff[1]            1.01        0.01         0.34    0.50    0.76
+#&gt; day_of_week_eff[2]            0.95        0.01         0.33    0.49    0.71
+#&gt; day_of_week_eff[3]            0.80        0.01         0.29    0.37    0.62
+#&gt; day_of_week_eff[4]            1.03        0.01         0.38    0.49    0.77
+#&gt; day_of_week_eff[5]            1.26        0.02         0.48    0.58    0.93
+#&gt; day_of_week_eff[6]            0.89        0.01         0.30    0.44    0.67
+#&gt; day_of_week_eff[7]            1.06        0.01         0.36    0.56    0.82
+#&gt; R[1]                          0.87        0.03         0.29    0.37    0.64
+#&gt; R[2]                          0.91        0.03         0.27    0.45    0.70
+#&gt; R[3]                          0.96        0.02         0.24    0.53    0.77
+#&gt; R[4]                          1.01        0.02         0.20    0.65    0.86
+#&gt; R[5]                          1.08        0.01         0.17    0.77    0.95
+#&gt; R[6]                          1.15        0.01         0.14    0.89    1.06
+#&gt; R[7]                          1.23        0.00         0.12    0.99    1.16
+#&gt; R[8]                          1.32        0.00         0.12    1.11    1.24
+#&gt; R[9]                          1.40        0.01         0.14    1.18    1.31
+#&gt; R[10]                         1.49        0.01         0.18    1.24    1.35
+#&gt; R[11]                         1.56        0.02         0.21    1.26    1.39
+#&gt; R[12]                         1.63        0.02         0.24    1.28    1.43
+#&gt; R[13]                         1.68        0.02         0.27    1.28    1.46
+#&gt; R[14]                         1.71        0.02         0.28    1.28    1.49
+#&gt; R[15]                         1.72        0.02         0.29    1.28    1.49
+#&gt; R[16]                         1.72        0.02         0.29    1.28    1.48
+#&gt; R[17]                         1.69        0.02         0.27    1.28    1.46
+#&gt; R[18]                         1.65        0.02         0.25    1.27    1.45
+#&gt; R[19]                         1.59        0.01         0.22    1.26    1.42
+#&gt; R[20]                         1.53        0.01         0.19    1.24    1.38
+#&gt; R[21]                         1.46        0.01         0.17    1.18    1.34
+#&gt; R[22]                         1.38        0.00         0.15    1.09    1.29
+#&gt; R[23]                         1.31        0.00         0.14    1.01    1.22
+#&gt; R[24]                         1.24        0.01         0.15    0.92    1.14
+#&gt; R[25]                         1.17        0.01         0.17    0.82    1.06
+#&gt; R[26]                         1.12        0.01         0.18    0.73    1.00
+#&gt; R[27]                         1.06        0.01         0.20    0.66    0.93
+#&gt; R[28]                         1.02        0.02         0.22    0.58    0.87
+#&gt; R[29]                         0.98        0.02         0.24    0.53    0.81
+#&gt; R[30]                         0.95        0.02         0.25    0.46    0.77
+#&gt; R[31]                         0.93        0.02         0.27    0.42    0.73
+#&gt; R[32]                         0.92        0.02         0.29    0.37    0.71
+#&gt; R[33]                         0.91        0.02         0.30    0.33    0.69
+#&gt; R[34]                         0.90        0.02         0.32    0.29    0.66
+#&gt; R[35]                         0.91        0.02         0.35    0.25    0.64
+#&gt; R[36]                         0.92        0.02         0.38    0.21    0.63
+#&gt; R[37]                         0.93        0.02         0.41    0.18    0.62
+#&gt; R[38]                         0.95        0.02         0.46    0.16    0.60
+#&gt; R[39]                         0.97        0.02         0.52    0.15    0.58
+#&gt; R[40]                         1.00        0.02         0.58    0.13    0.58
+#&gt; R[41]                         1.03        0.02         0.67    0.12    0.57
+#&gt; R[42]                         1.06        0.02         0.77    0.11    0.57
+#&gt; R[43]                         1.10        0.02         0.88    0.11    0.56
+#&gt; R[44]                         1.14        0.03         1.02    0.10    0.56
+#&gt; R[45]                         1.18        0.03         1.18    0.09    0.54
+#&gt; R[46]                         1.22        0.04         1.36    0.08    0.53
+#&gt; R[47]                         1.26        0.04         1.57    0.08    0.52
+#&gt; imputed_reports[1]          286.93        8.09       253.07   22.98  126.00
+#&gt; imputed_reports[2]          416.37       11.67       336.62   37.98  178.75
+#&gt; imputed_reports[3]          412.36        9.89       322.16   31.98  181.00
+#&gt; imputed_reports[4]          457.76       14.15       413.96   54.95  192.00
+#&gt; imputed_reports[5]          409.35       12.48       353.46   43.98  178.00
+#&gt; imputed_reports[6]          548.68       14.77       463.60   50.95  237.50
+#&gt; imputed_reports[7]          733.38       23.93       717.45   63.80  296.00
+#&gt; imputed_reports[8]          528.84       16.79       476.95   53.00  216.75
+#&gt; imputed_reports[9]          650.26       21.84       573.36   50.95  275.75
+#&gt; imputed_reports[10]         677.81       21.95       616.26   73.90  281.00
+#&gt; imputed_reports[11]         664.65       26.64       664.74   61.00  274.75
+#&gt; imputed_reports[12]         633.43       23.61       656.30   58.00  239.00
+#&gt; imputed_reports[13]         896.18       37.16       982.27   98.00  328.50
+#&gt; imputed_reports[14]        1193.31       52.43      1135.52  124.00  465.75
+#&gt; imputed_reports[15]         924.90       27.10       857.02   83.88  342.75
+#&gt; imputed_reports[16]        1308.18       47.76      1237.76  137.98  547.75
+#&gt; imputed_reports[17]        1446.83       41.66      1305.00  153.98  604.75
+#&gt; imputed_reports[18]        1534.45       44.35      1393.09  168.90  653.25
+#&gt; imputed_reports[19]        1544.54       44.01      1387.94  166.00  640.75
+#&gt; imputed_reports[20]        2217.26       66.21      1961.22  203.90  874.75
+#&gt; imputed_reports[21]        3252.29      103.34      3047.63  209.85 1240.00
+#&gt; imputed_reports[22]        2552.08       75.83      2278.27  213.95 1012.75
+#&gt; imputed_reports[23]        3406.95       97.69      3036.71  295.92 1463.50
+#&gt; imputed_reports[24]        3902.45      116.61      3818.30  347.05 1524.25
+#&gt; imputed_reports[25]        4076.94      115.30      3622.77  319.95 1716.00
+#&gt; imputed_reports[26]        3654.37      100.91      3143.22  369.92 1507.25
+#&gt; imputed_reports[27]        5060.27      157.07      4621.82  402.92 1997.75
+#&gt; imputed_reports[28]        6808.48      250.07      6324.45  585.72 2898.00
+#&gt; imputed_reports[29]        4976.16      131.36      4275.91  451.60 2022.50
+#&gt; imputed_reports[30]        6222.73      183.27      5652.30  600.55 2720.00
+#&gt; imputed_reports[31]        6000.15      170.40      5339.65  631.45 2563.00
+#&gt; imputed_reports[32]        6007.00      188.43      5592.60  529.68 2523.75
+#&gt; imputed_reports[33]        5232.65      174.79      5161.38  361.95 2133.25
+#&gt; imputed_reports[34]        6920.65      206.67      6856.32  694.65 2828.00
+#&gt; imputed_reports[35]        8484.19      265.74      7975.03  850.85 3419.75
+#&gt; imputed_reports[36]        5944.99      168.26      5314.15  425.92 2421.75
+#&gt; imputed_reports[37]        7279.42      226.57      6290.68  774.93 3051.75
+#&gt; imputed_reports[38]        6832.76      205.21      6253.00  600.50 2638.25
+#&gt; imputed_reports[39]        6770.52      271.45      7761.58  567.32 2680.25
+#&gt; imputed_reports[40]        5983.29      249.65      6560.06  502.38 2230.00
+#&gt; imputed_reports[41]        7803.51      317.12      9351.68  547.88 2610.00
+#&gt; imputed_reports[42]       10474.62      582.49     15803.22  587.45 2920.50
+#&gt; imputed_reports[43]        7360.50      286.06      8505.04  483.97 2282.75
+#&gt; imputed_reports[44]       11485.14     1833.44     58389.07  439.55 2620.25
+#&gt; imputed_reports[45]       12348.07     1672.27     53832.13  479.55 2233.75
+#&gt; imputed_reports[46]       18714.40     4820.30    153954.49  535.85 2246.25
+#&gt; imputed_reports[47]       33716.24    13718.17    437398.60  363.00 1912.00
+#&gt; r[1]                         -0.04        0.01         0.09   -0.19   -0.10
+#&gt; r[2]                         -0.03        0.01         0.08   -0.17   -0.09
+#&gt; r[3]                         -0.01        0.01         0.07   -0.14   -0.06
+#&gt; r[4]                          0.00        0.00         0.06   -0.10   -0.04
+#&gt; r[5]                          0.02        0.00         0.05   -0.07   -0.01
+#&gt; r[6]                          0.04        0.00         0.04   -0.03    0.02
+#&gt; r[7]                          0.06        0.00         0.03    0.00    0.04
+#&gt; r[8]                          0.08        0.00         0.03    0.03    0.07
+#&gt; r[9]                          0.11        0.00         0.04    0.05    0.08
+#&gt; r[10]                         0.13        0.00         0.04    0.06    0.09
+#&gt; r[11]                         0.14        0.00         0.05    0.07    0.10
+#&gt; r[12]                         0.16        0.00         0.06    0.07    0.11
+#&gt; r[13]                         0.17        0.01         0.06    0.07    0.12
+#&gt; r[14]                         0.18        0.01         0.07    0.07    0.13
+#&gt; r[15]                         0.18        0.01         0.07    0.07    0.13
+#&gt; r[16]                         0.18        0.01         0.07    0.07    0.13
+#&gt; r[17]                         0.17        0.00         0.06    0.07    0.12
+#&gt; r[18]                         0.16        0.00         0.06    0.07    0.12
+#&gt; r[19]                         0.15        0.00         0.05    0.07    0.11
+#&gt; r[20]                         0.14        0.00         0.05    0.06    0.10
+#&gt; r[21]                         0.12        0.00         0.04    0.05    0.09
+#&gt; r[22]                         0.10        0.00         0.04    0.03    0.08
+#&gt; r[23]                         0.08        0.00         0.04    0.00    0.06
+#&gt; r[24]                         0.06        0.00         0.04   -0.02    0.04
+#&gt; r[25]                         0.05        0.00         0.04   -0.05    0.02
+#&gt; r[26]                         0.03        0.00         0.05   -0.08    0.00
+#&gt; r[27]                         0.02        0.00         0.06   -0.10   -0.02
+#&gt; r[28]                         0.00        0.00         0.06   -0.12   -0.04
+#&gt; r[29]                        -0.01        0.00         0.07   -0.14   -0.05
+#&gt; r[30]                        -0.02        0.00         0.07   -0.16   -0.07
+#&gt; r[31]                        -0.02        0.01         0.08   -0.18   -0.08
+#&gt; r[32]                        -0.03        0.01         0.08   -0.19   -0.09
+#&gt; r[33]                        -0.03        0.01         0.09   -0.21   -0.09
+#&gt; r[34]                        -0.03        0.01         0.10   -0.23   -0.10
+#&gt; r[35]                        -0.03        0.01         0.10   -0.24   -0.10
+#&gt; r[36]                        -0.03        0.01         0.11   -0.25   -0.11
+#&gt; r[37]                        -0.03        0.01         0.12   -0.26   -0.11
+#&gt; r[38]                        -0.02        0.01         0.13   -0.28   -0.12
+#&gt; r[39]                        -0.02        0.01         0.14   -0.29   -0.12
+#&gt; r[40]                        -0.01        0.01         0.16   -0.29   -0.13
+#&gt; r[41]                        -0.01        0.01         0.17   -0.30   -0.13
+#&gt; r[42]                         0.00        0.01         0.19   -0.30   -0.13
+#&gt; r[43]                         0.01        0.01         0.21   -0.31   -0.13
+#&gt; r[44]                         0.01        0.01         0.23   -0.31   -0.13
+#&gt; r[45]                         0.02        0.01         0.26   -0.32   -0.14
+#&gt; r[46]                         0.03        0.01         0.28   -0.32   -0.14
+#&gt; r[47]                         0.03        0.01         0.31   -0.33   -0.14
+#&gt; lp__                        -83.94        0.52         6.12  -97.23  -87.63
+#&gt;                            50%      75%      97.5% n_eff Rhat
+#&gt; day_of_week_eff_raw[1]    0.14     0.17       0.26  1039 1.00
+#&gt; day_of_week_eff_raw[2]    0.13     0.16       0.26   869 1.00
+#&gt; day_of_week_eff_raw[3]    0.11     0.13       0.22   627 1.00
+#&gt; day_of_week_eff_raw[4]    0.14     0.17       0.27   839 1.00
+#&gt; day_of_week_eff_raw[5]    0.17     0.21       0.35   782 1.01
+#&gt; day_of_week_eff_raw[6]    0.12     0.15       0.23  1023 1.00
+#&gt; day_of_week_eff_raw[7]    0.14     0.17       0.28   847 1.00
+#&gt; delay_mean[1]             1.62     1.63       1.64  1583 1.00
+#&gt; delay_mean[2]             1.78     1.80       1.83  2164 1.00
+#&gt; delay_sd[1]               0.42     0.42       0.43  1305 1.00
+#&gt; delay_sd[2]               1.37     1.38       1.41  1453 1.00
+#&gt; rep_phi[1]                1.99     2.34       3.15   496 1.01
+#&gt; rho[1]                    1.65     2.49       4.93  1086 1.00
+#&gt; alpha[1]                  0.10     0.14       0.24   172 1.02
+#&gt; eta[1]                    0.11     0.68       1.71  1043 1.00
+#&gt; eta[2]                    0.11     0.80       2.00  1057 1.00
+#&gt; eta[3]                   -0.28     0.35       1.52  1344 1.00
+#&gt; eta[4]                   -0.19     0.45       1.73  1263 1.00
+#&gt; eta[5]                    0.55     1.16       2.39  1176 1.00
+#&gt; eta[6]                    0.04     0.73       2.09  1053 1.00
+#&gt; eta[7]                   -0.63     0.05       1.18  1114 1.00
+#&gt; eta[8]                    0.28     0.93       2.13  1108 1.00
+#&gt; eta[9]                    0.52     1.22       2.36  1221 1.00
+#&gt; eta[10]                  -0.43     0.21       1.41  1102 1.00
+#&gt; eta[11]                  -0.25     0.41       1.61   699 1.00
+#&gt; eta[12]                   0.60     1.25       2.57  1034 1.00
+#&gt; eta[13]                   0.06     0.75       1.97  1174 1.00
+#&gt; eta[14]                  -0.42     0.18       1.45   850 1.00
+#&gt; eta[15]                   0.08     0.71       1.81   931 1.00
+#&gt; initial_R[1]              0.85     1.09       1.39   111 1.02
+#&gt; initial_infections[1]     0.01     0.07       0.21  1482 1.00
+#&gt; initial_infections[2]     0.00     0.07       0.20  1298 1.00
+#&gt; initial_infections[3]     0.00     0.07       0.20  1211 1.00
+#&gt; initial_infections[4]     0.00     0.07       0.20  1446 1.00
+#&gt; initial_infections[5]     0.00     0.07       0.19  2164 1.00
+#&gt; initial_infections[6]     0.00     0.07       0.20  1545 1.00
+#&gt; initial_infections[7]    -0.01     0.06       0.18  1394 1.00
+#&gt; initial_infections[8]     0.00     0.07       0.19  1391 1.00
+#&gt; initial_infections[9]    -0.01     0.06       0.19  1988 1.00
+#&gt; initial_infections[10]    0.00     0.07       0.20  2356 1.00
+#&gt; initial_infections[11]    0.00     0.07       0.21  1042 1.00
+#&gt; initial_infections[12]   -0.01     0.06       0.18  1364 1.00
+#&gt; initial_infections[13]   -0.01     0.06       0.18  1588 1.00
+#&gt; initial_infections[14]   -0.01     0.06       0.18  1148 1.00
+#&gt; initial_infections[15]   -0.01     0.05       0.18  1556 1.00
+#&gt; initial_infections[16]   -0.01     0.06       0.18  1450 1.00
+#&gt; initial_infections[17]   -0.02     0.05       0.18  1322 1.00
+#&gt; initial_infections[18]   -0.01     0.05       0.18  1492 1.00
+#&gt; initial_infections[19]   -0.03     0.04       0.16  1226 1.00
+#&gt; initial_infections[20]   -0.02     0.04       0.16  1401 1.00
+#&gt; gt_mean[1]                3.63     3.71       3.82  1856 1.00
+#&gt; gt_sd[1]                  3.08     3.16       3.30  1835 1.00
+#&gt; noise[1]                  1.05     1.10       1.24   201 1.01
+#&gt; noise[2]                  1.06     1.11       1.24   179 1.01
+#&gt; noise[3]                  1.06     1.11       1.23   162 1.01
+#&gt; noise[4]                  1.07     1.12       1.22   150 1.01
+#&gt; noise[5]                  1.07     1.12       1.21   142 1.01
+#&gt; noise[6]                  1.07     1.11       1.19   137 1.01
+#&gt; noise[7]                  1.07     1.11       1.18   135 1.02
+#&gt; noise[8]                  1.06     1.10       1.16   139 1.02
+#&gt; noise[9]                  1.06     1.09       1.14   151 1.01
+#&gt; noise[10]                 1.05     1.07       1.12   177 1.01
+#&gt; noise[11]                 1.04     1.06       1.11   234 1.01
+#&gt; noise[12]                 1.03     1.05       1.09   383 1.01
+#&gt; noise[13]                 1.02     1.03       1.07   784 1.00
+#&gt; noise[14]                 1.01     1.02       1.05   895 1.00
+#&gt; noise[15]                 1.00     1.01       1.04   762 1.00
+#&gt; noise[16]                 0.99     1.00       1.03   367 1.00
+#&gt; noise[17]                 0.98     1.00       1.01   234 1.00
+#&gt; noise[18]                 0.97     0.99       1.01   189 1.01
+#&gt; noise[19]                 0.96     0.99       1.01   176 1.01
+#&gt; noise[20]                 0.96     0.98       1.00   174 1.01
+#&gt; noise[21]                 0.95     0.98       1.00   179 1.01
+#&gt; noise[22]                 0.95     0.98       1.00   190 1.01
+#&gt; noise[23]                 0.95     0.98       1.00   206 1.01
+#&gt; noise[24]                 0.95     0.98       1.00   226 1.01
+#&gt; noise[25]                 0.95     0.98       1.01   255 1.01
+#&gt; noise[26]                 0.96     0.98       1.01   294 1.01
+#&gt; noise[27]                 0.96     0.99       1.01   351 1.00
+#&gt; noise[28]                 0.97     0.99       1.02   446 1.00
+#&gt; noise[29]                 0.97     1.00       1.04   602 1.00
+#&gt; noise[30]                 0.98     1.00       1.05   831 1.00
+#&gt; noise[31]                 0.99     1.00       1.07  1030 1.00
+#&gt; noise[32]                 0.99     1.01       1.09  1435 1.00
+#&gt; noise[33]                 0.99     1.01       1.10  1457 1.00
+#&gt; noise[34]                 1.00     1.02       1.11  1469 1.00
+#&gt; noise[35]                 1.00     1.03       1.13  1479 1.00
+#&gt; noise[36]                 1.00     1.03       1.14  1492 1.00
+#&gt; noise[37]                 1.00     1.03       1.15  1512 1.00
+#&gt; noise[38]                 1.00     1.03       1.16  1536 1.00
+#&gt; noise[39]                 1.00     1.04       1.15  1562 1.00
+#&gt; noise[40]                 1.00     1.04       1.16  1585 1.00
+#&gt; noise[41]                 1.00     1.03       1.16  1588 1.00
+#&gt; noise[42]                 1.00     1.03       1.16  1507 1.00
+#&gt; noise[43]                 1.00     1.03       1.16  1404 1.00
+#&gt; noise[44]                 1.00     1.03       1.16  1293 1.00
+#&gt; noise[45]                 1.00     1.03       1.15  1185 1.00
+#&gt; noise[46]                 1.00     1.03       1.15  1084 1.00
+#&gt; infections[1]             2.02     2.16       2.46  1449 1.00
+#&gt; infections[2]            10.86    11.63      13.22  1265 1.00
+#&gt; infections[3]            18.44    19.78      22.58  1250 1.00
+#&gt; infections[4]            32.22    34.49      39.29  1474 1.00
+#&gt; infections[5]            45.42    48.63      55.05  2139 1.00
+#&gt; infections[6]            56.87    60.78      69.51  1518 1.00
+#&gt; infections[7]            91.71    98.15     110.50  1401 1.00
+#&gt; infections[8]           124.32   133.03     150.92  1431 1.00
+#&gt; infections[9]           148.92   159.22     181.04  1959 1.00
+#&gt; infections[10]          222.07   237.89     270.94  2219 1.00
+#&gt; infections[11]          257.16   275.85     317.38  1036 1.00
+#&gt; infections[12]          309.86   330.65     373.78  1370 1.00
+#&gt; infections[13]          381.63   408.46     461.19  1584 1.00
+#&gt; infections[14]          453.69   488.80     550.47  1156 1.00
+#&gt; infections[15]          529.94   562.11     643.66  1555 1.00
+#&gt; infections[16]          672.64   718.19     814.75  1440 1.00
+#&gt; infections[17]          794.92   851.27     975.58  1334 1.00
+#&gt; infections[18]         1008.09  1072.77    1222.97  1478 1.00
+#&gt; infections[19]         1059.78  1133.82    1288.25  1160 1.00
+#&gt; infections[20]         1309.31  1387.28    1572.44  1366 1.00
+#&gt; infections[21]          767.21   990.70    1286.35   114 1.02
+#&gt; infections[22]          790.01  1046.33    1404.47   110 1.02
+#&gt; infections[23]          813.92  1112.81    1548.56   108 1.02
+#&gt; infections[24]          850.24  1173.53    1714.07   108 1.02
+#&gt; infections[25]          911.19  1257.47    1894.43   110 1.02
+#&gt; infections[26]         1002.49  1363.04    2057.46   114 1.03
+#&gt; infections[27]         1104.68  1486.13    2260.29   120 1.02
+#&gt; infections[28]         1256.69  1657.57    2507.33   131 1.02
+#&gt; infections[29]         1446.49  1859.18    2761.36   149 1.02
+#&gt; infections[30]         1683.21  2121.87    3067.03   181 1.02
+#&gt; infections[31]         1995.27  2420.67    3388.97   243 1.02
+#&gt; infections[32]         2355.39  2795.03    3813.95   356 1.01
+#&gt; infections[33]         2790.53  3281.48    4563.38   559 1.00
+#&gt; infections[34]         3284.73  3876.25    5364.82   683 1.00
+#&gt; infections[35]         3884.74  4602.70    6503.98   677 1.00
+#&gt; infections[36]         4587.17  5438.87    7871.84   514 1.00
+#&gt; infections[37]         5385.94  6431.66    9286.83   378 1.00
+#&gt; infections[38]         6201.57  7467.86   10910.05   366 1.00
+#&gt; infections[39]         7023.23  8527.31   12298.42   372 1.00
+#&gt; infections[40]         7759.80  9488.61   13960.97   388 1.00
+#&gt; infections[41]         8445.44 10273.12   15177.36   411 1.00
+#&gt; infections[42]         8992.91 10838.09   15944.72   442 1.00
+#&gt; infections[43]         9345.33 11300.56   16090.38   531 1.00
+#&gt; infections[44]         9531.02 11351.88   15931.66   616 1.00
+#&gt; infections[45]         9587.72 11277.49   15554.39   691 1.00
+#&gt; infections[46]         9508.11 11203.58   15541.94   707 1.01
+#&gt; infections[47]         9318.32 10976.72   15948.89   624 1.01
+#&gt; infections[48]         9048.84 10927.32   16116.93   488 1.01
+#&gt; infections[49]         8888.60 10790.54   16744.56   383 1.01
+#&gt; infections[50]         8620.34 10888.65   17189.31   313 1.01
+#&gt; infections[51]         8366.20 10950.93   18629.38   270 1.01
+#&gt; infections[52]         8087.64 11155.02   20432.36   241 1.01
+#&gt; infections[53]         7904.92 11637.53   22104.74   229 1.01
+#&gt; infections[54]         7739.81 12082.88   24075.50   226 1.01
+#&gt; infections[55]         7676.63 12653.29   26994.49   234 1.01
+#&gt; infections[56]         7582.09 13310.83   30607.96   254 1.01
+#&gt; infections[57]         7527.42 14220.25   35318.04   297 1.01
+#&gt; infections[58]         7321.84 15236.27   40612.87   381 1.01
+#&gt; infections[59]         7427.98 16539.16   49803.16   562 1.01
+#&gt; infections[60]         7345.13 17805.40   65405.16   864 1.00
+#&gt; infections[61]         7359.91 19895.00   88065.55  1061 1.00
+#&gt; infections[62]         7468.80 22473.93  117651.31  1038 1.00
+#&gt; infections[63]         7472.14 24621.23  159203.06  1021 1.00
+#&gt; infections[64]         7431.39 27219.98  264728.09  1013 1.00
+#&gt; infections[65]         7690.07 30206.23  543268.39  1010 1.00
+#&gt; infections[66]         7692.03 33659.78 1096866.02  1009 1.00
+#&gt; infections[67]         8194.26 37232.07 1921460.66  1008 1.00
+#&gt; reports[1]              279.19   344.84     527.30  1042 1.00
+#&gt; reports[2]              384.50   468.03     734.53   858 1.00
+#&gt; reports[3]              414.24   509.73     794.99  1082 1.00
+#&gt; reports[4]              417.35   522.56     883.33   581 1.00
+#&gt; reports[5]              373.43   470.79     793.59   572 1.00
+#&gt; reports[6]              504.62   653.10    1093.48   574 1.01
+#&gt; reports[7]              639.54   841.88    1606.31   354 1.02
+#&gt; reports[8]              484.92   620.16    1037.09   524 1.00
+#&gt; reports[9]              599.95   789.57    1322.51   249 1.01
+#&gt; reports[10]             599.12   794.84    1437.73   517 1.00
+#&gt; reports[11]             607.00   798.34    1564.61   233 1.01
+#&gt; reports[12]             546.82   738.03    1453.37   391 1.01
+#&gt; reports[13]             777.08  1073.91    2052.77   345 1.01
+#&gt; reports[14]            1066.69  1437.93    2959.38   305 1.02
+#&gt; reports[15]             872.60  1129.32    1981.81   527 1.01
+#&gt; reports[16]            1168.95  1527.14    2732.96   433 1.00
+#&gt; reports[17]            1282.55  1659.11    2864.74   801 1.00
+#&gt; reports[18]            1395.17  1792.18    3294.45   446 1.00
+#&gt; reports[19]            1367.01  1737.62    3315.42   684 1.00
+#&gt; reports[20]            2027.96  2654.42    4874.52   780 1.00
+#&gt; reports[21]            2835.48  3757.92    7378.89   646 1.01
+#&gt; reports[22]            2345.07  3074.48    5254.49   823 1.00
+#&gt; reports[23]            3220.84  4092.31    7622.58   857 1.00
+#&gt; reports[24]            3439.80  4496.96    7706.07   738 1.00
+#&gt; reports[25]            3602.82  4738.66    8082.27   625 1.00
+#&gt; reports[26]            3313.98  4314.32    7805.12   562 1.00
+#&gt; reports[27]            4673.15  6129.47   10516.54   753 1.00
+#&gt; reports[28]            6054.94  7931.29   15017.02   648 1.01
+#&gt; reports[29]            4517.26  5978.48    9899.39   764 1.00
+#&gt; reports[30]            5653.77  7181.73   13184.63   834 1.00
+#&gt; reports[31]            5629.05  7226.39   12137.71  1196 1.00
+#&gt; reports[32]            5492.27  6988.95   12431.16   657 1.00
+#&gt; reports[33]            4684.64  5923.43   10368.20   655 1.01
+#&gt; reports[34]            6103.01  8005.44   15628.13   792 1.00
+#&gt; reports[35]            7440.71  9891.70   20249.62   497 1.02
+#&gt; reports[36]            5317.72  6929.56   12222.05   699 1.00
+#&gt; reports[37]            6391.02  8376.76   14875.06   454 1.00
+#&gt; reports[38]            5996.66  8278.74   15916.45   713 1.00
+#&gt; reports[39]            5901.69  7937.91   17396.30   344 1.01
+#&gt; reports[40]            4749.62  6870.85   15378.69   451 1.01
+#&gt; reports[41]            6399.04  9749.32   22160.59   495 1.00
+#&gt; reports[42]            7473.54 12057.97   32746.15   369 1.02
+#&gt; reports[43]            5532.52  8835.70   23553.82   752 1.00
+#&gt; reports[44]            6508.52 11508.91   34159.14   963 1.00
+#&gt; reports[45]            6483.54 11516.51   38383.66  1030 1.00
+#&gt; reports[46]            5853.62 11693.75   61703.60  1015 1.00
+#&gt; reports[47]            5036.96 10402.66   70694.04  1012 1.00
+#&gt; day_of_week_eff[1]        0.96     1.18       1.85  1039 1.00
+#&gt; day_of_week_eff[2]        0.90     1.12       1.80   869 1.00
+#&gt; day_of_week_eff[3]        0.75     0.93       1.52   627 1.00
+#&gt; day_of_week_eff[4]        0.97     1.21       1.90   839 1.00
+#&gt; day_of_week_eff[5]        1.17     1.48       2.46   782 1.01
+#&gt; day_of_week_eff[6]        0.84     1.06       1.59  1023 1.00
+#&gt; day_of_week_eff[7]        0.99     1.22       1.94   847 1.00
+#&gt; R[1]                      0.85     1.09       1.39   111 1.02
+#&gt; R[2]                      0.89     1.11       1.39   113 1.02
+#&gt; R[3]                      0.95     1.14       1.39   117 1.02
+#&gt; R[4]                      1.00     1.17       1.38   127 1.02
+#&gt; R[5]                      1.07     1.21       1.38   151 1.02
+#&gt; R[6]                      1.15     1.26       1.39   225 1.01
+#&gt; R[7]                      1.24     1.31       1.46   579 1.00
+#&gt; R[8]                      1.31     1.39       1.59   790 1.00
+#&gt; R[9]                      1.38     1.48       1.74   333 1.00
+#&gt; R[10]                     1.45     1.59       1.88   198 1.00
+#&gt; R[11]                     1.54     1.70       2.03   160 1.01
+#&gt; R[12]                     1.60     1.80       2.16   147 1.01
+#&gt; R[13]                     1.66     1.87       2.25   144 1.01
+#&gt; R[14]                     1.69     1.91       2.29   148 1.01
+#&gt; R[15]                     1.71     1.93       2.33   155 1.01
+#&gt; R[16]                     1.70     1.92       2.31   167 1.01
+#&gt; R[17]                     1.68     1.87       2.25   183 1.01
+#&gt; R[18]                     1.63     1.81       2.19   209 1.01
+#&gt; R[19]                     1.57     1.73       2.08   253 1.01
+#&gt; R[20]                     1.50     1.65       1.95   338 1.01
+#&gt; R[21]                     1.44     1.56       1.81   622 1.00
+#&gt; R[22]                     1.37     1.47       1.71  1000 1.00
+#&gt; R[23]                     1.31     1.40       1.61   981 1.00
+#&gt; R[24]                     1.26     1.34       1.52   587 1.00
+#&gt; R[25]                     1.19     1.30       1.46   333 1.00
+#&gt; R[26]                     1.13     1.26       1.41   256 1.00
+#&gt; R[27]                     1.07     1.22       1.40   221 1.01
+#&gt; R[28]                     1.02     1.19       1.39   204 1.01
+#&gt; R[29]                     0.98     1.16       1.38   197 1.01
+#&gt; R[30]                     0.96     1.15       1.38   197 1.01
+#&gt; R[31]                     0.94     1.14       1.38   203 1.01
+#&gt; R[32]                     0.92     1.14       1.40   215 1.01
+#&gt; R[33]                     0.92     1.15       1.43   235 1.01
+#&gt; R[34]                     0.91     1.15       1.46   264 1.01
+#&gt; R[35]                     0.92     1.18       1.53   307 1.01
+#&gt; R[36]                     0.93     1.19       1.63   374 1.00
+#&gt; R[37]                     0.94     1.22       1.75   479 1.00
+#&gt; R[38]                     0.95     1.24       1.88   616 1.00
+#&gt; R[39]                     0.96     1.27       2.06   791 1.00
+#&gt; R[40]                     0.98     1.29       2.41   969 1.00
+#&gt; R[41]                     0.98     1.32       2.70  1218 1.00
+#&gt; R[42]                     1.00     1.33       3.01  1361 1.00
+#&gt; R[43]                     1.01     1.35       3.35  1354 1.00
+#&gt; R[44]                     1.02     1.36       3.70  1338 1.00
+#&gt; R[45]                     1.02     1.38       3.94  1315 1.00
+#&gt; R[46]                     1.01     1.40       4.17  1288 1.00
+#&gt; R[47]                     1.00     1.42       4.35  1259 1.00
+#&gt; imputed_reports[1]      225.00   369.50     927.85   979 1.00
+#&gt; imputed_reports[2]      332.00   553.75    1333.47   832 1.00
+#&gt; imputed_reports[3]      331.00   551.75    1191.05  1061 1.00
+#&gt; imputed_reports[4]      338.00   594.00    1579.05   855 1.00
+#&gt; imputed_reports[5]      309.50   525.25    1392.03   803 1.00
+#&gt; imputed_reports[6]      431.50   729.50    1819.52   986 1.00
+#&gt; imputed_reports[7]      563.00   944.00    2435.82   899 1.00
+#&gt; imputed_reports[8]      415.00   678.50    1619.65   807 1.00
+#&gt; imputed_reports[9]      492.00   834.00    2198.72   689 1.00
+#&gt; imputed_reports[10]     522.00   863.25    2340.02   788 1.00
+#&gt; imputed_reports[11]     505.50   817.50    2202.40   623 1.00
+#&gt; imputed_reports[12]     457.00   786.25    2201.22   773 1.00
+#&gt; imputed_reports[13]     640.00  1140.25    2809.05   699 1.00
+#&gt; imputed_reports[14]     853.00  1464.25    4330.10   469 1.02
+#&gt; imputed_reports[15]     687.00  1234.75    3189.22  1000 1.00
+#&gt; imputed_reports[16]    1003.00  1626.75    4651.40   672 1.00
+#&gt; imputed_reports[17]    1116.00  1876.75    4964.92   981 1.00
+#&gt; imputed_reports[18]    1167.50  1972.50    5685.30   987 1.00
+#&gt; imputed_reports[19]    1150.00  2049.75    5477.17   994 1.00
+#&gt; imputed_reports[20]    1653.00  3028.50    7391.15   877 1.00
+#&gt; imputed_reports[21]    2408.50  4105.50   11381.77   870 1.00
+#&gt; imputed_reports[22]    1903.00  3355.75    9021.00   903 1.00
+#&gt; imputed_reports[23]    2574.00  4447.25   11891.62   966 1.00
+#&gt; imputed_reports[24]    2903.00  5226.50   12291.32  1072 1.00
+#&gt; imputed_reports[25]    3168.00  5151.75   13741.27   987 1.00
+#&gt; imputed_reports[26]    2916.50  4777.25   11946.42   970 1.00
+#&gt; imputed_reports[27]    3765.00  6573.25   18629.72   866 1.00
+#&gt; imputed_reports[28]    4988.00  8596.75   22089.40   640 1.00
+#&gt; imputed_reports[29]    3858.50  6696.00   15846.87  1060 1.00
+#&gt; imputed_reports[30]    4671.50  7873.25   21593.62   951 1.00
+#&gt; imputed_reports[31]    4561.50  7711.25   21254.75   982 1.00
+#&gt; imputed_reports[32]    4439.50  7477.75   20785.07   881 1.00
+#&gt; imputed_reports[33]    3881.00  6821.75   16710.37   872 1.00
+#&gt; imputed_reports[34]    5002.00  8612.50   24596.65  1101 1.00
+#&gt; imputed_reports[35]    6228.50 10884.25   29199.07   901 1.00
+#&gt; imputed_reports[36]    4611.50  7764.25   18166.62   997 1.00
+#&gt; imputed_reports[37]    5629.50  9575.75   23501.25   771 1.00
+#&gt; imputed_reports[38]    5119.00  9055.00   22293.95   928 1.00
+#&gt; imputed_reports[39]    4826.00  8235.50   25233.17   818 1.00
+#&gt; imputed_reports[40]    4076.50  7302.75   23563.75   690 1.00
+#&gt; imputed_reports[41]    4943.00  9447.50   32397.75   870 1.00
+#&gt; imputed_reports[42]    6182.50 12007.25   45052.80   736 1.01
+#&gt; imputed_reports[43]    4636.00  9101.75   31446.10   884 1.00
+#&gt; imputed_reports[44]    5210.50 10955.75   46152.97  1014 1.00
+#&gt; imputed_reports[45]    5022.50 10866.50   44715.60  1036 1.00
+#&gt; imputed_reports[46]    4983.50 10468.00   75271.32  1020 1.00
+#&gt; imputed_reports[47]    4054.00  9654.50   77196.25  1017 1.00
+#&gt; r[1]                     -0.04     0.02       0.10   116 1.02
+#&gt; r[2]                     -0.03     0.03       0.10   117 1.02
+#&gt; r[3]                     -0.01     0.04       0.10   121 1.02
+#&gt; r[4]                      0.00     0.04       0.10   131 1.02
+#&gt; r[5]                      0.02     0.06       0.10   156 1.02
+#&gt; r[6]                      0.04     0.07       0.10   231 1.01
+#&gt; r[7]                      0.06     0.08       0.12   606 1.00
+#&gt; r[8]                      0.08     0.10       0.15   789 1.00
+#&gt; r[9]                      0.10     0.13       0.19   358 1.00
+#&gt; r[10]                     0.12     0.15       0.22   202 1.00
+#&gt; r[11]                     0.14     0.18       0.25   162 1.01
+#&gt; r[12]                     0.15     0.20       0.28   148 1.01
+#&gt; r[13]                     0.17     0.22       0.29   144 1.01
+#&gt; r[14]                     0.18     0.23       0.31   146 1.01
+#&gt; r[15]                     0.18     0.23       0.31   153 1.01
+#&gt; r[16]                     0.18     0.23       0.31   163 1.01
+#&gt; r[17]                     0.17     0.22       0.30   179 1.01
+#&gt; r[18]                     0.16     0.20       0.29   203 1.01
+#&gt; r[19]                     0.15     0.19       0.26   246 1.01
+#&gt; r[20]                     0.13     0.17       0.24   331 1.01
+#&gt; r[21]                     0.11     0.14       0.20   585 1.00
+#&gt; r[22]                     0.10     0.12       0.18  1023 1.00
+#&gt; r[23]                     0.08     0.10       0.16   986 1.00
+#&gt; r[24]                     0.07     0.09       0.14   577 1.00
+#&gt; r[25]                     0.05     0.08       0.12   336 1.00
+#&gt; r[26]                     0.03     0.07       0.11   263 1.00
+#&gt; r[27]                     0.02     0.06       0.11   231 1.01
+#&gt; r[28]                     0.01     0.05       0.10   215 1.01
+#&gt; r[29]                     0.00     0.04       0.10   210 1.01
+#&gt; r[30]                    -0.01     0.04       0.10   211 1.01
+#&gt; r[31]                    -0.02     0.04       0.10   218 1.01
+#&gt; r[32]                    -0.02     0.04       0.10   231 1.01
+#&gt; r[33]                    -0.02     0.04       0.11   251 1.01
+#&gt; r[34]                    -0.02     0.04       0.12   278 1.01
+#&gt; r[35]                    -0.02     0.05       0.13   316 1.01
+#&gt; r[36]                    -0.02     0.05       0.16   370 1.00
+#&gt; r[37]                    -0.02     0.06       0.19   442 1.00
+#&gt; r[38]                    -0.01     0.06       0.23   529 1.00
+#&gt; r[39]                    -0.01     0.07       0.28   629 1.00
+#&gt; r[40]                     0.00     0.08       0.34   739 1.00
+#&gt; r[41]                     0.00     0.08       0.42   864 1.00
+#&gt; r[42]                     0.00     0.09       0.49  1034 1.00
+#&gt; r[43]                     0.00     0.09       0.56  1355 1.00
+#&gt; r[44]                     0.00     0.09       0.62  1437 1.00
+#&gt; r[45]                     0.00     0.10       0.66  1434 1.00
+#&gt; r[46]                     0.00     0.10       0.73  1422 1.00
+#&gt; r[47]                     0.00     0.11       0.73  1402 1.00
+#&gt; lp__                    -83.32   -79.78     -73.16   138 1.01
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Tue Aug 18 15:58:08 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Wed Aug 19 11:10:17 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).
@@ -1212,83 +1238,77 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; $estimated_reported_cases
 #&gt; $estimated_reported_cases$samples
 #&gt;              date sample cases  type
-#&gt;     1: 2020-02-22      1    99 gp_rt
-#&gt;     2: 2020-02-23      1   101 gp_rt
-#&gt;     3: 2020-02-24      1   389 gp_rt
-#&gt;     4: 2020-02-25      1    86 gp_rt
-#&gt;     5: 2020-02-26      1   123 gp_rt
+#&gt;     1: 2020-02-22      1   734 gp_rt
+#&gt;     2: 2020-02-23      1   424 gp_rt
+#&gt;     3: 2020-02-24      1  1114 gp_rt
+#&gt;     4: 2020-02-25      1   194 gp_rt
+#&gt;     5: 2020-02-26      1   961 gp_rt
 #&gt;    ---                              
-#&gt; 46996: 2020-04-04   1000  5779 gp_rt
-#&gt; 46997: 2020-04-05   1000  9644 gp_rt
-#&gt; 46998: 2020-04-06   1000  9925 gp_rt
-#&gt; 46999: 2020-04-07   1000 11625 gp_rt
-#&gt; 47000: 2020-04-08   1000  3373 gp_rt
+#&gt; 46996: 2020-04-04   1000  6285 gp_rt
+#&gt; 46997: 2020-04-05   1000 20439 gp_rt
+#&gt; 46998: 2020-04-06   1000  5307 gp_rt
+#&gt; 46999: 2020-04-07   1000 23657 gp_rt
+#&gt; 47000: 2020-04-08   1000 10255 gp_rt
 #&gt; 
 #&gt; $estimated_reported_cases$summarised
-#&gt;           date  type bottom   top lower upper median     mean          sd
-#&gt;  1: 2020-02-22 gp_rt     22   184    54   116   92.0  103.026    55.70171
-#&gt;  2: 2020-02-23 gp_rt     36   267    63   149  130.0  146.521    77.75752
-#&gt;  3: 2020-02-24 gp_rt     28   300    79   176  154.0  173.089    95.11657
-#&gt;  4: 2020-02-25 gp_rt     35   316    71   187  170.0  183.760    94.34126
-#&gt;  5: 2020-02-26 gp_rt     43   307    81   185  154.0  174.884    99.40645
-#&gt;  6: 2020-02-27 gp_rt     40   406    94   230  203.0  230.923   127.72616
-#&gt;  7: 2020-02-28 gp_rt     94   631   173   366  297.5  336.888   184.38322
-#&gt;  8: 2020-02-29 gp_rt     87   524   112   282  250.0  282.424   154.78212
-#&gt;  9: 2020-03-01 gp_rt     86   692   195   414  341.0  383.444   212.38267
-#&gt; 10: 2020-03-02 gp_rt    107   777   212   471  378.0  432.828   260.76805
-#&gt; 11: 2020-03-03 gp_rt     84   811   160   424  382.5  440.076   256.73525
-#&gt; 12: 2020-03-04 gp_rt     66   808   189   459  417.0  461.541   261.72634
-#&gt; 13: 2020-03-05 gp_rt     93  1096   195   604  550.0  625.144   372.37177
-#&gt; 14: 2020-03-06 gp_rt    208  1711   435   984  807.0  915.895   519.49690
-#&gt; 15: 2020-03-07 gp_rt    178  1529   358   826  734.0  848.220   500.16036
-#&gt; 16: 2020-03-08 gp_rt    108  2037   541  1232 1012.0 1176.844   732.69432
-#&gt; 17: 2020-03-09 gp_rt    290  2470   682  1483 1216.5 1395.195   786.86430
-#&gt; 18: 2020-03-10 gp_rt    225  2552   615  1501 1332.0 1475.111   824.15508
-#&gt; 19: 2020-03-11 gp_rt    294  2640   671  1553 1277.0 1459.828   802.75785
-#&gt; 20: 2020-03-12 gp_rt    288  3621   951  2209 1865.5 2077.913  1150.61517
-#&gt; 21: 2020-03-13 gp_rt    478  5494  1236  3017 2613.5 3007.202  1783.31439
-#&gt; 22: 2020-03-14 gp_rt    463  4598  1158  2755 2372.5 2635.828  1516.61125
-#&gt; 23: 2020-03-15 gp_rt    604  6193  1559  3658 3090.0 3495.362  2059.58811
-#&gt; 24: 2020-03-16 gp_rt    800  7261  1782  4094 3363.5 3908.413  2299.29035
-#&gt; 25: 2020-03-17 gp_rt    640  6842  1587  3891 3315.5 3798.501  2188.05155
-#&gt; 26: 2020-03-18 gp_rt    616  6358  1567  3734 3186.5 3554.531  1953.78218
-#&gt; 27: 2020-03-19 gp_rt    712  8466  2190  4993 4057.5 4756.302  2881.46686
-#&gt; 28: 2020-03-20 gp_rt   1565 12048  2780  6216 5363.5 6267.199  3778.19188
-#&gt; 29: 2020-03-21 gp_rt   1145  9403  2305  5325 4514.5 5095.580  2940.65755
-#&gt; 30: 2020-03-22 gp_rt   1083 10188  2437  6031 5248.0 5871.846  3286.86251
-#&gt; 31: 2020-03-23 gp_rt   1157 10819  2591  6118 5392.5 6163.194  3466.16941
-#&gt; 32: 2020-03-24 gp_rt   1203  9644  2372  5686 5005.5 5720.820  3277.94660
-#&gt; 33: 2020-03-25 gp_rt    936  8383  2239  5204 4301.5 4804.867  2756.91282
-#&gt; 34: 2020-03-26 gp_rt    506  9830  2771  6066 4979.0 5615.057  3263.48454
-#&gt; 35: 2020-03-27 gp_rt   1477 13134  2814  7316 6558.0 7430.011  4437.51231
-#&gt; 36: 2020-03-28 gp_rt   1366  9655  2232  5303 4656.0 5261.031  2913.97079
-#&gt; 37: 2020-03-29 gp_rt   1426 11080  2679  6192 5552.0 6376.192  3671.02675
-#&gt; 38: 2020-03-30 gp_rt   1284 11380  2667  6372 5382.5 6252.933  3902.39261
-#&gt; 39: 2020-03-31 gp_rt    899  9877  2121  5376 4583.5 5313.514  3284.93639
-#&gt; 40: 2020-04-01 gp_rt    791  8481  1497  4260 3834.0 4585.695  2862.79991
-#&gt; 41: 2020-04-02 gp_rt    873 10943  2071  5565 4624.5 5622.180  4063.37429
-#&gt; 42: 2020-04-03 gp_rt   1073 14096  1872  6370 5812.5 7147.162  5264.98074
-#&gt; 43: 2020-04-04 gp_rt    718  9901  2216  5839 4501.5 5294.692  3621.29233
-#&gt; 44: 2020-04-05 gp_rt    747 12807  1196  5179 4847.0 6362.743  5510.11473
-#&gt; 45: 2020-04-06 gp_rt    346 12685  1414  5122 4706.5 6653.819  7112.13352
-#&gt; 46: 2020-04-07 gp_rt    637 13287  1331  4915 4348.0 6264.335  7414.70827
-#&gt; 47: 2020-04-08 gp_rt    327 11276   725  3620 3411.5 5628.622 10508.18570
-#&gt;           date  type bottom   top lower upper median     mean          sd
+#&gt;           date  type bottom   top lower upper median      mean          sd
+#&gt;  1: 2020-02-22 gp_rt      4   585    56   260  225.0   286.934    253.0652
+#&gt;  2: 2020-02-23 gp_rt     12   835    90   385  332.0   416.373    336.6203
+#&gt;  3: 2020-02-24 gp_rt     12   869    59   359  331.0   412.361    322.1574
+#&gt;  4: 2020-02-25 gp_rt      6   917    55   358  338.0   457.765    413.9626
+#&gt;  5: 2020-02-26 gp_rt      5   807    54   331  309.5   409.353    353.4566
+#&gt;  6: 2020-02-27 gp_rt     16  1097   134   513  431.5   548.684    463.6048
+#&gt;  7: 2020-02-28 gp_rt     19  1480    83   604  563.0   733.382    717.4531
+#&gt;  8: 2020-02-29 gp_rt      8  1067    58   445  415.0   528.836    476.9495
+#&gt;  9: 2020-03-01 gp_rt      0  1371   118   555  492.0   650.260    573.3613
+#&gt; 10: 2020-03-02 gp_rt     14  1366   109   570  522.0   677.811    616.2577
+#&gt; 11: 2020-03-03 gp_rt     23  1307   136   583  505.5   664.646    664.7448
+#&gt; 12: 2020-03-04 gp_rt     12  1282    58   491  457.0   633.434    656.3023
+#&gt; 13: 2020-03-05 gp_rt     53  1962   101   679  640.0   896.180    982.2673
+#&gt; 14: 2020-03-06 gp_rt     22  2532   141   915  853.0  1193.306   1135.5195
+#&gt; 15: 2020-03-07 gp_rt      4  1890   113   755  687.0   924.896    857.0221
+#&gt; 16: 2020-03-08 gp_rt     45  2515   281  1139 1003.0  1308.184   1237.7605
+#&gt; 17: 2020-03-09 gp_rt     66  2860   143  1146 1116.0  1446.829   1305.0019
+#&gt; 18: 2020-03-10 gp_rt     10  3026   161  1218 1167.5  1534.455   1393.0859
+#&gt; 19: 2020-03-11 gp_rt     49  3148   244  1257 1150.0  1544.541   1387.9417
+#&gt; 20: 2020-03-12 gp_rt     58  4463   297  1832 1653.0  2217.261   1961.2197
+#&gt; 21: 2020-03-13 gp_rt     55  6757   468  2638 2408.5  3252.288   3047.6339
+#&gt; 22: 2020-03-14 gp_rt     30  5355   302  2052 1903.0  2552.085   2278.2655
+#&gt; 23: 2020-03-15 gp_rt     12  6722   759  3098 2574.0  3406.949   3036.7059
+#&gt; 24: 2020-03-16 gp_rt     95  8205   539  3209 2903.0  3902.454   3818.2986
+#&gt; 25: 2020-03-17 gp_rt     45  8174   778  3628 3168.0  4076.942   3622.7734
+#&gt; 26: 2020-03-18 gp_rt     98  7515   478  3148 2916.5  3654.371   3143.2233
+#&gt; 27: 2020-03-19 gp_rt    202 10659   387  3904 3765.0  5060.270   4621.8199
+#&gt; 28: 2020-03-20 gp_rt     47 14066  1258  5853 4988.0  6808.475   6324.4465
+#&gt; 29: 2020-03-21 gp_rt    161 10244   703  4262 3858.5  4976.163   4275.9107
+#&gt; 30: 2020-03-22 gp_rt     49 12171  1183  5474 4671.5  6222.726   5652.3021
+#&gt; 31: 2020-03-23 gp_rt     92 12094  1094  5189 4561.5  6000.149   5339.6497
+#&gt; 32: 2020-03-24 gp_rt     49 12461   882  4889 4439.5  6007.005   5592.6018
+#&gt; 33: 2020-03-25 gp_rt     12 10523   556  4210 3881.0  5232.652   5161.3767
+#&gt; 34: 2020-03-26 gp_rt    116 14958   808  5276 5002.0  6920.650   6856.3206
+#&gt; 35: 2020-03-27 gp_rt    110 17888   851  6555 6228.5  8484.187   7975.0270
+#&gt; 36: 2020-03-28 gp_rt    185 12105   936  5117 4611.5  5944.994   5314.1487
+#&gt; 37: 2020-03-29 gp_rt    224 15197  1053  6187 5629.5  7279.421   6290.6824
+#&gt; 38: 2020-03-30 gp_rt    115 14101   728  5487 5119.0  6832.764   6253.0033
+#&gt; 39: 2020-03-31 gp_rt     82 13370   725  5157 4826.0  6770.525   7761.5779
+#&gt; 40: 2020-04-01 gp_rt    212 12620   804  4494 4076.5  5983.289   6560.0637
+#&gt; 41: 2020-04-02 gp_rt     20 16087   594  5202 4943.0  7803.506   9351.6785
+#&gt; 42: 2020-04-03 gp_rt     38 22243   446  6391 6182.5 10474.617  15803.2250
+#&gt; 43: 2020-04-04 gp_rt     40 16635   460  4823 4636.0  7360.503   8505.0413
+#&gt; 44: 2020-04-05 gp_rt     51 20524   294  5346 5210.5 11485.137  58389.0662
+#&gt; 45: 2020-04-06 gp_rt    144 21788   237  5067 5022.5 12348.067  53832.1326
+#&gt; 46: 2020-04-07 gp_rt     60 26384   502  5241 4983.5 18714.405 153954.4896
+#&gt; 47: 2020-04-08 gp_rt     45 24193   239  4096 4054.0 33716.235 437398.5990
+#&gt;           date  type bottom   top lower upper median      mean          sd
 #&gt; 
 #&gt; 
 #&gt; $summary
-#&gt;                                  measure              estimate
-#&gt; 1: New confirmed cases by infection date   4799 (116 -- 14657)
-#&gt; 2:        Expected change in daily cases                Unsure
-#&gt; 3:            Effective reproduction no.    0.86 (0.23 -- 1.4)
-#&gt; 4:                        Rate of growth -0.04 (-0.21 -- 0.13)
-#&gt; 5:          Doubling/halving time (days)   -17.7 (5.3 -- -3.4)
-#&gt;     numeric_estimate
-#&gt; 1: &lt;data.table[1x5]&gt;
-#&gt; 2:              0.66
-#&gt; 3: &lt;data.table[1x5]&gt;
-#&gt; 4: &lt;data.table[1x5]&gt;
-#&gt; 5: &lt;data.table[1x3]&gt;
+#&gt;                                  measure             estimate  numeric_estimate
+#&gt; 1: New confirmed cases by infection date    7345 (4 -- 33507) &lt;data.table[1x5]&gt;
+#&gt; 2:        Expected change in daily cases               Unsure              0.51
+#&gt; 3:            Effective reproduction no.  0.98 (0.06 -- 1.57) &lt;data.table[1x5]&gt;
+#&gt; 4:                        Rate of growth     0 (-0.3 -- 0.16) &lt;data.table[1x5]&gt;
+#&gt; 5:          Doubling/halving time (days) -140.8 (4.3 -- -2.3) &lt;data.table[1x3]&gt;
 #&gt; 
 #&gt; $plots
 #&gt; $plots$infections</div><div class='img'><img src='epinow-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
