@@ -197,7 +197,8 @@ a third variable <code>reference</code> which indicates what the date variable r
 <span class='co'>## Simple mapping</span>
 <span class='kw'>report</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span>(<span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>))   
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report</span>)   </div><div class='output co'>#&gt;            date cases reference
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report</span>)   
+</div><div class='output co'>#&gt;            date cases reference
 #&gt;   1: 2020-02-24     2    report
 #&gt;   2: 2020-02-25     9    report
 #&gt;   3: 2020-02-26    12    report
@@ -214,7 +215,8 @@ a third variable <code>reference</code> which indicates what the date variable r
                       <span class='kw'>cases</span>, delay_defs = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_def</span>, <span class='kw'>delay_def</span>),
                       reporting_effect = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>4</span>), <span class='fl'>0.95</span>, <span class='fl'>0.95</span>))          
                              
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_weekly</span>) </div><div class='output co'>#&gt;            date cases reference
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_weekly</span>) 
+</div><div class='output co'>#&gt;            date cases reference
 #&gt;   1: 2020-02-23     2    report
 #&gt;   2: 2020-02-24     3    report
 #&gt;   3: 2020-02-25    15    report
@@ -232,7 +234,8 @@ a third variable <code>reference</code> which indicates what the date variable r
                                            
                                                    
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_median</span>)</div><div class='output co'>#&gt;            date confirm cases reference
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_median</span>)
+</div><div class='output co'>#&gt;            date confirm cases reference
 #&gt;   1: 2020-02-28      14    14    report
 #&gt;   2: 2020-02-29      62    62    report
 #&gt;   3: 2020-03-01      53    53    report
@@ -253,7 +256,8 @@ a third variable <code>reference</code> which indicates what the date variable r
                       <span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='kw'>out</span>), <span class='fl'>0</span>, <span class='kw'>out</span>)
                       })          
                              
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_stochastic</span>)         </div><div class='output co'>#&gt;            date cases reference
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>report_stochastic</span>)         
+</div><div class='output co'>#&gt;            date cases reference
 #&gt;   1: 2020-02-22     0    report
 #&gt;   2: 2020-02-23     1    report
 #&gt;   3: 2020-02-24     9    report

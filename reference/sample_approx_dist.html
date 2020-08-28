@@ -182,7 +182,8 @@ Defaults to <code>TRUE</code>.</p></td>
 <span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>cases</span>[, <span class='kw'>cases</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='kw'>confirm</span>)] 
 
 <span class='co'>## Reported case distribution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>cases</span>)</div><div class='output co'>#&gt;            date confirm cases
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>cases</span>)
+</div><div class='output co'>#&gt;            date confirm cases
 #&gt;   1: 2020-02-22      14    14
 #&gt;   2: 2020-02-23      62    62
 #&gt;   3: 2020-02-24      53    53
@@ -195,7 +196,8 @@ Defaults to <code>TRUE</code>.</p></td>
 #&gt; 129: 2020-06-29     174   174
 #&gt; 130: 2020-06-30     126   126</div><div class='input'>
 <span class='co'>## Total cases</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>cases</span><span class='op'>$</span><span class='kw'>cases</span>)</div><div class='output co'>#&gt; [1] 240581</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>cases</span><span class='op'>$</span><span class='kw'>cases</span>)
+</div><div class='output co'>#&gt; [1] 240581</div><div class='input'>
 <span class='kw'>delay_fn</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>n</span>, <span class='kw'>dist</span>, <span class='kw'>cum</span>) {
               <span class='co'>if</span>(<span class='kw'>dist</span>) {
                 <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>pgamma</a></span>(<span class='kw'>n</span> <span class='op'>+</span> <span class='fl'>0.9999</span>, <span class='fl'>2</span>, <span class='fl'>1</span>) <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>pgamma</a></span>(<span class='kw'>n</span> <span class='op'>-</span> <span class='fl'>1e-5</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
@@ -208,7 +210,8 @@ Defaults to <code>TRUE</code>.</p></td>
                              dist_fn = <span class='kw'>delay_fn</span>)
    
 <span class='co'>## Estimated onset distribution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>onsets</span>)</div><div class='output co'>#&gt;            date cases
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>onsets</span>)
+</div><div class='output co'>#&gt;            date cases
 #&gt;   1: 2020-02-16     1
 #&gt;   2: 2020-02-17     1
 #&gt;   3: 2020-02-18     2
@@ -226,7 +229,8 @@ Defaults to <code>TRUE</code>.</p></td>
                   <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='fu'>sample_approx_dist</span>(cases = <span class='kw'>cases</span>,
                   dist_fn = <span class='kw'>delay_fn</span>)<span class='op'>$</span><span class='kw'>cases</span>))) 
                    
-<span class='kw'>total_onsets</span></div><div class='output co'>#&gt; [1] 240620.5</div><div class='input'> 
+<span class='kw'>total_onsets</span>
+</div><div class='output co'>#&gt; [1] 240620.5</div><div class='input'> 
                    
 <span class='co'>## Map from onset cases to reported                  </span>
 <span class='kw'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span>(cases = <span class='kw'>cases</span>,
@@ -239,6 +243,7 @@ Defaults to <code>TRUE</code>.</p></td>
                               dist_fn = <span class='kw'>delay_fn</span>,
                               direction = <span class='st'>"forwards"</span>,
                               type = <span class='st'>"median"</span>)
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

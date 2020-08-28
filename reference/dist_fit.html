@@ -168,7 +168,8 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Integer adjusted exponential model</span>
 <span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>2</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"exp"</span>, 
-         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'exp' NOW (CHAIN 1).
 #&gt; Chain 1: 
 #&gt; Chain 1: Gradient evaluation took 2.5e-05 seconds
@@ -219,15 +220,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 0.0628 seconds (Warm-up)
-#&gt; Chain 1:                0.069176 seconds (Sampling)
-#&gt; Chain 1:                0.131976 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 0.060926 seconds (Warm-up)
+#&gt; Chain 1:                0.065344 seconds (Sampling)
+#&gt; Chain 1:                0.12627 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'exp' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 1.9e-05 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.19 seconds.
+#&gt; Chain 2: Gradient evaluation took 1.6e-05 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.16 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -274,9 +275,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 0.060958 seconds (Warm-up)
-#&gt; Chain 2:                0.050477 seconds (Sampling)
-#&gt; Chain 2:                0.111435 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 0.057784 seconds (Warm-up)
+#&gt; Chain 2:                0.049789 seconds (Sampling)
+#&gt; Chain 2:                0.107573 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: exp.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -285,18 +286,19 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; lambda   2.37    0.01 0.34   1.77   2.13   2.35   2.60   3.11   649    1
 #&gt; lp__   -20.03    0.02 0.62 -21.73 -20.18 -19.79 -19.62 -19.56   713    1
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Aug 26 15:57:35 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Fri Aug 28 10:18:12 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'>
 
 <span class='co'>## Integer adjusted gamma model</span>
 <span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/GammaDist.html'>rgamma</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"gamma"</span>, 
-         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'gamma' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000336 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.36 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000326 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.26 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -343,15 +345,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 1.9385 seconds (Warm-up)
-#&gt; Chain 1:                1.69233 seconds (Sampling)
-#&gt; Chain 1:                3.63082 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 2.41824 seconds (Warm-up)
+#&gt; Chain 1:                2.2286 seconds (Sampling)
+#&gt; Chain 1:                4.64684 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'gamma' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000228 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.28 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000545 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 5.45 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -398,9 +400,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 1.58764 seconds (Warm-up)
-#&gt; Chain 2:                1.83624 seconds (Sampling)
-#&gt; Chain 2:                3.42388 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 1.50551 seconds (Warm-up)
+#&gt; Chain 2:                2.61218 seconds (Sampling)
+#&gt; Chain 2:                4.11769 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: gamma.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -414,17 +416,18 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; sigma       0.41    0.00 0.03   0.36   0.40   0.42   0.43   0.46   814    1
 #&gt; lp__      -16.51    0.07 1.27 -19.94 -17.11 -16.13 -15.55 -15.19   298    1
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Aug 26 15:57:43 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Fri Aug 28 10:18:21 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'>
 <span class='co'>## Integer adjusted lognormal model</span>
 <span class='fu'>dist_fit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>), <span class='fl'>0.2</span>), samples = <span class='fl'>1000</span>, dist = <span class='st'>"lognormal"</span>,
-         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+         cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), verbose = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'lnorm' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 3e-05 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.3 seconds.
+#&gt; Chain 1: Gradient evaluation took 4.6e-05 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.46 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -471,15 +474,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 0.160852 seconds (Warm-up)
-#&gt; Chain 1:                0.148187 seconds (Sampling)
-#&gt; Chain 1:                0.309039 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 0.150871 seconds (Warm-up)
+#&gt; Chain 1:                0.147756 seconds (Sampling)
+#&gt; Chain 1:                0.298627 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'lnorm' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 3e-05 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.3 seconds.
+#&gt; Chain 2: Gradient evaluation took 2.9e-05 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.29 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -526,9 +529,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 0.169151 seconds (Warm-up)
-#&gt; Chain 2:                0.148435 seconds (Sampling)
-#&gt; Chain 2:                0.317586 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 0.149986 seconds (Warm-up)
+#&gt; Chain 2:                0.149149 seconds (Sampling)
+#&gt; Chain 2:                0.299135 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: lnorm.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -538,11 +541,12 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; sigma   0.14    0.00 0.02   0.11   0.13   0.14   0.15   0.17  1178    1
 #&gt; lp__  -65.63    0.03 1.01 -68.20 -66.02 -65.34 -64.90 -64.64   924    1
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Aug 26 15:57:44 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Fri Aug 28 10:18:22 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'>
-<span class='co'># }</span></div></pre>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
