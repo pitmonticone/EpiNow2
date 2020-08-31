@@ -198,12 +198,12 @@ on the maximum number of reported cases.</p></td>
                                     samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, 
                                     cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                                     chains = <span class='fl'>4</span>, horizon = <span class='fl'>7</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; DEBUG [2020-08-28 13:28:20] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast
+</div><div class='output co'>#&gt; DEBUG [2020-08-31 13:07:02] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000875 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 8.75 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000306 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.06 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -219,15 +219,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 183.425 seconds (Warm-up)
-#&gt; Chain 1:                100.181 seconds (Sampling)
-#&gt; Chain 1:                283.606 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 58.3002 seconds (Warm-up)
+#&gt; Chain 1:                32.1127 seconds (Sampling)
+#&gt; Chain 1:                90.4128 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000889 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 8.89 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000341 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.41 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -243,15 +243,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 172.163 seconds (Warm-up)
-#&gt; Chain 2:                98.936 seconds (Sampling)
-#&gt; Chain 2:                271.099 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 55.5074 seconds (Warm-up)
+#&gt; Chain 2:                31.2664 seconds (Sampling)
+#&gt; Chain 2:                86.7738 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000852 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 8.52 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000283 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.83 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -267,15 +267,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 187.671 seconds (Warm-up)
-#&gt; Chain 3:                110.726 seconds (Sampling)
-#&gt; Chain 3:                298.397 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 58.9944 seconds (Warm-up)
+#&gt; Chain 3:                35.6094 seconds (Sampling)
+#&gt; Chain 3:                94.6038 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.00098 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 9.8 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000304 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.04 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -291,9 +291,9 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 146.482 seconds (Warm-up)
-#&gt; Chain 4:                106.894 seconds (Sampling)
-#&gt; Chain 4:                253.377 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 47.3507 seconds (Warm-up)
+#&gt; Chain 4:                36.2236 seconds (Sampling)
+#&gt; Chain 4:                83.5743 seconds (Total)
 #&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'><span class='co'>## Plot infections</span>
