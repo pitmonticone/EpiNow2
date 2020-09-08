@@ -97,18 +97,15 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the stable version of the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)</pre></div>
 <p>Install the stable development version of the package using <a href="https://epiforecasts.io/drat/"><code>{drat}</code></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"drat"</span>)
 <span class="kw">drat</span>:::<span class="fu">add</span>(<span class="st">"epiforecasts"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)</pre></div>
 <p>Install the unstable development version of the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"epiforecasts/EpiNow2"</span>)
-</pre></div>
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"epiforecasts/EpiNow2"</span>)</pre></div>
 <p>Windows users will need a working installation of Rtools in order to build the package from source. See <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started#checking-the-c-toolchain">here</a> for a guide to installing Rtools for use with Stan (which is the statistical modeling platform used for the underlying model). For simple deployment/development a prebuilt docker image is also available (see documentation <a href="https://github.com/epiforecasts/EpiNow2/wiki/Docker">here</a>).</p>
 </div>
 <div id="quick-start" class="section level2">
@@ -138,8 +135,7 @@
 <span class="co">#&gt; [1] 0.113312</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $max</span>
-<span class="co">#&gt; [1] 30</span>
-</pre></div>
+<span class="co">#&gt; [1] 30</span></pre></div>
 <p>Here we define the incubation period and generation time based on literature estimates for Covid-19 (see <a href="https://github.com/epiforecasts/EpiNow/tree/master/data-raw">here</a> for the code that generates these estimates).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw">generation_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(mean = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_generation_times.html">covid_generation_times</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">mean</span>,
@@ -152,8 +148,7 @@
                           mean_sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">mean_sd</span>,
                           sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">sd</span>,
                           sd_sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">sd_sd</span>,
-                          max = <span class="fl">30</span>)
-</pre></div>
+                          max = <span class="fl">30</span>)</pre></div>
 </div>
 <div id="epinow" class="section level3">
 <h3 class="hasAnchor">
@@ -171,8 +166,7 @@
 <span class="co">#&gt; 3: 2020-02-24      53</span>
 <span class="co">#&gt; 4: 2020-02-25      97</span>
 <span class="co">#&gt; 5: 2020-02-26      93</span>
-<span class="co">#&gt; 6: 2020-02-27      78</span>
-</pre></div>
+<span class="co">#&gt; 6: 2020-02-27      78</span></pre></div>
 <p>Estimate cases by date of infection, the time-varying reproduction number, the rate of growth and forecast these estimates into the future by 7 days. Summarise the posterior and return a summary table and plots for reporting purposes. If a <code>target_folder</code> is supplied results can be internally saved (with the option to also turn off explicit returning of results). <em>Note that for real use cases more samples and a longer warm up may be needed</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw">estimates</span> <span class="op">&lt;-</span> <span class="kw">EpiNow2</span>::<span class="fu"><a href="reference/epinow.html">epinow</a></span>(reported_cases = <span class="kw">reported_cases</span>, 
@@ -185,8 +179,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">estimates</span>)
 <span class="co">#&gt; [1] "estimates"                "estimated_reported_cases"</span>
-<span class="co">#&gt; [3] "summary"                  "plots"</span>
-</pre></div>
+<span class="co">#&gt; [3] "summary"                  "plots"</span></pre></div>
 <p>Both summary measures and posterior samples are returned for all parameters in an easily explored format.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">estimates</span>
@@ -240,8 +233,7 @@
 <span class="co">#&gt; 323:  903.000000 2562.000000 2342.000000 3033.583000 2.574506e+03</span>
 <span class="co">#&gt; 324:  924.000000 2942.000000 2685.500000 3657.875000 4.357484e+03</span>
 <span class="co">#&gt; 325: 1191.000000 3496.000000 3096.000000 5197.417000 1.469759e+04</span>
-<span class="co">#&gt; 326:  854.000000 2691.000000 2355.000000 5417.498000 3.578082e+04</span>
-</pre></div>
+<span class="co">#&gt; 326:  854.000000 2691.000000 2355.000000 5417.498000 3.578082e+04</span></pre></div>
 <p>Reported cases are returned separately in order to ease reporting of forecasts and model evaluation.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">estimated_reported_cases</span>
@@ -318,8 +310,7 @@
 <span class="co">#&gt; 55: 2020-04-16 gp_rt    364  6466   924  2942 2685.5 3657.875  4357.48423</span>
 <span class="co">#&gt; 56: 2020-04-17 gp_rt    397  8587  1191  3496 3096.0 5197.417 14697.58863</span>
 <span class="co">#&gt; 57: 2020-04-18 gp_rt    289  7005   854  2691 2355.0 5417.498 35780.82391</span>
-<span class="co">#&gt;           date  type bottom   top lower upper median     mean          sd</span>
-</pre></div>
+<span class="co">#&gt;           date  type bottom   top lower upper median     mean          sd</span></pre></div>
 <p>A summary table is returned for rapidly understanding the results and for reporting purposes.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span>
@@ -334,12 +325,10 @@
 <span class="co">#&gt; 2:              0.69</span>
 <span class="co">#&gt; 3: &lt;data.table[1x5]&gt;</span>
 <span class="co">#&gt; 4: &lt;data.table[1x5]&gt;</span>
-<span class="co">#&gt; 5: &lt;data.table[1x3]&gt;</span>
-</pre></div>
+<span class="co">#&gt; 5: &lt;data.table[1x3]&gt;</span></pre></div>
 <p>A range of plots are returned (with the single summary plot shown below).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">estimates</span><span class="op">$</span><span class="kw">plots</span><span class="op">$</span><span class="kw">summary</span>
-</pre></div>
+<span class="kw">estimates</span><span class="op">$</span><span class="kw">plots</span><span class="op">$</span><span class="kw">summary</span></pre></div>
 <p><img src="reference/figures/unnamed-chunk-12-1.png"><!-- --></p>
 </div>
 <div id="regional-epinow" class="section level3">
@@ -360,8 +349,7 @@
 <span class="co">#&gt; 3: 2020-02-24      53 testland</span>
 <span class="co">#&gt; 4: 2020-02-25      97 testland</span>
 <span class="co">#&gt; 5: 2020-02-26      93 testland</span>
-<span class="co">#&gt; 6: 2020-02-27      78 testland</span>
-</pre></div>
+<span class="co">#&gt; 6: 2020-02-27      78 testland</span></pre></div>
 <p>Run the pipeline on each region in turn. The commented code (requires the <code>{future}</code> package) can be used to run regions in parallel (when in most scenarios <code>cores</code> should be set to 1).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="co">## future::plan("multisession")</span>
@@ -378,8 +366,7 @@
 <span class="co">#&gt; INFO [2020-08-26 15:27:15] Completed estimates for: testland</span>
 <span class="co">#&gt; INFO [2020-08-26 15:27:15] Initialising estimates for: realland</span>
 <span class="co">#&gt; DEBUG [2020-08-26 15:27:15] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 71 time steps of which 7 are a forecast</span>
-<span class="co">#&gt; INFO [2020-08-26 15:29:58] Completed estimates for: realland</span>
-</pre></div>
+<span class="co">#&gt; INFO [2020-08-26 15:29:58] Completed estimates for: realland</span></pre></div>
 <p>Results from each region are stored in a <code>regional</code> list with across region summary measures and plots stored in a <code>summary</code> list. All results can be set to be internally saved by setting the <code>target_folder</code> and <code>summary_dir</code> arguments.</p>
 <p>Summary measures that are returned include a table formatted for reporting (along with raw results for further processing).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
@@ -392,12 +379,10 @@
 <span class="co">#&gt; 2:                         Unsure        0.78 (0.18 -- 1.39)</span>
 <span class="co">#&gt;           Rate of growth Doubling/halving time (days)</span>
 <span class="co">#&gt; 1:  -0.05 (-0.2 -- 0.14)            -13.2 (5 -- -3.4)</span>
-<span class="co">#&gt; 2: -0.06 (-0.25 -- 0.12)          -11.2 (5.8 -- -2.8)</span>
-</pre></div>
+<span class="co">#&gt; 2: -0.06 (-0.25 -- 0.12)          -11.2 (5.8 -- -2.8)</span></pre></div>
 <p>A range of plots are again returned (with the single summary plot shown below).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span><span class="op">$</span><span class="kw">summary_plot</span>
-</pre></div>
+<span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span><span class="op">$</span><span class="kw">summary_plot</span></pre></div>
 <p><img src="reference/figures/unnamed-chunk-16-1.png"><!-- --></p>
 </div>
 <div id="reporting-templates" class="section level3">
@@ -470,7 +455,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
 </div>
 
       </footer>
