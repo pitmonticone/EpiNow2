@@ -344,12 +344,12 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
               rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
               samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>,
               verbose = <span class='fl'>TRUE</span>, return_fit = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; DEBUG [2020-09-07 22:47:39] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 67 time steps of which 7 are a forecast
+</div><div class='output co'>#&gt; DEBUG [2020-09-16 16:56:10] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 67 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000398 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.98 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000422 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 4.22 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -365,15 +365,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 112.947 seconds (Warm-up)
-#&gt; Chain 1:                93.5372 seconds (Sampling)
-#&gt; Chain 1:                206.485 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 120.128 seconds (Warm-up)
+#&gt; Chain 1:                98.1663 seconds (Sampling)
+#&gt; Chain 1:                218.294 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000337 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.37 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000317 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.17 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -389,15 +389,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 66.3287 seconds (Warm-up)
-#&gt; Chain 2:                33.4264 seconds (Sampling)
-#&gt; Chain 2:                99.7551 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 68.5915 seconds (Warm-up)
+#&gt; Chain 2:                32.359 seconds (Sampling)
+#&gt; Chain 2:                100.95 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000323 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.23 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000321 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.21 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -413,15 +413,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 73.6018 seconds (Warm-up)
-#&gt; Chain 3:                39.1487 seconds (Sampling)
-#&gt; Chain 3:                112.751 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 72.934 seconds (Warm-up)
+#&gt; Chain 3:                38.1658 seconds (Sampling)
+#&gt; Chain 3:                111.1 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000314 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.14 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000299 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.99 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -437,16 +437,10 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 79.6961 seconds (Warm-up)
-#&gt; Chain 4:                40.2646 seconds (Sampling)
-#&gt; Chain 4:                119.961 seconds (Total)
-#&gt; Chain 4: </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 4 divergent transitions after warmup. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
-#&gt; <span class='warning'>to find out why this is a problem and how to eliminate them.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
-#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
-#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='input'>
+#&gt; Chain 4:  Elapsed Time: 81.0215 seconds (Warm-up)
+#&gt; Chain 4:                39.9322 seconds (Sampling)
+#&gt; Chain 4:                120.954 seconds (Total)
+#&gt; Chain 4: </div><div class='input'>
 <span class='kw'>out</span>
 </div><div class='output co'>#&gt; $estimates
 #&gt; $estimates$samples
@@ -488,18 +482,30 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; 286: 2020-04-06 reported_cases  &lt;NA&gt; forecast 144.0000000 21788.000000
 #&gt; 287: 2020-04-07 reported_cases  &lt;NA&gt; forecast  60.0000000 26384.000000
 #&gt; 288: 2020-04-08 reported_cases  &lt;NA&gt; forecast  45.0000000 24193.000000
-#&gt;            lower        upper       median         mean           sd
-#&gt;   1:   0.5722705    0.9865800    0.8477715 8.684672e-01 2.939618e-01
-#&gt;   2:   0.6187021    0.9935813    0.8886211 9.078448e-01 2.667629e-01
-#&gt;   3:   0.7066474    1.0386423    0.9471854 9.561120e-01 2.365712e-01
-#&gt;   4:   0.7932691    1.0854731    1.0030443 1.013428e+00 2.036988e-01
-#&gt;   5:   0.9178318    1.1641206    1.0724087 1.079546e+00 1.696638e-01
-#&gt;  ---                                                                
-#&gt; 284: 460.0000000 4823.0000000 4636.0000000 7.360503e+03 8.505041e+03
-#&gt; 285: 294.0000000 5346.0000000 5210.5000000 1.148514e+04 5.838907e+04
-#&gt; 286: 237.0000000 5067.0000000 5022.5000000 1.234807e+04 5.383213e+04
-#&gt; 287: 502.0000000 5241.0000000 4983.5000000 1.871440e+04 1.539545e+05
-#&gt; 288: 239.0000000 4096.0000000 4054.0000000 3.371624e+04 4.373986e+05
+#&gt;            lower        upper central_lower central_upper       median
+#&gt;   1:   0.5722705    0.9865800     0.7341671     0.8872569    0.8477715
+#&gt;   2:   0.6187021    0.9935813     0.7936029     0.9360602    0.8886211
+#&gt;   3:   0.7066474    1.0386423     0.8789581     1.0038825    0.9471854
+#&gt;   4:   0.7932691    1.0854731     0.8629975     0.9704365    1.0030443
+#&gt;   5:   0.9178318    1.1641206     0.9880337     1.0808243    1.0724087
+#&gt;  ---                                                                  
+#&gt; 284: 460.0000000 4823.0000000  1570.0000000  3045.0000000 4636.0000000
+#&gt; 285: 294.0000000 5346.0000000  1074.0000000  2836.0000000 5210.5000000
+#&gt; 286: 237.0000000 5067.0000000  1058.0000000  2501.0000000 5022.5000000
+#&gt; 287: 502.0000000 5241.0000000  1204.0000000  2581.0000000 4983.5000000
+#&gt; 288: 239.0000000 4096.0000000   498.0000000  1774.0000000 4054.0000000
+#&gt;              mean           sd
+#&gt;   1: 8.684672e-01 2.939618e-01
+#&gt;   2: 9.078448e-01 2.667629e-01
+#&gt;   3: 9.561120e-01 2.365712e-01
+#&gt;   4: 1.013428e+00 2.036988e-01
+#&gt;   5: 1.079546e+00 1.696638e-01
+#&gt;  ---                          
+#&gt; 284: 7.360503e+03 8.505041e+03
+#&gt; 285: 1.148514e+04 5.838907e+04
+#&gt; 286: 1.234807e+04 5.383213e+04
+#&gt; 287: 1.871440e+04 1.539545e+05
+#&gt; 288: 3.371624e+04 4.373986e+05
 #&gt; 
 #&gt; $estimates$fit
 #&gt; Inference for Stan model: estimate_infections.
@@ -1231,7 +1237,7 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; r[47]                     0.00     0.11       0.73  1402 1.00
 #&gt; lp__                    -83.32   -79.78     -73.16   138 1.01
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Mon Sep  7 22:56:38 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Wed Sep 16 17:05:21 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).
@@ -1253,63 +1259,112 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; 47000: 2020-04-08   1000 10255 gp_rt
 #&gt; 
 #&gt; $estimated_reported_cases$summarised
-#&gt;           date  type bottom   top lower upper median      mean          sd
-#&gt;  1: 2020-02-22 gp_rt      4   585    56   260  225.0   286.934    253.0652
-#&gt;  2: 2020-02-23 gp_rt     12   835    90   385  332.0   416.373    336.6203
-#&gt;  3: 2020-02-24 gp_rt     12   869    59   359  331.0   412.361    322.1574
-#&gt;  4: 2020-02-25 gp_rt      6   917    55   358  338.0   457.765    413.9626
-#&gt;  5: 2020-02-26 gp_rt      5   807    54   331  309.5   409.353    353.4566
-#&gt;  6: 2020-02-27 gp_rt     16  1097   134   513  431.5   548.684    463.6048
-#&gt;  7: 2020-02-28 gp_rt     19  1480    83   604  563.0   733.382    717.4531
-#&gt;  8: 2020-02-29 gp_rt      8  1067    58   445  415.0   528.836    476.9495
-#&gt;  9: 2020-03-01 gp_rt      0  1371   118   555  492.0   650.260    573.3613
-#&gt; 10: 2020-03-02 gp_rt     14  1366   109   570  522.0   677.811    616.2577
-#&gt; 11: 2020-03-03 gp_rt     23  1307   136   583  505.5   664.646    664.7448
-#&gt; 12: 2020-03-04 gp_rt     12  1282    58   491  457.0   633.434    656.3023
-#&gt; 13: 2020-03-05 gp_rt     53  1962   101   679  640.0   896.180    982.2673
-#&gt; 14: 2020-03-06 gp_rt     22  2532   141   915  853.0  1193.306   1135.5195
-#&gt; 15: 2020-03-07 gp_rt      4  1890   113   755  687.0   924.896    857.0221
-#&gt; 16: 2020-03-08 gp_rt     45  2515   281  1139 1003.0  1308.184   1237.7605
-#&gt; 17: 2020-03-09 gp_rt     66  2860   143  1146 1116.0  1446.829   1305.0019
-#&gt; 18: 2020-03-10 gp_rt     10  3026   161  1218 1167.5  1534.455   1393.0859
-#&gt; 19: 2020-03-11 gp_rt     49  3148   244  1257 1150.0  1544.541   1387.9417
-#&gt; 20: 2020-03-12 gp_rt     58  4463   297  1832 1653.0  2217.261   1961.2197
-#&gt; 21: 2020-03-13 gp_rt     55  6757   468  2638 2408.5  3252.288   3047.6339
-#&gt; 22: 2020-03-14 gp_rt     30  5355   302  2052 1903.0  2552.085   2278.2655
-#&gt; 23: 2020-03-15 gp_rt     12  6722   759  3098 2574.0  3406.949   3036.7059
-#&gt; 24: 2020-03-16 gp_rt     95  8205   539  3209 2903.0  3902.454   3818.2986
-#&gt; 25: 2020-03-17 gp_rt     45  8174   778  3628 3168.0  4076.942   3622.7734
-#&gt; 26: 2020-03-18 gp_rt     98  7515   478  3148 2916.5  3654.371   3143.2233
-#&gt; 27: 2020-03-19 gp_rt    202 10659   387  3904 3765.0  5060.270   4621.8199
-#&gt; 28: 2020-03-20 gp_rt     47 14066  1258  5853 4988.0  6808.475   6324.4465
-#&gt; 29: 2020-03-21 gp_rt    161 10244   703  4262 3858.5  4976.163   4275.9107
-#&gt; 30: 2020-03-22 gp_rt     49 12171  1183  5474 4671.5  6222.726   5652.3021
-#&gt; 31: 2020-03-23 gp_rt     92 12094  1094  5189 4561.5  6000.149   5339.6497
-#&gt; 32: 2020-03-24 gp_rt     49 12461   882  4889 4439.5  6007.005   5592.6018
-#&gt; 33: 2020-03-25 gp_rt     12 10523   556  4210 3881.0  5232.652   5161.3767
-#&gt; 34: 2020-03-26 gp_rt    116 14958   808  5276 5002.0  6920.650   6856.3206
-#&gt; 35: 2020-03-27 gp_rt    110 17888   851  6555 6228.5  8484.187   7975.0270
-#&gt; 36: 2020-03-28 gp_rt    185 12105   936  5117 4611.5  5944.994   5314.1487
-#&gt; 37: 2020-03-29 gp_rt    224 15197  1053  6187 5629.5  7279.421   6290.6824
-#&gt; 38: 2020-03-30 gp_rt    115 14101   728  5487 5119.0  6832.764   6253.0033
-#&gt; 39: 2020-03-31 gp_rt     82 13370   725  5157 4826.0  6770.525   7761.5779
-#&gt; 40: 2020-04-01 gp_rt    212 12620   804  4494 4076.5  5983.289   6560.0637
-#&gt; 41: 2020-04-02 gp_rt     20 16087   594  5202 4943.0  7803.506   9351.6785
-#&gt; 42: 2020-04-03 gp_rt     38 22243   446  6391 6182.5 10474.617  15803.2250
-#&gt; 43: 2020-04-04 gp_rt     40 16635   460  4823 4636.0  7360.503   8505.0413
-#&gt; 44: 2020-04-05 gp_rt     51 20524   294  5346 5210.5 11485.137  58389.0662
-#&gt; 45: 2020-04-06 gp_rt    144 21788   237  5067 5022.5 12348.067  53832.1326
-#&gt; 46: 2020-04-07 gp_rt     60 26384   502  5241 4983.5 18714.405 153954.4896
-#&gt; 47: 2020-04-08 gp_rt     45 24193   239  4096 4054.0 33716.235 437398.5990
-#&gt;           date  type bottom   top lower upper median      mean          sd
+#&gt;           date  type bottom   top lower upper central_lower central_upper
+#&gt;  1: 2020-02-22 gp_rt      4   585    56   260            99           172
+#&gt;  2: 2020-02-23 gp_rt     12   835    90   385           116           222
+#&gt;  3: 2020-02-24 gp_rt     12   869    59   359           234           342
+#&gt;  4: 2020-02-25 gp_rt      6   917    55   358           136           230
+#&gt;  5: 2020-02-26 gp_rt      5   807    54   331           185           283
+#&gt;  6: 2020-02-27 gp_rt     16  1097   134   513           249           394
+#&gt;  7: 2020-02-28 gp_rt     19  1480    83   604           308           502
+#&gt;  8: 2020-02-29 gp_rt      8  1067    58   445            92           226
+#&gt;  9: 2020-03-01 gp_rt      0  1371   118   555           227           384
+#&gt; 10: 2020-03-02 gp_rt     14  1366   109   570           170           343
+#&gt; 11: 2020-03-03 gp_rt     23  1307   136   583           231           391
+#&gt; 12: 2020-03-04 gp_rt     12  1282    58   491           127           278
+#&gt; 13: 2020-03-05 gp_rt     53  1962   101   679           129           332
+#&gt; 14: 2020-03-06 gp_rt     22  2532   141   915           251           518
+#&gt; 15: 2020-03-07 gp_rt      4  1890   113   755           116           333
+#&gt; 16: 2020-03-08 gp_rt     45  2515   281  1139           398           677
+#&gt; 17: 2020-03-09 gp_rt     66  2860   143  1146           339           686
+#&gt; 18: 2020-03-10 gp_rt     10  3026   161  1218           488           857
+#&gt; 19: 2020-03-11 gp_rt     49  3148   244  1257           412           741
+#&gt; 20: 2020-03-12 gp_rt     58  4463   297  1832           679          1237
+#&gt; 21: 2020-03-13 gp_rt     55  6757   468  2638           556          1312
+#&gt; 22: 2020-03-14 gp_rt     30  5355   302  2052           729          1305
+#&gt; 23: 2020-03-15 gp_rt     12  6722   759  3098          1269          2075
+#&gt; 24: 2020-03-16 gp_rt     95  8205   539  3209           493          1519
+#&gt; 25: 2020-03-17 gp_rt     45  8174   778  3628          1127          2068
+#&gt; 26: 2020-03-18 gp_rt     98  7515   478  3148           722          1660
+#&gt; 27: 2020-03-19 gp_rt    202 10659   387  3904          2328          3610
+#&gt; 28: 2020-03-20 gp_rt     47 14066  1258  5853          3249          4876
+#&gt; 29: 2020-03-21 gp_rt    161 10244   703  4262          1424          2636
+#&gt; 30: 2020-03-22 gp_rt     49 12171  1183  5474          3307          4862
+#&gt; 31: 2020-03-23 gp_rt     92 12094  1094  5189          2151          3502
+#&gt; 32: 2020-03-24 gp_rt     49 12461   882  4889          2344          3809
+#&gt; 33: 2020-03-25 gp_rt     12 10523   556  4210          1204          2503
+#&gt; 34: 2020-03-26 gp_rt    116 14958   808  5276          3491          5085
+#&gt; 35: 2020-03-27 gp_rt    110 17888   851  6555          2948          4712
+#&gt; 36: 2020-03-28 gp_rt    185 12105   936  5117          2016          3502
+#&gt; 37: 2020-03-29 gp_rt    224 15197  1053  6187          1625          3429
+#&gt; 38: 2020-03-30 gp_rt    115 14101   728  5487          2064          3691
+#&gt; 39: 2020-03-31 gp_rt     82 13370   725  5157          2997          4660
+#&gt; 40: 2020-04-01 gp_rt    212 12620   804  4494          1373          2631
+#&gt; 41: 2020-04-02 gp_rt     20 16087   594  5202          2590          4270
+#&gt; 42: 2020-04-03 gp_rt     38 22243   446  6391          1166          3057
+#&gt; 43: 2020-04-04 gp_rt     40 16635   460  4823          1570          3045
+#&gt; 44: 2020-04-05 gp_rt     51 20524   294  5346          1074          2836
+#&gt; 45: 2020-04-06 gp_rt    144 21788   237  5067          1058          2501
+#&gt; 46: 2020-04-07 gp_rt     60 26384   502  5241          1204          2581
+#&gt; 47: 2020-04-08 gp_rt     45 24193   239  4096           498          1774
+#&gt;           date  type bottom   top lower upper central_lower central_upper
+#&gt;     median      mean          sd
+#&gt;  1:  225.0   286.934    253.0652
+#&gt;  2:  332.0   416.373    336.6203
+#&gt;  3:  331.0   412.361    322.1574
+#&gt;  4:  338.0   457.765    413.9626
+#&gt;  5:  309.5   409.353    353.4566
+#&gt;  6:  431.5   548.684    463.6048
+#&gt;  7:  563.0   733.382    717.4531
+#&gt;  8:  415.0   528.836    476.9495
+#&gt;  9:  492.0   650.260    573.3613
+#&gt; 10:  522.0   677.811    616.2577
+#&gt; 11:  505.5   664.646    664.7448
+#&gt; 12:  457.0   633.434    656.3023
+#&gt; 13:  640.0   896.180    982.2673
+#&gt; 14:  853.0  1193.306   1135.5195
+#&gt; 15:  687.0   924.896    857.0221
+#&gt; 16: 1003.0  1308.184   1237.7605
+#&gt; 17: 1116.0  1446.829   1305.0019
+#&gt; 18: 1167.5  1534.455   1393.0859
+#&gt; 19: 1150.0  1544.541   1387.9417
+#&gt; 20: 1653.0  2217.261   1961.2197
+#&gt; 21: 2408.5  3252.288   3047.6339
+#&gt; 22: 1903.0  2552.085   2278.2655
+#&gt; 23: 2574.0  3406.949   3036.7059
+#&gt; 24: 2903.0  3902.454   3818.2986
+#&gt; 25: 3168.0  4076.942   3622.7734
+#&gt; 26: 2916.5  3654.371   3143.2233
+#&gt; 27: 3765.0  5060.270   4621.8199
+#&gt; 28: 4988.0  6808.475   6324.4465
+#&gt; 29: 3858.5  4976.163   4275.9107
+#&gt; 30: 4671.5  6222.726   5652.3021
+#&gt; 31: 4561.5  6000.149   5339.6497
+#&gt; 32: 4439.5  6007.005   5592.6018
+#&gt; 33: 3881.0  5232.652   5161.3767
+#&gt; 34: 5002.0  6920.650   6856.3206
+#&gt; 35: 6228.5  8484.187   7975.0270
+#&gt; 36: 4611.5  5944.994   5314.1487
+#&gt; 37: 5629.5  7279.421   6290.6824
+#&gt; 38: 5119.0  6832.764   6253.0033
+#&gt; 39: 4826.0  6770.525   7761.5779
+#&gt; 40: 4076.5  5983.289   6560.0637
+#&gt; 41: 4943.0  7803.506   9351.6785
+#&gt; 42: 6182.5 10474.617  15803.2250
+#&gt; 43: 4636.0  7360.503   8505.0413
+#&gt; 44: 5210.5 11485.137  58389.0662
+#&gt; 45: 5022.5 12348.067  53832.1326
+#&gt; 46: 4983.5 18714.405 153954.4896
+#&gt; 47: 4054.0 33716.235 437398.5990
+#&gt;     median      mean          sd
 #&gt; 
 #&gt; 
 #&gt; $summary
 #&gt;                                  measure             estimate  numeric_estimate
-#&gt; 1: New confirmed cases by infection date    7345 (4 -- 33507) &lt;data.table[1x5]&gt;
+#&gt; 1: New confirmed cases by infection date    7345 (4 -- 33507) &lt;data.table[1x7]&gt;
 #&gt; 2:        Expected change in daily cases               Unsure              0.51
-#&gt; 3:            Effective reproduction no.  0.98 (0.06 -- 1.57) &lt;data.table[1x5]&gt;
-#&gt; 4:                        Rate of growth     0 (-0.3 -- 0.16) &lt;data.table[1x5]&gt;
+#&gt; 3:            Effective reproduction no.  0.98 (0.06 -- 1.57) &lt;data.table[1x7]&gt;
+#&gt; 4:                        Rate of growth     0 (-0.3 -- 0.16) &lt;data.table[1x7]&gt;
 #&gt; 5:          Doubling/halving time (days) -140.8 (4.3 -- -2.3) &lt;data.table[1x3]&gt;
 #&gt; 
 #&gt; $plots
@@ -1317,7 +1372,7 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt; $plots$reports</div><div class='img'><img src='epinow-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $plots$reff</div><div class='img'><img src='epinow-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $plots$growth_rate</div><div class='img'><img src='epinow-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $plots$summary</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_col).</span></div><div class='img'><img src='epinow-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $plots$summary</div><div class='img'><img src='epinow-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; </div><div class='input'>
 <span class='co'>## For optional forecasting</span>
 <span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"EpiSoon"</span>)){
@@ -1359,7 +1414,7 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -176,7 +176,7 @@ expects the possible values to be "Increasing", "Likely increasing", "Likely dec
     <tr>
       <th>region_col_ne</th>
       <td><p>Character string indicating the name of a column in the data returned by
-<code><a href='https://docs.ropensci.org/rnaturalearth/reference/ne_states.html'>rnaturalearth::ne_states()</a></code> that <code>data$region_code</code> corresponds to. Possibilities include
+<code><a href='https://rdrr.io/pkg/rnaturalearth/man/ne_states.html'>rnaturalearth::ne_states()</a></code> that <code>data$region_code</code> corresponds to. Possibilities include
 <code>provnum_ne</code>, <code>name</code>, <code>fips</code> and others and will depend on which country you are mapping.</p></td>
     </tr>
     <tr>
@@ -229,7 +229,10 @@ expects the possible values to be "Increasing", "Likely increasing", "Likely dec
             variable = <span class='st'>"variable"</span>, region_col_ne = <span class='st'>"name"</span>)
 
 }
-</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: rnaturalearth</span></div><div class='output co'>#&gt; <span class='error'>Error in st_as_sfc.SpatialPolygons(sp::geometry(x), ...): package rgeos required for finding out which hole belongs to which exterior ring</span></div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: rnaturalearth</span></div><div class='output co'>#&gt; <span class='message'>The rnaturalearthhires package needs to be installed.</span></div><div class='output co'>#&gt; <span class='message'>Installing the rnaturalearthhires package.</span></div><div class='output co'>#&gt; <span class='message'>Installing package into ‘/Users/runner/work/_temp/Library’</span>
+#&gt; <span class='message'>(as ‘lib’ is unspecified)</span></div><div class='output co'>#&gt; <span class='error'>Error in value[[3L]](cond): Failed to install the rnaturalearthhires package.</span>
+#&gt; <span class='error'>  Please try installing the package for yourself using the following command: </span>
+#&gt; <span class='error'>     install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")</span></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -246,7 +249,7 @@ expects the possible values to be "Increasing", "Likely increasing", "Likely dec
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

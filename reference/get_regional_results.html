@@ -121,7 +121,13 @@
     <p>Get Combined Regional Results</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_regional_results</span>(<span class='kw'>regional_output</span>, <span class='kw'>results_dir</span>, <span class='kw'>date</span>, forecast = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_regional_results</span>(
+  <span class='kw'>regional_output</span>,
+  <span class='kw'>results_dir</span>,
+  <span class='kw'>date</span>,
+  samples = <span class='fl'>TRUE</span>,
+  forecast = <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +148,10 @@ results to extract.</p></td>
 data for. Defaults to "latest" which finds the latest results available.</p></td>
     </tr>
     <tr>
+      <th>samples</th>
+      <td><p>Logical, defaults to <code>TRUE</code>. Should samples be returned.</p></td>
+    </tr>
+    <tr>
       <th>forecast</th>
       <td><p>Logical, defaults to <code>FALSE</code>. Should forecast results be returned.</p></td>
     </tr>
@@ -152,9 +162,7 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
     <p>A list of estimates, forecasts and estimated cases by date of report.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Construct example distributions</span>
 <span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
                         mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
@@ -189,36 +197,17 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
                                 samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
                                 adapt_delta = <span class='fl'>0.95</span>, chains = <span class='fl'>4</span>, verbose = <span class='fl'>TRUE</span>,
                                 summary = <span class='fl'>FALSE</span>)
-</div><div class='output co'>#&gt; INFO [2020-09-08 00:20:16] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-09-08 00:20:16] Producing estimates for: testland, realland
-#&gt; INFO [2020-09-08 00:20:16] Initialising estimates for: testland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.002 0 0.002</span></div><div class='output co'>#&gt; INFO [2020-09-08 00:20:16] Initialising estimates for: realland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.002 0 0.003</span></div><div class='output co'>#&gt; INFO [2020-09-08 00:20:17] Runtime error in testland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...
-#&gt; INFO [2020-09-08 00:20:17] Runtime error in realland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...</div><div class='input'>                                
-<span class='fu'>get_regional_results</span>(<span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>, forecast = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; $estimates
-#&gt; $estimates$samples
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; $estimates$summarised
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; 
-#&gt; $forecast
-#&gt; $forecast$samples
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; $forecast$summarised
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; 
-#&gt; $estimated_reported_cases
-#&gt; $estimated_reported_cases$samples
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; $estimated_reported_cases$summarised
-#&gt; Null data.table (0 rows and 0 cols)
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='co'># }</span>
+</div><div class='output co'>#&gt; INFO [2020-09-16 18:31:28] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-09-16 18:31:28] Producing estimates for: testland, realland
+#&gt; INFO [2020-09-16 18:31:28] Initialising estimates for: testland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.003 0 0.003</span></div><div class='output co'>#&gt; INFO [2020-09-16 18:31:28] Initialising estimates for: realland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.003 0 0.003</span></div><div class='output co'>#&gt; INFO [2020-09-16 18:31:29] Runtime error in testland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...
+#&gt; INFO [2020-09-16 18:31:29] Runtime error in realland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...</div><div class='input'>
+<span class='kw'>summary_only</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span>(<span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>, forecast = <span class='fl'>FALSE</span>, samples = <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>summary_only</span>)
+</div><div class='output co'>#&gt; [1] "estimates"</div><div class='input'>
+<span class='kw'>all</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span>(<span class='kw'>regional_out</span><span class='op'>$</span><span class='kw'>regional</span>, forecast = <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>all</span>)
+</div><div class='output co'>#&gt; [1] "estimates"                "forecast"                
+#&gt; [3] "estimated_reported_cases"</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -235,7 +224,7 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -97,15 +97,18 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the stable version of the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)
+</pre></div>
 <p>Install the stable development version of the package using <a href="https://epiforecasts.io/drat/"><code>{drat}</code></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"drat"</span>)
 <span class="kw">drat</span>:::<span class="fu">add</span>(<span class="st">"epiforecasts"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EpiNow2"</span>)
+</pre></div>
 <p>Install the unstable development version of the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"epiforecasts/EpiNow2"</span>)</pre></div>
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"epiforecasts/EpiNow2"</span>)
+</pre></div>
 <p>Windows users will need a working installation of Rtools in order to build the package from source. See <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started#checking-the-c-toolchain">here</a> for a guide to installing Rtools for use with Stan (which is the statistical modeling platform used for the underlying model). For simple deployment/development a prebuilt docker image is also available (see documentation <a href="https://github.com/epiforecasts/EpiNow2/wiki/Docker">here</a>).</p>
 </div>
 <div id="quick-start" class="section level2">
@@ -123,19 +126,20 @@
 
 <span class="kw">reporting_delay</span>
 <span class="co">#&gt; $mean</span>
-<span class="co">#&gt; [1] 1.680835</span>
+<span class="co">#&gt; [1] 1.676779</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $mean_sd</span>
-<span class="co">#&gt; [1] 0.1177547</span>
+<span class="co">#&gt; [1] 0.2056219</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $sd</span>
-<span class="co">#&gt; [1] 1.036805</span>
+<span class="co">#&gt; [1] 1.244499</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $sd_sd</span>
-<span class="co">#&gt; [1] 0.113312</span>
+<span class="co">#&gt; [1] 0.1550176</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $max</span>
-<span class="co">#&gt; [1] 30</span></pre></div>
+<span class="co">#&gt; [1] 30</span>
+</pre></div>
 <p>Here we define the incubation period and generation time based on literature estimates for Covid-19 (see <a href="https://github.com/epiforecasts/EpiNow/tree/master/data-raw">here</a> for the code that generates these estimates).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw">generation_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(mean = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_generation_times.html">covid_generation_times</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">mean</span>,
@@ -148,7 +152,8 @@
                           mean_sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">mean_sd</span>,
                           sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">sd</span>,
                           sd_sd = <span class="kw">EpiNow2</span>::<span class="kw"><a href="reference/covid_incubation_period.html">covid_incubation_period</a></span>[<span class="fl">1</span>, ]<span class="op">$</span><span class="kw">sd_sd</span>,
-                          max = <span class="fl">30</span>)</pre></div>
+                          max = <span class="fl">30</span>)
+</pre></div>
 </div>
 <div id="epinow" class="section level3">
 <h3 class="hasAnchor">
@@ -166,36 +171,38 @@
 <span class="co">#&gt; 3: 2020-02-24      53</span>
 <span class="co">#&gt; 4: 2020-02-25      97</span>
 <span class="co">#&gt; 5: 2020-02-26      93</span>
-<span class="co">#&gt; 6: 2020-02-27      78</span></pre></div>
+<span class="co">#&gt; 6: 2020-02-27      78</span>
+</pre></div>
 <p>Estimate cases by date of infection, the time-varying reproduction number, the rate of growth and forecast these estimates into the future by 7 days. Summarise the posterior and return a summary table and plots for reporting purposes. If a <code>target_folder</code> is supplied results can be internally saved (with the option to also turn off explicit returning of results). <em>Note that for real use cases more samples and a longer warm up may be needed</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw">estimates</span> <span class="op">&lt;-</span> <span class="kw">EpiNow2</span>::<span class="fu"><a href="reference/epinow.html">epinow</a></span>(reported_cases = <span class="kw">reported_cases</span>, 
                              generation_time = <span class="kw">generation_time</span>,
                              delays = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">incubation_period</span>, <span class="kw">reporting_delay</span>),
-                             horizon = <span class="fl">7</span>, samples = <span class="fl">1000</span>, warmup = <span class="fl">200</span>, 
-                             cores = <span class="fl">4</span>, chains = <span class="fl">4</span>, verbose = <span class="fl">TRUE</span>, 
+                             horizon = <span class="fl">7</span>, samples = <span class="fl">2000</span>, warmup = <span class="fl">500</span>, 
+                             cores = <span class="fl">4</span>, chains = <span class="fl">4</span>,
                              adapt_delta = <span class="fl">0.95</span>)
-<span class="co">#&gt; DEBUG [2020-08-26 15:22:46] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 71 time steps of which 7 are a forecast</span>
+<span class="co">#&gt; DEBUG [2020-09-15 16:35:42] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 74 time steps of which 7 are a forecast</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">estimates</span>)
 <span class="co">#&gt; [1] "estimates"                "estimated_reported_cases"</span>
-<span class="co">#&gt; [3] "summary"                  "plots"</span></pre></div>
+<span class="co">#&gt; [3] "summary"                  "plots"</span>
+</pre></div>
 <p>Both summary measures and posterior samples are returned for all parameters in an easily explored format.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">estimates</span>
 <span class="co">#&gt; $samples</span>
 <span class="co">#&gt;                 variable        parameter time       date sample       value</span>
-<span class="co">#&gt;      1:       infections       infections    1 2020-02-08      1    2.206644</span>
-<span class="co">#&gt;      2:       infections       infections    2 2020-02-09      1    9.431478</span>
-<span class="co">#&gt;      3:       infections       infections    3 2020-02-10      1   21.395270</span>
-<span class="co">#&gt;      4:       infections       infections    4 2020-02-11      1   30.846361</span>
-<span class="co">#&gt;      5:       infections       infections    5 2020-02-12      1   46.237732</span>
+<span class="co">#&gt;      1:       infections       infections    1 2020-02-05      1    2.014487</span>
+<span class="co">#&gt;      2:       infections       infections    2 2020-02-06      1   10.974381</span>
+<span class="co">#&gt;      3:       infections       infections    3 2020-02-07      1   17.427544</span>
+<span class="co">#&gt;      4:       infections       infections    4 2020-02-08      1   31.419357</span>
+<span class="co">#&gt;      5:       infections       infections    5 2020-02-09      1   45.886551</span>
 <span class="co">#&gt;     ---                                                                     </span>
-<span class="co">#&gt; 255067: prior_infections prior_infections   67 2020-04-14      1 2647.130393</span>
-<span class="co">#&gt; 255068: prior_infections prior_infections   68 2020-04-15      1 2581.665553</span>
-<span class="co">#&gt; 255069: prior_infections prior_infections   69 2020-04-16      1 2517.819692</span>
-<span class="co">#&gt; 255070: prior_infections prior_infections   70 2020-04-17      1 2455.552770</span>
-<span class="co">#&gt; 255071: prior_infections prior_infections   71 2020-04-18      1 2394.825740</span>
+<span class="co">#&gt; 516070: prior_infections prior_infections   70 2020-04-14      1 2455.552770</span>
+<span class="co">#&gt; 516071: prior_infections prior_infections   71 2020-04-15      1 2394.825740</span>
+<span class="co">#&gt; 516072: prior_infections prior_infections   72 2020-04-16      1 2335.600519</span>
+<span class="co">#&gt; 516073: prior_infections prior_infections   73 2020-04-17      1 2277.839967</span>
+<span class="co">#&gt; 516074: prior_infections prior_infections   74 2020-04-18      1 2221.507862</span>
 <span class="co">#&gt;         strat     type</span>
 <span class="co">#&gt;      1:  &lt;NA&gt; estimate</span>
 <span class="co">#&gt;      2:  &lt;NA&gt; estimate</span>
@@ -203,132 +210,207 @@
 <span class="co">#&gt;      4:  &lt;NA&gt; estimate</span>
 <span class="co">#&gt;      5:  &lt;NA&gt; estimate</span>
 <span class="co">#&gt;     ---               </span>
-<span class="co">#&gt; 255067:  &lt;NA&gt; forecast</span>
-<span class="co">#&gt; 255068:  &lt;NA&gt; forecast</span>
-<span class="co">#&gt; 255069:  &lt;NA&gt; forecast</span>
-<span class="co">#&gt; 255070:  &lt;NA&gt; forecast</span>
-<span class="co">#&gt; 255071:  &lt;NA&gt; forecast</span>
+<span class="co">#&gt; 516070:  &lt;NA&gt; forecast</span>
+<span class="co">#&gt; 516071:  &lt;NA&gt; forecast</span>
+<span class="co">#&gt; 516072:  &lt;NA&gt; forecast</span>
+<span class="co">#&gt; 516073:  &lt;NA&gt; forecast</span>
+<span class="co">#&gt; 516074:  &lt;NA&gt; forecast</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $summarised</span>
-<span class="co">#&gt;            date       variable strat     type     bottom         top</span>
-<span class="co">#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate   0.906830    1.568452</span>
-<span class="co">#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate   1.017340    1.560870</span>
-<span class="co">#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate   1.101175    1.552501</span>
-<span class="co">#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate   1.196505    1.554018</span>
-<span class="co">#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate   1.316793    1.607314</span>
-<span class="co">#&gt;  ---                                                                </span>
-<span class="co">#&gt; 322: 2020-04-14 reported_cases  &lt;NA&gt; forecast 695.000000 6529.000000</span>
-<span class="co">#&gt; 323: 2020-04-15 reported_cases  &lt;NA&gt; forecast 419.000000 5621.000000</span>
-<span class="co">#&gt; 324: 2020-04-16 reported_cases  &lt;NA&gt; forecast 364.000000 6466.000000</span>
-<span class="co">#&gt; 325: 2020-04-17 reported_cases  &lt;NA&gt; forecast 397.000000 8587.000000</span>
-<span class="co">#&gt; 326: 2020-04-18 reported_cases  &lt;NA&gt; forecast 289.000000 7005.000000</span>
-<span class="co">#&gt;            lower       upper      median        mean           sd</span>
-<span class="co">#&gt;   1:    1.044737    1.309596    1.223438    1.222365 2.022448e-01</span>
-<span class="co">#&gt;   2:    1.139059    1.368749    1.266639    1.270122 1.696516e-01</span>
-<span class="co">#&gt;   3:    1.230104    1.417863    1.323299    1.325053 1.385959e-01</span>
-<span class="co">#&gt;   4:    1.312648    1.467412    1.381972    1.385947 1.109667e-01</span>
-<span class="co">#&gt;   5:    1.402101    1.527912    1.448480    1.451127 9.032870e-02</span>
-<span class="co">#&gt;  ---                                                             </span>
-<span class="co">#&gt; 322: 1254.000000 3183.000000 2772.000000 3386.243000 2.378292e+03</span>
-<span class="co">#&gt; 323:  903.000000 2562.000000 2342.000000 3033.583000 2.574506e+03</span>
-<span class="co">#&gt; 324:  924.000000 2942.000000 2685.500000 3657.875000 4.357484e+03</span>
-<span class="co">#&gt; 325: 1191.000000 3496.000000 3096.000000 5197.417000 1.469759e+04</span>
-<span class="co">#&gt; 326:  854.000000 2691.000000 2355.000000 5417.498000 3.578082e+04</span></pre></div>
+<span class="co">#&gt;            date       variable strat     type      bottom          top</span>
+<span class="co">#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate   0.5665344     1.271446</span>
+<span class="co">#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate   0.6782017     1.304048</span>
+<span class="co">#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate   0.7748911     1.313507</span>
+<span class="co">#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate   0.8965638     1.351562</span>
+<span class="co">#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate   0.9957927     1.370703</span>
+<span class="co">#&gt;  ---                                                                  </span>
+<span class="co">#&gt; 328: 2020-04-14 reported_cases  &lt;NA&gt; forecast 274.0000000  7004.000000</span>
+<span class="co">#&gt; 329: 2020-04-15 reported_cases  &lt;NA&gt; forecast 208.0000000  6096.000000</span>
+<span class="co">#&gt; 330: 2020-04-16 reported_cases  &lt;NA&gt; forecast 193.0000000  7920.000000</span>
+<span class="co">#&gt; 331: 2020-04-17 reported_cases  &lt;NA&gt; forecast 214.0000000 10387.000000</span>
+<span class="co">#&gt; 332: 2020-04-18 reported_cases  &lt;NA&gt; forecast 102.0000000  8569.000000</span>
+<span class="co">#&gt;            lower       upper central_lower central_upper       median</span>
+<span class="co">#&gt;   1:   0.7597714    1.043041     0.8120725     0.9142816    0.9095079</span>
+<span class="co">#&gt;   2:   0.8626605    1.113986     0.8693239     0.9607174    0.9624416</span>
+<span class="co">#&gt;   3:   0.8944272    1.113733     0.9712188     1.0543613    1.0280508</span>
+<span class="co">#&gt;   4:   0.9994108    1.182810     1.0539693     1.1242116    1.0984733</span>
+<span class="co">#&gt;   5:   1.0968683    1.249503     1.1468294     1.2020313    1.1802968</span>
+<span class="co">#&gt;  ---                                                                 </span>
+<span class="co">#&gt; 328: 695.0000000 2892.000000  1294.0000000  2068.0000000 2681.0000000</span>
+<span class="co">#&gt; 329: 675.0000000 2487.000000  1092.0000000  1718.0000000 2258.5000000</span>
+<span class="co">#&gt; 330: 714.0000000 2940.000000   887.0000000  1666.0000000 2640.0000000</span>
+<span class="co">#&gt; 331: 806.0000000 3323.000000  1020.0000000  1870.0000000 2981.5000000</span>
+<span class="co">#&gt; 332: 581.0000000 2539.000000  1026.0000000  1705.0000000 2280.5000000</span>
+<span class="co">#&gt;              mean           sd</span>
+<span class="co">#&gt;   1:    0.9151120 2.142730e-01</span>
+<span class="co">#&gt;   2:    0.9674665 1.894689e-01</span>
+<span class="co">#&gt;   3:    1.0299317 1.641049e-01</span>
+<span class="co">#&gt;   4:    1.1021522 1.386968e-01</span>
+<span class="co">#&gt;   5:    1.1832221 1.153774e-01</span>
+<span class="co">#&gt;  ---                          </span>
+<span class="co">#&gt; 328: 3504.0675000 3.030134e+03</span>
+<span class="co">#&gt; 329: 3079.0185000 3.194333e+03</span>
+<span class="co">#&gt; 330: 4391.7530000 1.668404e+04</span>
+<span class="co">#&gt; 331: 6197.5460000 2.865345e+04</span>
+<span class="co">#&gt; 332: 8622.2515000 1.126467e+05</span>
+</pre></div>
 <p>Reported cases are returned separately in order to ease reporting of forecasts and model evaluation.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">estimated_reported_cases</span>
 <span class="co">#&gt; $samples</span>
-<span class="co">#&gt;              date sample cases  type</span>
-<span class="co">#&gt;     1: 2020-02-22      1    93 gp_rt</span>
-<span class="co">#&gt;     2: 2020-02-23      1   170 gp_rt</span>
-<span class="co">#&gt;     3: 2020-02-24      1   119 gp_rt</span>
-<span class="co">#&gt;     4: 2020-02-25      1   200 gp_rt</span>
-<span class="co">#&gt;     5: 2020-02-26      1    78 gp_rt</span>
-<span class="co">#&gt;    ---                              </span>
-<span class="co">#&gt; 56996: 2020-04-14   1000  1464 gp_rt</span>
-<span class="co">#&gt; 56997: 2020-04-15   1000  1581 gp_rt</span>
-<span class="co">#&gt; 56998: 2020-04-16   1000  1439 gp_rt</span>
-<span class="co">#&gt; 56999: 2020-04-17   1000  1499 gp_rt</span>
-<span class="co">#&gt; 57000: 2020-04-18   1000  2037 gp_rt</span>
+<span class="co">#&gt;               date sample cases  type</span>
+<span class="co">#&gt;      1: 2020-02-22      1   256 gp_rt</span>
+<span class="co">#&gt;      2: 2020-02-23      1   151 gp_rt</span>
+<span class="co">#&gt;      3: 2020-02-24      1   292 gp_rt</span>
+<span class="co">#&gt;      4: 2020-02-25      1   227 gp_rt</span>
+<span class="co">#&gt;      5: 2020-02-26      1   362 gp_rt</span>
+<span class="co">#&gt;     ---                              </span>
+<span class="co">#&gt; 113996: 2020-04-14   2000  2878 gp_rt</span>
+<span class="co">#&gt; 113997: 2020-04-15   2000  1213 gp_rt</span>
+<span class="co">#&gt; 113998: 2020-04-16   2000  1598 gp_rt</span>
+<span class="co">#&gt; 113999: 2020-04-17   2000  1197 gp_rt</span>
+<span class="co">#&gt; 114000: 2020-04-18   2000  1642 gp_rt</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $summarised</span>
-<span class="co">#&gt;           date  type bottom   top lower upper median     mean          sd</span>
-<span class="co">#&gt;  1: 2020-02-22 gp_rt     31   175    48   108   96.5  104.307    50.51481</span>
-<span class="co">#&gt;  2: 2020-02-23 gp_rt     43   243    83   163  139.5  148.957    69.30538</span>
-<span class="co">#&gt;  3: 2020-02-24 gp_rt     46   269    96   187  159.0  168.320    74.53631</span>
-<span class="co">#&gt;  4: 2020-02-25 gp_rt     56   303    91   186  161.0  175.871    84.52076</span>
-<span class="co">#&gt;  5: 2020-02-26 gp_rt     60   297    85   175  156.5  169.978    76.10236</span>
-<span class="co">#&gt;  6: 2020-02-27 gp_rt     58   397   123   247  215.0  237.670   119.01744</span>
-<span class="co">#&gt;  7: 2020-02-28 gp_rt     74   524   161   332  287.5  320.237   158.99453</span>
-<span class="co">#&gt;  8: 2020-02-29 gp_rt     91   504   155   313  272.0  298.097   139.30512</span>
-<span class="co">#&gt;  9: 2020-03-01 gp_rt    112   652   186   399  350.0  381.556   183.33621</span>
-<span class="co">#&gt; 10: 2020-03-02 gp_rt    102   697   235   473  398.0  426.200   210.03135</span>
-<span class="co">#&gt; 11: 2020-03-03 gp_rt    119   745   244   476  393.0  431.998   219.71267</span>
-<span class="co">#&gt; 12: 2020-03-04 gp_rt     98   708   214   447  389.0  428.876   212.76694</span>
-<span class="co">#&gt; 13: 2020-03-05 gp_rt    190  1019   302   633  567.0  615.846   294.66908</span>
-<span class="co">#&gt; 14: 2020-03-06 gp_rt    259  1528   403   885  784.5  879.237   444.90818</span>
-<span class="co">#&gt; 15: 2020-03-07 gp_rt    261  1474   404   846  765.0  846.184   425.04547</span>
-<span class="co">#&gt; 16: 2020-03-08 gp_rt    311  1963   633  1268 1070.5 1167.124   609.49882</span>
-<span class="co">#&gt; 17: 2020-03-09 gp_rt    352  2301   753  1511 1252.5 1354.985   656.34476</span>
-<span class="co">#&gt; 18: 2020-03-10 gp_rt    406  2451   796  1609 1322.5 1427.365   694.09473</span>
-<span class="co">#&gt; 19: 2020-03-11 gp_rt    300  2380   726  1502 1323.0 1463.005   759.85016</span>
-<span class="co">#&gt; 20: 2020-03-12 gp_rt    565  3445  1198  2362 1911.0 2086.378  1040.60247</span>
-<span class="co">#&gt; 21: 2020-03-13 gp_rt    924  5119  1399  2979 2636.0 2919.580  1477.38699</span>
-<span class="co">#&gt; 22: 2020-03-14 gp_rt    806  4664  1450  2936 2463.0 2705.797  1303.82767</span>
-<span class="co">#&gt; 23: 2020-03-15 gp_rt    831  5917  2178  4188 3215.5 3537.972  1715.04663</span>
-<span class="co">#&gt; 24: 2020-03-16 gp_rt    897  6518  2137  4256 3554.0 3883.479  1899.95173</span>
-<span class="co">#&gt; 25: 2020-03-17 gp_rt   1176  6454  1931  3889 3351.5 3703.498  1747.03212</span>
-<span class="co">#&gt; 26: 2020-03-18 gp_rt   1209  6201  1929  3789 3153.0 3491.560  1735.67271</span>
-<span class="co">#&gt; 27: 2020-03-19 gp_rt   1262  7499  2709  5265 4191.0 4512.308  2115.62561</span>
-<span class="co">#&gt; 28: 2020-03-20 gp_rt   1370  9582  3310  6452 5533.0 5950.403  2785.43400</span>
-<span class="co">#&gt; 29: 2020-03-21 gp_rt   1392  8500  2949  5727 4694.5 5008.814  2342.54236</span>
-<span class="co">#&gt; 30: 2020-03-22 gp_rt   1689 10023  3075  6316 5376.5 5891.644  2845.84631</span>
-<span class="co">#&gt; 31: 2020-03-23 gp_rt   1820 10445  3198  6456 5507.0 6033.768  2923.72504</span>
-<span class="co">#&gt; 32: 2020-03-24 gp_rt   1773  8987  3287  6124 5014.5 5363.948  2520.06870</span>
-<span class="co">#&gt; 33: 2020-03-25 gp_rt   1332  7680  2535  4977 4247.0 4606.321  2182.78039</span>
-<span class="co">#&gt; 34: 2020-03-26 gp_rt   1830  9924  3106  6214 5407.0 5803.149  2741.00916</span>
-<span class="co">#&gt; 35: 2020-03-27 gp_rt   2308 11236  3566  7045 6161.0 6619.664  3299.92875</span>
-<span class="co">#&gt; 36: 2020-03-28 gp_rt   1623  9285  3015  5923 5047.0 5427.988  2553.89665</span>
-<span class="co">#&gt; 37: 2020-03-29 gp_rt   1677 10351  3857  7317 5761.5 6183.392  3004.75043</span>
-<span class="co">#&gt; 38: 2020-03-30 gp_rt   1426  9718  3435  6368 5267.0 5739.116  2743.96398</span>
-<span class="co">#&gt; 39: 2020-03-31 gp_rt   1328  8490  2644  5417 4719.5 5104.631  2417.34093</span>
-<span class="co">#&gt; 40: 2020-04-01 gp_rt   1069  6956  2727  5083 4007.0 4277.459  1925.56661</span>
-<span class="co">#&gt; 41: 2020-04-02 gp_rt   1260  8153  2611  5088 4376.0 4823.408  2350.00527</span>
-<span class="co">#&gt; 42: 2020-04-03 gp_rt   1493 10095  2620  5668 5183.0 5747.842  3014.38984</span>
-<span class="co">#&gt; 43: 2020-04-04 gp_rt   1205  7391  2393  4770 4106.5 4460.568  2107.54760</span>
-<span class="co">#&gt; 44: 2020-04-05 gp_rt   1366  8411  2658  5458 4610.0 4964.977  2407.32976</span>
-<span class="co">#&gt; 45: 2020-04-06 gp_rt   1229  7727  2552  4974 4203.0 4636.208  2238.66048</span>
-<span class="co">#&gt; 46: 2020-04-07 gp_rt   1153  6839  2220  4397 3573.5 3992.999  2067.80000</span>
-<span class="co">#&gt; 47: 2020-04-08 gp_rt   1208  5882  1661  3414 3025.0 3343.165  1639.06683</span>
-<span class="co">#&gt; 48: 2020-04-09 gp_rt    789  6664  2286  4486 3515.5 3924.625  2061.85895</span>
-<span class="co">#&gt; 49: 2020-04-10 gp_rt   1279  7899  2743  5200 4164.5 4597.328  2373.24618</span>
-<span class="co">#&gt; 50: 2020-04-11 gp_rt    761  5915  2123  4139 3261.5 3613.558  1814.91540</span>
-<span class="co">#&gt; 51: 2020-04-12 gp_rt    896  7087  2086  4609 3600.5 4110.504  2342.33555</span>
-<span class="co">#&gt; 52: 2020-04-13 gp_rt    825  7385  1686  3904 3265.5 3911.608  2376.82439</span>
-<span class="co">#&gt; 53: 2020-04-14 gp_rt    695  6529  1254  3183 2772.0 3386.243  2378.29173</span>
-<span class="co">#&gt; 54: 2020-04-15 gp_rt    419  5621   903  2562 2342.0 3033.583  2574.50603</span>
-<span class="co">#&gt; 55: 2020-04-16 gp_rt    364  6466   924  2942 2685.5 3657.875  4357.48423</span>
-<span class="co">#&gt; 56: 2020-04-17 gp_rt    397  8587  1191  3496 3096.0 5197.417 14697.58863</span>
-<span class="co">#&gt; 57: 2020-04-18 gp_rt    289  7005   854  2691 2355.0 5417.498 35780.82391</span>
-<span class="co">#&gt;           date  type bottom   top lower upper median     mean          sd</span></pre></div>
+<span class="co">#&gt;           date  type bottom   top lower upper central_lower central_upper</span>
+<span class="co">#&gt;  1: 2020-02-22 gp_rt     15   347    70   196           106           153</span>
+<span class="co">#&gt;  2: 2020-02-23 gp_rt     30   461   109   281           117           180</span>
+<span class="co">#&gt;  3: 2020-02-24 gp_rt     32   521   115   299           165           236</span>
+<span class="co">#&gt;  4: 2020-02-25 gp_rt     33   528    91   282           189           259</span>
+<span class="co">#&gt;  5: 2020-02-26 gp_rt     30   479   110   282            95           159</span>
+<span class="co">#&gt;  6: 2020-02-27 gp_rt     51   643   130   345           228           307</span>
+<span class="co">#&gt;  7: 2020-02-28 gp_rt     38   794   147   442           277           382</span>
+<span class="co">#&gt;  8: 2020-02-29 gp_rt     54   709   136   383           230           323</span>
+<span class="co">#&gt;  9: 2020-03-01 gp_rt     60   860   177   472           297           406</span>
+<span class="co">#&gt; 10: 2020-03-02 gp_rt     66   935   195   509           275           388</span>
+<span class="co">#&gt; 11: 2020-03-03 gp_rt     62   921   181   501           283           400</span>
+<span class="co">#&gt; 12: 2020-03-04 gp_rt     52   882   149   451           234           336</span>
+<span class="co">#&gt; 13: 2020-03-05 gp_rt    107  1241   231   647           331           484</span>
+<span class="co">#&gt; 14: 2020-03-06 gp_rt     99  1668   295   882           503           720</span>
+<span class="co">#&gt; 15: 2020-03-07 gp_rt    106  1582   277   834           458           661</span>
+<span class="co">#&gt; 16: 2020-03-08 gp_rt    147  2086   395  1117           530           796</span>
+<span class="co">#&gt; 17: 2020-03-09 gp_rt    189  2422   472  1291           578           882</span>
+<span class="co">#&gt; 18: 2020-03-10 gp_rt    176  2642   565  1460           871          1180</span>
+<span class="co">#&gt; 19: 2020-03-11 gp_rt    240  2643   454  1359           589           919</span>
+<span class="co">#&gt; 20: 2020-03-12 gp_rt    273  3765   875  2203           907          1388</span>
+<span class="co">#&gt; 21: 2020-03-13 gp_rt    418  5484   913  2782          1380          2074</span>
+<span class="co">#&gt; 22: 2020-03-14 gp_rt    334  4913  1005  2697          1369          1952</span>
+<span class="co">#&gt; 23: 2020-03-15 gp_rt    442  6385  1132  3418          2357          3189</span>
+<span class="co">#&gt; 24: 2020-03-16 gp_rt    480  6985  1351  3778          2142          3053</span>
+<span class="co">#&gt; 25: 2020-03-17 gp_rt    591  7289  1287  3752          2295          3153</span>
+<span class="co">#&gt; 26: 2020-03-18 gp_rt    592  7083  1630  4059          2073          2889</span>
+<span class="co">#&gt; 27: 2020-03-19 gp_rt   1016  9393  1960  5090          2181          3266</span>
+<span class="co">#&gt; 28: 2020-03-20 gp_rt    968 11308  1963  5871          3148          4509</span>
+<span class="co">#&gt; 29: 2020-03-21 gp_rt    542  9548  2120  5451          2909          4131</span>
+<span class="co">#&gt; 30: 2020-03-22 gp_rt   1134 11666  1783  5897          3000          4552</span>
+<span class="co">#&gt; 31: 2020-03-23 gp_rt    947 11520  2627  6523          2683          4019</span>
+<span class="co">#&gt; 32: 2020-03-24 gp_rt    887  9991  2086  5658          2790          4070</span>
+<span class="co">#&gt; 33: 2020-03-25 gp_rt    578  8892  2048  5183          2872          4045</span>
+<span class="co">#&gt; 34: 2020-03-26 gp_rt   1219 11169  2390  6121          3957          5332</span>
+<span class="co">#&gt; 35: 2020-03-27 gp_rt    800 12694  2407  6873          4560          6209</span>
+<span class="co">#&gt; 36: 2020-03-28 gp_rt    779 10338  1992  5492          3274          4574</span>
+<span class="co">#&gt; 37: 2020-03-29 gp_rt   1011 11405  2196  6133          3425          4906</span>
+<span class="co">#&gt; 38: 2020-03-30 gp_rt   1169 10812  2177  5866          2681          3994</span>
+<span class="co">#&gt; 39: 2020-03-31 gp_rt    715  9434  1860  5069          2732          3934</span>
+<span class="co">#&gt; 40: 2020-04-01 gp_rt    677  8026  1385  4156          2672          3638</span>
+<span class="co">#&gt; 41: 2020-04-02 gp_rt    449  9502  1656  5039          2696          3948</span>
+<span class="co">#&gt; 42: 2020-04-03 gp_rt    838 10917  2791  6500          3558          4840</span>
+<span class="co">#&gt; 43: 2020-04-04 gp_rt    721  8404  1700  4707          2789          3818</span>
+<span class="co">#&gt; 44: 2020-04-05 gp_rt    478  9059  2252  5468          2549          3703</span>
+<span class="co">#&gt; 45: 2020-04-06 gp_rt    737  8774  1527  4669          2029          3136</span>
+<span class="co">#&gt; 46: 2020-04-07 gp_rt    465  7463  1469  3945          2784          3690</span>
+<span class="co">#&gt; 47: 2020-04-08 gp_rt    425  6418  1002  3238          1710          2487</span>
+<span class="co">#&gt; 48: 2020-04-09 gp_rt    597  7784  1422  3975          1926          2867</span>
+<span class="co">#&gt; 49: 2020-04-10 gp_rt    423  8531  1723  4607          2209          3184</span>
+<span class="co">#&gt; 50: 2020-04-11 gp_rt    405  6772  1316  3696          1826          2701</span>
+<span class="co">#&gt; 51: 2020-04-12 gp_rt    446  7881  1198  3844          1868          2816</span>
+<span class="co">#&gt; 52: 2020-04-13 gp_rt    343  7729   864  3409          1954          2864</span>
+<span class="co">#&gt; 53: 2020-04-14 gp_rt    274  7004   695  2892          1294          2068</span>
+<span class="co">#&gt; 54: 2020-04-15 gp_rt    208  6096   675  2487          1092          1718</span>
+<span class="co">#&gt; 55: 2020-04-16 gp_rt    193  7920   714  2940           887          1666</span>
+<span class="co">#&gt; 56: 2020-04-17 gp_rt    214 10387   806  3323          1020          1870</span>
+<span class="co">#&gt; 57: 2020-04-18 gp_rt    102  8569   581  2539          1026          1705</span>
+<span class="co">#&gt;           date  type bottom   top lower upper central_lower central_upper</span>
+<span class="co">#&gt;     median      mean          sd</span>
+<span class="co">#&gt;  1:  172.0  194.6785    115.1521</span>
+<span class="co">#&gt;  2:  234.0  261.8810    162.4129</span>
+<span class="co">#&gt;  3:  259.0  292.3515    179.7871</span>
+<span class="co">#&gt;  4:  256.0  290.8500    180.4993</span>
+<span class="co">#&gt;  5:  233.5  267.1450    162.7493</span>
+<span class="co">#&gt;  6:  306.5  348.3495    204.2193</span>
+<span class="co">#&gt;  7:  377.0  441.5980    274.2764</span>
+<span class="co">#&gt;  8:  330.0  380.4780    240.0123</span>
+<span class="co">#&gt;  9:  406.5  471.0925    291.9033</span>
+<span class="co">#&gt; 10:  432.0  500.9335    322.1205</span>
+<span class="co">#&gt; 11:  428.5  499.8670    334.5180</span>
+<span class="co">#&gt; 12:  403.0  484.3570    324.6151</span>
+<span class="co">#&gt; 13:  571.5  669.1060    428.9929</span>
+<span class="co">#&gt; 14:  789.0  917.2940    593.9049</span>
+<span class="co">#&gt; 15:  745.5  863.3360    551.9338</span>
+<span class="co">#&gt; 16:  987.5 1139.8855    726.5049</span>
+<span class="co">#&gt; 17: 1124.5 1299.7050    843.7761</span>
+<span class="co">#&gt; 18: 1212.0 1424.5870    900.6360</span>
+<span class="co">#&gt; 19: 1222.5 1417.4410    900.1050</span>
+<span class="co">#&gt; 20: 1792.0 2055.5425   1288.6167</span>
+<span class="co">#&gt; 21: 2500.5 2934.1315   1879.1590</span>
+<span class="co">#&gt; 22: 2311.5 2687.0815   1697.6603</span>
+<span class="co">#&gt; 23: 3021.5 3481.0935   2151.7005</span>
+<span class="co">#&gt; 24: 3334.5 3830.7875   2394.8046</span>
+<span class="co">#&gt; 25: 3300.5 3873.9010   2385.5311</span>
+<span class="co">#&gt; 26: 3219.5 3753.5690   2337.1012</span>
+<span class="co">#&gt; 27: 4233.5 4907.4770   3076.0572</span>
+<span class="co">#&gt; 28: 5237.5 6157.5350   3865.0461</span>
+<span class="co">#&gt; 29: 4612.0 5290.6180   3239.4402</span>
+<span class="co">#&gt; 30: 5537.0 6250.7020   3863.0255</span>
+<span class="co">#&gt; 31: 5300.0 6252.7220   4142.5959</span>
+<span class="co">#&gt; 32: 4880.0 5493.9115   3367.7736</span>
+<span class="co">#&gt; 33: 4322.5 4927.1560   3024.3764</span>
+<span class="co">#&gt; 34: 5194.0 5967.5905   3635.2171</span>
+<span class="co">#&gt; 35: 6032.0 6990.7215   4446.2742</span>
+<span class="co">#&gt; 36: 4892.0 5603.0500   3399.9895</span>
+<span class="co">#&gt; 37: 5347.5 6140.7030   3733.7339</span>
+<span class="co">#&gt; 38: 5044.5 5859.3580   3571.8049</span>
+<span class="co">#&gt; 39: 4417.5 5060.1570   3172.9787</span>
+<span class="co">#&gt; 40: 3644.5 4300.5695   2715.9152</span>
+<span class="co">#&gt; 41: 4489.5 5230.2725   3386.8678</span>
+<span class="co">#&gt; 42: 5168.5 5935.0320   3549.4847</span>
+<span class="co">#&gt; 43: 4083.5 4661.5575   2833.1023</span>
+<span class="co">#&gt; 44: 4262.5 4961.5780   3268.7882</span>
+<span class="co">#&gt; 45: 4162.5 4816.8275   2950.4614</span>
+<span class="co">#&gt; 46: 3488.5 4096.3105   2693.3750</span>
+<span class="co">#&gt; 47: 2943.0 3439.4995   2210.3428</span>
+<span class="co">#&gt; 48: 3478.5 4054.0400   2616.7393</span>
+<span class="co">#&gt; 49: 4066.0 4684.0950   2970.8481</span>
+<span class="co">#&gt; 50: 3146.5 3633.7170   2421.6056</span>
+<span class="co">#&gt; 51: 3303.5 4048.7940   2898.2216</span>
+<span class="co">#&gt; 52: 3131.0 3988.6185   3295.2783</span>
+<span class="co">#&gt; 53: 2681.0 3504.0675   3030.1344</span>
+<span class="co">#&gt; 54: 2258.5 3079.0185   3194.3329</span>
+<span class="co">#&gt; 55: 2640.0 4391.7530  16684.0416</span>
+<span class="co">#&gt; 56: 2981.5 6197.5460  28653.4524</span>
+<span class="co">#&gt; 57: 2280.5 8622.2515 112646.6501</span>
+<span class="co">#&gt;     median      mean          sd</span>
+</pre></div>
 <p>A summary table is returned for rapidly understanding the results and for reporting purposes.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span>
 <span class="co">#&gt;                                  measure              estimate</span>
-<span class="co">#&gt; 1: New confirmed cases by infection date     2180 (85 -- 7609)</span>
+<span class="co">#&gt; 1: New confirmed cases by infection date      2008 (5 -- 9123)</span>
 <span class="co">#&gt; 2:        Expected change in daily cases                Unsure</span>
-<span class="co">#&gt; 3:            Effective reproduction no.    0.8 (0.31 -- 1.49)</span>
-<span class="co">#&gt; 4:                        Rate of growth -0.06 (-0.22 -- 0.12)</span>
-<span class="co">#&gt; 5:          Doubling/halving time (days)   -12.1 (5.6 -- -3.2)</span>
+<span class="co">#&gt; 3:            Effective reproduction no.   0.77 (0.14 -- 1.49)</span>
+<span class="co">#&gt; 4:                        Rate of growth -0.06 (-0.27 -- 0.14)</span>
+<span class="co">#&gt; 5:          Doubling/halving time (days)   -10.7 (4.8 -- -2.6)</span>
 <span class="co">#&gt;     numeric_estimate</span>
-<span class="co">#&gt; 1: &lt;data.table[1x5]&gt;</span>
-<span class="co">#&gt; 2:              0.69</span>
-<span class="co">#&gt; 3: &lt;data.table[1x5]&gt;</span>
-<span class="co">#&gt; 4: &lt;data.table[1x5]&gt;</span>
-<span class="co">#&gt; 5: &lt;data.table[1x3]&gt;</span></pre></div>
+<span class="co">#&gt; 1: &lt;data.table[1x7]&gt;</span>
+<span class="co">#&gt; 2:               0.7</span>
+<span class="co">#&gt; 3: &lt;data.table[1x7]&gt;</span>
+<span class="co">#&gt; 4: &lt;data.table[1x7]&gt;</span>
+<span class="co">#&gt; 5: &lt;data.table[1x3]&gt;</span>
+</pre></div>
 <p>A range of plots are returned (with the single summary plot shown below).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">estimates</span><span class="op">$</span><span class="kw">plots</span><span class="op">$</span><span class="kw">summary</span></pre></div>
+<span class="kw">estimates</span><span class="op">$</span><span class="kw">plots</span><span class="op">$</span><span class="kw">summary</span>
+</pre></div>
 <p><img src="reference/figures/unnamed-chunk-12-1.png"><!-- --></p>
 </div>
 <div id="regional-epinow" class="section level3">
@@ -349,40 +431,53 @@
 <span class="co">#&gt; 3: 2020-02-24      53 testland</span>
 <span class="co">#&gt; 4: 2020-02-25      97 testland</span>
 <span class="co">#&gt; 5: 2020-02-26      93 testland</span>
-<span class="co">#&gt; 6: 2020-02-27      78 testland</span></pre></div>
+<span class="co">#&gt; 6: 2020-02-27      78 testland</span>
+</pre></div>
 <p>Run the pipeline on each region in turn. The commented code (requires the <code>{future}</code> package) can be used to run regions in parallel (when in most scenarios <code>cores</code> should be set to 1).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="co">## future::plan("multisession")</span>
 <span class="kw">estimates</span> <span class="op">&lt;-</span> <span class="kw">EpiNow2</span>::<span class="fu"><a href="reference/regional_epinow.html">regional_epinow</a></span>(reported_cases = <span class="kw">reported_cases</span>, 
                                       generation_time = <span class="kw">generation_time</span>,
                                       delays = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">incubation_period</span>, <span class="kw">reporting_delay</span>),
-                                      horizon = <span class="fl">7</span>, samples = <span class="fl">1000</span>, warmup = <span class="fl">200</span>,
-                                      cores = <span class="fl">4</span>, chains = <span class="fl">4</span>, adapt_delta = <span class="fl">0.95</span>,
-                                      verbose = <span class="fl">TRUE</span>)
-<span class="co">#&gt; INFO [2020-08-26 15:25:06] Reporting estimates using data up to: 2020-04-11</span>
-<span class="co">#&gt; INFO [2020-08-26 15:25:06] Producing estimates for: testland, realland</span>
-<span class="co">#&gt; INFO [2020-08-26 15:25:06] Initialising estimates for: testland</span>
-<span class="co">#&gt; DEBUG [2020-08-26 15:25:06] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 71 time steps of which 7 are a forecast</span>
-<span class="co">#&gt; INFO [2020-08-26 15:27:15] Completed estimates for: testland</span>
-<span class="co">#&gt; INFO [2020-08-26 15:27:15] Initialising estimates for: realland</span>
-<span class="co">#&gt; DEBUG [2020-08-26 15:27:15] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 71 time steps of which 7 are a forecast</span>
-<span class="co">#&gt; INFO [2020-08-26 15:29:58] Completed estimates for: realland</span></pre></div>
+                                      horizon = <span class="fl">7</span>, samples = <span class="fl">2000</span>, warmup = <span class="fl">500</span>,
+                                      cores = <span class="fl">4</span>, chains = <span class="fl">4</span>, adapt_delta = <span class="fl">0.95</span>)
+<span class="co">#&gt; INFO [2020-09-15 16:40:19] Reporting estimates using data up to: 2020-04-11</span>
+<span class="co">#&gt; INFO [2020-09-15 16:40:19] Producing estimates for: testland, realland</span>
+<span class="co">#&gt; INFO [2020-09-15 16:40:19] Initialising estimates for: testland</span>
+<span class="co">#&gt; DEBUG [2020-09-15 16:40:19] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 74 time steps of which 7 are a forecast</span>
+<span class="co">#&gt; WARN [2020-09-15 16:44:49] testland: There were 26 divergent transitions after warmup. See</span>
+<span class="co">#&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
+<span class="co">#&gt; to find out why this is a problem and how to eliminate them. - </span>
+<span class="co">#&gt; WARN [2020-09-15 16:44:49] testland: Examine the pairs() plot to diagnose sampling problems</span>
+<span class="co">#&gt;  - </span>
+<span class="co">#&gt; INFO [2020-09-15 16:44:52] Completed estimates for: testland</span>
+<span class="co">#&gt; INFO [2020-09-15 16:44:52] Initialising estimates for: realland</span>
+<span class="co">#&gt; DEBUG [2020-09-15 16:44:52] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 74 time steps of which 7 are a forecast</span>
+<span class="co">#&gt; WARN [2020-09-15 16:50:41] realland: There were 22 divergent transitions after warmup. See</span>
+<span class="co">#&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span>
+<span class="co">#&gt; to find out why this is a problem and how to eliminate them. - </span>
+<span class="co">#&gt; WARN [2020-09-15 16:50:41] realland: Examine the pairs() plot to diagnose sampling problems</span>
+<span class="co">#&gt;  - </span>
+<span class="co">#&gt; INFO [2020-09-15 16:50:44] Completed estimates for: realland</span>
+<span class="co">#&gt; INFO [2020-09-15 16:50:44] Producing summary</span>
+</pre></div>
 <p>Results from each region are stored in a <code>regional</code> list with across region summary measures and plots stored in a <code>summary</code> list. All results can be set to be internally saved by setting the <code>target_folder</code> and <code>summary_dir</code> arguments.</p>
 <p>Summary measures that are returned include a table formatted for reporting (along with raw results for further processing).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span><span class="op">$</span><span class="kw">summarised_results</span><span class="op">$</span><span class="kw">table</span>
 <span class="co">#&gt;      Region New confirmed cases by infection date</span>
-<span class="co">#&gt; 1: realland                    2236 (125 -- 7642)</span>
-<span class="co">#&gt; 2: testland                     2066 (37 -- 7156)</span>
+<span class="co">#&gt; 1: realland                      1994 (4 -- 9243)</span>
+<span class="co">#&gt; 2: testland                      1952 (3 -- 9716)</span>
 <span class="co">#&gt;    Expected change in daily cases Effective reproduction no.</span>
-<span class="co">#&gt; 1:                         Unsure         0.81 (0.23 -- 1.4)</span>
-<span class="co">#&gt; 2:                         Unsure        0.78 (0.18 -- 1.39)</span>
+<span class="co">#&gt; 1:                         Unsure         0.75 (0.1 -- 1.51)</span>
+<span class="co">#&gt; 2:                         Unsure        0.75 (0.18 -- 1.54)</span>
 <span class="co">#&gt;           Rate of growth Doubling/halving time (days)</span>
-<span class="co">#&gt; 1:  -0.05 (-0.2 -- 0.14)            -13.2 (5 -- -3.4)</span>
-<span class="co">#&gt; 2: -0.06 (-0.25 -- 0.12)          -11.2 (5.8 -- -2.8)</span></pre></div>
+<span class="co">#&gt; 1: -0.07 (-0.28 -- 0.15)           -9.9 (4.6 -- -2.5)</span>
+<span class="co">#&gt; 2: -0.07 (-0.24 -- 0.16)           -9.5 (4.3 -- -2.8)</span>
+</pre></div>
 <p>A range of plots are again returned (with the single summary plot shown below).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span><span class="op">$</span><span class="kw">summary_plot</span></pre></div>
+<span class="kw">estimates</span><span class="op">$</span><span class="kw">summary</span><span class="op">$</span><span class="kw">summary_plot</span>
+</pre></div>
 <p><img src="reference/figures/unnamed-chunk-16-1.png"><!-- --></p>
 </div>
 <div id="reporting-templates" class="section level3">
@@ -455,7 +550,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
