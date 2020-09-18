@@ -241,259 +241,307 @@ on the maximum number of reported cases.</p></td>
                        generation_time = <span class='kw'>generation_time</span>,
                        delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
                        adapt_delta = <span class='fl'>0.9</span>,
-                       samples = <span class='fl'>2000</span>, warmup = <span class='fl'>200</span>, verbose = <span class='fl'>TRUE</span>,
+                       samples = <span class='fl'>2000</span>, warmup = <span class='fl'>500</span>, verbose = <span class='fl'>TRUE</span>,
                        cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>)
-</div><div class='output co'>#&gt; INFO [2020-09-18 11:34:59] Reporting estimates using data up to: 2020-04-01
-#&gt; INFO [2020-09-18 11:34:59] Producing estimates for: testland, realland
-#&gt; INFO [2020-09-18 11:34:59] Initialising estimates for: testland
-#&gt; DEBUG [2020-09-18 11:34:59] Running for 2000 samples (across 4 chains each with a warm up of 200 iterations each) and 65 time steps of which 7 are a forecast
+</div><div class='output co'>#&gt; INFO [2020-09-18 17:00:22] Reporting estimates using data up to: 2020-04-01
+#&gt; INFO [2020-09-18 17:00:22] Producing estimates for: testland, realland
+#&gt; INFO [2020-09-18 17:00:22] Initialising estimates for: testland
+#&gt; DEBUG [2020-09-18 17:00:23] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000323 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.23 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000342 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.42 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
-#&gt; Chain 1: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 1: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 1: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 1: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 1: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 1: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 1: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 1: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 1: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 1: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 1: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 1: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 1: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 1: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 1: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 1: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 1: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 1: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 1: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 1: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 1: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 1: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 1: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 1: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 1: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 25.7079 seconds (Warm-up)
-#&gt; Chain 1:                20.7811 seconds (Sampling)
-#&gt; Chain 1:                46.489 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 39.63 seconds (Warm-up)
+#&gt; Chain 1:                17.2712 seconds (Sampling)
+#&gt; Chain 1:                56.9012 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000341 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.41 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000327 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.27 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
-#&gt; Chain 2: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 2: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 2: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 2: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 2: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 2: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 2: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 2: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 2: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 2: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 2: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 2: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 2: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 2: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 2: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 2: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 2: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 2: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 2: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 2: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 2: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 2: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 2: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 2: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 2: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 31.4326 seconds (Warm-up)
-#&gt; Chain 2:                17.4993 seconds (Sampling)
-#&gt; Chain 2:                48.9319 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 48.8547 seconds (Warm-up)
+#&gt; Chain 2:                34.0141 seconds (Sampling)
+#&gt; Chain 2:                82.8689 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000314 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.14 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000291 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.91 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
-#&gt; Chain 3: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 3: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 3: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 3: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 3: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 3: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 3: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 3: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 3: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 3: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 3: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 3: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 3: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 3: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 3: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 3: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 3: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 3: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 3: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 3: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 3: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 3: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 3: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 3: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 3: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 35.5988 seconds (Warm-up)
-#&gt; Chain 3:                35.0669 seconds (Sampling)
-#&gt; Chain 3:                70.6657 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 50.8503 seconds (Warm-up)
+#&gt; Chain 3:                17.6369 seconds (Sampling)
+#&gt; Chain 3:                68.4872 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000282 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.82 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000305 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.05 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
-#&gt; Chain 4: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 4: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 4: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 4: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 4: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 4: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 4: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 4: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 4: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 4: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 4: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 4: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 4: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 4: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 4: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 4: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 4: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 4: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 4: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 4: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 4: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 4: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 4: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 4: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 4: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 31.2368 seconds (Warm-up)
-#&gt; Chain 4:                35.0875 seconds (Sampling)
-#&gt; Chain 4:                66.3243 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 49.7521 seconds (Warm-up)
+#&gt; Chain 4:                34.4085 seconds (Sampling)
+#&gt; Chain 4:                84.1606 seconds (Total)
 #&gt; Chain 4: 
-#&gt; WARN [2020-09-18 11:38:51] testland: There were 32 divergent transitions after warmup. See
+#&gt; WARN [2020-09-18 17:05:15] testland: There were 20 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-09-18 11:38:51] testland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-09-18 17:05:15] testland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; INFO [2020-09-18 11:38:54] Completed estimates for: testland
-#&gt; INFO [2020-09-18 11:38:54] Initialising estimates for: realland
-#&gt; DEBUG [2020-09-18 11:38:54] Running for 2000 samples (across 4 chains each with a warm up of 200 iterations each) and 65 time steps of which 7 are a forecast
+#&gt; INFO [2020-09-18 17:05:18] Completed estimates for: testland
+#&gt; INFO [2020-09-18 17:05:18] Initialising estimates for: realland
+#&gt; DEBUG [2020-09-18 17:05:18] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000331 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.31 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000347 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.47 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
-#&gt; Chain 1: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 1: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 1: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 1: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 1: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 1: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 1: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 1: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 1: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 1: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 1: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 1: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 1: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 1: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 1: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 1: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 1: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 1: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 1: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 1: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 1: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 1: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 1: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 1: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 1: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 31.5572 seconds (Warm-up)
-#&gt; Chain 1:                36.4045 seconds (Sampling)
-#&gt; Chain 1:                67.9617 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 49.1842 seconds (Warm-up)
+#&gt; Chain 1:                34.1877 seconds (Sampling)
+#&gt; Chain 1:                83.3719 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.0003 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000275 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.75 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
-#&gt; Chain 2: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 2: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 2: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 2: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 2: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 2: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 2: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 2: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 2: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 2: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 2: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 2: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 2: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 2: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 2: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 2: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 2: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 2: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 2: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 2: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 2: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 2: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 2: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 2: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 2: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 33.399 seconds (Warm-up)
-#&gt; Chain 2:                20.9358 seconds (Sampling)
-#&gt; Chain 2:                54.3348 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 53.3807 seconds (Warm-up)
+#&gt; Chain 2:                34.1348 seconds (Sampling)
+#&gt; Chain 2:                87.5156 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000306 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.06 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000276 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.76 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
-#&gt; Chain 3: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 3: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 3: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 3: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 3: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 3: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 3: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 3: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 3: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 3: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 3: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 3: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 3: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 3: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 3: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 3: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 3: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 3: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 3: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 3: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 3: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 3: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 3: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 3: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 3: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 32.1565 seconds (Warm-up)
-#&gt; Chain 3:                36.2847 seconds (Sampling)
-#&gt; Chain 3:                68.4412 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 47.8147 seconds (Warm-up)
+#&gt; Chain 3:                18.7113 seconds (Sampling)
+#&gt; Chain 3:                66.5261 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000309 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.09 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000289 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.89 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
-#&gt; Chain 4: Iteration:   1 / 700 [  0%]  (Warmup)
-#&gt; Chain 4: Iteration:  50 / 700 [  7%]  (Warmup)
-#&gt; Chain 4: Iteration: 100 / 700 [ 14%]  (Warmup)
-#&gt; Chain 4: Iteration: 150 / 700 [ 21%]  (Warmup)
-#&gt; Chain 4: Iteration: 200 / 700 [ 28%]  (Warmup)
-#&gt; Chain 4: Iteration: 201 / 700 [ 28%]  (Sampling)
-#&gt; Chain 4: Iteration: 250 / 700 [ 35%]  (Sampling)
-#&gt; Chain 4: Iteration: 300 / 700 [ 42%]  (Sampling)
-#&gt; Chain 4: Iteration: 350 / 700 [ 50%]  (Sampling)
-#&gt; Chain 4: Iteration: 400 / 700 [ 57%]  (Sampling)
-#&gt; Chain 4: Iteration: 450 / 700 [ 64%]  (Sampling)
-#&gt; Chain 4: Iteration: 500 / 700 [ 71%]  (Sampling)
-#&gt; Chain 4: Iteration: 550 / 700 [ 78%]  (Sampling)
-#&gt; Chain 4: Iteration: 600 / 700 [ 85%]  (Sampling)
-#&gt; Chain 4: Iteration: 650 / 700 [ 92%]  (Sampling)
-#&gt; Chain 4: Iteration: 700 / 700 [100%]  (Sampling)
+#&gt; Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+#&gt; Chain 4: Iteration:  50 / 1000 [  5%]  (Warmup)
+#&gt; Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+#&gt; Chain 4: Iteration: 150 / 1000 [ 15%]  (Warmup)
+#&gt; Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+#&gt; Chain 4: Iteration: 250 / 1000 [ 25%]  (Warmup)
+#&gt; Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+#&gt; Chain 4: Iteration: 350 / 1000 [ 35%]  (Warmup)
+#&gt; Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+#&gt; Chain 4: Iteration: 450 / 1000 [ 45%]  (Warmup)
+#&gt; Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+#&gt; Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+#&gt; Chain 4: Iteration: 550 / 1000 [ 55%]  (Sampling)
+#&gt; Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+#&gt; Chain 4: Iteration: 650 / 1000 [ 65%]  (Sampling)
+#&gt; Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+#&gt; Chain 4: Iteration: 750 / 1000 [ 75%]  (Sampling)
+#&gt; Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+#&gt; Chain 4: Iteration: 850 / 1000 [ 85%]  (Sampling)
+#&gt; Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+#&gt; Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
+#&gt; Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 33.0492 seconds (Warm-up)
-#&gt; Chain 4:                35.1537 seconds (Sampling)
-#&gt; Chain 4:                68.2029 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 54.0266 seconds (Warm-up)
+#&gt; Chain 4:                29.3866 seconds (Sampling)
+#&gt; Chain 4:                83.4131 seconds (Total)
 #&gt; Chain 4: 
-#&gt; WARN [2020-09-18 11:43:14] realland: There were 9 divergent transitions after warmup. See
+#&gt; WARN [2020-09-18 17:10:39] realland: There were 14 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-09-18 11:43:14] realland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-09-18 17:10:39] realland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; INFO [2020-09-18 11:43:16] Completed estimates for: realland
-#&gt; INFO [2020-09-18 11:43:16] Producing summary</div><div class='input'><span class='co'># }</span>
+#&gt; INFO [2020-09-18 17:10:42] Completed estimates for: realland
+#&gt; INFO [2020-09-18 17:10:42] Producing summary</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
