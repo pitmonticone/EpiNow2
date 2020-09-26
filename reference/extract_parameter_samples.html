@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Folders with Nowcast Results — get_regions • EpiNow2</title>
+<title>Extract Parameter Samples from a Stan Model — extract_parameter_samples • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get Folders with Nowcast Results — get_regions" />
-<meta property="og:description" content="Get Folders with Nowcast Results" />
+<meta property="og:title" content="Extract Parameter Samples from a Stan Model — extract_parameter_samples" />
+<meta property="og:description" content="Extract Parameter Samples from a Stan Model" />
 
 
 
@@ -112,30 +112,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Folders with Nowcast Results</h1>
+    <h1>Extract Parameter Samples from a Stan Model</h1>
     
-    <div class="hidden name"><code>get_regions.Rd</code></div>
+    <div class="hidden name"><code>extract_parameter_samples.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get Folders with Nowcast Results</p>
+    <p>Extract Parameter Samples from a Stan Model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_regions</span><span class='op'>(</span><span class='va'>results_dir</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>extract_parameter_samples</span><span class='op'>(</span><span class='va'>stan_fit</span>, <span class='va'>data</span>, <span class='va'>reported_dates</span>, <span class='va'>reported_inf_dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>results_dir</th>
-      <td><p>A character string giving the directory in which results
-are stored (as produced by <code>regional_rt_pipeline</code>).</p></td>
+      <th>stan_fit</th>
+      <td><p>A fit Stan model as returned by <code>rstan:sampling</code></p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A list of the data supplied to the <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code> call.</p></td>
+    </tr>
+    <tr>
+      <th>reported_dates</th>
+      <td><p>A vector of dates to report estimates for.</p></td>
+    </tr>
+    <tr>
+      <th>reported_inf_dates</th>
+      <td><p>A vector of dates to report infection estimates for.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named character vector containing the results to plot.</p>
+    <p>A list of dataframes each containing the posterior of a parameter</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

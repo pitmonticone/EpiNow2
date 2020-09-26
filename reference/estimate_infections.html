@@ -123,33 +123,38 @@ cases. It can optionally then estimate the time-varying reproduction number and 
 cases. It can optionally then estimate the time-varying reproduction number and the rate of growth.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_infections</span>(
-  <span class='kw'>reported_cases</span>,
-  family = <span class='st'>"negbin"</span>,
-  <span class='kw'>generation_time</span>,
-  <span class='kw'>delays</span>,
-  gp = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(basis_prop = <span class='fl'>0.3</span>, boundary_scale = <span class='fl'>2</span>),
-  rt_prior = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fl'>1</span>, sd = <span class='fl'>1</span>),
-  prior_smoothing_window = <span class='fl'>7</span>,
-  horizon = <span class='fl'>7</span>,
-  <span class='kw'>model</span>,
-  cores = <span class='fl'>1</span>,
-  chains = <span class='fl'>4</span>,
-  samples = <span class='fl'>1000</span>,
-  warmup = <span class='fl'>200</span>,
-  estimate_rt = <span class='fl'>TRUE</span>,
-  estimate_week_eff = <span class='fl'>TRUE</span>,
-  estimate_breakpoints = <span class='fl'>FALSE</span>,
-  burn_in = <span class='fl'>0</span>,
-  stationary = <span class='fl'>FALSE</span>,
-  fixed = <span class='fl'>FALSE</span>,
-  fixed_future_rt = <span class='fl'>FALSE</span>,
-  adapt_delta = <span class='fl'>0.99</span>,
-  max_treedepth = <span class='fl'>15</span>,
-  return_fit = <span class='fl'>FALSE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  debug = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>estimate_infections</span><span class='op'>(</span>
+  <span class='va'>reported_cases</span>,
+  family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+  <span class='va'>generation_time</span>,
+  <span class='va'>delays</span>,
+  gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>basis_prop <span class='op'>=</span> <span class='fl'>0.3</span>, boundary_scale <span class='op'>=</span> <span class='fl'>2</span>, lengthscale_mean <span class='op'>=</span> <span class='fl'>0</span>, lengthscale_sd
+    <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>,
+  rt_prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  prior_smoothing_window <span class='op'>=</span> <span class='fl'>7</span>,
+  horizon <span class='op'>=</span> <span class='fl'>7</span>,
+  <span class='va'>model</span>,
+  cores <span class='op'>=</span> <span class='fl'>1</span>,
+  chains <span class='op'>=</span> <span class='fl'>4</span>,
+  samples <span class='op'>=</span> <span class='fl'>1000</span>,
+  warmup <span class='op'>=</span> <span class='fl'>200</span>,
+  stan_args <span class='op'>=</span> <span class='cn'>NULL</span>,
+  estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  estimate_week_eff <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  estimate_breakpoints <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  burn_in <span class='op'>=</span> <span class='fl'>0</span>,
+  stationary <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fixed <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fixed_future_rt <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  adapt_delta <span class='op'>=</span> <span class='fl'>0.99</span>,
+  max_treedepth <span class='op'>=</span> <span class='fl'>15</span>,
+  future <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  max_execution_time <span class='op'>=</span> <span class='cn'>Inf</span>,
+  return_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  debug <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  stuck_chains <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,6 +229,11 @@ for the prior based on reported cases.</p></td>
       <td><p>Numeric, defaults to 200. Number of iteration of warmup to use.</p></td>
     </tr>
     <tr>
+      <th>stan_args</th>
+      <td><p>List, defaults to <code>NULL</code>. User supplied arguments to be passed to <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code>. Overwrites all
+defaults.</p></td>
+    </tr>
+    <tr>
       <th>estimate_rt</th>
       <td><p>Logical, defaults TRUE. Should Rt be estimated when imputing infections.</p></td>
     </tr>
@@ -271,6 +281,17 @@ future time points without data.</p></td>
       <td><p>Numeric, defaults to 15. See ?rstan::sampling.</p></td>
     </tr>
     <tr>
+      <th>future</th>
+      <td><p>Logical, defaults to <code>FALSE</code>. Should stan chains be run in parallel using <code>future</code>. This allows users to have chains
+fail gracefully (i.e when combined with <code>max_execution_time</code>). Should be combined with a call to <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code></p></td>
+    </tr>
+    <tr>
+      <th>max_execution_time</th>
+      <td><p>Numeric, defaults to Inf. If set will kill off processing of each chain if not finished within the specified timeout.
+When more than 2 chains finish successfully estimates will still be returned. If less than 2 chains return within the allowed time then estimation
+will fail with an informative error.</p></td>
+    </tr>
+    <tr>
       <th>return_fit</th>
       <td><p>Logical, defaults to FALSE. Should the fitted stan model be returned.</p></td>
     </tr>
@@ -282,64 +303,81 @@ future time points without data.</p></td>
       <th>debug</th>
       <td><p>Logical, defaults to <code>FALSE</code>. Enables debug model in which additional diagnostics are available</p></td>
     </tr>
+    <tr>
+      <th>stuck_chains</th>
+      <td><p>Numeric, defaults to 0. Used to test failing chain scenarios</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Get example case counts</span>
-<span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span>]
+<span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span><span class='op'>]</span>
 
 <span class='co'># Add a dummy breakpoint (used only when optionally estimating breakpoints)</span>
-<span class='kw'>reported_cases</span> <span class='op'>&lt;-</span> <span class='kw'>reported_cases</span>[, <span class='kw'>breakpoint</span> <span class='op'>:=</span> <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fifelse.html'>fifelse</a></span>(<span class='kw'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2020-03-16"</span>),
-                                                                     <span class='fl'>1</span>, <span class='fl'>0</span>)]
+<span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='va'>reported_cases</span><span class='op'>[</span>, <span class='va'>breakpoint</span> <span class='op'>:=</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fifelse.html'>fifelse</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2020-03-16"</span><span class='op'>)</span>,
+                                                                     <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>]</span>
 <span class='co'># Set up example generation time</span>
-<span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                        mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                        sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                        sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
-                        max = <span class='fl'>30</span>)
+<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
+                        mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
+                        sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
+                        sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
+                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
 <span class='co'># Set delays between infection and case report </span>
 <span class='co'># (any number of delays can be specifed here)             </span>
-<span class='kw'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
-                          max = <span class='fl'>30</span>)
+<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
+                          mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
+                          sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
+                          sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
+                          max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                    
-<span class='kw'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>5</span>),
-                        mean_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        sd_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>1.5</span>),
-                        max = <span class='fl'>30</span>)
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>,
+                        mean_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+                        sd_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span>,
+                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                         
 <span class='co'># Run model with default settings</span>
-<span class='kw'>def</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                           generation_time = <span class='kw'>generation_time</span>,
-                           delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                           samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                           generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                           chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>def</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>def</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
                      
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
 </div><div class='img'><img src='estimate_infections-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Run the model with default settings using the future backend </span>
+<span class='co'>## (combine with a call to future::plan to make this parallel).</span>
+<span class='va'>def_future</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                                  generation_time <span class='op'>=</span> <span class='va'>generation_time</span>, 
+                                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                 samples <span class='op'>=</span> <span class='fl'>500</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, chains <span class='op'>=</span> <span class='fl'>2</span>, 
+                                 verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, future <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>def_future</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
+                     
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>                          
+</div><div class='img'><img src='estimate_infections-2.png' alt='' width='700' height='433' /></div><div class='input'>                           
 <span class='co'># Run model with Rt fixed into the future</span>
-<span class='kw'>fixed_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                                generation_time = <span class='kw'>generation_time</span>,
-                                delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                                samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed_future_rt = <span class='fl'>TRUE</span>,
-                                return_fit = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; DEBUG [2020-09-18 15:39:24] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
+<span class='va'>fixed_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                                generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                                chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, fixed_future_rt <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                                return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; DEBUG [2020-09-26 14:59:55] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 68 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000348 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.48 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000363 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.63 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -355,15 +393,15 @@ future time points without data.</p></td>
 #&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 76.0204 seconds (Warm-up)
-#&gt; Chain 1:                70.7765 seconds (Sampling)
-#&gt; Chain 1:                146.797 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 75.7621 seconds (Warm-up)
+#&gt; Chain 1:                75.0503 seconds (Sampling)
+#&gt; Chain 1:                150.812 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000363 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.63 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000318 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.18 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -379,15 +417,15 @@ future time points without data.</p></td>
 #&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 68.2691 seconds (Warm-up)
-#&gt; Chain 2:                37.4901 seconds (Sampling)
-#&gt; Chain 2:                105.759 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 88.9048 seconds (Warm-up)
+#&gt; Chain 2:                75.0052 seconds (Sampling)
+#&gt; Chain 2:                163.91 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000295 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.95 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000355 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.55 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -403,15 +441,15 @@ future time points without data.</p></td>
 #&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 53.6135 seconds (Warm-up)
-#&gt; Chain 3:                36.1273 seconds (Sampling)
-#&gt; Chain 3:                89.7408 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 88.5034 seconds (Warm-up)
+#&gt; Chain 3:                40.3536 seconds (Sampling)
+#&gt; Chain 3:                128.857 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000285 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.85 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000316 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.16 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -427,119 +465,119 @@ future time points without data.</p></td>
 #&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
 #&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 67.3193 seconds (Warm-up)
-#&gt; Chain 4:                35.9739 seconds (Sampling)
-#&gt; Chain 4:                103.293 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 109.033 seconds (Warm-up)
+#&gt; Chain 4:                73.8603 seconds (Sampling)
+#&gt; Chain 4:                182.893 seconds (Total)
 #&gt; Chain 4: </div><div class='input'>
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fixed_rt</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>fixed_rt</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
                       
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Run the model with default settings on a later snapshot of </span>
 <span class='co'># data (use burn_in here to remove the first week of</span>
 <span class='co'># estimates that may be impacted by this most).</span>
-<span class='kw'>snapshot_cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>80</span><span class='op'>:</span><span class='fl'>130</span>]
-<span class='kw'>snapshot</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>snapshot_cases</span>, family = <span class='st'>"negbin"</span>,
-                                generation_time = <span class='kw'>generation_time</span>,
-                                delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                                samples = <span class='fl'>1000</span>, warmup = <span class='fl'>400</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
-                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>,
-                                burn_in = <span class='fl'>7</span>)
+<span class='va'>snapshot_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>80</span><span class='op'>:</span><span class='fl'>130</span><span class='op'>]</span>
+<span class='va'>snapshot</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>snapshot_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                                generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>400</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, 
+                                chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                                burn_in <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>snapshot</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>snapshot_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>snapshot</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>snapshot_cases</span><span class='op'>)</span>
 
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>    
-</div><div class='img'><img src='estimate_infections-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>    
+</div><div class='img'><img src='estimate_infections-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Run model with stationary Rt assumption (likely to provide biased real-time estimates)</span>
-<span class='kw'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                            generation_time = <span class='kw'>generation_time</span>,
-                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, stationary = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                            generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                            samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                            chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, stationary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                            verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>stat</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>stat</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
 
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-4.png' alt='' width='700' height='433' /></div><div class='input'>       
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-5.png' alt='' width='700' height='433' /></div><div class='input'>       
 <span class='co'># Run model with fixed Rt assumption </span>
-<span class='kw'>fixed</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                            generation_time = <span class='kw'>generation_time</span>,
-                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>fixed</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                            generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                            samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                            chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, fixed <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+                            verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fixed</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>fixed</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
                       
                       
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-6.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># Run model with no delays </span>
-<span class='kw'>no_delay</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                            generation_time = <span class='kw'>generation_time</span>,
-                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, 
-                            cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>no_delay</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                            generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                            samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, 
+                            cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                            chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                            verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>no_delay</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>no_delay</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
                       
                       
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>         
-</div><div class='img'><img src='estimate_infections-6.png' alt='' width='700' height='433' /></div><div class='input'>              
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>         
+</div><div class='img'><img src='estimate_infections-7.png' alt='' width='700' height='433' /></div><div class='input'>              
 <span class='co'># Run model with breakpoints                                                                      </span>
-<span class='kw'>bkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                           generation_time = <span class='kw'>generation_time</span>,
-                           delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                           samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), 
-                           chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, 
-                           verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>bkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                           generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, 
+                           chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, estimate_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+                           verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>bkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-                      reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>bkp</span><span class='op'>$</span><span class='va'>summarised</span>,
+                      reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
 
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-7.png' alt='' width='700' height='433' /></div><div class='input'>             
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-8.png' alt='' width='700' height='433' /></div><div class='input'>             
 <span class='co'># Run model with breakpoints but with constrained non-linear change over time </span>
 <span class='co'># This formulation may increase the apparent effect of the breakpoint but needs to be tested using</span>
 <span class='co'># model fit criteria (i.e LFO).                                                                    </span>
-<span class='kw'>cbkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                            generation_time = <span class='kw'>generation_time</span>,
-                            gp = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(basis_prop = <span class='fl'>0.3</span>, boundary_scale = <span class='fl'>2</span>, 
-                                     lengthscale_mean = <span class='fl'>20</span>, lengthscale_sd = <span class='fl'>1</span>),
-                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                            chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>TRUE</span>, estimate_breakpoints = <span class='fl'>TRUE</span>,
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>cbkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                            generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                            gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>basis_prop <span class='op'>=</span> <span class='fl'>0.3</span>, boundary_scale <span class='op'>=</span> <span class='fl'>2</span>, 
+                                     lengthscale_mean <span class='op'>=</span> <span class='fl'>20</span>, lengthscale_sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                            samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                            chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>, estimate_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                            verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>cbkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>cbkp</span><span class='op'>$</span><span class='va'>summarised</span>,
+             reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
              
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Pull out breakpoint summary</span>
-<span class='kw'>cbkp</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span>]
+<span class='va'>cbkp</span><span class='op'>$</span><span class='va'>summarised</span><span class='op'>[</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;    date    variable strat type   bottom      top    lower     upper
 #&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; 0.792599 1.104691 0.875162 0.9956407
 #&gt;    central_lower central_upper    median      mean         sd
@@ -547,38 +585,38 @@ future time points without data.</p></td>
 <span class='co'># Run model with breakpoints but otherwise static Rt</span>
 <span class='co'># This formulation may increase the apparent effect of the breakpoint but needs to be tested using</span>
 <span class='co'># model fit criteria (i.e LFO).                                                                    </span>
-<span class='kw'>fbkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                            generation_time = <span class='kw'>generation_time</span>,
-                            delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                            samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                            chains = <span class='fl'>4</span>, estimate_breakpoints = <span class='fl'>TRUE</span>, fixed = <span class='fl'>TRUE</span>, 
-                            verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>fbkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                            generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                            samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                            chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span>, fixed <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+                            verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># Plot output</span>
-<span class='kw'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span>(summarised_estimates = <span class='kw'>fbkp</span><span class='op'>$</span><span class='kw'>summarised</span>,
-             reported = <span class='kw'>reported_cases</span>)
+<span class='va'>plots</span> <span class='op'>&lt;-</span> <span class='fu'><a href='report_plots.html'>report_plots</a></span><span class='op'>(</span>summarised_estimates <span class='op'>=</span> <span class='va'>fbkp</span><span class='op'>$</span><span class='va'>summarised</span>,
+             reported <span class='op'>=</span> <span class='va'>reported_cases</span><span class='op'>)</span>
              
-<span class='kw'>plots</span><span class='op'>$</span><span class='kw'>summary</span>
-</div><div class='img'><img src='estimate_infections-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>plots</span><span class='op'>$</span><span class='va'>summary</span>
+</div><div class='img'><img src='estimate_infections-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Pull out breakpoint summary</span>
-<span class='kw'>fbkp</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span>]
+<span class='va'>fbkp</span><span class='op'>$</span><span class='va'>summarised</span><span class='op'>[</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;    date    variable strat type    bottom       top     lower     upper
 #&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; 0.5399527 0.6281936 0.5614332 0.5969322
 #&gt;    central_lower central_upper    median      mean         sd
 #&gt; 1:     0.5795124     0.5919684 0.5830085 0.5841193 0.02815333</div><div class='input'>
 <span class='co'># Run model without Rt estimation (just backcalculation)</span>
-<span class='kw'>backcalc</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span>(<span class='kw'>reported_cases</span>, family = <span class='st'>"negbin"</span>,
-                                generation_time = <span class='kw'>generation_time</span>,
-                                delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                                samples = <span class='fl'>1000</span>, warmup = <span class='fl'>200</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>),
-                                chains = <span class='fl'>4</span>, estimate_rt = <span class='fl'>FALSE</span>, verbose = <span class='fl'>FALSE</span>, return_fit = <span class='fl'>TRUE</span>)
+<span class='va'>backcalc</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
+                                generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                                chains <span class='op'>=</span> <span class='fl'>4</span>, estimate_rt <span class='op'>=</span> <span class='cn'>FALSE</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
  
 <span class='co'># plot just infections as report_plots does not support the backcalculation only model</span>
-<span class='fu'><a href='plot_estimates.html'>plot_estimates</a></span>(estimate = <span class='kw'>backcalc</span><span class='op'>$</span><span class='kw'>summarised</span>[<span class='kw'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span>],
-               reported = <span class='kw'>reported_cases</span>, ylab = <span class='st'>"Cases"</span>)
-</div><div class='img'><img src='estimate_infections-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }                                </span>
+<span class='fu'><a href='plot_estimates.html'>plot_estimates</a></span><span class='op'>(</span>estimate <span class='op'>=</span> <span class='va'>backcalc</span><span class='op'>$</span><span class='va'>summarised</span><span class='op'>[</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span><span class='op'>]</span>,
+               reported <span class='op'>=</span> <span class='va'>reported_cases</span>, ylab <span class='op'>=</span> <span class='st'>"Cases"</span><span class='op'>)</span>
+</div><div class='img'><img src='estimate_infections-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }                                </span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

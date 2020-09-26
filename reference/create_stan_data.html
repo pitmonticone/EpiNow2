@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Custom Map Theme — theme_map • EpiNow2</title>
+<title>Create Stan Data Required for estimate_infections — create_stan_data • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Custom Map Theme — theme_map" />
-<meta property="og:description" content="Custom Map Theme" />
+<meta property="og:title" content="Create Stan Data Required for estimate_infections — create_stan_data" />
+<meta property="og:description" content="Create Stan Data Required for estimate_infections" />
 
 
 
@@ -112,71 +112,128 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Custom Map Theme</h1>
+    <h1>Create Stan Data Required for estimate_infections</h1>
     
-    <div class="hidden name"><code>theme_map.Rd</code></div>
+    <div class="hidden name"><code>create_stan_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Custom Map Theme</p>
+    <p>Create Stan Data Required for estimate_infections</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_map</span><span class='op'>(</span>
-  map <span class='op'>=</span> <span class='cn'>NULL</span>,
-  continuous <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  variable_label <span class='op'>=</span> <span class='cn'>NULL</span>,
-  trans <span class='op'>=</span> <span class='st'>"identity"</span>,
-  fill_labels <span class='op'>=</span> <span class='cn'>NULL</span>,
-  scale_fill <span class='op'>=</span> <span class='cn'>NULL</span>,
-  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
+    <pre class="usage"><span class='fu'>create_stan_data</span><span class='op'>(</span>
+  <span class='va'>reported_cases</span>,
+  <span class='va'>shifted_reported_cases</span>,
+  <span class='va'>horizon</span>,
+  <span class='va'>no_delays</span>,
+  <span class='va'>mean_shift</span>,
+  <span class='va'>generation_time</span>,
+  <span class='va'>rt_prior</span>,
+  <span class='va'>estimate_rt</span>,
+  <span class='va'>estimate_week_eff</span>,
+  <span class='va'>stationary</span>,
+  <span class='va'>fixed</span>,
+  <span class='va'>break_no</span>,
+  <span class='va'>fixed_future_rt</span>,
+  <span class='va'>gp</span>,
+  <span class='va'>family</span>,
+  <span class='va'>delays</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>map</th>
-      <td><p><code>ggplot2</code> map object</p></td>
+      <th>reported_cases</th>
+      <td><p>A data frame of confirmed cases (confirm) by date (date). confirm must be integer and date must be
+in date format.</p></td>
     </tr>
     <tr>
-      <th>continuous</th>
-      <td><p>Logical defaults to <code>FALSE</code>. Is the fill variable continuous.</p></td>
+      <th>shifted_reported_cases</th>
+      <td><p>A dataframe of delay shifted reported cases</p></td>
     </tr>
     <tr>
-      <th>variable_label</th>
-      <td><p>A character string indicating the variable label to use. If not supplied then the underlying
-variable name is used.</p></td>
+      <th>horizon</th>
+      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
     </tr>
     <tr>
-      <th>trans</th>
-      <td><p>A character string specifying the transform to use on the specified metric. Defaults to no
-transform ("identity"). Other options include log scaling ("log") and log base 10 scaling
-("log10"). For a complete list of options see <code>ggplot2::continous_scale</code>.</p></td>
+      <th>no_delays</th>
+      <td><p>Numeric, number of delays</p></td>
     </tr>
     <tr>
-      <th>fill_labels</th>
-      <td><p>A function to use to allocate legend labels. An example (used below) is <code><a href='https://scales.r-lib.org//reference/label_percent.html'>scales::percent</a></code>,
-which can be used for percentage data.</p></td>
+      <th>mean_shift</th>
+      <td><p>Numeric, mean delay shift</p></td>
     </tr>
     <tr>
-      <th>scale_fill</th>
-      <td><p>Function to use for scaling the fill. Defaults to a custom <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual</a></code>, which
-expects the possible values to be "Increasing", "Likely increasing", "Likely decreasing", "Decreasing" or "Unsure".</p></td>
+      <th>generation_time</th>
+      <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
+standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
+generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
-      <th>breaks</th>
-      <td><p>Breaks to use in legend. Defaults to <code><a href='https://ggplot2.tidyverse.org/reference/waiver.html'>ggplot2::waiver</a></code>.</p></td>
+      <th>rt_prior</th>
+      <td><p>A list contain the mean and standard deviation (sd) of the gamma distributed prior for
+Rt. By default this is assumed to be mean 1 with a standard deviation of 1.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed to the <code>scale_fill</code> function</p></td>
+      <th>estimate_rt</th>
+      <td><p>Logical, defaults TRUE. Should Rt be estimated when imputing infections.</p></td>
+    </tr>
+    <tr>
+      <th>estimate_week_eff</th>
+      <td><p>Logical, defaults TRUE. Should weekly reporting effects be estimated.</p></td>
+    </tr>
+    <tr>
+      <th>stationary</th>
+      <td><p>Logical, defaults to FALSE. Should Rt be estimated with a global mean. When estimating Rt
+this should substantially improve run times but will revert to the global average for real time and forecasted estimates.
+This setting is most appropriate when estimating historic Rt or when combined with breakpoints.</p></td>
+    </tr>
+    <tr>
+      <th>fixed</th>
+      <td><p>Logical, defaults to FALSE. If TRUE then a Gaussian process is not used and Rt is assumed to be constant over time
+(apart from any manually included breakpoints). If <code>estimate_rt</code> is FALSE then this reduces the backcalculation to a simple mean shift.
+This option can be used to produce a null model estimate, to produce a single Rt estimate for a short timeseries or as part of a wider
+analysis on the impact of interventions.</p></td>
+    </tr>
+    <tr>
+      <th>break_no</th>
+      <td><p>Numeric, number of breakpoints</p></td>
+    </tr>
+    <tr>
+      <th>fixed_future_rt</th>
+      <td><p>Logical, defaults to FALSE. IF TRUE then the estimated Rt from the last time point with data is used for all
+future time points without data.</p></td>
+    </tr>
+    <tr>
+      <th>gp</th>
+      <td><p>List controlling the Gaussian process approximation. Must contain
+the <code>basis_prop</code> (number of basis functions based on scaling the time points) which defaults to 0.3 and must be
+between 0 and 1 (increasing this increases the accuracy of the approximation and the cost of additional compute.
+Must also contain the <code>boundary_scale</code> (multiplied by half the range of the input time series). Increasing this
+increases the accuracy of the approximation at the cost of additional compute.
+See here: https://arxiv.org/abs/2004.11408 for more information on setting these parameters.
+Can optionally also contain the  <code>lengthscale_mean</code> and <code>lengthscale_sd</code>. If these are specified this will override
+the defaults of 0 and 2 (normal distributed truncated at zero).</p></td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td><p>A character string indicating the reporting model to use. Defaults to negative
+binomial ("negbin") with poisson ("poisson") also supported.</p></td>
+    </tr>
+    <tr>
+      <th>delays</th>
+      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
+Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
+standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
+that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
+on the log scale).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>ggplot2</code> object</p>
+    <p>A list of stan data</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

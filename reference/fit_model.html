@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Folders with Nowcast Results — get_regions • EpiNow2</title>
+<title>Fit a Stan Model — fit_model • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get Folders with Nowcast Results — get_regions" />
-<meta property="og:description" content="Get Folders with Nowcast Results" />
+<meta property="og:title" content="Fit a Stan Model — fit_model" />
+<meta property="og:description" content="Fit a Stan Model" />
 
 
 
@@ -112,30 +112,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Folders with Nowcast Results</h1>
+    <h1>Fit a Stan Model</h1>
     
-    <div class="hidden name"><code>get_regions.Rd</code></div>
+    <div class="hidden name"><code>fit_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get Folders with Nowcast Results</p>
+    <p>Fit a Stan Model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_regions</span><span class='op'>(</span><span class='va'>results_dir</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fit_model</span><span class='op'>(</span>
+  <span class='va'>args</span>,
+  future <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  max_execution_time <span class='op'>=</span> <span class='cn'>Inf</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  stuck_chains <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>results_dir</th>
-      <td><p>A character string giving the directory in which results
-are stored (as produced by <code>regional_rt_pipeline</code>).</p></td>
+      <th>args</th>
+      <td><p>List of stan arguments</p></td>
+    </tr>
+    <tr>
+      <th>future</th>
+      <td><p>Logical, defaults to <code>FALSE</code>. Should <code>future</code> be used to run stan chains in parallel.</p></td>
+    </tr>
+    <tr>
+      <th>max_execution_time</th>
+      <td><p>Numeric, defauls to Inf. What is the maximum execution time per chain. Results will
+still be returned as long as at least 2 chains complete successfully within the timelimit.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Logical, defaults to <code>FALSE</code>. Should verbose progress information be returned.</p></td>
+    </tr>
+    <tr>
+      <th>stuck_chains</th>
+      <td><p>Numeric, defaults to 0. Used to test failing chain scenarios</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named character vector containing the results to plot.</p>
+    <p>A stan model object</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

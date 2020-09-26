@@ -121,22 +121,21 @@
     <p>Estimates Rt by region. See the documentation for <code>epinow</code> for further information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>regional_epinow</span>(
-  <span class='kw'>reported_cases</span>,
-  <span class='kw'>target_folder</span>,
-  <span class='kw'>target_date</span>,
-  non_zero_points = <span class='fl'>2</span>,
-  cores = <span class='fl'>1</span>,
-  summary = <span class='fl'>TRUE</span>,
-  <span class='kw'>summary_dir</span>,
-  region_scale = <span class='st'>"Region"</span>,
-  all_regions_summary = <span class='fl'>TRUE</span>,
-  return_estimates = <span class='fl'>TRUE</span>,
-  max_plot = <span class='fl'>10</span>,
-  return_timings = <span class='fl'>FALSE</span>,
-  max_execution_time = <span class='fl'>Inf</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>regional_epinow</span><span class='op'>(</span>
+  <span class='va'>reported_cases</span>,
+  <span class='va'>target_folder</span>,
+  <span class='va'>target_date</span>,
+  non_zero_points <span class='op'>=</span> <span class='fl'>2</span>,
+  cores <span class='op'>=</span> <span class='fl'>1</span>,
+  summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>summary_dir</span>,
+  region_scale <span class='op'>=</span> <span class='st'>"Region"</span>,
+  all_regions_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  return_estimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  max_plot <span class='op'>=</span> <span class='fl'>10</span>,
+  return_timings <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,10 +193,6 @@ on the maximum number of reported cases.</p></td>
       <td><p>Logical, defaults to FALSE. If not returning estimates can be used to request timing data is returned.</p></td>
     </tr>
     <tr>
-      <th>max_execution_time</th>
-      <td><p>Numeric, defaults to Inf. If set will kill off processing of each region after x seconds.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>Pass additional arguments to <code>epinow</code></p></td>
     </tr>
@@ -210,48 +205,48 @@ on the maximum number of reported cases.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> <span class='co'># \donttest{</span>
 <span class='co'>## Construct example distributions</span>
-<span class='kw'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                        mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                        sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                        sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_generation_times.html'>covid_generation_times</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
-                        max = <span class='fl'>30</span>)
+<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
+                        mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
+                        sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
+                        sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
+                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                           
-<span class='kw'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean</span>,
-                          mean_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>mean_sd</span>,
-                          sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd</span>,
-                          sd_sd = <span class='kw'>EpiNow2</span>::<span class='kw'><a href='covid_incubation_period.html'>covid_incubation_period</a></span>[<span class='fl'>1</span>, ]<span class='op'>$</span><span class='kw'>sd_sd</span>,
-                          max = <span class='fl'>30</span>)
+<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
+                          mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
+                          sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
+                          sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
+                          max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                    
-<span class='kw'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(mean = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>10</span>),
-                        mean_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>2</span>),
-                        sd_sd = <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>1.1</span>),
-                        max = <span class='fl'>30</span>)
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>,
+                        mean_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+                        sd_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1.1</span><span class='op'>)</span>,
+                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                         
 <span class='co'>## Uses example case vector</span>
-<span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>EpiNow2</span>::<span class='kw'><a href='example_confirmed.html'>example_confirmed</a></span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span>]
+<span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
 
-<span class='kw'>cases</span> <span class='op'>&lt;-</span> <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw'>data.table</span>::<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span>(<span class='kw'>cases</span>)[, <span class='kw'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span>],
-  <span class='kw'>cases</span>[, <span class='kw'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span>]))
+<span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span><span class='op'>]</span>,
+  <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
   
 <span class='co'>## Run basic nowcasting pipeline</span>
 <span class='co'>## Here we reduce the accuracy of the GP approximation in order to reduce runtime</span>
-<span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'>regional_epinow</span>(reported_cases = <span class='kw'>cases</span>,
-                       generation_time = <span class='kw'>generation_time</span>,
-                       delays = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>incubation_period</span>, <span class='kw'>reporting_delay</span>),
-                       adapt_delta = <span class='fl'>0.9</span>,
-                       samples = <span class='fl'>2000</span>, warmup = <span class='fl'>500</span>, verbose = <span class='fl'>TRUE</span>,
-                       cores = <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>(), <span class='fl'>4</span>, <span class='fl'>1</span>), chains = <span class='fl'>4</span>)
-</div><div class='output co'>#&gt; INFO [2020-09-18 17:00:22] Reporting estimates using data up to: 2020-04-01
-#&gt; INFO [2020-09-18 17:00:22] Producing estimates for: testland, realland
-#&gt; INFO [2020-09-18 17:00:22] Initialising estimates for: testland
-#&gt; DEBUG [2020-09-18 17:00:23] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>regional_epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>cases</span>,
+                       generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                       delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                       adapt_delta <span class='op'>=</span> <span class='fl'>0.9</span>,
+                       samples <span class='op'>=</span> <span class='fl'>2000</span>, warmup <span class='op'>=</span> <span class='fl'>500</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                       cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, chains <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; INFO [2020-09-26 16:21:05] Reporting estimates using data up to: 2020-04-01
+#&gt; INFO [2020-09-26 16:21:05] Producing estimates for: testland, realland
+#&gt; INFO [2020-09-26 16:21:05] Initialising estimates for: testland
+#&gt; DEBUG [2020-09-26 16:21:06] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000342 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.42 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000339 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.39 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -278,15 +273,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 39.63 seconds (Warm-up)
-#&gt; Chain 1:                17.2712 seconds (Sampling)
-#&gt; Chain 1:                56.9012 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 40.2551 seconds (Warm-up)
+#&gt; Chain 1:                17.4002 seconds (Sampling)
+#&gt; Chain 1:                57.6553 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000327 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.27 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.00032 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 3.2 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -313,15 +308,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 48.8547 seconds (Warm-up)
-#&gt; Chain 2:                34.0141 seconds (Sampling)
-#&gt; Chain 2:                82.8689 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 50.4649 seconds (Warm-up)
+#&gt; Chain 2:                35.3657 seconds (Sampling)
+#&gt; Chain 2:                85.8306 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000291 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.91 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000303 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.03 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -348,15 +343,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 50.8503 seconds (Warm-up)
-#&gt; Chain 3:                17.6369 seconds (Sampling)
-#&gt; Chain 3:                68.4872 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 52.9214 seconds (Warm-up)
+#&gt; Chain 3:                18.4109 seconds (Sampling)
+#&gt; Chain 3:                71.3322 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000305 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.05 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000297 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.97 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -383,23 +378,23 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 49.7521 seconds (Warm-up)
-#&gt; Chain 4:                34.4085 seconds (Sampling)
-#&gt; Chain 4:                84.1606 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 51.2539 seconds (Warm-up)
+#&gt; Chain 4:                35.46 seconds (Sampling)
+#&gt; Chain 4:                86.7139 seconds (Total)
 #&gt; Chain 4: 
-#&gt; WARN [2020-09-18 17:05:15] testland: There were 20 divergent transitions after warmup. See
+#&gt; WARN [2020-09-26 16:26:07] testland: There were 20 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-09-18 17:05:15] testland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-09-26 16:26:07] testland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; INFO [2020-09-18 17:05:18] Completed estimates for: testland
-#&gt; INFO [2020-09-18 17:05:18] Initialising estimates for: realland
-#&gt; DEBUG [2020-09-18 17:05:18] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
+#&gt; INFO [2020-09-26 16:26:10] Completed estimates for: testland
+#&gt; INFO [2020-09-26 16:26:10] Initialising estimates for: realland
+#&gt; DEBUG [2020-09-26 16:26:10] Running for 2000 samples (across 4 chains each with a warm up of 500 iterations each) and 65 time steps of which 7 are a forecast
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000347 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.47 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000319 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.19 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -426,15 +421,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 49.1842 seconds (Warm-up)
-#&gt; Chain 1:                34.1877 seconds (Sampling)
-#&gt; Chain 1:                83.3719 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 51.077 seconds (Warm-up)
+#&gt; Chain 1:                35.6043 seconds (Sampling)
+#&gt; Chain 1:                86.6813 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000275 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.75 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000293 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 2.93 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -461,15 +456,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 53.3807 seconds (Warm-up)
-#&gt; Chain 2:                34.1348 seconds (Sampling)
-#&gt; Chain 2:                87.5156 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 55.9377 seconds (Warm-up)
+#&gt; Chain 2:                35.7797 seconds (Sampling)
+#&gt; Chain 2:                91.7175 seconds (Total)
 #&gt; Chain 2: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
 #&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.000276 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 2.76 seconds.
+#&gt; Chain 3: Gradient evaluation took 0.000307 seconds
+#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.07 seconds.
 #&gt; Chain 3: Adjust your expectations accordingly!
 #&gt; Chain 3: 
 #&gt; Chain 3: 
@@ -496,15 +491,15 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 47.8147 seconds (Warm-up)
-#&gt; Chain 3:                18.7113 seconds (Sampling)
-#&gt; Chain 3:                66.5261 seconds (Total)
+#&gt; Chain 3:  Elapsed Time: 50.0568 seconds (Warm-up)
+#&gt; Chain 3:                19.5986 seconds (Sampling)
+#&gt; Chain 3:                69.6554 seconds (Total)
 #&gt; Chain 3: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
 #&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000289 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 2.89 seconds.
+#&gt; Chain 4: Gradient evaluation took 0.000317 seconds
+#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 3.17 seconds.
 #&gt; Chain 4: Adjust your expectations accordingly!
 #&gt; Chain 4: 
 #&gt; Chain 4: 
@@ -531,17 +526,17 @@ on the maximum number of reported cases.</p></td>
 #&gt; Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
 #&gt; Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 #&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 54.0266 seconds (Warm-up)
-#&gt; Chain 4:                29.3866 seconds (Sampling)
-#&gt; Chain 4:                83.4131 seconds (Total)
+#&gt; Chain 4:  Elapsed Time: 56.0437 seconds (Warm-up)
+#&gt; Chain 4:                30.4524 seconds (Sampling)
+#&gt; Chain 4:                86.4961 seconds (Total)
 #&gt; Chain 4: 
-#&gt; WARN [2020-09-18 17:10:39] realland: There were 14 divergent transitions after warmup. See
+#&gt; WARN [2020-09-26 16:31:45] realland: There were 14 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-09-18 17:10:39] realland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-09-26 16:31:45] realland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; INFO [2020-09-18 17:10:42] Completed estimates for: realland
-#&gt; INFO [2020-09-18 17:10:42] Producing summary</div><div class='input'><span class='co'># }</span>
+#&gt; INFO [2020-09-26 16:31:48] Completed estimates for: realland
+#&gt; INFO [2020-09-26 16:31:48] Producing summary</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

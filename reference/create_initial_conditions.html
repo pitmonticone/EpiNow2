@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Folders with Nowcast Results — get_regions • EpiNow2</title>
+<title>Create Initial Conditions Generating Function — create_initial_conditions • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get Folders with Nowcast Results — get_regions" />
-<meta property="og:description" content="Get Folders with Nowcast Results" />
+<meta property="og:title" content="Create Initial Conditions Generating Function — create_initial_conditions" />
+<meta property="og:description" content="Create Initial Conditions Generating Function" />
 
 
 
@@ -112,30 +112,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Folders with Nowcast Results</h1>
+    <h1>Create Initial Conditions Generating Function</h1>
     
-    <div class="hidden name"><code>get_regions.Rd</code></div>
+    <div class="hidden name"><code>create_initial_conditions.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get Folders with Nowcast Results</p>
+    <p>Create Initial Conditions Generating Function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_regions</span><span class='op'>(</span><span class='va'>results_dir</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_initial_conditions</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>delays</span>, <span class='va'>rt_prior</span>, <span class='va'>generation_time</span>, <span class='va'>mean_shift</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>results_dir</th>
-      <td><p>A character string giving the directory in which results
-are stored (as produced by <code>regional_rt_pipeline</code>).</p></td>
+      <th>data</th>
+      <td><p>A list of data as produced by <code>create_stan_data.</code></p></td>
+    </tr>
+    <tr>
+      <th>delays</th>
+      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
+Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
+standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
+that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
+on the log scale).</p></td>
+    </tr>
+    <tr>
+      <th>rt_prior</th>
+      <td><p>A list contain the mean and standard deviation (sd) of the gamma distributed prior for
+Rt. By default this is assumed to be mean 1 with a standard deviation of 1.</p></td>
+    </tr>
+    <tr>
+      <th>generation_time</th>
+      <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
+standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
+generation time (assuming a gamma distribution).</p></td>
+    </tr>
+    <tr>
+      <th>mean_shift</th>
+      <td><p>Numeric, mean delay shift</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named character vector containing the results to plot.</p>
+    <p>An initial condition generating function</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

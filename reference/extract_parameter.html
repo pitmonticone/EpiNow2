@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Folders with Nowcast Results — get_regions • EpiNow2</title>
+<title>Extract Samples for a Parameter from a Stan model — extract_parameter • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get Folders with Nowcast Results — get_regions" />
-<meta property="og:description" content="Get Folders with Nowcast Results" />
+<meta property="og:title" content="Extract Samples for a Parameter from a Stan model — extract_parameter" />
+<meta property="og:description" content="Extract Samples for a Parameter from a Stan model" />
 
 
 
@@ -112,30 +112,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Folders with Nowcast Results</h1>
+    <h1>Extract Samples for a Parameter from a Stan model</h1>
     
-    <div class="hidden name"><code>get_regions.Rd</code></div>
+    <div class="hidden name"><code>extract_parameter.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get Folders with Nowcast Results</p>
+    <p>Extract Samples for a Parameter from a Stan model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_regions</span><span class='op'>(</span><span class='va'>results_dir</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>extract_parameter</span><span class='op'>(</span><span class='va'>param</span>, <span class='va'>samples</span>, <span class='va'>dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>results_dir</th>
-      <td><p>A character string giving the directory in which results
-are stored (as produced by <code>regional_rt_pipeline</code>).</p></td>
+      <th>param</th>
+      <td><p>Character string indicating the paramter to extract</p></td>
+    </tr>
+    <tr>
+      <th>samples</th>
+      <td><p>Extracted stan model (using <code><a href='https://mc-stan.org/rstan/reference/stanfit-method-extract.html'>rstan::extract</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>dates</th>
+      <td><p>A vector identifying the dimensionality of the parameter to extract. Generally this will be
+a date</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named character vector containing the results to plot.</p>
+    <p>A data frame containing the parameter name, date, sample id and sample value</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

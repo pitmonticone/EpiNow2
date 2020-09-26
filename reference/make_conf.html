@@ -121,7 +121,7 @@
     <p>Format Credible Intervals</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_conf</span>(<span class='kw'>value</span>, round_type = <span class='kw'>NULL</span>, digits = <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>make_conf</span><span class='op'>(</span><span class='va'>value</span>, round_type <span class='op'>=</span> <span class='cn'>NULL</span>, digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,9 +147,9 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(point = <span class='fl'>1</span>, lower = <span class='fl'>0</span>, upper = <span class='fl'>3</span>)
+<span class='va'>value</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>point <span class='op'>=</span> <span class='fl'>1</span>, lower <span class='op'>=</span> <span class='fl'>0</span>, upper <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
-<span class='fu'>make_conf</span>(<span class='kw'>value</span>, round_type = <span class='kw'>round</span>, digits = <span class='fl'>0</span>)
+<span class='fu'>make_conf</span><span class='op'>(</span><span class='va'>value</span>, round_type <span class='op'>=</span> <span class='va'>round</span>, digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "1 (0 -- 3)"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

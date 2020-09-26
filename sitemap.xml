@@ -10,10 +10,16 @@
     <loc>epiforecasts.io/EpiNow2//reference/adjust_infection_to_report.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/allocate_delays.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/bootstrapped_dist_fit.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/clean_nowcasts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/clean_regions.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/country_map.html</loc>
@@ -26,6 +32,18 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/covid_serial_intervals.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_clean_reported_cases.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_initial_conditions.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_shifted_cases.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_stan_data.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/dist_fit.html</loc>
@@ -43,7 +61,22 @@
     <loc>epiforecasts.io/EpiNow2//reference/example_confirmed.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/extract_parameter.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/extract_parameter_samples.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/extract_static_parameter.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/fit_model.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/forecast_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/format_fit.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/gamma_dist_def.html</loc>
@@ -79,6 +112,12 @@
     <loc>epiforecasts.io/EpiNow2//reference/plot_summary.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/process_region.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/process_regions.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/regional_epinow.html</loc>
   </url>
   <url>
@@ -92,6 +131,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/report_summary.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/run_region.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/sample_approx_dist.html</loc>
