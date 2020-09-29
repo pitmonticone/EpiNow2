@@ -164,23 +164,10 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Construct example distributions</span>
-<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                        mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                        sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                        sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-                          
-<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                          mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                          sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                          sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                          max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-                   
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>,
-                        mean_sd <span class='op'>=</span> <span class='fl'>0.8</span>,
-                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
-                        sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
+<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='bootstrapped_dist_fit.html'>bootstrapped_dist_fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+
                         
 <span class='co'># Uses example case vector from EpiSoon</span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>]</span>
@@ -192,15 +179,34 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
 <span class='co'># Run basic nowcasting pipeline</span>
 <span class='va'>regional_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='regional_epinow.html'>regional_epinow</a></span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>cases</span>,
                                 generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                incubation_period <span class='op'>=</span> <span class='va'>incubation_period</span>,
-                                reporting_delay <span class='op'>=</span> <span class='va'>reporting_delay</span>,
-                                samples <span class='op'>=</span> <span class='fl'>2000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
-                                adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, chains <span class='op'>=</span> <span class='fl'>4</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
                                 summary <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-09-26 19:01:55] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-09-26 19:01:55] Producing estimates for: testland, realland
-#&gt; INFO [2020-09-26 19:01:55] Initialising estimates for: testland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0 0 0.001</span></div><div class='output co'>#&gt; INFO [2020-09-26 19:01:55] Initialising estimates for: realland</div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0 0 0.001</span></div><div class='output co'>#&gt; INFO [2020-09-26 19:01:55] Runtime error in testland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...
-#&gt; INFO [2020-09-26 19:01:55] Runtime error in realland : unused arguments (incubation_period = list(1.621, 0.064, 0.418, 0.0691, 30), reporting_delay = list(2.30258509299405, 0.8, 0.693147180559945, 0.1, 30)) - EpiNow2::epinow, regional_cases, target_folder, target_date, TRUE, cores, ...</div><div class='input'>
+</div><div class='output co'>#&gt; INFO [2020-09-29 18:18:27] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-09-29 18:18:27] Producing estimates for: testland, realland
+#&gt; INFO [2020-09-29 18:18:27] Initialising estimates for: testland
+#&gt; WARN [2020-09-29 18:23:18] testland: There were 3 divergent transitions after warmup. See
+#&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+#&gt; to find out why this is a problem and how to eliminate them. - 
+#&gt; WARN [2020-09-29 18:23:18] testland: Examine the pairs() plot to diagnose sampling problems
+#&gt;  - 
+#&gt; WARN [2020-09-29 18:23:19] testland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; Running the chains for more iterations may help. See
+#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
+#&gt; INFO [2020-09-29 18:23:20] Completed estimates for: testland
+#&gt; INFO [2020-09-29 18:23:20] Initialising estimates for: realland
+#&gt; WARN [2020-09-29 18:27:35] realland: There were 3 divergent transitions after warmup. See
+#&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+#&gt; to find out why this is a problem and how to eliminate them. - 
+#&gt; WARN [2020-09-29 18:27:35] realland: Examine the pairs() plot to diagnose sampling problems
+#&gt;  - 
+#&gt; WARN [2020-09-29 18:27:35] realland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; Running the chains for more iterations may help. See
+#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
+#&gt; WARN [2020-09-29 18:27:36] realland: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; Running the chains for more iterations may help. See
+#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - 
+#&gt; INFO [2020-09-29 18:27:36] Completed estimates for: realland</div><div class='input'>
 <span class='va'>summary_only</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span><span class='op'>(</span><span class='va'>regional_out</span><span class='op'>$</span><span class='va'>regional</span>, forecast <span class='op'>=</span> <span class='cn'>FALSE</span>, samples <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>summary_only</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "estimates"</div><div class='input'>

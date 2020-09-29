@@ -173,129 +173,18 @@ being summarised across samples.</p>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
 
  
-<span class='co'>## Set up example generation time</span>
-<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                        mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                        sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                        sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-<span class='co'>## Set                   </span>
-<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                          mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                          sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                          sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                          max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-                   
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>,
-                        mean_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
-                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
-                        sd_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='co'>## Set up example delays</span>
+<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
+<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='bootstrapped_dist_fit.html'>bootstrapped_dist_fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                         
 <span class='co'>## Run model</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
-                                    generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                     delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                                    samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>200</span>, 
-                                    cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, chains <span class='op'>=</span> <span class='fl'>4</span>,
-                                    estimate_rt <span class='op'>=</span>  <span class='cn'>FALSE</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; DEBUG [2020-09-26 19:21:43] Running for 1000 samples (across 4 chains each with a warm up of 200 iterations each) and 58 time steps of which 7 are a forecast
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 1).
-#&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000225 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 2.25 seconds.
-#&gt; Chain 1: Adjust your expectations accordingly!
-#&gt; Chain 1: 
-#&gt; Chain 1: 
-#&gt; Chain 1: Iteration:   1 / 450 [  0%]  (Warmup)
-#&gt; Chain 1: Iteration:  50 / 450 [ 11%]  (Warmup)
-#&gt; Chain 1: Iteration: 100 / 450 [ 22%]  (Warmup)
-#&gt; Chain 1: Iteration: 150 / 450 [ 33%]  (Warmup)
-#&gt; Chain 1: Iteration: 200 / 450 [ 44%]  (Warmup)
-#&gt; Chain 1: Iteration: 201 / 450 [ 44%]  (Sampling)
-#&gt; Chain 1: Iteration: 250 / 450 [ 55%]  (Sampling)
-#&gt; Chain 1: Iteration: 300 / 450 [ 66%]  (Sampling)
-#&gt; Chain 1: Iteration: 350 / 450 [ 77%]  (Sampling)
-#&gt; Chain 1: Iteration: 400 / 450 [ 88%]  (Sampling)
-#&gt; Chain 1: Iteration: 450 / 450 [100%]  (Sampling)
-#&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 18.5263 seconds (Warm-up)
-#&gt; Chain 1:                1.07755 seconds (Sampling)
-#&gt; Chain 1:                19.6039 seconds (Total)
-#&gt; Chain 1: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 2).
-#&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000148 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.48 seconds.
-#&gt; Chain 2: Adjust your expectations accordingly!
-#&gt; Chain 2: 
-#&gt; Chain 2: 
-#&gt; Chain 2: Iteration:   1 / 450 [  0%]  (Warmup)
-#&gt; Chain 2: Iteration:  50 / 450 [ 11%]  (Warmup)
-#&gt; Chain 2: Iteration: 100 / 450 [ 22%]  (Warmup)
-#&gt; Chain 2: Iteration: 150 / 450 [ 33%]  (Warmup)
-#&gt; Chain 2: Iteration: 200 / 450 [ 44%]  (Warmup)
-#&gt; Chain 2: Iteration: 201 / 450 [ 44%]  (Sampling)
-#&gt; Chain 2: Iteration: 250 / 450 [ 55%]  (Sampling)
-#&gt; Chain 2: Iteration: 300 / 450 [ 66%]  (Sampling)
-#&gt; Chain 2: Iteration: 350 / 450 [ 77%]  (Sampling)
-#&gt; Chain 2: Iteration: 400 / 450 [ 88%]  (Sampling)
-#&gt; Chain 2: Iteration: 450 / 450 [100%]  (Sampling)
-#&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 39.2462 seconds (Warm-up)
-#&gt; Chain 2:                1.10239 seconds (Sampling)
-#&gt; Chain 2:                40.3486 seconds (Total)
-#&gt; Chain 2: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 3).
-#&gt; Chain 3: 
-#&gt; Chain 3: Gradient evaluation took 0.00014 seconds
-#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.4 seconds.
-#&gt; Chain 3: Adjust your expectations accordingly!
-#&gt; Chain 3: 
-#&gt; Chain 3: 
-#&gt; Chain 3: Iteration:   1 / 450 [  0%]  (Warmup)
-#&gt; Chain 3: Iteration:  50 / 450 [ 11%]  (Warmup)
-#&gt; Chain 3: Iteration: 100 / 450 [ 22%]  (Warmup)
-#&gt; Chain 3: Iteration: 150 / 450 [ 33%]  (Warmup)
-#&gt; Chain 3: Iteration: 200 / 450 [ 44%]  (Warmup)
-#&gt; Chain 3: Iteration: 201 / 450 [ 44%]  (Sampling)
-#&gt; Chain 3: Iteration: 250 / 450 [ 55%]  (Sampling)
-#&gt; Chain 3: Iteration: 300 / 450 [ 66%]  (Sampling)
-#&gt; Chain 3: Iteration: 350 / 450 [ 77%]  (Sampling)
-#&gt; Chain 3: Iteration: 400 / 450 [ 88%]  (Sampling)
-#&gt; Chain 3: Iteration: 450 / 450 [100%]  (Sampling)
-#&gt; Chain 3: 
-#&gt; Chain 3:  Elapsed Time: 29.1521 seconds (Warm-up)
-#&gt; Chain 3:                1.14758 seconds (Sampling)
-#&gt; Chain 3:                30.2997 seconds (Total)
-#&gt; Chain 3: 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'estimate_infections' NOW (CHAIN 4).
-#&gt; Chain 4: 
-#&gt; Chain 4: Gradient evaluation took 0.000145 seconds
-#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.45 seconds.
-#&gt; Chain 4: Adjust your expectations accordingly!
-#&gt; Chain 4: 
-#&gt; Chain 4: 
-#&gt; Chain 4: Iteration:   1 / 450 [  0%]  (Warmup)
-#&gt; Chain 4: Iteration:  50 / 450 [ 11%]  (Warmup)
-#&gt; Chain 4: Iteration: 100 / 450 [ 22%]  (Warmup)
-#&gt; Chain 4: Iteration: 150 / 450 [ 33%]  (Warmup)
-#&gt; Chain 4: Iteration: 200 / 450 [ 44%]  (Warmup)
-#&gt; Chain 4: Iteration: 201 / 450 [ 44%]  (Sampling)
-#&gt; Chain 4: Iteration: 250 / 450 [ 55%]  (Sampling)
-#&gt; Chain 4: Iteration: 300 / 450 [ 66%]  (Sampling)
-#&gt; Chain 4: Iteration: 350 / 450 [ 77%]  (Sampling)
-#&gt; Chain 4: Iteration: 400 / 450 [ 88%]  (Sampling)
-#&gt; Chain 4: Iteration: 450 / 450 [100%]  (Sampling)
-#&gt; Chain 4: 
-#&gt; Chain 4:  Elapsed Time: 22.243 seconds (Warm-up)
-#&gt; Chain 4:                0.943326 seconds (Sampling)
-#&gt; Chain 4:                23.1864 seconds (Total)
-#&gt; Chain 4: </div><div class='input'>                            
+                                    stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
+                                                     cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
+                                    estimate_rt <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+                            
                      
 <span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>report_cases</span><span class='op'>(</span>case_estimates <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>samples</span><span class='op'>[</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"infections"</span><span class='op'>]</span><span class='op'>[</span>, 
                                                             <span class='va'>cases</span> <span class='op'>:=</span> <span class='va'>value</span><span class='op'>]</span><span class='op'>[</span>, <span class='va'>value</span> <span class='op'>:=</span> <span class='cn'>NULL</span><span class='op'>]</span>,

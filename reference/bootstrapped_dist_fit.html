@@ -127,6 +127,7 @@
   samples <span class='op'>=</span> <span class='fl'>2000</span>,
   bootstraps <span class='op'>=</span> <span class='fl'>10</span>,
   bootstrap_samples <span class='op'>=</span> <span class='fl'>250</span>,
+  <span class='va'>max_value</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -155,6 +156,11 @@ of the delay distribution to take.</p></td>
       <th>bootstrap_samples</th>
       <td><p>Numeric, defaults to 100. The number of samples to take in each bootstrap.
 When the sample size of the supplied delay distribution is less than 100 this is used instead.</p></td>
+    </tr>
+    <tr>
+      <th>max_value</th>
+      <td><p>Numeric, defaults to  the maximum value in the observed data. Maximum delay to
+allow (added to output but does impact fitting).</p></td>
     </tr>
     <tr>
       <th>verbose</th>

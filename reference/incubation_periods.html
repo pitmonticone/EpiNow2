@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • EpiNow2</title>
+<title>Literature Estimates of Incubation Periods — incubation_periods • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Literature Estimates of Incubation Periods — incubation_periods" />
+<meta property="og:description" content="Incubation period estimates. See
+here for details: https://github.com/epiforecasts/EpiNow2/blob/master/data-raw/incubation-period.R" />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,76 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      
+    <h1>Literature Estimates of Incubation Periods</h1>
+    
+    <div class="hidden name"><code>incubation_periods.Rd</code></div>
     </div>
 
-    <div id="epinow2-120" class="section level1">
-<h1 class="page-header" data-toc-text="1.2.0">
-<a href="#epinow2-120" class="anchor"></a>EpiNow2 1.2.0<small> Unreleased </small>
-</h1>
-<ul>
-<li>Added timeout and timing option to <code>regional_epinow</code>
-</li>
-<li>Improved logging of warnings in <code>regional_epinow</code>
-</li>
-<li>Added inner 20% high density region.</li>
-<li>Added mean and sd to all reporting summaries.</li>
-<li>Added a summary of the growth rate and doubling time.</li>
-<li>Added a <code>samples</code> argument to <code>get_regional_results</code> to make loading in samples optional. This also allows samples to be dropped when using <code>regional_epinow</code> which reduces RAM usage.</li>
-<li>Cleaned up implementation of <code>estimate_infections</code> to move processing code into internal functions</li>
-<li>Adds basic testing of functions.</li>
-<li>Fixed y axis max for <code>plot_summary</code>.</li>
-<li>Fix to normalisation of delay and generation time distributions from @sbfnk.</li>
-<li>Moved all inherited from stan arguments into <code>create_stan_args</code> with the option to override using <code>stan_args</code>. This leads to breaking changes - see the examples for details of the new interface.</li>
-<li>Updated all example and documentation to reflect the new interface.</li>
-<li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
-<li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
-</ul>
-</div>
-    <div id="epinow2-110" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#epinow2-110" class="anchor"></a>EpiNow2 1.1.0<small> 2020-09-01 </small>
-</h1>
-<ul>
-<li>Implemented reporting templates</li>
-<li>Bug fix of estimate reporting</li>
-<li>Added additional reporting of runtime errors</li>
-<li>Examples for <code>global_map</code> and <code>country_map</code> expanded by @ellisp</li>
-<li>Improved ISO code matching in <code>global_map</code> from @ellisp</li>
-<li>Improvements so that data frames and tibbles are supported as inputs.</li>
-<li>Updated reporting templates</li>
-<li>Updated reporting of estimates to clearly summarise cases by infection and report date.</li>
-<li>Made all region summary plots optional.</li>
-<li>Made reporting of decimal places more standardised across metrics.</li>
-<li>README updated by @kathsherratt</li>
-<li>Logging added by @joeHickson</li>
-<li>Updated plotting to be limited to a scaling of reported data (prevents upper CIs from skewing the plot).</li>
-<li>Added uncertainty plot bounds to control y axis on plots for clarity purposes.</li>
-<li>
-<code>regional_summary</code> now saves input reported cases data <code>reported_cases.csv</code>.</li>
-<li>Added an optional no delay model where Rt is estimated directly from the data. This option is not supported when using backcalculation only.</li>
-</ul>
-</div>
-    <div id="epinow2-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#epinow2-100" class="anchor"></a>EpiNow2 1.0.0<small> Unreleased </small>
-</h1>
-<ul>
-<li>Rebased package from <a href="https://epiforecasts.io/EpiNow/">EpiNow</a>
-</li>
-<li>Implemented backcalculation, estimation, forecasting, and bootstrapped distribution fitting.</li>
-<li>Added options to estimate the time-varying reproduction number using a Gaussian process (both stationary and non-stationary), combined with optional user supplied breakpoints. Alternatively a static reproduction number can be assumed which when combined with breakpoints becomes piecewise linear.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Incubation period estimates. See
+here for details: https://github.com/epiforecasts/EpiNow2/blob/master/data-raw/incubation-period.R</p>
+    </div>
 
+    <pre class="usage"><span class='va'>incubation_periods</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A <code>data.table</code> of summarising the distribution</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

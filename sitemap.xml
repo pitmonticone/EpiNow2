@@ -25,15 +25,6 @@
     <loc>epiforecasts.io/EpiNow2//reference/country_map.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/covid_generation_times.html</loc>
-  </url>
-  <url>
-    <loc>epiforecasts.io/EpiNow2//reference/covid_incubation_period.html</loc>
-  </url>
-  <url>
-    <loc>epiforecasts.io/EpiNow2//reference/covid_serial_intervals.html</loc>
-  </url>
-  <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_clean_reported_cases.html</loc>
   </url>
   <url>
@@ -41,6 +32,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_shifted_cases.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_stan_args.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_stan_data.html</loc>
@@ -70,7 +64,10 @@
     <loc>epiforecasts.io/EpiNow2//reference/extract_static_parameter.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/fit_model.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/fit_model_with_nuts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/fit_model_with_vb.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/forecast_infections.html</loc>
@@ -80,6 +77,18 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/gamma_dist_def.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/generation_times.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/get_dist.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/get_generation_time.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/get_incubation_period.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/get_raw_result.html</loc>
@@ -95,6 +104,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/growth_to_R.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/incubation_periods.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/lognorm_dist_def.html</loc>
@@ -140,6 +152,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/simulate_cases.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/stop_timeout.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/summarise_key_measures.html</loc>

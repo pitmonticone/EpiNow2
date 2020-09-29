@@ -194,33 +194,15 @@ summarised forecasts.</p>
 <span class='co'>## Example case data</span>
 <span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
  
-<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                        mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                        sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                        sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_generation_times.html'>covid_generation_times</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-                          
-<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                          mean_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                          sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                          sd_sd <span class='op'>=</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='covid_incubation_period.html'>covid_incubation_period</a></span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                          max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
-                   
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>,
-                        mean_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
-                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
-                        sd_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1.5</span><span class='op'>)</span>,
-                        max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
+<span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='bootstrapped_dist_fit.html'>bootstrapped_dist_fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+
                         
 <span class='co'>## Estimate Rt and infections from data</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, family <span class='op'>=</span> <span class='st'>"negbin"</span>,
-                           generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           rt_prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
-                           samples <span class='op'>=</span> <span class='fl'>1000</span>, warmup <span class='op'>=</span> <span class='fl'>500</span>,
-                           cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, chains <span class='op'>=</span> <span class='fl'>4</span>,
-                           estimate_rt <span class='op'>=</span> <span class='cn'>TRUE</span>,
-                           verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, chains <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Forecast Rt and infections from estimates</span>
 <span class='va'>forecast</span> <span class='op'>&lt;-</span> <span class='fu'>forecast_infections</span><span class='op'>(</span>
@@ -240,178 +222,178 @@ summarised forecasts.</p>
   <span class='op'>}</span>
  <span class='op'>}</span>
 </div><div class='output co'>#&gt;           date type forecast_type       bottom          top        lower
-#&gt;  1: 2020-04-09 case          case 1.006419e+04 2.096108e+07 2.574086e+04
-#&gt;  2: 2020-04-10 case          case 2.133562e+04 2.099294e+07 5.265782e+05
-#&gt;  3: 2020-04-11 case          case 7.202270e+02 2.273922e+07 8.987237e+05
-#&gt;  4: 2020-04-12 case          case 4.665295e+03 2.175281e+07 2.230113e+04
-#&gt;  5: 2020-04-13 case          case 6.919017e+04 2.165032e+07 2.095845e+05
-#&gt;  6: 2020-04-14 case          case 1.620504e+04 2.265787e+07 1.817561e+06
-#&gt;  7: 2020-04-15 case          case 2.101903e+04 2.419958e+07 1.814813e+05
-#&gt;  8: 2020-04-16 case          case 2.070913e+03 2.419478e+07 4.092048e+05
-#&gt;  9: 2020-04-17 case          case 4.431048e+02 2.624290e+07 6.054274e+05
-#&gt; 10: 2020-04-18 case          case 2.106795e+04 3.131134e+07 9.261701e+04
-#&gt; 11: 2020-04-19 case          case 2.577205e+03 4.084028e+07 3.418520e+05
-#&gt; 12: 2020-04-20 case          case 5.449077e+04 6.436795e+07 2.711360e+05
-#&gt; 13: 2020-04-21 case          case 2.569493e+04 9.826532e+07 2.569493e+04
-#&gt; 14: 2020-04-22 case          case 1.238859e+04 1.418228e+08 1.577273e+05
-#&gt; 15: 2020-04-09 case      ensemble 1.424549e+06 1.826153e+07 5.326085e+06
-#&gt; 16: 2020-04-10 case      ensemble 1.207396e+06 1.874754e+07 6.579086e+06
-#&gt; 17: 2020-04-11 case      ensemble 1.386619e+06 1.871048e+07 5.168227e+06
-#&gt; 18: 2020-04-12 case      ensemble 1.214066e+06 1.834333e+07 3.725796e+06
-#&gt; 19: 2020-04-13 case      ensemble 1.902628e+06 1.920791e+07 5.807901e+06
-#&gt; 20: 2020-04-14 case      ensemble 1.843290e+06 1.850503e+07 5.935217e+06
-#&gt; 21: 2020-04-15 case      ensemble 1.565026e+06 1.924940e+07 5.802626e+06
-#&gt; 22: 2020-04-16 case      ensemble 1.519225e+06 1.963047e+07 6.304671e+06
-#&gt; 23: 2020-04-17 case      ensemble 1.976318e+06 1.988140e+07 6.190765e+06
-#&gt; 24: 2020-04-18 case      ensemble 9.176653e+05 2.257976e+07 5.266535e+06
-#&gt; 25: 2020-04-19 case      ensemble 9.592599e+05 2.617144e+07 5.438875e+06
-#&gt; 26: 2020-04-20 case      ensemble 1.371861e+06 3.839841e+07 4.086217e+06
-#&gt; 27: 2020-04-21 case      ensemble 9.360815e+05 5.626022e+07 1.914425e+06
-#&gt; 28: 2020-04-22 case      ensemble 1.137020e+06 7.748956e+07 2.892081e+06
-#&gt; 29: 2020-04-09 case            rt 2.886400e+04 2.055643e+07 1.419146e+06
-#&gt; 30: 2020-04-10 case            rt 8.055700e+04 2.210313e+07 1.856280e+05
-#&gt; 31: 2020-04-11 case            rt 5.269300e+04 2.087919e+07 7.212170e+05
-#&gt; 32: 2020-04-12 case            rt 3.920000e+02 2.060918e+07 1.010250e+05
-#&gt; 33: 2020-04-13 case            rt 2.161700e+04 2.199641e+07 8.131300e+04
-#&gt; 34: 2020-04-14 case            rt 7.634000e+03 2.028528e+07 1.348830e+05
-#&gt; 35: 2020-04-15 case            rt 5.070000e+03 2.053293e+07 8.814700e+04
-#&gt; 36: 2020-04-16 case            rt 1.050750e+05 2.061402e+07 1.548120e+05
-#&gt; 37: 2020-04-17 case            rt 7.668500e+04 1.970053e+07 6.263530e+05
-#&gt; 38: 2020-04-18 case            rt 1.506000e+03 2.033833e+07 8.326100e+04
-#&gt; 39: 2020-04-19 case            rt 1.236300e+04 2.031978e+07 1.236300e+04
-#&gt; 40: 2020-04-20 case            rt 3.473000e+03 2.016949e+07 3.473000e+03
-#&gt; 41: 2020-04-21 case            rt 2.396000e+03 2.115020e+07 4.293820e+05
-#&gt; 42: 2020-04-22 case            rt 7.929100e+04 2.098689e+07 2.148310e+05
-#&gt; 43: 2020-04-09   rt          &lt;NA&gt; 6.062954e-02 2.411228e+00 5.595522e-01
-#&gt; 44: 2020-04-10   rt          &lt;NA&gt; 1.185992e-02 2.290465e+00 5.938206e-01
-#&gt; 45: 2020-04-11   rt          &lt;NA&gt; 3.865156e-02 2.336948e+00 4.913095e-01
-#&gt; 46: 2020-04-12   rt          &lt;NA&gt; 3.540468e-02 2.314417e+00 5.837172e-01
-#&gt; 47: 2020-04-13   rt          &lt;NA&gt; 4.848673e-02 2.322323e+00 7.639022e-01
-#&gt; 48: 2020-04-14   rt          &lt;NA&gt; 1.308179e-02 2.317770e+00 3.233350e-01
-#&gt; 49: 2020-04-15   rt          &lt;NA&gt; 9.060814e-03 2.285586e+00 4.851662e-01
-#&gt; 50: 2020-04-16   rt          &lt;NA&gt; 1.632440e-02 2.351558e+00 7.331239e-01
-#&gt; 51: 2020-04-17   rt          &lt;NA&gt; 1.258700e-02 2.387968e+00 4.051634e-01
-#&gt; 52: 2020-04-18   rt          &lt;NA&gt; 1.824369e-03 2.341482e+00 6.777871e-01
-#&gt; 53: 2020-04-19   rt          &lt;NA&gt; 8.565016e-02 2.411091e+00 6.536022e-01
-#&gt; 54: 2020-04-20   rt          &lt;NA&gt; 2.632619e-02 2.315667e+00 5.443207e-01
-#&gt; 55: 2020-04-21   rt          &lt;NA&gt; 2.284314e-02 2.386807e+00 5.432274e-01
-#&gt; 56: 2020-04-22   rt          &lt;NA&gt; 5.086556e-02 2.405841e+00 5.088345e-01
+#&gt;  1: 2020-04-09 case          case 5.898244e+07 1.137695e+10 1.620547e+08
+#&gt;  2: 2020-04-10 case          case 1.746240e+07 1.169142e+10 3.172633e+07
+#&gt;  3: 2020-04-11 case          case 2.148108e+07 1.139126e+10 2.148108e+07
+#&gt;  4: 2020-04-12 case          case 1.166263e+07 1.180283e+10 5.063391e+08
+#&gt;  5: 2020-04-13 case          case 3.112431e+06 1.333676e+10 7.321620e+08
+#&gt;  6: 2020-04-14 case          case 6.271709e+06 1.818525e+10 6.944770e+07
+#&gt;  7: 2020-04-15 case          case 3.157224e+07 3.692048e+10 3.157224e+07
+#&gt;  8: 2020-04-16 case          case 3.234774e+07 9.205679e+10 3.234774e+07
+#&gt;  9: 2020-04-17 case          case 5.398647e+05 2.030366e+11 5.398647e+05
+#&gt; 10: 2020-04-18 case          case 4.589296e+06 4.864286e+11 4.589296e+06
+#&gt; 11: 2020-04-19 case          case 1.176607e+06 1.197781e+12 1.176607e+06
+#&gt; 12: 2020-04-20 case          case 6.118992e+06 2.902574e+12 6.118992e+06
+#&gt; 13: 2020-04-21 case          case 4.026607e+06 7.321196e+12 4.026607e+06
+#&gt; 14: 2020-04-22 case          case 1.714356e+07 1.688648e+13 1.714356e+07
+#&gt; 15: 2020-04-09 case      ensemble 2.684076e+07 1.067571e+10 7.813334e+08
+#&gt; 16: 2020-04-10 case      ensemble 1.746240e+07 1.035882e+10 2.851634e+08
+#&gt; 17: 2020-04-11 case      ensemble 2.148108e+07 1.034524e+10 4.995559e+08
+#&gt; 18: 2020-04-12 case      ensemble 1.166263e+07 1.099089e+10 5.063391e+08
+#&gt; 19: 2020-04-13 case      ensemble 3.112431e+06 1.176390e+10 7.321620e+08
+#&gt; 20: 2020-04-14 case      ensemble 3.683883e+07 1.614577e+10 6.426290e+08
+#&gt; 21: 2020-04-15 case      ensemble 3.157224e+07 3.306628e+10 2.934256e+08
+#&gt; 22: 2020-04-16 case      ensemble 3.234774e+07 7.882275e+10 3.234774e+07
+#&gt; 23: 2020-04-17 case      ensemble 5.398647e+05 1.736218e+11 5.398647e+05
+#&gt; 24: 2020-04-18 case      ensemble 4.815693e+06 4.345977e+11 4.815693e+06
+#&gt; 25: 2020-04-19 case      ensemble 1.176607e+06 1.048037e+12 1.676044e+07
+#&gt; 26: 2020-04-20 case      ensemble 6.118992e+06 2.563210e+12 6.118992e+06
+#&gt; 27: 2020-04-21 case      ensemble 4.026607e+06 6.199528e+12 4.026607e+06
+#&gt; 28: 2020-04-22 case      ensemble 2.505504e+07 1.548475e+13 2.505504e+07
+#&gt; 29: 2020-04-09 case            rt 1.633745e+08 2.033509e+09 1.285320e+08
+#&gt; 30: 2020-04-10 case            rt 1.411626e+08 1.981559e+09 9.579782e+07
+#&gt; 31: 2020-04-11 case            rt 1.821260e+08 2.015409e+09 9.903822e+08
+#&gt; 32: 2020-04-12 case            rt 1.433539e+08 1.977520e+09 1.368903e+08
+#&gt; 33: 2020-04-13 case            rt 4.843016e+06 1.932560e+09 4.890819e+08
+#&gt; 34: 2020-04-14 case            rt 1.913874e+08 2.083427e+09 5.758055e+08
+#&gt; 35: 2020-04-15 case            rt 1.794575e+08 2.096472e+09 3.309021e+08
+#&gt; 36: 2020-04-16 case            rt 1.992781e+08 2.105353e+09 1.007572e+08
+#&gt; 37: 2020-04-17 case            rt 7.416480e+06 1.837069e+09 4.619319e+08
+#&gt; 38: 2020-04-18 case            rt 1.551358e+08 1.997107e+09 8.820479e+08
+#&gt; 39: 2020-04-19 case            rt 3.083414e+07 1.964379e+09 1.038956e+09
+#&gt; 40: 2020-04-20 case            rt 1.700950e+08 2.054954e+09 1.722067e+08
+#&gt; 41: 2020-04-21 case            rt 1.873992e+08 2.140711e+09 6.954107e+08
+#&gt; 42: 2020-04-22 case            rt 2.138410e+08 2.142247e+09 2.402999e+07
+#&gt; 43: 2020-04-09   rt          &lt;NA&gt; 4.320109e-04 2.917307e+00 3.182518e-01
+#&gt; 44: 2020-04-10   rt          &lt;NA&gt; 1.211514e-02 2.928100e+00 6.330202e-01
+#&gt; 45: 2020-04-11   rt          &lt;NA&gt; 4.366427e-03 2.891981e+00 6.732220e-01
+#&gt; 46: 2020-04-12   rt          &lt;NA&gt; 1.524043e-02 2.918894e+00 5.750895e-01
+#&gt; 47: 2020-04-13   rt          &lt;NA&gt; 4.947852e-03 2.868223e+00 7.018996e-01
+#&gt; 48: 2020-04-14   rt          &lt;NA&gt; 8.113233e-03 2.853854e+00 7.383329e-01
+#&gt; 49: 2020-04-15   rt          &lt;NA&gt; 1.213601e-01 3.021913e+00 6.717471e-01
+#&gt; 50: 2020-04-16   rt          &lt;NA&gt; 2.094241e-03 3.023050e+00 6.143374e-01
+#&gt; 51: 2020-04-17   rt          &lt;NA&gt; 6.542489e-03 3.019023e+00 3.479196e-01
+#&gt; 52: 2020-04-18   rt          &lt;NA&gt; 8.586825e-03 2.995405e+00 8.812444e-01
+#&gt; 53: 2020-04-19   rt          &lt;NA&gt; 4.287964e-02 2.889237e+00 6.105110e-01
+#&gt; 54: 2020-04-20   rt          &lt;NA&gt; 5.127703e-02 3.106079e+00 7.166840e-01
+#&gt; 55: 2020-04-21   rt          &lt;NA&gt; 5.114958e-04 2.962627e+00 4.605432e-01
+#&gt; 56: 2020-04-22   rt          &lt;NA&gt; 8.050644e-05 3.006638e+00 8.043526e-01
 #&gt;           date type forecast_type       bottom          top        lower
 #&gt;            upper central_lower central_upper       median         mean
-#&gt;  1: 8.461267e+06  2.026173e+06  4.954053e+06 8.448344e+06 1.010584e+07
-#&gt;  2: 9.727084e+06  2.993945e+06  6.441299e+06 9.333057e+06 1.062464e+07
-#&gt;  3: 9.345951e+06  1.827410e+06  4.791187e+06 8.505793e+06 1.052648e+07
-#&gt;  4: 8.567531e+06  2.815296e+05  3.302863e+06 8.547583e+06 1.051901e+07
-#&gt;  5: 8.739594e+06  4.759576e+06  7.856851e+06 8.609878e+06 1.054384e+07
-#&gt;  6: 1.141365e+07  1.620504e+04  3.613179e+06 9.645190e+06 1.106590e+07
-#&gt;  7: 1.047350e+07  1.524712e+05  3.599161e+06 1.035580e+07 1.181733e+07
-#&gt;  8: 1.015905e+07  4.966692e+05  3.993835e+06 9.863032e+06 1.181338e+07
-#&gt;  9: 1.211024e+07  2.167723e+06  6.017048e+06 1.155727e+07 1.295655e+07
-#&gt; 10: 1.167877e+07  2.106795e+04  4.360374e+06 1.161517e+07 1.455212e+07
-#&gt; 11: 1.415806e+07  3.418520e+05  5.548485e+06 1.398178e+07 1.873275e+07
-#&gt; 12: 1.483907e+07  1.489735e+06  6.193829e+06 1.477565e+07 2.461052e+07
-#&gt; 13: 1.813845e+07  1.437421e+05  5.372535e+06 1.811024e+07 3.615801e+07
-#&gt; 14: 2.142790e+07  1.577273e+05  6.378820e+06 2.127384e+07 5.085890e+07
-#&gt; 15: 1.244341e+07  7.672356e+06  1.028303e+07 9.363359e+06 1.012616e+07
-#&gt; 16: 1.380027e+07  6.522987e+06  9.002277e+06 9.841481e+06 1.049366e+07
-#&gt; 17: 1.195830e+07  6.452682e+06  8.802234e+06 9.270062e+06 1.023411e+07
-#&gt; 18: 1.136377e+07  6.732494e+06  9.502939e+06 9.437489e+06 1.020792e+07
-#&gt; 19: 1.318268e+07  7.520315e+06  9.971531e+06 9.847205e+06 1.063737e+07
-#&gt; 20: 1.286289e+07  1.027749e+07  1.286289e+07 1.021930e+07 1.056299e+07
-#&gt; 21: 1.323726e+07  8.061207e+06  1.080700e+07 1.027670e+07 1.088454e+07
-#&gt; 22: 1.408137e+07  1.053937e+07  1.354195e+07 1.036525e+07 1.091684e+07
-#&gt; 23: 1.415989e+07  8.816872e+06  1.177547e+07 1.085636e+07 1.147408e+07
-#&gt; 24: 1.376713e+07  8.759388e+06  1.188524e+07 1.125442e+07 1.236279e+07
-#&gt; 25: 1.520985e+07  7.374515e+06  1.082833e+07 1.229432e+07 1.421819e+07
-#&gt; 26: 1.484536e+07  7.657031e+06  1.102512e+07 1.279377e+07 1.732322e+07
-#&gt; 27: 1.567770e+07  5.606920e+06  1.031989e+07 1.500386e+07 2.313377e+07
-#&gt; 28: 1.757135e+07  7.206612e+06  1.195917e+07 1.663745e+07 3.035496e+07
-#&gt; 29: 9.951641e+06  1.474113e+06  4.499678e+06 8.715372e+06 1.014648e+07
-#&gt; 30: 8.910186e+06  1.856280e+05  3.257300e+06 8.726402e+06 1.036268e+07
-#&gt; 31: 9.211015e+06  7.383860e+05  3.690074e+06 8.722580e+06 9.941738e+06
-#&gt; 32: 8.406156e+06  9.864220e+05  3.987309e+06 8.345377e+06 9.896821e+06
-#&gt; 33: 9.152890e+06  5.519288e+06  8.932068e+06 9.098278e+06 1.073090e+07
-#&gt; 34: 8.932129e+06  3.169100e+04  3.207148e+06 8.809974e+06 1.006009e+07
-#&gt; 35: 8.219847e+06  4.760665e+06  7.828077e+06 8.143002e+06 9.951738e+06
-#&gt; 36: 8.430704e+06  1.523652e+06  4.396010e+06 8.346250e+06 1.002031e+07
-#&gt; 37: 9.108062e+06  7.327420e+05  3.765312e+06 8.594100e+06 9.991617e+06
-#&gt; 38: 8.673514e+06  8.326100e+04  3.046719e+06 8.597623e+06 1.017347e+07
-#&gt; 39: 8.116071e+06  1.525977e+06  4.562767e+06 8.115999e+06 9.703621e+06
-#&gt; 40: 8.653863e+06  7.272000e+03  2.956671e+06 8.652798e+06 1.003592e+07
-#&gt; 41: 8.947908e+06  1.516159e+06  4.307775e+06 8.631562e+06 1.010953e+07
-#&gt; 42: 8.376977e+06  2.975769e+06  5.818317e+06 8.313070e+06 9.851011e+06
-#&gt; 43: 1.589817e+00  8.315263e-01  1.185135e+00 1.198091e+00 1.298597e+00
-#&gt; 44: 1.630442e+00  8.530796e-01  1.240451e+00 1.217602e+00 1.277347e+00
-#&gt; 45: 1.543714e+00  8.053059e-01  1.186811e+00 1.239272e+00 1.290765e+00
-#&gt; 46: 1.665425e+00  1.204002e+00  1.604830e+00 1.245918e+00 1.297005e+00
-#&gt; 47: 1.761099e+00  7.908373e-01  1.151934e+00 1.192443e+00 1.267624e+00
-#&gt; 48: 1.461074e+00  1.007978e+00  1.419279e+00 1.237647e+00 1.293728e+00
-#&gt; 49: 1.510580e+00  9.338135e-01  1.287307e+00 1.153375e+00 1.250114e+00
-#&gt; 50: 1.826929e+00  8.265840e-01  1.198450e+00 1.207564e+00 1.294557e+00
-#&gt; 51: 1.465465e+00  1.059882e+00  1.436090e+00 1.216581e+00 1.302831e+00
-#&gt; 52: 1.739055e+00  9.640669e-01  1.351648e+00 1.224436e+00 1.289062e+00
-#&gt; 53: 1.615100e+00  8.303774e-01  1.170581e+00 1.221072e+00 1.312376e+00
-#&gt; 54: 1.569523e+00  9.970253e-01  1.362706e+00 1.256331e+00 1.306037e+00
-#&gt; 55: 1.560004e+00  1.079324e+00  1.438660e+00 1.234095e+00 1.298361e+00
-#&gt; 56: 1.595192e+00  9.127584e-01  1.302530e+00 1.225467e+00 1.311664e+00
+#&gt;  1: 4.697831e+09  2.961234e+08  2.053688e+09 4.642387e+09 5.561538e+09
+#&gt;  2: 4.468959e+09  4.525589e+08  1.976659e+09 4.441719e+09 5.393921e+09
+#&gt;  3: 4.881476e+09  2.148108e+07  1.679463e+09 4.879780e+09 5.597406e+09
+#&gt;  4: 5.425545e+09  8.669064e+08  2.632762e+09 4.987978e+09 5.819169e+09
+#&gt;  5: 6.218292e+09  1.077224e+09  2.935979e+09 5.520813e+09 6.426015e+09
+#&gt;  6: 6.230344e+09  6.543090e+08  2.873210e+09 6.167417e+09 8.112879e+09
+#&gt;  7: 8.020932e+09  2.697171e+09  5.677149e+09 7.951653e+09 1.427799e+10
+#&gt;  8: 1.138244e+10  2.123312e+08  3.303716e+09 1.134066e+10 3.148705e+10
+#&gt;  9: 1.267419e+10  4.071135e+07  3.395903e+09 1.266964e+10 6.595236e+10
+#&gt; 10: 1.490209e+10  5.975224e+08  3.910355e+09 1.488127e+10 1.527923e+11
+#&gt; 11: 1.482763e+10  4.825295e+08  4.029162e+09 1.475224e+10 3.777062e+11
+#&gt; 12: 1.449157e+10  1.149877e+09  4.300076e+09 1.432649e+10 8.637079e+11
+#&gt; 13: 1.497926e+10  8.951311e+08  3.904623e+09 1.453323e+10 2.266990e+12
+#&gt; 14: 3.012260e+11  1.382952e+08  3.654269e+09 2.770396e+11 5.360528e+12
+#&gt; 15: 4.705815e+09  1.365924e+09  2.717112e+09 4.132674e+09 4.980391e+09
+#&gt; 16: 4.088493e+09  6.951365e+08  1.978248e+09 3.841377e+09 4.831863e+09
+#&gt; 17: 4.573195e+09  9.198064e+08  2.341201e+09 4.135413e+09 5.006164e+09
+#&gt; 18: 4.661365e+09  1.742446e+09  3.153603e+09 4.313739e+09 5.263297e+09
+#&gt; 19: 5.089912e+09  8.599628e+08  2.386351e+09 4.560201e+09 5.731023e+09
+#&gt; 20: 5.788616e+09  8.387526e+08  2.554387e+09 5.277107e+09 7.138686e+09
+#&gt; 21: 7.373438e+09  1.173180e+09  3.475592e+09 7.214793e+09 1.263114e+10
+#&gt; 22: 1.002045e+10  7.161526e+08  3.303716e+09 1.001905e+10 2.736980e+10
+#&gt; 23: 1.163238e+10  6.680041e+08  3.447931e+09 1.160219e+10 5.746670e+10
+#&gt; 24: 1.340021e+10  6.271553e+08  3.442149e+09 1.333943e+10 1.334818e+11
+#&gt; 25: 1.427437e+10  2.170939e+08  3.258476e+09 1.417097e+10 3.256308e+11
+#&gt; 26: 1.416141e+10  6.446064e+08  3.261110e+09 1.385147e+10 7.601406e+11
+#&gt; 27: 1.497926e+10  8.842528e+08  3.352353e+09 1.453323e+10 1.942328e+12
+#&gt; 28: 1.860861e+11  3.226593e+08  3.373232e+09 1.564327e+11 4.819754e+12
+#&gt; 29: 1.082175e+09  1.633745e+08  4.802080e+08 9.983553e+08 1.040294e+09
+#&gt; 30: 9.607940e+08  7.864680e+08  1.095259e+09 9.372076e+08 1.014675e+09
+#&gt; 31: 1.951778e+09  1.466155e+09  1.800272e+09 1.122043e+09 1.104466e+09
+#&gt; 32: 1.030037e+09  1.240038e+08  4.457007e+08 9.775836e+08 1.010268e+09
+#&gt; 33: 1.473547e+09  1.102035e+09  1.439288e+09 1.117204e+09 1.069729e+09
+#&gt; 34: 1.569271e+09  6.064819e+08  9.661832e+08 1.057372e+09 1.057927e+09
+#&gt; 35: 1.293198e+09  8.501744e+08  1.201081e+09 9.930396e+08 1.029042e+09
+#&gt; 36: 1.113194e+09  2.035381e+08  5.584375e+08 1.020703e+09 1.068079e+09
+#&gt; 37: 1.438918e+09  3.240764e+08  5.814781e+08 1.056002e+09 1.007318e+09
+#&gt; 38: 1.840667e+09  8.915203e+08  1.187324e+09 1.042591e+09 1.059698e+09
+#&gt; 39: 2.084697e+09  1.771524e+09  2.122709e+09 1.069303e+09 1.075716e+09
+#&gt; 40: 1.168558e+09  1.700950e+08  5.225811e+08 1.034763e+09 1.062886e+09
+#&gt; 41: 1.680323e+09  7.222694e+08  1.056941e+09 1.093508e+09 1.105482e+09
+#&gt; 42: 9.925213e+08  4.283306e+08  7.362104e+08 9.802562e+08 1.050622e+09
+#&gt; 43: 1.696328e+00  6.877009e-01  1.204759e+00 1.447813e+00 1.542793e+00
+#&gt; 44: 1.952055e+00  9.952646e-01  1.483383e+00 1.454103e+00 1.573483e+00
+#&gt; 45: 1.945077e+00  7.979089e-01  1.252532e+00 1.435895e+00 1.548920e+00
+#&gt; 46: 1.917248e+00  1.377659e+00  1.883449e+00 1.521821e+00 1.580782e+00
+#&gt; 47: 1.967803e+00  1.279523e+00  1.737983e+00 1.475260e+00 1.576324e+00
+#&gt; 48: 2.044163e+00  1.166879e+00  1.633811e+00 1.542748e+00 1.597725e+00
+#&gt; 49: 2.013553e+00  1.026434e+00  1.522331e+00 1.506752e+00 1.601051e+00
+#&gt; 50: 1.922251e+00  9.133417e-01  1.387962e+00 1.494655e+00 1.614440e+00
+#&gt; 51: 1.735362e+00  8.101000e-01  1.304847e+00 1.511741e+00 1.634275e+00
+#&gt; 52: 2.249165e+00  1.032089e+00  1.524789e+00 1.524199e+00 1.648443e+00
+#&gt; 53: 1.874293e+00  1.201487e+00  1.640771e+00 1.459794e+00 1.583097e+00
+#&gt; 54: 2.108830e+00  1.101184e+00  1.603987e+00 1.571103e+00 1.699169e+00
+#&gt; 55: 1.802660e+00  1.306943e+00  1.799268e+00 1.533448e+00 1.627842e+00
+#&gt; 56: 2.083916e+00  1.302914e+00  1.778594e+00 1.514412e+00 1.619740e+00
 #&gt;            upper central_lower central_upper       median         mean
 #&gt;               sd
-#&gt;  1: 7.748074e+06
-#&gt;  2: 7.675805e+06
-#&gt;  3: 8.282740e+06
-#&gt;  4: 8.140397e+06
-#&gt;  5: 7.906146e+06
-#&gt;  6: 8.177294e+06
-#&gt;  7: 8.688822e+06
-#&gt;  8: 9.101192e+06
-#&gt;  9: 9.411218e+06
-#&gt; 10: 1.181469e+07
-#&gt; 11: 1.644181e+07
-#&gt; 12: 2.652048e+07
-#&gt; 13: 4.167294e+07
-#&gt; 14: 6.120744e+07
-#&gt; 15: 5.438411e+06
-#&gt; 16: 5.580769e+06
-#&gt; 17: 5.663557e+06
-#&gt; 18: 5.635721e+06
-#&gt; 19: 5.566063e+06
-#&gt; 20: 5.327605e+06
-#&gt; 21: 5.746763e+06
-#&gt; 22: 5.973265e+06
-#&gt; 23: 5.916837e+06
-#&gt; 24: 7.117932e+06
-#&gt; 25: 8.945891e+06
-#&gt; 26: 1.392210e+07
-#&gt; 27: 2.122167e+07
-#&gt; 28: 3.080587e+07
-#&gt; 29: 7.541151e+06
-#&gt; 30: 8.102268e+06
-#&gt; 31: 7.591179e+06
-#&gt; 32: 7.476284e+06
-#&gt; 33: 7.847423e+06
-#&gt; 34: 7.302468e+06
-#&gt; 35: 7.377969e+06
-#&gt; 36: 7.718373e+06
-#&gt; 37: 7.376534e+06
-#&gt; 38: 7.738916e+06
-#&gt; 39: 7.432029e+06
-#&gt; 40: 7.698929e+06
-#&gt; 41: 7.913461e+06
-#&gt; 42: 7.334039e+06
-#&gt; 43: 7.608490e-01
-#&gt; 44: 7.492109e-01
-#&gt; 45: 7.398537e-01
-#&gt; 46: 7.583278e-01
-#&gt; 47: 7.362006e-01
-#&gt; 48: 7.738056e-01
-#&gt; 49: 7.654858e-01
-#&gt; 50: 7.632697e-01
-#&gt; 51: 7.809354e-01
-#&gt; 52: 7.646819e-01
-#&gt; 53: 7.380993e-01
-#&gt; 54: 7.484980e-01
-#&gt; 55: 7.815859e-01
-#&gt; 56: 7.854869e-01
+#&gt;  1: 4.158742e+09
+#&gt;  2: 4.241652e+09
+#&gt;  3: 4.161686e+09
+#&gt;  4: 4.172607e+09
+#&gt;  5: 4.837875e+09
+#&gt;  6: 7.031989e+09
+#&gt;  7: 1.543563e+10
+#&gt;  8: 3.916927e+10
+#&gt;  9: 9.184894e+10
+#&gt; 10: 2.215241e+11
+#&gt; 11: 5.408569e+11
+#&gt; 12: 1.295509e+12
+#&gt; 13: 3.249114e+12
+#&gt; 14: 7.544463e+12
+#&gt; 15: 3.885555e+09
+#&gt; 16: 3.960216e+09
+#&gt; 17: 3.890175e+09
+#&gt; 18: 3.943920e+09
+#&gt; 19: 4.617648e+09
+#&gt; 20: 6.358055e+09
+#&gt; 21: 1.412091e+10
+#&gt; 22: 3.523363e+10
+#&gt; 23: 8.243897e+10
+#&gt; 24: 2.013940e+11
+#&gt; 25: 4.855815e+11
+#&gt; 26: 1.180404e+12
+#&gt; 27: 2.844816e+12
+#&gt; 28: 7.090237e+12
+#&gt; 29: 6.179694e+08
+#&gt; 30: 6.027762e+08
+#&gt; 31: 5.896787e+08
+#&gt; 32: 6.033756e+08
+#&gt; 33: 6.203184e+08
+#&gt; 34: 6.147589e+08
+#&gt; 35: 6.295774e+08
+#&gt; 36: 6.273630e+08
+#&gt; 37: 6.084665e+08
+#&gt; 38: 5.966218e+08
+#&gt; 39: 6.385013e+08
+#&gt; 40: 6.371757e+08
+#&gt; 41: 6.309006e+08
+#&gt; 42: 6.527855e+08
+#&gt; 43: 9.791957e-01
+#&gt; 44: 9.807449e-01
+#&gt; 45: 9.437687e-01
+#&gt; 46: 9.611205e-01
+#&gt; 47: 9.478722e-01
+#&gt; 48: 9.368366e-01
+#&gt; 49: 9.405218e-01
+#&gt; 50: 9.993827e-01
+#&gt; 51: 1.008789e+00
+#&gt; 52: 9.875934e-01
+#&gt; 53: 9.479483e-01
+#&gt; 54: 1.012672e+00
+#&gt; 55: 9.571985e-01
+#&gt; 56: 1.009163e+00
 #&gt;               sd</div><div class='input'><span class='co'># }                              </span>
 </div></pre>
   </div>
