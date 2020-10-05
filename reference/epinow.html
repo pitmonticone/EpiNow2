@@ -150,6 +150,8 @@ of report and then save summary measures and plots.</p>
   <span class='va'>forecast_model</span>,
   ensemble_type <span class='op'>=</span> <span class='st'>"mean"</span>,
   return_estimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_samples <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  make_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>target_folder</span>,
   <span class='va'>target_date</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -295,6 +297,15 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
     <tr>
       <th>return_estimates</th>
       <td><p>Logical, defaults to TRUE. Should estimates be returned.</p></td>
+    </tr>
+    <tr>
+      <th>keep_samples</th>
+      <td><p>Logical, defaults to TRUE. Should samples be kept (either returned or saved or both
+depending on other settings).</p></td>
+    </tr>
+    <tr>
+      <th>make_plots</th>
+      <td><p>Logical, defaults to TRUE. Should plots be made and returned (or saved).</p></td>
     </tr>
     <tr>
       <th>target_folder</th>
@@ -516,7 +527,7 @@ an unweighted ensemble ("mean") with no other types currently supported.</p></td
 #&gt;                                  measure            estimate  numeric_estimate
 #&gt; 1: New confirmed cases by infection date   7270 (2 -- 32871) &lt;data.table[1x7]&gt;
 #&gt; 2:        Expected change in daily cases              Unsure              0.49
-#&gt; 3:            Effective reproduction no. 1.02 (0.05 -- 1.62) &lt;data.table[1x7]&gt;
+#&gt; 3:            Effective reproduction no.        1 (0 -- 1.6) &lt;data.table[1x7]&gt;
 #&gt; 4:                        Rate of growth   0 (-0.32 -- 0.17) &lt;data.table[1x7]&gt;
 #&gt; 5:          Doubling/halving time (days) 145.4 (4.2 -- -2.2) &lt;data.table[1x3]&gt;
 #&gt; 
