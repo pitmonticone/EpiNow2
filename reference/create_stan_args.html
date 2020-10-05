@@ -221,8 +221,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     real alpha = ((mu)/ c_sigma)^2;
 #&gt;     real beta = (mu) / (c_sigma^2);
 #&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt; 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt; 0 ? 1e-5 : beta; 
+#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
 #&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
 #&gt;     beta = is_inf(beta) ? 1e8 : beta; 
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
@@ -618,8 +618,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     real alpha = ((mu)/ c_sigma)^2;
 #&gt;     real beta = (mu) / (c_sigma^2);
 #&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt; 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt; 0 ? 1e-5 : beta; 
+#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
 #&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
 #&gt;     beta = is_inf(beta) ? 1e8 : beta; 
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
@@ -1000,8 +1000,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     real alpha = ((mu)/ c_sigma)^2;
 #&gt;     real beta = (mu) / (c_sigma^2);
 #&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt; 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt; 0 ? 1e-5 : beta; 
+#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
 #&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
 #&gt;     beta = is_inf(beta) ? 1e8 : beta; 
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 

@@ -137,6 +137,7 @@
 <li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
 <li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
 <li>Added <code>setup_logging</code> to enable users to specify the level and location of logging (wrapping functionality from <code>futile.logger</code>).</li>
+<li>Updated <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) to constrain gamma shape and (inverse) scale parameters to be positive and finite (<code>alpha &gt; 0</code> and <code>beta &gt; 0</code>).</li>
 </ul>
 </div>
     <div id="epinow2-110" class="section level1">

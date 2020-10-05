@@ -182,32 +182,32 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
                                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                                 stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
                                 summary <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-10-01 18:58:42] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-10-01 18:58:42] Producing estimates for: testland, realland
-#&gt; INFO [2020-10-01 18:58:42] Regions excluded: none
-#&gt; INFO [2020-10-01 18:58:42] Initialising estimates for: testland
-#&gt; WARN [2020-10-01 19:03:33] testland: There were 3 divergent transitions after warmup. See
+</div><div class='output co'>#&gt; INFO [2020-10-05 12:08:50] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-10-05 12:08:50] Producing estimates for: testland, realland
+#&gt; INFO [2020-10-05 12:08:50] Regions excluded: none
+#&gt; INFO [2020-10-05 12:08:50] Initialising estimates for: testland
+#&gt; WARN [2020-10-05 12:13:38] testland: There were 3 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-01 19:03:33] testland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-10-05 12:13:38] testland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; WARN [2020-10-01 19:03:33] testland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; WARN [2020-10-05 12:13:39] testland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; INFO [2020-10-01 19:03:34] Completed estimates for: testland
-#&gt; INFO [2020-10-01 19:03:34] Initialising estimates for: realland
-#&gt; WARN [2020-10-01 19:07:49] realland: There were 3 divergent transitions after warmup. See
+#&gt; INFO [2020-10-05 12:13:40] Completed estimates for: testland
+#&gt; INFO [2020-10-05 12:13:40] Initialising estimates for: realland
+#&gt; WARN [2020-10-05 12:17:53] realland: There were 3 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-01 19:07:49] realland: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-10-05 12:17:53] realland: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; WARN [2020-10-01 19:07:50] realland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; WARN [2020-10-05 12:17:53] realland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; WARN [2020-10-01 19:07:50] realland: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; WARN [2020-10-05 12:17:54] realland: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#tail-ess - 
-#&gt; INFO [2020-10-01 19:07:51] Completed estimates for: realland</div><div class='input'>
+#&gt; INFO [2020-10-05 12:17:54] Completed estimates for: realland</div><div class='input'>
 <span class='va'>summary_only</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span><span class='op'>(</span><span class='va'>regional_out</span><span class='op'>$</span><span class='va'>regional</span>, forecast <span class='op'>=</span> <span class='cn'>FALSE</span>, samples <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>summary_only</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "estimates"</div><div class='input'>
