@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="Setup Logging — setup_logging" />
-<meta property="og:description" content="Setup Logging" />
+<meta property="og:description" content="Sets up futile.logger logging, which is integrated into EpiNow2. See the
+documentation for futile.logger for full details. By default EpiNow2 prints all logs at
+the &quot;INFO&quot; level and returns them to the console." />
 
 
 
@@ -118,10 +120,17 @@
     </div>
 
     <div class="ref-description">
-    <p>Setup Logging</p>
+    <p>Sets up <code>futile.logger</code> logging, which is integrated into <code>EpiNow2</code>. See the
+documentation for <code>futile.logger</code> for full details. By default <code>EpiNow2</code> prints all logs at
+the "INFO" level and returns them to the console.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup_logging</span><span class='op'>(</span>threshold <span class='op'>=</span> <span class='st'>"INFO"</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, mirror_to_console <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup_logging</span><span class='op'>(</span>
+  threshold <span class='op'>=</span> <span class='st'>"INFO"</span>,
+  file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mirror_to_console <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  name <span class='op'>=</span> <span class='st'>"EpiNow2"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,8 +147,15 @@ written to the console.</p></td>
     </tr>
     <tr>
       <th>mirror_to_console</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. If saving logs to a file should they
+      <td><p>Logical, defaults to <code>FALSE</code>. If saving logs to a file should they
 also be duplicated in the console.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>Character string defaulting to EpiNow2. This indicates the name of the logger to setup.
+The default logger for EpiNow2 is called EpiNow2. Nested options include: Epinow2.epinow which controls
+all logging for <code>epinow</code> and nested functions, EpiNow2.epinow.estimate_infections (logging in
+<code>estimate_infections</code>), and EpiNow2.epinow.estimate_infections.fit (logging in fitting functions).</p></td>
     </tr>
     </table>
 
@@ -149,9 +165,12 @@ also be duplicated in the console.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># Set up error only logs (info logs are enabled by default.)</span>
-<span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"ERROR"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at: ERROR</span></div><div class='output co'>#&gt; <span class='message'>Writing logs to the console</span></div></pre>
+<span class='co'># Set up info only logs with errors only </span>
+<span class='co'># for logging related to epinow (or nested) calls</span>
+<span class='co'># (info logs are enabled by default.)</span>
+<span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"Info"</span>, name <span class='op'>=</span> <span class='st'>"EpiNow2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Setting up logging for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at: Info</span></div><div class='output co'>#&gt; <span class='message'>Writing logs to the console</span></div><div class='input'><span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"ERROR"</span>, name <span class='op'>=</span> <span class='st'>"EpiNow2.epinow"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Setting up logging for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at: ERROR</span></div><div class='output co'>#&gt; <span class='message'>Writing logs to the console</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

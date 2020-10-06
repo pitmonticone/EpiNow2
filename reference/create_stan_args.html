@@ -197,9 +197,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;    return(convolved_cases);
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // discretised truncated lognormal pmf
 #&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
@@ -210,9 +207,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
 #&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;  // discretised truncated gamma pmf
 #&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
@@ -228,9 +222,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
 #&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // exponential quadratic kernal
 #&gt; 	real spd_SE(real alpha, real rho, real w) {
@@ -254,9 +245,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		lam = ((m*pi())/(2*L))^2;
 #&gt; 		return lam;
 #&gt; 	}
-#&gt; 	
-#&gt; 	
-#&gt; 	
 #&gt; }
 #&gt; 
 #&gt; 
@@ -594,9 +582,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;    return(convolved_cases);
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // discretised truncated lognormal pmf
 #&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
@@ -607,9 +592,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
 #&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;  // discretised truncated gamma pmf
 #&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
@@ -625,9 +607,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
 #&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // exponential quadratic kernal
 #&gt; 	real spd_SE(real alpha, real rho, real w) {
@@ -651,9 +630,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		lam = ((m*pi())/(2*L))^2;
 #&gt; 		return lam;
 #&gt; 	}
-#&gt; 	
-#&gt; 	
-#&gt; 	
 #&gt; }
 #&gt; 
 #&gt; 
@@ -976,9 +952,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;    return(convolved_cases);
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // discretised truncated lognormal pmf
 #&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
@@ -989,9 +962,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
 #&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;  // discretised truncated gamma pmf
 #&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
@@ -1007,9 +977,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
 #&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
 #&gt;   }
-#&gt;   
-#&gt;   
-#&gt;   
 #&gt; 
 #&gt;   // exponential quadratic kernal
 #&gt; 	real spd_SE(real alpha, real rho, real w) {
@@ -1033,9 +1000,6 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		lam = ((m*pi())/(2*L))^2;
 #&gt; 		return lam;
 #&gt; 	}
-#&gt; 	
-#&gt; 	
-#&gt; 	
 #&gt; }
 #&gt; 
 #&gt; 
