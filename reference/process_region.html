@@ -121,7 +121,13 @@
     <p>Process regional estimate</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_region</span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>return_estimates</span>, <span class='va'>target_region</span>, <span class='va'>timing</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>process_region</span><span class='op'>(</span>
+  <span class='va'>out</span>,
+  <span class='va'>return_estimates</span>,
+  <span class='va'>target_region</span>,
+  <span class='va'>timing</span>,
+  complete_logger <span class='op'>=</span> <span class='st'>"EpiNow2.epinow"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,6 +147,11 @@
     <tr>
       <th>timing</th>
       <td><p>Output from <code>Sys.time</code></p></td>
+    </tr>
+    <tr>
+      <th>complete_logger</th>
+      <td><p>Character string indicating the logger to output
+the completion of estimation to.</p></td>
     </tr>
     </table>
 

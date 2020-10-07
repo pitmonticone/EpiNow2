@@ -128,6 +128,8 @@
   <span class='va'>target_date</span>,
   <span class='va'>return_estimates</span>,
   <span class='va'>return_partial_estimates</span>,
+  <span class='va'>complete_logger</span>,
+  <span class='va'>progress_fn</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -158,6 +160,16 @@
       <th>return_partial_estimates</th>
       <td><p>Logical, default to <code>FALSE</code>. Should estimates required for
 <code>regional_summary</code> be returned.</p></td>
+    </tr>
+    <tr>
+      <th>complete_logger</th>
+      <td><p>Character string indicating the logger to output
+the completion of estimation to.</p></td>
+    </tr>
+    <tr>
+      <th>progress_fn</th>
+      <td><p>Function as returned by <code><a href='https://rdrr.io/pkg/progressr/man/progressor.html'>progressr::progressor</a></code>. Allows the use of a
+progress bar.</p></td>
     </tr>
     <tr>
       <th>...</th>

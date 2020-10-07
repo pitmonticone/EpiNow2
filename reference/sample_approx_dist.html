@@ -215,14 +215,14 @@ Defaults to <code>TRUE</code>.</p></td>
 #&gt;   1: 2020-02-13     1
 #&gt;   2: 2020-02-14     0
 #&gt;   3: 2020-02-15     0
-#&gt;   4: 2020-02-16     1
+#&gt;   4: 2020-02-16     0
 #&gt;   5: 2020-02-17     1
 #&gt;  ---                 
-#&gt; 135: 2020-06-26   206
-#&gt; 136: 2020-06-27   148
-#&gt; 137: 2020-06-28   132
-#&gt; 138: 2020-06-29    94
-#&gt; 139: 2020-06-30    43</div><div class='input'>  
+#&gt; 135: 2020-06-26   227
+#&gt; 136: 2020-06-27   179
+#&gt; 137: 2020-06-28   117
+#&gt; 138: 2020-06-29    82
+#&gt; 139: 2020-06-30    34</div><div class='input'>  
 <span class='co'>## Check that sum is equal to reported cases</span>
 <span class='va'>total_onsets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, 
@@ -230,7 +230,7 @@ Defaults to <code>TRUE</code>.</p></td>
                   dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span><span class='op'>)</span><span class='op'>$</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
                    
 <span class='va'>total_onsets</span>
-</div><div class='output co'>#&gt; [1] 240622</div><div class='input'> 
+</div><div class='output co'>#&gt; [1] 240644</div><div class='input'> 
                    
 <span class='co'>## Map from onset cases to reported                  </span>
 <span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
