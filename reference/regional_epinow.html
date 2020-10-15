@@ -43,6 +43,11 @@
 <meta property="og:description" content="Estimates Rt by region. See the documentation for epinow for further information. The progress of producing
 estimates across multiple regions is tracked using the progressr package. Modify this behaviour using progressr::handlers
 and enable it in batch by setting R_PROGRESSR_ENABLE=TRUE as an environment variable." />
+<meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
+<meta property="og:image:alt" content="Example estimates produced by EpiNow2 of reproduction number, cases by date of infection and cases by date of report" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@seabbs" />
+<meta name="twitter:site" content="@cmmid_lshtm" />
 
 
 
@@ -214,19 +219,19 @@ place to start.</p></td>
                        delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                        stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>100</span>, 
                                         cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-10-15 20:25:28] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; INFO [2020-10-15 20:25:28] Reporting estimates using data up to: 2020-04-01
-#&gt; INFO [2020-10-15 20:25:28] No target directory specified so returning output
-#&gt; INFO [2020-10-15 20:25:28] Producing estimates for: testland, realland
-#&gt; INFO [2020-10-15 20:25:28] Regions excluded: none
-#&gt; INFO [2020-10-15 20:25:28] Showing progress using progressr. Modify this behaviour using progressr::handlers.
-#&gt; INFO [2020-10-15 20:28:07] Completed estimates for: testland
-#&gt; INFO [2020-10-15 20:30:59] Completed estimates for: realland
-#&gt; INFO [2020-10-15 20:30:59] Completed regional estimates
-#&gt; INFO [2020-10-15 20:30:59] Regions with estimates: 2
-#&gt; INFO [2020-10-15 20:30:59] Regions with runtime errors: 0
-#&gt; INFO [2020-10-15 20:30:59] Producing summary
-#&gt; INFO [2020-10-15 20:30:59] No summary directory specified so returning summary output
-#&gt; INFO [2020-10-15 20:30:59] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; INFO [2020-10-15 22:09:05] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpgl8U1i/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpgl8U1i/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpgl8U1i/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; INFO [2020-10-15 22:09:05] Reporting estimates using data up to: 2020-04-01
+#&gt; INFO [2020-10-15 22:09:05] No target directory specified so returning output
+#&gt; INFO [2020-10-15 22:09:05] Producing estimates for: testland, realland
+#&gt; INFO [2020-10-15 22:09:05] Regions excluded: none
+#&gt; INFO [2020-10-15 22:09:05] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+#&gt; INFO [2020-10-15 22:11:42] Completed estimates for: testland
+#&gt; INFO [2020-10-15 22:14:33] Completed estimates for: realland
+#&gt; INFO [2020-10-15 22:14:33] Completed regional estimates
+#&gt; INFO [2020-10-15 22:14:33] Regions with estimates: 2
+#&gt; INFO [2020-10-15 22:14:33] Regions with runtime errors: 0
+#&gt; INFO [2020-10-15 22:14:33] Producing summary
+#&gt; INFO [2020-10-15 22:14:33] No summary directory specified so returning summary output
+#&gt; INFO [2020-10-15 22:14:34] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -239,7 +244,7 @@ place to start.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sam Abbott, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, Sebastian Funk.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">
