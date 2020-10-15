@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -126,8 +126,8 @@
   <span class='va'>reported_cases</span>,
   <span class='va'>target_folder</span>,
   <span class='va'>target_date</span>,
-  <span class='va'>return_estimates</span>,
-  <span class='va'>return_partial_estimates</span>,
+  <span class='va'>return_output</span>,
+  <span class='va'>output</span>,
   <span class='va'>complete_logger</span>,
   <span class='va'>progress_fn</span>,
   <span class='va'>...</span>
@@ -153,13 +153,17 @@
       <td><p>Date, defaults to maximum found in the data if not specified.</p></td>
     </tr>
     <tr>
-      <th>return_estimates</th>
-      <td><p>Logical, defaults to TRUE. Should estimates be returned.</p></td>
+      <th>return_output</th>
+      <td><p>Logical, defaults to FALSE. Should output be returned, this automatically updates to TRUE
+if no directory for saving is specified.</p></td>
     </tr>
     <tr>
-      <th>return_partial_estimates</th>
-      <td><p>Logical, default to <code>FALSE</code>. Should estimates required for
-<code>regional_summary</code> be returned.</p></td>
+      <th>output</th>
+      <td><p>A character vector of optional output to return. Supported options are the individual regional estimates
+("regions"),  samples ("samples"), plots ("plots"), copying the individual region dated folder into
+a latest folder (if <code>target_folder</code> is not null - set using "latest"), the stan fit of the underlying model ("fit"), and an
+overall summary across regions ("summary"). The default is to return samples and plots alongside summarised estimates and
+summary statistics. If <code>target_folder</code> is not NULL then the default is also to copy all results into a latest folder.</p></td>
     </tr>
     <tr>
       <th>complete_logger</th>
@@ -173,7 +177,7 @@ progress bar.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Pass additional arguments to <code>epinow</code></p></td>
+      <td><p>Pass additional arguments to <code>epinow</code>. See the documentation for <code>epinow</code> for details.</p></td>
     </tr>
     </table>
 

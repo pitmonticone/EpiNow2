@@ -42,7 +42,7 @@
 <meta property="og:title" content="Create a List of Stan Arguments — create_stan_args" />
 <meta property="og:description" content="Generates a list of arguments as required by rstan::sampling (when method = &quot;exact) or
 rstan::vb (when method = &quot;approximate). See create_stan_args() for the defaults and the relevant rstan
-functions for additonal options." />
+functions for additional options." />
 
 
 
@@ -74,7 +74,7 @@ functions for additonal options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ functions for additonal options." />
     <div class="ref-description">
     <p>Generates a list of arguments as required by <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code> (when <code>method = "exact</code>) or
 <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-vb.html'>rstan::vb</a></code> (when <code>method = "approximate</code>). See <code>create_stan_args()</code> for the defaults and the relevant <code>rstan</code>
-functions for additonal options.</p>
+functions for additional options.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_stan_args</span><span class='op'>(</span>
@@ -272,8 +272,9 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int estimate_r;                    // should the reproduction no be estimated (1 = yes)
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt; 	int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt; 	real lengthscale_mean;             // mean for gp lengthscale prior
-#&gt; 	real lengthscale_sd;               // sd for gp lengthscale prior
+#&gt; 	real lengthscale_alpha;            // alpha for gp lengthscale prior
+#&gt; 	real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt; 	real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
 #&gt; 	int est_week_eff;
 #&gt; 	vector[rt] time;
 #&gt; 	vector[t] inf_time;
@@ -282,6 +283,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 	int breakpoints[rt];               // when do breakpoints occur 
 #&gt; 	int fixed;                        // Indicates if Rt/backcalculation is fixed 
 #&gt; 	int future_fixed;                 // is underlying future Rt assumed to be fixed
+#&gt; 	int fixed_from;                   // Reference date for when Rt estimation should be fixed
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -294,7 +296,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms;
+#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;
@@ -350,8 +352,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		}
 #&gt;   	SPD_eta = diagSPD .* eta;
 #&gt; 	
-#&gt;   	noise = rep_vector(1e-5, noise_terms);
-#&gt;     noise = noise + exp(PHI[,] * SPD_eta);
+#&gt;   	noise = rep_vector(1e-6, noise_terms);
+#&gt;     noise = noise + PHI[,] * SPD_eta;
 #&gt;   }
 #&gt;   
 #&gt;   // initialise infections
@@ -369,11 +371,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     R = rep_vector(initial_R[estimate_r], rt);
+#&gt;     real log_R = log(initial_R[estimate_r]);
+#&gt;     R = rep_vector(log_R, rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
-#&gt;            R[s] *= noise[s];
+#&gt;            R[s] += noise[s];
 #&gt;          }else{
 #&gt;            R[s] = R[s - 1];
 #&gt;          }
@@ -383,16 +386,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;        rt_break_count += breakpoints[s];
 #&gt;         if (rt_break_count &gt; 0) {
-#&gt;           R[s] = R[s] * prod(rt_break_eff[1:rt_break_count]);
+#&gt;           R[s] += sum(rt_break_eff[1:rt_break_count]);
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = initial_R[estimate_r];
+#&gt;     R[1] = log(initial_R[estimate_r]);
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
-#&gt;         R[s] = R[s - 1] .* noise[s - 1];
+#&gt;         R[s] = R[s - 1] + noise[s - 1];
 #&gt;       }else{
 #&gt;         R[s] = R[s - 1];
 #&gt;       }
@@ -401,15 +404,18 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;         if (breakpoints[s] == 1) {
 #&gt;           rt_break_count = sum(breakpoints[1:s]);
-#&gt;           R[s] = R[s] * rt_break_eff[rt_break_count];
+#&gt;           R[s] +=  rt_break_eff[rt_break_count];
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   }
+#&gt;   
+#&gt;   //map log R to R
+#&gt;   R = exp(R);
 #&gt; 
 #&gt;      // estimate initial infections not using Rt
 #&gt;      infections[1:no_rt_time] = infections[1:no_rt_time] + 
-#&gt;                                   shifted_cases[1:no_rt_time] .* exp(initial_infections);
+#&gt;                                   shifted_cases[1:no_rt_time] .* initial_infections;
 #&gt;       
 #&gt;      // estimate remaining infections using Rt
 #&gt;      infectiousness = rep_vector(1e-5, rt);
@@ -421,7 +427,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }else{
 #&gt;     // generate infections from prior infections and non-parameteric noise
 #&gt;     if(!fixed) {
-#&gt;       infections = infections + shifted_cases .* noise;
+#&gt;       infections = infections + shifted_cases .* exp(noise);
 #&gt;     }else{
 #&gt;       infections = infections + shifted_cases;
 #&gt;     }
@@ -467,8 +473,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;   rho ~  normal(lengthscale_mean, lengthscale_sd);
-#&gt;   alpha ~ normal(0, 0.1);
+#&gt;   rho ~ inv_gamma(lengthscale_alpha, lengthscale_beta);
+#&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt;   }
 #&gt; 
@@ -489,7 +495,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
 #&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
-#&gt;     initial_infections ~ normal(0, 0.1);
+#&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
 #&gt;     target += normal_lpdf(gt_mean | gt_mean_mean, gt_mean_sd) * rt;
@@ -497,7 +503,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     
 #&gt;     //breakpoint effects on Rt
 #&gt;     if (break_no &gt; 0) {
-#&gt;       rt_break_eff ~ lognormal(0, 0.1);
+#&gt;       rt_break_eff ~ normal(0, 0.1);
 #&gt;     }
 #&gt;   }
 #&gt; 
@@ -544,7 +550,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; [1] 0
 #&gt; 
 #&gt; $cores
-#&gt; [1] 1
+#&gt; [1] 4
 #&gt; 
 #&gt; $warmup
 #&gt; [1] 500
@@ -562,6 +568,9 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; $save_warmup
 #&gt; [1] FALSE
+#&gt; 
+#&gt; $seed
+#&gt; [1] 67020432
 #&gt; 
 #&gt; $iter
 #&gt; [1] 750
@@ -657,8 +666,9 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int estimate_r;                    // should the reproduction no be estimated (1 = yes)
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt; 	int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt; 	real lengthscale_mean;             // mean for gp lengthscale prior
-#&gt; 	real lengthscale_sd;               // sd for gp lengthscale prior
+#&gt; 	real lengthscale_alpha;            // alpha for gp lengthscale prior
+#&gt; 	real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt; 	real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
 #&gt; 	int est_week_eff;
 #&gt; 	vector[rt] time;
 #&gt; 	vector[t] inf_time;
@@ -667,6 +677,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 	int breakpoints[rt];               // when do breakpoints occur 
 #&gt; 	int fixed;                        // Indicates if Rt/backcalculation is fixed 
 #&gt; 	int future_fixed;                 // is underlying future Rt assumed to be fixed
+#&gt; 	int fixed_from;                   // Reference date for when Rt estimation should be fixed
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -679,7 +690,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms;
+#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;
@@ -735,8 +746,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		}
 #&gt;   	SPD_eta = diagSPD .* eta;
 #&gt; 	
-#&gt;   	noise = rep_vector(1e-5, noise_terms);
-#&gt;     noise = noise + exp(PHI[,] * SPD_eta);
+#&gt;   	noise = rep_vector(1e-6, noise_terms);
+#&gt;     noise = noise + PHI[,] * SPD_eta;
 #&gt;   }
 #&gt;   
 #&gt;   // initialise infections
@@ -754,11 +765,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     R = rep_vector(initial_R[estimate_r], rt);
+#&gt;     real log_R = log(initial_R[estimate_r]);
+#&gt;     R = rep_vector(log_R, rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
-#&gt;            R[s] *= noise[s];
+#&gt;            R[s] += noise[s];
 #&gt;          }else{
 #&gt;            R[s] = R[s - 1];
 #&gt;          }
@@ -768,16 +780,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;        rt_break_count += breakpoints[s];
 #&gt;         if (rt_break_count &gt; 0) {
-#&gt;           R[s] = R[s] * prod(rt_break_eff[1:rt_break_count]);
+#&gt;           R[s] += sum(rt_break_eff[1:rt_break_count]);
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = initial_R[estimate_r];
+#&gt;     R[1] = log(initial_R[estimate_r]);
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
-#&gt;         R[s] = R[s - 1] .* noise[s - 1];
+#&gt;         R[s] = R[s - 1] + noise[s - 1];
 #&gt;       }else{
 #&gt;         R[s] = R[s - 1];
 #&gt;       }
@@ -786,15 +798,18 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;         if (breakpoints[s] == 1) {
 #&gt;           rt_break_count = sum(breakpoints[1:s]);
-#&gt;           R[s] = R[s] * rt_break_eff[rt_break_count];
+#&gt;           R[s] +=  rt_break_eff[rt_break_count];
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   }
+#&gt;   
+#&gt;   //map log R to R
+#&gt;   R = exp(R);
 #&gt; 
 #&gt;      // estimate initial infections not using Rt
 #&gt;      infections[1:no_rt_time] = infections[1:no_rt_time] + 
-#&gt;                                   shifted_cases[1:no_rt_time] .* exp(initial_infections);
+#&gt;                                   shifted_cases[1:no_rt_time] .* initial_infections;
 #&gt;       
 #&gt;      // estimate remaining infections using Rt
 #&gt;      infectiousness = rep_vector(1e-5, rt);
@@ -806,7 +821,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }else{
 #&gt;     // generate infections from prior infections and non-parameteric noise
 #&gt;     if(!fixed) {
-#&gt;       infections = infections + shifted_cases .* noise;
+#&gt;       infections = infections + shifted_cases .* exp(noise);
 #&gt;     }else{
 #&gt;       infections = infections + shifted_cases;
 #&gt;     }
@@ -852,8 +867,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;   rho ~  normal(lengthscale_mean, lengthscale_sd);
-#&gt;   alpha ~ normal(0, 0.1);
+#&gt;   rho ~ inv_gamma(lengthscale_alpha, lengthscale_beta);
+#&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt;   }
 #&gt; 
@@ -874,7 +889,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
 #&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
-#&gt;     initial_infections ~ normal(0, 0.1);
+#&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
 #&gt;     target += normal_lpdf(gt_mean | gt_mean_mean, gt_mean_sd) * rt;
@@ -882,7 +897,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     
 #&gt;     //breakpoint effects on Rt
 #&gt;     if (break_no &gt; 0) {
-#&gt;       rt_break_eff ~ lognormal(0, 0.1);
+#&gt;       rt_break_eff ~ normal(0, 0.1);
 #&gt;     }
 #&gt;   }
 #&gt; 
@@ -1027,8 +1042,9 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int estimate_r;                    // should the reproduction no be estimated (1 = yes)
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt; 	int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt; 	real lengthscale_mean;             // mean for gp lengthscale prior
-#&gt; 	real lengthscale_sd;               // sd for gp lengthscale prior
+#&gt; 	real lengthscale_alpha;            // alpha for gp lengthscale prior
+#&gt; 	real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt; 	real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
 #&gt; 	int est_week_eff;
 #&gt; 	vector[rt] time;
 #&gt; 	vector[t] inf_time;
@@ -1037,6 +1053,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 	int breakpoints[rt];               // when do breakpoints occur 
 #&gt; 	int fixed;                        // Indicates if Rt/backcalculation is fixed 
 #&gt; 	int future_fixed;                 // is underlying future Rt assumed to be fixed
+#&gt; 	int fixed_from;                   // Reference date for when Rt estimation should be fixed
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -1049,7 +1066,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms;
+#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;
@@ -1105,8 +1122,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 		}
 #&gt;   	SPD_eta = diagSPD .* eta;
 #&gt; 	
-#&gt;   	noise = rep_vector(1e-5, noise_terms);
-#&gt;     noise = noise + exp(PHI[,] * SPD_eta);
+#&gt;   	noise = rep_vector(1e-6, noise_terms);
+#&gt;     noise = noise + PHI[,] * SPD_eta;
 #&gt;   }
 #&gt;   
 #&gt;   // initialise infections
@@ -1124,11 +1141,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     R = rep_vector(initial_R[estimate_r], rt);
+#&gt;     real log_R = log(initial_R[estimate_r]);
+#&gt;     R = rep_vector(log_R, rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
-#&gt;            R[s] *= noise[s];
+#&gt;            R[s] += noise[s];
 #&gt;          }else{
 #&gt;            R[s] = R[s - 1];
 #&gt;          }
@@ -1138,16 +1156,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;        rt_break_count += breakpoints[s];
 #&gt;         if (rt_break_count &gt; 0) {
-#&gt;           R[s] = R[s] * prod(rt_break_eff[1:rt_break_count]);
+#&gt;           R[s] += sum(rt_break_eff[1:rt_break_count]);
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = initial_R[estimate_r];
+#&gt;     R[1] = log(initial_R[estimate_r]);
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
-#&gt;         R[s] = R[s - 1] .* noise[s - 1];
+#&gt;         R[s] = R[s - 1] + noise[s - 1];
 #&gt;       }else{
 #&gt;         R[s] = R[s - 1];
 #&gt;       }
@@ -1156,15 +1174,18 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       if (break_no &gt; 0) {
 #&gt;         if (breakpoints[s] == 1) {
 #&gt;           rt_break_count = sum(breakpoints[1:s]);
-#&gt;           R[s] = R[s] * rt_break_eff[rt_break_count];
+#&gt;           R[s] +=  rt_break_eff[rt_break_count];
 #&gt;         }
 #&gt;       }
 #&gt;     }
 #&gt;   }
+#&gt;   
+#&gt;   //map log R to R
+#&gt;   R = exp(R);
 #&gt; 
 #&gt;      // estimate initial infections not using Rt
 #&gt;      infections[1:no_rt_time] = infections[1:no_rt_time] + 
-#&gt;                                   shifted_cases[1:no_rt_time] .* exp(initial_infections);
+#&gt;                                   shifted_cases[1:no_rt_time] .* initial_infections;
 #&gt;       
 #&gt;      // estimate remaining infections using Rt
 #&gt;      infectiousness = rep_vector(1e-5, rt);
@@ -1176,7 +1197,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }else{
 #&gt;     // generate infections from prior infections and non-parameteric noise
 #&gt;     if(!fixed) {
-#&gt;       infections = infections + shifted_cases .* noise;
+#&gt;       infections = infections + shifted_cases .* exp(noise);
 #&gt;     }else{
 #&gt;       infections = infections + shifted_cases;
 #&gt;     }
@@ -1222,8 +1243,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;   rho ~  normal(lengthscale_mean, lengthscale_sd);
-#&gt;   alpha ~ normal(0, 0.1);
+#&gt;   rho ~ inv_gamma(lengthscale_alpha, lengthscale_beta);
+#&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt;   }
 #&gt; 
@@ -1244,7 +1265,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
 #&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
-#&gt;     initial_infections ~ normal(0, 0.1);
+#&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
 #&gt;     target += normal_lpdf(gt_mean | gt_mean_mean, gt_mean_sd) * rt;
@@ -1252,7 +1273,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     
 #&gt;     //breakpoint effects on Rt
 #&gt;     if (break_no &gt; 0) {
-#&gt;       rt_break_eff ~ lognormal(0, 0.1);
+#&gt;       rt_break_eff ~ normal(0, 0.1);
 #&gt;     }
 #&gt;   }
 #&gt; 
@@ -1299,7 +1320,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; [1] 0
 #&gt; 
 #&gt; $cores
-#&gt; [1] 1
+#&gt; [1] 4
 #&gt; 
 #&gt; $chains
 #&gt; [1] 4
@@ -1314,6 +1335,9 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; $save_warmup
 #&gt; [1] FALSE
+#&gt; 
+#&gt; $seed
+#&gt; [1] 15814683
 #&gt; 
 #&gt; $warmup
 #&gt; [1] 1000

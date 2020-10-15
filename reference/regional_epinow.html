@@ -74,7 +74,7 @@ and enable it in batch by setting R_PROGRESSR_ENABLE=TRUE as an environment vari
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -127,16 +127,13 @@ and enable it in batch by setting <code>R_PROGRESSR_ENABLE=TRUE</code> as an env
 
     <pre class="usage"><span class='fu'>regional_epinow</span><span class='op'>(</span>
   <span class='va'>reported_cases</span>,
-  <span class='va'>target_folder</span>,
+  target_folder <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>target_date</span>,
   non_zero_points <span class='op'>=</span> <span class='fl'>2</span>,
-  summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>summary_dir</span>,
-  region_scale <span class='op'>=</span> <span class='st'>"Region"</span>,
-  all_regions_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  return_estimates <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  max_plot <span class='op'>=</span> <span class='fl'>10</span>,
-  return_timings <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regions"</span>, <span class='st'>"summary"</span>, <span class='st'>"samples"</span>, <span class='st'>"plots"</span>, <span class='st'>"latest"</span><span class='op'>)</span>,
+  return_output <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  summary_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  logs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -161,39 +158,33 @@ and enable it in batch by setting <code>R_PROGRESSR_ENABLE=TRUE</code> as an env
 that region to be evaluated. Defaults to 2.</p></td>
     </tr>
     <tr>
-      <th>summary</th>
-      <td><p>Logical, should summary measures be calculated.</p></td>
+      <th>output</th>
+      <td><p>A character vector of optional output to return. Supported options are the individual regional estimates
+("regions"),  samples ("samples"), plots ("plots"), copying the individual region dated folder into
+a latest folder (if <code>target_folder</code> is not null - set using "latest"), the stan fit of the underlying model ("fit"), and an
+overall summary across regions ("summary"). The default is to return samples and plots alongside summarised estimates and
+summary statistics. If <code>target_folder</code> is not NULL then the default is also to copy all results into a latest folder.</p></td>
     </tr>
     <tr>
-      <th>summary_dir</th>
-      <td><p>A character string giving the directory
-in which to store summary of results.</p></td>
+      <th>return_output</th>
+      <td><p>Logical, defaults to FALSE. Should output be returned, this automatically updates to TRUE
+if no directory for saving is specified.</p></td>
     </tr>
     <tr>
-      <th>region_scale</th>
-      <td><p>A character string indicating the name to give the regions being summarised.</p></td>
+      <th>summary_args</th>
+      <td><p>A list of arguments passed to <code>regional_summary</code>. See the <code>regional_summary</code> documentation for details.</p></td>
     </tr>
     <tr>
-      <th>all_regions_summary</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. Should summary plots for all regions be returned
-rather than just regions of interest.</p></td>
-    </tr>
-    <tr>
-      <th>return_estimates</th>
-      <td><p>Logical, defaults to TRUE. Should estimates be returned.</p></td>
-    </tr>
-    <tr>
-      <th>max_plot</th>
-      <td><p>Numeric, defaults to 10. A multiplicative upper bound on the number of cases shown on the plot. Based
-on the maximum number of reported cases.</p></td>
-    </tr>
-    <tr>
-      <th>return_timings</th>
-      <td><p>Logical, defaults to FALSE. If not returning estimates can be used to request timing data is returned.</p></td>
+      <th>logs</th>
+      <td><p>Character path indicating the target folder in which to store log
+information. Defaults to the temporary directory if not specified. Default logging
+can be disabled if <code>logs</code> is set to NULL. If specifying a custom logging setup then
+the code for <code>setup_default_logging</code> and the <code>setup_logging</code> function are a sensible
+place to start.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Pass additional arguments to <code>epinow</code></p></td>
+      <td><p>Pass additional arguments to <code>epinow</code>. See the documentation for <code>epinow</code> for details.</p></td>
     </tr>
     </table>
 
@@ -203,46 +194,39 @@ on the maximum number of reported cases.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> <span class='co'># \donttest{</span>
-<span class='co'>## Construct example distributions</span>
+<span class='co'># construct example distributions</span>
 <span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
 <span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
-                   
 <span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, mean_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
                         sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>, sd_sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1.1</span><span class='op'>)</span>, max <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
                         
-<span class='co'>## Uses example case vector</span>
+<span class='co'># uses example case vector</span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
-
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
   <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span><span class='op'>]</span>,
   <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-  
-<span class='co'>## Run basic nowcasting pipeline</span>
-<span class='co'>## Here we reduce the accuracy of the GP approximation in order to reduce runtime</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>regional_epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>cases</span>,  generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+                
+<span class='co'># run epinow across multiple regions and generate summaries</span>
+<span class='co'># samples and warmup have been reduced for this example</span>
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>regional_epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>cases</span>, 
+                       samples <span class='op'>=</span> <span class='fl'>100</span>,
+                       generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                        delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                       stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-10-13 19:44:41] Reporting estimates using data up to: 2020-04-01
-#&gt; INFO [2020-10-13 19:44:41] Producing estimates for: testland, realland
-#&gt; INFO [2020-10-13 19:44:41] Regions excluded: none
-#&gt; INFO [2020-10-13 19:44:41] Showing progress using progressr. Modify this behaviour using progressr::handlers.
-#&gt; INFO [2020-10-13 19:44:41] Initialising estimates for: testland
-#&gt; WARN [2020-10-13 19:50:29] testland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; INFO [2020-10-13 19:50:30] Completed estimates for: testland
-#&gt; INFO [2020-10-13 19:50:31] Initialising estimates for: realland
-#&gt; WARN [2020-10-13 19:56:55] realland: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; WARN [2020-10-13 19:56:56] realland: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - 
-#&gt; INFO [2020-10-13 19:56:56] Completed estimates for: realland
-#&gt; INFO [2020-10-13 19:56:56] Completed regional estimates
-#&gt; INFO [2020-10-13 19:56:56] Regions with estimates: 2
-#&gt; INFO [2020-10-13 19:56:56] Regions with runtime errors: 0
-#&gt; INFO [2020-10-13 19:56:56] Producing summary</div><div class='input'><span class='co'># }</span>
+                       stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>100</span>, 
+                                        cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; INFO [2020-10-15 20:25:28] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpk7QB7H/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; INFO [2020-10-15 20:25:28] Reporting estimates using data up to: 2020-04-01
+#&gt; INFO [2020-10-15 20:25:28] No target directory specified so returning output
+#&gt; INFO [2020-10-15 20:25:28] Producing estimates for: testland, realland
+#&gt; INFO [2020-10-15 20:25:28] Regions excluded: none
+#&gt; INFO [2020-10-15 20:25:28] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+#&gt; INFO [2020-10-15 20:28:07] Completed estimates for: testland
+#&gt; INFO [2020-10-15 20:30:59] Completed estimates for: realland
+#&gt; INFO [2020-10-15 20:30:59] Completed regional estimates
+#&gt; INFO [2020-10-15 20:30:59] Regions with estimates: 2
+#&gt; INFO [2020-10-15 20:30:59] Regions with runtime errors: 0
+#&gt; INFO [2020-10-15 20:30:59] Producing summary
+#&gt; INFO [2020-10-15 20:30:59] No summary directory specified so returning summary output
+#&gt; INFO [2020-10-15 20:30:59] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

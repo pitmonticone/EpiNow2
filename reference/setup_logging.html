@@ -74,7 +74,7 @@ the &quot;INFO&quot; level and returns them to the console." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -164,13 +164,12 @@ all logging for <code>epinow</code> and nested functions, EpiNow2.epinow.estimat
     <p>Nothing</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Set up info only logs with errors only </span>
+    <pre class="examples"><div class='input'><span class='co'># set up info only logs with errors only </span>
 <span class='co'># for logging related to epinow (or nested) calls</span>
-<span class='co'># (info logs are enabled by default.)</span>
+<span class='co'># (info logs are enabled by default at all levels.)</span>
 <span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"Info"</span>, name <span class='op'>=</span> <span class='st'>"EpiNow2"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Setting up logging for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at: Info</span></div><div class='output co'>#&gt; <span class='message'>Writing logs to the console</span></div><div class='input'><span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"ERROR"</span>, name <span class='op'>=</span> <span class='st'>"EpiNow2.epinow"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Setting up logging for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at: ERROR</span></div><div class='output co'>#&gt; <span class='message'>Writing logs to the console</span></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at Info for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to the console</span></div><div class='input'><span class='fu'>setup_logging</span><span class='op'>(</span><span class='st'>"ERROR"</span>, name <span class='op'>=</span> <span class='st'>"EpiNow2.epinow"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at ERROR for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to the console</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

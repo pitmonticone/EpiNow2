@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
     <p>Format Posterior Samples</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_fit</span><span class='op'>(</span><span class='va'>posterior_samples</span>, <span class='va'>horizon</span>, <span class='va'>shift</span>, <span class='va'>burn_in</span>, <span class='va'>start_date</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>format_fit</span><span class='op'>(</span><span class='va'>posterior_samples</span>, <span class='va'>horizon</span>, <span class='va'>shift</span>, <span class='va'>burn_in</span>, <span class='va'>start_date</span>, <span class='va'>CrIs</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,6 +145,10 @@
     <tr>
       <th>start_date</th>
       <td><p>Date, earliest date with data</p></td>
+    </tr>
+    <tr>
+      <th>CrIs</th>
+      <td><p>Numeric vector of credible intervals to calculate.</p></td>
     </tr>
     </table>
 

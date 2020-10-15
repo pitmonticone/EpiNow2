@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -123,9 +123,10 @@
 
     <pre class="usage"><span class='fu'>process_region</span><span class='op'>(</span>
   <span class='va'>out</span>,
-  <span class='va'>return_estimates</span>,
   <span class='va'>target_region</span>,
   <span class='va'>timing</span>,
+  return_output <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  return_timing <span class='op'>=</span> <span class='cn'>TRUE</span>,
   complete_logger <span class='op'>=</span> <span class='st'>"EpiNow2.epinow"</span>
 <span class='op'>)</span></pre>
 
@@ -137,16 +138,21 @@
       <td><p>List of output returned by <code>epinow</code></p></td>
     </tr>
     <tr>
-      <th>return_estimates</th>
-      <td><p>Logical, defaults to TRUE. Should estimates be returned.</p></td>
-    </tr>
-    <tr>
       <th>target_region</th>
       <td><p>Character string indicating the region being evaluated</p></td>
     </tr>
     <tr>
       <th>timing</th>
       <td><p>Output from <code>Sys.time</code></p></td>
+    </tr>
+    <tr>
+      <th>return_output</th>
+      <td><p>Logical, defaults to FALSE. Should output be returned, this automatically updates to TRUE
+if no directory for saving is specified.</p></td>
+    </tr>
+    <tr>
+      <th>return_timing</th>
+      <td><p>Logical, should runtime be returned</p></td>
     </tr>
     <tr>
       <th>complete_logger</th>

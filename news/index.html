@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -115,34 +115,54 @@
       
     </div>
 
-    <div id="epinow2-120" class="section level1">
-<h1 class="page-header" data-toc-text="1.2.0">
-<a href="#epinow2-120" class="anchor"></a>EpiNow2 1.2.0<small> Unreleased </small>
+    <div id="epinow2-121" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.1">
+<a href="#epinow2-121" class="anchor"></a>EpiNow2 1.2.1<small> Unreleased </small>
 </h1>
+<p>This release introduces multiple breaking interface changes. Please see the README for examples of the new interface. It adds a range of quality of life improvements including updating the <code>stan</code> interface to support fitting each chain independently and offering variational inference as an alternative, experimental, fitting option. Notably it also adds support for nesting logging and a parallel enabled progress bar via the <code>progressr</code> package. Minor bugs have been fixed in the core model implementation focussing on stability and several already implemented features have been extended. Major model developments are planned for the next release of <code>EpiNow2</code>.</p>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
+<li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
+<li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
+<li>Added <code>setup_logging</code> to enable users to specify the level and location of logging (wrapping functionality from <code>futile.logger</code>). Also added <code>setup_default_logging</code> to give users sensible defaults and embedded this function in <code>regional_epinow</code> and <code>epinow</code>.</li>
+<li>Added <code>setup_future</code> to making using nested futures easier (required when using <code>future = TRUE</code>).</li>
+<li>Implemented progress bar support using <code>progressr</code>.</li>
 <li>Added timeout and timing option to <code>regional_epinow</code>
 </li>
 <li>Improved logging of warnings in <code>regional_epinow</code>
 </li>
-<li>Added inner 20% high density region.</li>
+<li>Enabled the user to specify the credible intervals desired with 20%, 50% and 90% calculated by default. Also switched from high density regions to quantiles. Custom credible intervals are now supported in all reporting and plotting functions.</li>
 <li>Added mean and sd to all reporting summaries.</li>
 <li>Added a summary of the growth rate and doubling time.</li>
-<li>Added a <code>samples</code> argument to <code>get_regional_results</code> to make loading in samples optional. This also allows samples to be dropped when using <code>regional_epinow</code> which reduces RAM usage.</li>
-<li>Cleaned up implementation of <code>estimate_infections</code> to move processing code into internal functions</li>
-<li>Adds basic testing of functions.</li>
+<li>Added a new function <code>regional_runtimes</code> that summarises the run time across regions.</li>
+<li>Updated the <code>estimate_infections</code> interface and expanded the range of options for the <code>future_rt</code> argument. Users can now choose to set Rt from any time point referenced to the forecast date.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
 <li>Fixed y axis max for <code>plot_summary</code>.</li>
-<li>Fix to normalisation of delay and generation time distributions from @sbfnk.</li>
-<li>Moved all inherited from stan arguments into <code>create_stan_args</code> with the option to override using <code>stan_args</code>. This leads to breaking changes - see the examples for details of the new interface.</li>
-<li>Updated all example and documentation to reflect the new interface.</li>
-<li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
-<li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
-<li>Added <code>setup_logging</code> to enable users to specify the level and location of logging (wrapping functionality from <code>futile.logger</code>).</li>
+<li>Fix to normalisation of delay and generation time distributions from @sbfnk. This will impact nowcast infections but not reproduction number estimate.</li>
 <li>Updated <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) to constrain gamma shape and (inverse) scale parameters to be positive and finite (<code>alpha &gt; 0</code> and <code>beta &gt; 0</code>).</li>
 <li>Fixed <code>readLines</code> incomplete final line warnings.</li>
-<li>Implemented progress bar support using <code>progressr</code>.</li>
-<li>Adds a utility function to setup a default <code>future</code> backend.</li>
+</ul>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other changes</h2>
+<ul>
+<li>Updates the interface for specifying how output is returned.</li>
+<li>Moved all inherited from stan arguments into <code>create_stan_args</code> with the option to override using <code>stan_args</code>. This leads to breaking changes - see the examples for details of the new interface.</li>
+<li>Updated all example and documentation to reflect the new interface.</li>
+<li>Added a <code>samples</code> argument to <code>get_regional_results</code> to make loading in samples optional. This also allows samples to be dropped when using <code>regional_epinow</code> which reduces RAM usage.</li>
+<li>Cleaned up wrapper functions to move individual jobs into functions.</li>
+<li>Adds testing of high level functions and some low level unit testing.</li>
 <li>Adds a csv download button the interactive table in the regional summary table.</li>
 </ul>
+</div>
 </div>
     <div id="epinow2-110" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.0">

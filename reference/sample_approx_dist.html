@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -176,12 +176,8 @@ Defaults to <code>TRUE</code>.</p></td>
     <p>A <code>data.table</code> of cases by date of onset</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span>
-
+    <pre class="examples"><div class='input'><span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>cases</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>confirm</span><span class='op'>)</span><span class='op'>]</span> 
-
-<span class='co'>## Reported case distribution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date confirm cases
 #&gt;   1: 2020-02-22      14    14
@@ -195,7 +191,7 @@ Defaults to <code>TRUE</code>.</p></td>
 #&gt; 128: 2020-06-28     175   175
 #&gt; 129: 2020-06-29     174   174
 #&gt; 130: 2020-06-30     126   126</div><div class='input'>
-<span class='co'>## Total cases</span>
+<span class='co'># total cases</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>$</span><span class='va'>cases</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 240581</div><div class='input'>
 <span class='va'>delay_fn</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>dist</span>, <span class='va'>cum</span><span class='op'>)</span> <span class='op'>{</span>
@@ -209,41 +205,39 @@ Defaults to <code>TRUE</code>.</p></td>
 <span class='va'>onsets</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                              dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span><span class='op'>)</span>
    
-<span class='co'>## Estimated onset distribution</span>
+<span class='co'># estimated onset distribution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>onsets</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
-#&gt;   1: 2020-02-13     1
-#&gt;   2: 2020-02-14     0
-#&gt;   3: 2020-02-15     0
-#&gt;   4: 2020-02-16     0
-#&gt;   5: 2020-02-17     1
+#&gt;   1: 2020-02-16     1
+#&gt;   2: 2020-02-17     1
+#&gt;   3: 2020-02-18     3
+#&gt;   4: 2020-02-19     4
+#&gt;   5: 2020-02-20    19
 #&gt;  ---                 
-#&gt; 135: 2020-06-26   227
-#&gt; 136: 2020-06-27   179
-#&gt; 137: 2020-06-28   117
-#&gt; 138: 2020-06-29    82
-#&gt; 139: 2020-06-30    34</div><div class='input'>  
-<span class='co'>## Check that sum is equal to reported cases</span>
+#&gt; 132: 2020-06-26   226
+#&gt; 133: 2020-06-27   158
+#&gt; 134: 2020-06-28   124
+#&gt; 135: 2020-06-29    80
+#&gt; 136: 2020-06-30    36</div><div class='input'>  
+<span class='co'># check that sum is equal to reported cases</span>
 <span class='va'>total_onsets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, 
                   <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                   dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span><span class='op'>)</span><span class='op'>$</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
-                   
 <span class='va'>total_onsets</span>
-</div><div class='output co'>#&gt; [1] 240644</div><div class='input'> 
+</div><div class='output co'>#&gt; [1] 240510</div><div class='input'> 
                    
-<span class='co'>## Map from onset cases to reported                  </span>
+<span class='co'># map from onset cases to reported                  </span>
 <span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                               dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span>,
                               direction <span class='op'>=</span> <span class='st'>"forwards"</span><span class='op'>)</span>
                               
                               
-<span class='co'>## Map from onset cases to reported using a mean shift               </span>
+<span class='co'># map from onset cases to reported using a mean shift               </span>
 <span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                               dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span>,
                               direction <span class='op'>=</span> <span class='st'>"forwards"</span>,
                               type <span class='op'>=</span> <span class='st'>"median"</span><span class='op'>)</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
