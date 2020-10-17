@@ -211,88 +211,88 @@ on the maximum number of reported cases.</p></td>
                        stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>50</span>,
                                         control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span>,
                                         logs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-10-16 13:20:14] Producing following optional outputs: regions
-#&gt; INFO [2020-10-16 13:20:14] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-10-16 13:20:14] No target directory specified so returning output
-#&gt; INFO [2020-10-16 13:20:14] Producing estimates for: testland, realland
-#&gt; INFO [2020-10-16 13:20:14] Regions excluded: none
-#&gt; INFO [2020-10-16 13:20:14] Showing progress using progressr. Modify this behaviour using progressr::handlers.
-#&gt; INFO [2020-10-16 13:20:30] Completed estimates for: testland
-#&gt; INFO [2020-10-16 13:20:45] Completed estimates for: realland
-#&gt; INFO [2020-10-16 13:20:45] Completed regional estimates
-#&gt; INFO [2020-10-16 13:20:45] Regions with estimates: 2
-#&gt; INFO [2020-10-16 13:20:45] Regions with runtime errors: 0
-#&gt; INFO [2020-10-16 13:20:45] No target directory specified so returning timings</div><div class='input'>
+</div><div class='output co'>#&gt; INFO [2020-10-17 11:42:22] Producing following optional outputs: regions
+#&gt; INFO [2020-10-17 11:42:22] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-10-17 11:42:22] No target directory specified so returning output
+#&gt; INFO [2020-10-17 11:42:22] Producing estimates for: testland, realland
+#&gt; INFO [2020-10-17 11:42:22] Regions excluded: none
+#&gt; INFO [2020-10-17 11:42:22] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+#&gt; INFO [2020-10-17 11:42:38] Completed estimates for: testland
+#&gt; INFO [2020-10-17 11:42:54] Completed estimates for: realland
+#&gt; INFO [2020-10-17 11:42:54] Completed regional estimates
+#&gt; INFO [2020-10-17 11:42:54] Regions with estimates: 2
+#&gt; INFO [2020-10-17 11:42:54] Regions with runtime errors: 0
+#&gt; INFO [2020-10-17 11:42:54] No target directory specified so returning timings</div><div class='input'>
 <span class='fu'>regional_summary</span><span class='op'>(</span>regional_output <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>regional</span>,
                  reported_cases <span class='op'>=</span> <span class='va'>cases</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-10-16 13:20:45] No summary directory specified so returning summary output</div><div class='output co'>#&gt; $latest_date
+</div><div class='output co'>#&gt; INFO [2020-10-17 11:42:54] No summary directory specified so returning summary output</div><div class='output co'>#&gt; $latest_date
 #&gt; [1] "2020-03-22"
 #&gt; 
 #&gt; $results
 #&gt; $results$estimates
 #&gt; $results$estimates$summarised
 #&gt;        region       date       variable strat     type       median
-#&gt;   1: testland 2020-02-22              R  &lt;NA&gt; estimate     1.391644
-#&gt;   2: testland 2020-02-23              R  &lt;NA&gt; estimate     1.445925
-#&gt;   3: testland 2020-02-24              R  &lt;NA&gt; estimate     1.486461
-#&gt;   4: testland 2020-02-25              R  &lt;NA&gt; estimate     1.506695
-#&gt;   5: testland 2020-02-26              R  &lt;NA&gt; estimate     1.528135
+#&gt;   1: testland 2020-02-22              R  &lt;NA&gt; estimate     1.456632
+#&gt;   2: testland 2020-02-23              R  &lt;NA&gt; estimate     1.494796
+#&gt;   3: testland 2020-02-24              R  &lt;NA&gt; estimate     1.529715
+#&gt;   4: testland 2020-02-25              R  &lt;NA&gt; estimate     1.535869
+#&gt;   5: testland 2020-02-26              R  &lt;NA&gt; estimate     1.576921
 #&gt;  ---                                                               
-#&gt; 452: realland 2020-03-25 reported_cases  &lt;NA&gt; forecast  6745.000000
-#&gt; 453: realland 2020-03-26 reported_cases  &lt;NA&gt; forecast  7621.000000
-#&gt; 454: realland 2020-03-27 reported_cases  &lt;NA&gt; forecast 10389.500000
-#&gt; 455: realland 2020-03-28 reported_cases  &lt;NA&gt; forecast  8171.000000
-#&gt; 456: realland 2020-03-29 reported_cases  &lt;NA&gt; forecast 12614.500000
+#&gt; 448: realland 2020-03-25 reported_cases  &lt;NA&gt; forecast  8135.000000
+#&gt; 449: realland 2020-03-26 reported_cases  &lt;NA&gt; forecast  9759.000000
+#&gt; 450: realland 2020-03-27 reported_cases  &lt;NA&gt; forecast 13246.000000
+#&gt; 451: realland 2020-03-28 reported_cases  &lt;NA&gt; forecast 10647.000000
+#&gt; 452: realland 2020-03-29 reported_cases  &lt;NA&gt; forecast 17138.500000
 #&gt;              mean           sd    lower_90    lower_50     lower_20
-#&gt;   1:     1.373952 2.549027e-01    1.044947    1.197509     1.307980
-#&gt;   2:     1.408856 2.108750e-01    1.121370    1.254360     1.347650
-#&gt;   3:     1.446040 1.677269e-01    1.183769    1.337311     1.388282
-#&gt;   4:     1.484238 1.285955e-01    1.257191    1.395316     1.471986
-#&gt;   5:     1.521958 9.965327e-02    1.352357    1.448799     1.492062
+#&gt;   1:     1.472193 1.868386e-01    1.141335    1.381815     1.433118
+#&gt;   2:     1.494251 1.450162e-01    1.245966    1.412051     1.455982
+#&gt;   3:     1.519259 1.092467e-01    1.343083    1.456604     1.485560
+#&gt;   4:     1.546097 8.470270e-02    1.420225    1.496524     1.518315
+#&gt;   5:     1.573481 7.829257e-02    1.450643    1.526425     1.556934
 #&gt;  ---                                                               
-#&gt; 452:  9003.788462 8.839425e+03 1667.000000 3829.250000  6232.400000
-#&gt; 453: 10010.365385 9.014838e+03 1632.850000 3991.750000  5921.000000
-#&gt; 454: 16959.903846 1.887032e+04 2019.400000 5232.500000  8631.800000
-#&gt; 455: 14687.038462 1.783285e+04 1510.750000 3116.500000  5941.000000
-#&gt; 456: 29464.711538 5.303938e+04 1668.600000 7346.500000 10875.000000
+#&gt; 448:  9822.076923 7.240133e+03 1691.600000 4717.250000  6194.600000
+#&gt; 449: 12917.000000 1.238131e+04 2505.000000 4743.500000  8903.800000
+#&gt; 450: 20690.384615 2.945379e+04 1940.400000 6792.750000 11312.600000
+#&gt; 451: 16277.711538 1.590544e+04 2190.150000 6134.250000  9078.400000
+#&gt; 452: 30855.365385 4.666055e+04 3577.400000 9091.000000 13683.000000
 #&gt;          upper_20     upper_50     upper_90
-#&gt;   1:     1.471267     1.558868     1.676190
-#&gt;   2:     1.483573     1.554856     1.658575
-#&gt;   3:     1.503652     1.552228     1.643400
-#&gt;   4:     1.534754     1.564510     1.633440
-#&gt;   5:     1.555749     1.588415     1.643303
+#&gt;   1:     1.530708     1.569151     1.740091
+#&gt;   2:     1.542325     1.583441     1.710257
+#&gt;   3:     1.561084     1.591649     1.684178
+#&gt;   4:     1.572235     1.608116     1.669520
+#&gt;   5:     1.587768     1.619502     1.691784
 #&gt;  ---                                       
-#&gt; 452:  7554.000000 10715.000000 23784.950000
-#&gt; 453:  9513.600000 12278.750000 26657.650000
-#&gt; 454: 12000.400000 18442.250000 48197.950000
-#&gt; 455: 11538.400000 21189.500000 46713.400000
-#&gt; 456: 17298.400000 23383.500000 93085.200000
+#&gt; 448:  8720.600000 13243.000000 23150.650000
+#&gt; 449: 11241.000000 15371.500000 33025.050000
+#&gt; 450: 15211.800000 22409.250000 63380.500000
+#&gt; 451: 15493.400000 19933.500000 48546.750000
+#&gt; 452: 22503.000000 34305.750000 83942.350000
 #&gt; 
 #&gt; 
 #&gt; 
 #&gt; $summarised_results
 #&gt; $summarised_results$table
 #&gt;      Region New confirmed cases by infection date
-#&gt; 1: realland                  21848 (585 -- 81822)
-#&gt; 2: testland                26444 (2176 -- 305371)
+#&gt; 1: realland                 24951 (2807 -- 86733)
+#&gt; 2: testland                 23619 (6896 -- 83558)
 #&gt;    Expected change in daily cases Effective reproduction no.
-#&gt; 1:              Likely increasing           1.5 (0.2 -- 3.6)
-#&gt; 2:              Likely increasing           1.6 (0.5 -- 3.9)
+#&gt; 1:              Likely increasing           1.5 (0.6 -- 2.5)
+#&gt; 2:              Likely increasing           1.5 (0.9 -- 2.3)
 #&gt;          Rate of growth Doubling/halving time (days)
-#&gt; 1: 0.13 (-0.26 -- 0.58)            5.1 (1.2 -- -2.7)
-#&gt; 2: 0.14 (-0.14 -- 0.62)            4.9 (1.1 -- -5.1)
+#&gt; 1: 0.14 (-0.12 -- 0.37)                5 (1.9 -- -6)
+#&gt; 2:  0.14 (-0.01 -- 0.3)             5.1 (2.3 -- -48)
 #&gt; 
 #&gt; $summarised_results$data
-#&gt;      region               estimate  median    mean       sd lower_90 lower_50
-#&gt; 1: testland 26444 (2176 -- 305371) 26444.0 73565.0 175739.0   2176.0  12816.0
-#&gt; 2: realland   21848 (585 -- 81822) 21848.0 31575.0  42014.0    585.0  10912.0
-#&gt; 3: testland       1.6 (0.5 -- 3.9)     1.6     1.7      1.1      0.5      1.2
-#&gt; 4: realland       1.5 (0.2 -- 3.6)     1.5     1.6      0.9      0.2      1.3
+#&gt;      region              estimate  median    mean      sd lower_90 lower_50
+#&gt; 1: realland 24951 (2807 -- 86733) 24951.0 30931.0 30794.0   2807.0  14004.0
+#&gt; 2: testland 23619 (6896 -- 83558) 23619.0 36847.0 62731.0   6896.0  13735.0
+#&gt; 3: realland      1.5 (0.6 -- 2.5)     1.5     1.5     0.6      0.6      1.4
+#&gt; 4: testland      1.5 (0.9 -- 2.3)     1.5     1.6     0.6      0.9      1.3
 #&gt;    lower_20 upper_20 upper_50 upper_90                                metric
-#&gt; 1:  22642.0  34012.0  41607.0 305371.0 New confirmed cases by infection date
-#&gt; 2:  20546.0  24604.0  32702.0  81822.0 New confirmed cases by infection date
-#&gt; 3:      1.5      1.6      1.7      3.9            Effective reproduction no.
-#&gt; 4:      1.5      1.6      1.6      3.6            Effective reproduction no.
+#&gt; 1:  20888.0  28114.0  35184.0  86733.0 New confirmed cases by infection date
+#&gt; 2:  18674.0  29418.0  34359.0  83558.0 New confirmed cases by infection date
+#&gt; 3:      1.5      1.6      1.7      2.5            Effective reproduction no.
+#&gt; 4:      1.4      1.6      1.8      2.3            Effective reproduction no.
 #&gt;    Expected change in daily cases
 #&gt; 1:              Likely increasing
 #&gt; 2:              Likely increasing
@@ -300,497 +300,497 @@ on the maximum number of reported cases.</p></td>
 #&gt; 4:              Likely increasing
 #&gt; 
 #&gt; $summarised_results$regions_by_inc
-#&gt; [1] "testland" "realland"
+#&gt; [1] "realland" "testland"
 #&gt; 
 #&gt; 
 #&gt; $summary_plot</div><div class='img'><img src='regional_summary-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $summarised_measures
 #&gt; $summarised_measures$rt
 #&gt;       region       date strat                           type median mean   sd
-#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate   1.39 1.37 0.25
-#&gt;  2: testland 2020-02-23  &lt;NA&gt;                       estimate   1.45 1.41 0.21
-#&gt;  3: realland 2020-02-22  &lt;NA&gt;                       estimate   1.49 1.41 0.29
-#&gt;  4: realland 2020-02-23  &lt;NA&gt;                       estimate   1.49 1.43 0.24
-#&gt;  5: testland 2020-02-24  &lt;NA&gt;                       estimate   1.49 1.45 0.17
-#&gt;  6: realland 2020-02-24  &lt;NA&gt;                       estimate   1.50 1.46 0.19
-#&gt;  7: realland 2020-03-15  &lt;NA&gt; estimate based on partial data   1.51 1.39 0.32
-#&gt;  8: realland 2020-03-16  &lt;NA&gt; estimate based on partial data   1.51 1.39 0.35
-#&gt;  9: realland 2020-03-17  &lt;NA&gt; estimate based on partial data   1.51 1.39 0.38
-#&gt; 10: realland 2020-03-14  &lt;NA&gt; estimate based on partial data   1.51 1.41 0.29
-#&gt; 11: realland 2020-03-13  &lt;NA&gt; estimate based on partial data   1.51 1.43 0.26
-#&gt; 12: realland 2020-03-12  &lt;NA&gt; estimate based on partial data   1.51 1.45 0.23
-#&gt; 13: testland 2020-02-25  &lt;NA&gt;                       estimate   1.51 1.48 0.13
-#&gt; 14: realland 2020-03-11  &lt;NA&gt; estimate based on partial data   1.51 1.48 0.19
-#&gt; 15: realland 2020-02-25  &lt;NA&gt;                       estimate   1.51 1.49 0.13
-#&gt; 16: realland 2020-03-18  &lt;NA&gt; estimate based on partial data   1.52 1.40 0.42
-#&gt; 17: realland 2020-03-19  &lt;NA&gt; estimate based on partial data   1.52 1.42 0.47
-#&gt; 18: realland 2020-03-20  &lt;NA&gt; estimate based on partial data   1.52 1.46 0.56
-#&gt; 19: realland 2020-03-10  &lt;NA&gt; estimate based on partial data   1.52 1.51 0.16
-#&gt; 20: realland 2020-02-26  &lt;NA&gt;                       estimate   1.52 1.52 0.09
-#&gt; 21: testland 2020-03-14  &lt;NA&gt; estimate based on partial data   1.53 1.51 0.22
-#&gt; 22: testland 2020-02-26  &lt;NA&gt;                       estimate   1.53 1.52 0.10
-#&gt; 23: testland 2020-03-13  &lt;NA&gt; estimate based on partial data   1.53 1.52 0.19
-#&gt; 24: realland 2020-03-21  &lt;NA&gt; estimate based on partial data   1.53 1.52 0.69
-#&gt; 25: realland 2020-03-09  &lt;NA&gt; estimate based on partial data   1.53 1.54 0.14
-#&gt; 26: realland 2020-03-22  &lt;NA&gt; estimate based on partial data   1.53 1.59 0.88
-#&gt; 27: realland 2020-03-23  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 28: realland 2020-03-24  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 29: realland 2020-03-25  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 30: realland 2020-03-26  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 31: realland 2020-03-27  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 32: realland 2020-03-28  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 33: realland 2020-03-29  &lt;NA&gt;                       forecast   1.53 1.59 0.88
-#&gt; 34: testland 2020-03-15  &lt;NA&gt; estimate based on partial data   1.54 1.51 0.27
-#&gt; 35: testland 2020-03-12  &lt;NA&gt; estimate based on partial data   1.54 1.53 0.17
-#&gt; 36: testland 2020-02-27  &lt;NA&gt;                       estimate   1.54 1.56 0.09
-#&gt; 37: realland 2020-02-27  &lt;NA&gt;                       estimate   1.54 1.56 0.09
-#&gt; 38: testland 2020-03-16  &lt;NA&gt; estimate based on partial data   1.55 1.51 0.32
-#&gt; 39: testland 2020-03-17  &lt;NA&gt; estimate based on partial data   1.55 1.52 0.40
-#&gt; 40: realland 2020-03-08  &lt;NA&gt; estimate based on partial data   1.55 1.58 0.13
-#&gt; 41: testland 2020-03-18  &lt;NA&gt; estimate based on partial data   1.56 1.54 0.49
-#&gt; 42: testland 2020-03-19  &lt;NA&gt; estimate based on partial data   1.56 1.57 0.60
-#&gt; 43: testland 2020-03-20  &lt;NA&gt; estimate based on partial data   1.56 1.62 0.74
-#&gt; 44: testland 2020-03-21  &lt;NA&gt; estimate based on partial data   1.56 1.67 0.91
-#&gt; 45: testland 2020-03-22  &lt;NA&gt; estimate based on partial data   1.56 1.74 1.13
-#&gt; 46: testland 2020-03-23  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 47: testland 2020-03-24  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 48: testland 2020-03-25  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 49: testland 2020-03-26  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 50: testland 2020-03-27  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 51: testland 2020-03-28  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 52: testland 2020-03-29  &lt;NA&gt;                       forecast   1.56 1.74 1.13
-#&gt; 53: testland 2020-03-11  &lt;NA&gt; estimate based on partial data   1.57 1.55 0.15
-#&gt; 54: testland 2020-03-10  &lt;NA&gt; estimate based on partial data   1.57 1.57 0.14
-#&gt; 55: testland 2020-02-28  &lt;NA&gt;                       estimate   1.57 1.59 0.10
-#&gt; 56: realland 2020-02-28  &lt;NA&gt;                       estimate   1.57 1.59 0.14
-#&gt; 57: testland 2020-03-08  &lt;NA&gt; estimate based on partial data   1.57 1.61 0.14
-#&gt; 58: testland 2020-03-09  &lt;NA&gt; estimate based on partial data   1.58 1.59 0.14
-#&gt; 59: realland 2020-02-29  &lt;NA&gt;                       estimate   1.58 1.63 0.20
-#&gt; 60: realland 2020-03-07  &lt;NA&gt;                       estimate   1.59 1.61 0.14
-#&gt; 61: testland 2020-02-29  &lt;NA&gt;                       estimate   1.59 1.62 0.11
-#&gt; 62: testland 2020-03-07  &lt;NA&gt;                       estimate   1.59 1.63 0.14
-#&gt; 63: realland 2020-03-06  &lt;NA&gt;                       estimate   1.60 1.63 0.16
-#&gt; 64: testland 2020-03-01  &lt;NA&gt;                       estimate   1.60 1.64 0.13
-#&gt; 65: testland 2020-03-06  &lt;NA&gt;                       estimate   1.60 1.64 0.14
-#&gt; 66: realland 2020-03-05  &lt;NA&gt;                       estimate   1.60 1.66 0.20
-#&gt; 67: realland 2020-03-04  &lt;NA&gt;                       estimate   1.60 1.67 0.23
-#&gt; 68: testland 2020-03-02  &lt;NA&gt;                       estimate   1.61 1.65 0.13
-#&gt; 69: testland 2020-03-05  &lt;NA&gt;                       estimate   1.61 1.65 0.14
-#&gt; 70: realland 2020-03-01  &lt;NA&gt;                       estimate   1.61 1.65 0.24
-#&gt; 71: realland 2020-03-03  &lt;NA&gt;                       estimate   1.61 1.67 0.25
-#&gt; 72: realland 2020-03-02  &lt;NA&gt;                       estimate   1.61 1.67 0.26
-#&gt; 73: testland 2020-03-04  &lt;NA&gt;                       estimate   1.63 1.66 0.14
-#&gt; 74: testland 2020-03-03  &lt;NA&gt;                       estimate   1.63 1.66 0.14
+#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate   1.46 1.47 0.19
+#&gt;  2: testland 2020-02-23  &lt;NA&gt;                       estimate   1.49 1.49 0.15
+#&gt;  3: testland 2020-03-15  &lt;NA&gt; estimate based on partial data   1.49 1.50 0.24
+#&gt;  4: testland 2020-03-14  &lt;NA&gt; estimate based on partial data   1.49 1.51 0.22
+#&gt;  5: testland 2020-03-20  &lt;NA&gt; estimate based on partial data   1.49 1.54 0.42
+#&gt;  6: testland 2020-03-16  &lt;NA&gt; estimate based on partial data   1.50 1.49 0.27
+#&gt;  7: realland 2020-02-22  &lt;NA&gt;                       estimate   1.50 1.50 0.18
+#&gt;  8: realland 2020-02-23  &lt;NA&gt;                       estimate   1.50 1.51 0.16
+#&gt;  9: testland 2020-03-13  &lt;NA&gt; estimate based on partial data   1.50 1.52 0.20
+#&gt; 10: testland 2020-03-12  &lt;NA&gt; estimate based on partial data   1.50 1.54 0.18
+#&gt; 11: testland 2020-03-19  &lt;NA&gt; estimate based on partial data   1.51 1.52 0.37
+#&gt; 12: testland 2020-03-21  &lt;NA&gt; estimate based on partial data   1.51 1.56 0.49
+#&gt; 13: testland 2020-03-17  &lt;NA&gt; estimate based on partial data   1.52 1.50 0.29
+#&gt; 14: testland 2020-03-18  &lt;NA&gt; estimate based on partial data   1.52 1.50 0.32
+#&gt; 15: realland 2020-02-24  &lt;NA&gt;                       estimate   1.52 1.52 0.13
+#&gt; 16: testland 2020-02-24  &lt;NA&gt;                       estimate   1.53 1.52 0.11
+#&gt; 17: testland 2020-03-22  &lt;NA&gt; estimate based on partial data   1.53 1.60 0.58
+#&gt; 18: realland 2020-03-19  &lt;NA&gt; estimate based on partial data   1.54 1.48 0.43
+#&gt; 19: realland 2020-03-20  &lt;NA&gt; estimate based on partial data   1.54 1.49 0.48
+#&gt; 20: realland 2020-03-15  &lt;NA&gt; estimate based on partial data   1.54 1.50 0.26
+#&gt; 21: realland 2020-03-21  &lt;NA&gt; estimate based on partial data   1.54 1.50 0.53
+#&gt; 22: realland 2020-03-22  &lt;NA&gt; estimate based on partial data   1.54 1.52 0.58
+#&gt; 23: realland 2020-03-23  &lt;NA&gt;                       forecast   1.54 1.54 0.65
+#&gt; 24: testland 2020-02-25  &lt;NA&gt;                       estimate   1.54 1.55 0.08
+#&gt; 25: realland 2020-03-17  &lt;NA&gt; estimate based on partial data   1.55 1.48 0.34
+#&gt; 26: realland 2020-03-18  &lt;NA&gt; estimate based on partial data   1.55 1.48 0.38
+#&gt; 27: realland 2020-03-16  &lt;NA&gt; estimate based on partial data   1.55 1.49 0.30
+#&gt; 28: realland 2020-02-25  &lt;NA&gt;                       estimate   1.55 1.54 0.11
+#&gt; 29: testland 2020-03-11  &lt;NA&gt; estimate based on partial data   1.55 1.56 0.15
+#&gt; 30: realland 2020-03-24  &lt;NA&gt;                       forecast   1.55 1.57 0.71
+#&gt; 31: realland 2020-02-26  &lt;NA&gt;                       estimate   1.56 1.55 0.09
+#&gt; 32: realland 2020-03-25  &lt;NA&gt;                       forecast   1.56 1.60 0.79
+#&gt; 33: realland 2020-03-14  &lt;NA&gt; estimate based on partial data   1.57 1.52 0.22
+#&gt; 34: realland 2020-03-12  &lt;NA&gt; estimate based on partial data   1.57 1.55 0.15
+#&gt; 35: realland 2020-02-27  &lt;NA&gt;                       estimate   1.57 1.57 0.08
+#&gt; 36: realland 2020-03-11  &lt;NA&gt; estimate based on partial data   1.57 1.57 0.12
+#&gt; 37: testland 2020-03-10  &lt;NA&gt; estimate based on partial data   1.57 1.58 0.14
+#&gt; 38: realland 2020-03-13  &lt;NA&gt; estimate based on partial data   1.58 1.53 0.18
+#&gt; 39: testland 2020-02-26  &lt;NA&gt;                       estimate   1.58 1.57 0.08
+#&gt; 40: testland 2020-03-23  &lt;NA&gt;                       forecast   1.58 1.64 0.69
+#&gt; 41: realland 2020-03-26  &lt;NA&gt;                       forecast   1.58 1.64 0.87
+#&gt; 42: testland 2020-03-24  &lt;NA&gt;                       forecast   1.58 1.69 0.83
+#&gt; 43: testland 2020-03-25  &lt;NA&gt;                       forecast   1.58 1.75 1.00
+#&gt; 44: realland 2020-02-28  &lt;NA&gt;                       estimate   1.59 1.59 0.07
+#&gt; 45: realland 2020-03-10  &lt;NA&gt; estimate based on partial data   1.59 1.59 0.11
+#&gt; 46: testland 2020-03-09  &lt;NA&gt; estimate based on partial data   1.59 1.60 0.12
+#&gt; 47: realland 2020-02-29  &lt;NA&gt;                       estimate   1.60 1.60 0.08
+#&gt; 48: testland 2020-02-27  &lt;NA&gt;                       estimate   1.60 1.60 0.09
+#&gt; 49: realland 2020-03-09  &lt;NA&gt; estimate based on partial data   1.60 1.61 0.11
+#&gt; 50: realland 2020-03-02  &lt;NA&gt;                       estimate   1.60 1.63 0.10
+#&gt; 51: realland 2020-03-08  &lt;NA&gt;                       estimate   1.60 1.63 0.12
+#&gt; 52: realland 2020-03-27  &lt;NA&gt;                       forecast   1.60 1.69 0.96
+#&gt; 53: realland 2020-03-01  &lt;NA&gt;                       estimate   1.61 1.62 0.09
+#&gt; 54: testland 2020-02-28  &lt;NA&gt;                       estimate   1.61 1.62 0.11
+#&gt; 55: realland 2020-03-03  &lt;NA&gt;                       estimate   1.61 1.64 0.12
+#&gt; 56: realland 2020-03-07  &lt;NA&gt;                       estimate   1.61 1.64 0.13
+#&gt; 57: realland 2020-03-04  &lt;NA&gt;                       estimate   1.61 1.64 0.13
+#&gt; 58: realland 2020-03-06  &lt;NA&gt;                       estimate   1.61 1.64 0.14
+#&gt; 59: realland 2020-03-28  &lt;NA&gt;                       forecast   1.61 1.74 1.07
+#&gt; 60: testland 2020-03-26  &lt;NA&gt;                       forecast   1.61 1.81 1.19
+#&gt; 61: realland 2020-03-05  &lt;NA&gt;                       estimate   1.62 1.65 0.13
+#&gt; 62: realland 2020-03-29  &lt;NA&gt;                       forecast   1.62 1.79 1.18
+#&gt; 63: testland 2020-03-08  &lt;NA&gt;                       estimate   1.63 1.62 0.11
+#&gt; 64: testland 2020-03-07  &lt;NA&gt;                       estimate   1.63 1.64 0.11
+#&gt; 65: testland 2020-02-29  &lt;NA&gt;                       estimate   1.63 1.65 0.12
+#&gt; 66: testland 2020-03-01  &lt;NA&gt;                       estimate   1.63 1.66 0.13
+#&gt; 67: testland 2020-03-06  &lt;NA&gt;                       estimate   1.64 1.66 0.12
+#&gt; 68: testland 2020-03-02  &lt;NA&gt;                       estimate   1.64 1.67 0.14
+#&gt; 69: testland 2020-03-27  &lt;NA&gt;                       forecast   1.64 1.88 1.41
+#&gt; 70: testland 2020-03-28  &lt;NA&gt;                       forecast   1.64 1.95 1.66
+#&gt; 71: testland 2020-03-29  &lt;NA&gt;                       forecast   1.64 2.02 1.92
+#&gt; 72: testland 2020-03-04  &lt;NA&gt;                       estimate   1.65 1.67 0.13
+#&gt; 73: testland 2020-03-03  &lt;NA&gt;                       estimate   1.65 1.68 0.14
+#&gt; 74: testland 2020-03-05  &lt;NA&gt;                       estimate   1.66 1.67 0.12
 #&gt;       region       date strat                           type median mean   sd
 #&gt;     lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
-#&gt;  1:     1.04     1.20     1.31     1.47     1.56     1.68
-#&gt;  2:     1.12     1.25     1.35     1.48     1.55     1.66
-#&gt;  3:     0.75     1.34     1.46     1.52     1.58     1.71
-#&gt;  4:     0.89     1.34     1.45     1.51     1.57     1.69
-#&gt;  5:     1.18     1.34     1.39     1.50     1.55     1.64
-#&gt;  6:     1.06     1.38     1.47     1.52     1.56     1.68
-#&gt;  7:     0.71     1.23     1.48     1.53     1.57     1.77
-#&gt;  8:     0.65     1.28     1.47     1.53     1.57     1.80
-#&gt;  9:     0.56     1.25     1.48     1.54     1.60     1.85
-#&gt; 10:     0.80     1.24     1.48     1.53     1.56     1.74
-#&gt; 11:     0.89     1.28     1.47     1.52     1.56     1.74
-#&gt; 12:     1.00     1.36     1.48     1.52     1.56     1.72
-#&gt; 13:     1.26     1.40     1.47     1.53     1.56     1.63
-#&gt; 14:     1.11     1.39     1.49     1.53     1.57     1.71
-#&gt; 15:     1.28     1.41     1.48     1.52     1.56     1.67
-#&gt; 16:     0.47     1.22     1.48     1.55     1.65     1.86
-#&gt; 17:     0.38     1.21     1.48     1.55     1.65     2.10
-#&gt; 18:     0.31     1.22     1.49     1.57     1.67     2.35
-#&gt; 19:     1.22     1.44     1.50     1.54     1.58     1.71
-#&gt; 20:     1.39     1.47     1.50     1.54     1.56     1.67
-#&gt; 21:     1.13     1.39     1.49     1.58     1.64     1.82
-#&gt; 22:     1.35     1.45     1.49     1.56     1.59     1.64
-#&gt; 23:     1.23     1.41     1.50     1.58     1.63     1.79
-#&gt; 24:     0.26     1.24     1.49     1.57     1.64     2.77
-#&gt; 25:     1.37     1.48     1.50     1.57     1.60     1.75
-#&gt; 26:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 27:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 28:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 29:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 30:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 31:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 32:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 33:     0.22     1.28     1.48     1.58     1.64     3.60
-#&gt; 34:     1.07     1.35     1.51     1.58     1.63     1.92
-#&gt; 35:     1.31     1.46     1.51     1.59     1.62     1.78
-#&gt; 36:     1.43     1.51     1.54     1.57     1.61     1.69
-#&gt; 37:     1.45     1.50     1.52     1.58     1.61     1.73
-#&gt; 38:     0.95     1.32     1.51     1.58     1.64     1.97
-#&gt; 39:     0.84     1.32     1.50     1.58     1.66     2.10
-#&gt; 40:     1.43     1.50     1.53     1.58     1.61     1.79
-#&gt; 41:     0.75     1.28     1.49     1.59     1.72     2.41
-#&gt; 42:     0.68     1.27     1.49     1.59     1.74     2.81
-#&gt; 43:     0.63     1.25     1.48     1.59     1.74     3.18
-#&gt; 44:     0.58     1.22     1.49     1.59     1.74     3.53
-#&gt; 45:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 46:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 47:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 48:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 49:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 50:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 51:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 52:     0.54     1.20     1.48     1.60     1.75     3.86
-#&gt; 53:     1.30     1.50     1.52     1.59     1.63     1.79
-#&gt; 54:     1.31     1.51     1.53     1.60     1.65     1.80
-#&gt; 55:     1.49     1.53     1.56     1.59     1.60     1.74
-#&gt; 56:     1.46     1.51     1.54     1.60     1.66     1.81
-#&gt; 57:     1.40     1.52     1.55     1.60     1.71     1.85
-#&gt; 58:     1.35     1.51     1.54     1.61     1.69     1.82
-#&gt; 59:     1.44     1.51     1.55     1.61     1.68     1.95
-#&gt; 60:     1.47     1.51     1.56     1.61     1.68     1.82
-#&gt; 61:     1.51     1.54     1.58     1.62     1.65     1.78
-#&gt; 62:     1.42     1.54     1.58     1.61     1.71     1.86
-#&gt; 63:     1.46     1.51     1.56     1.64     1.71     1.94
-#&gt; 64:     1.52     1.56     1.58     1.65     1.69     1.80
-#&gt; 65:     1.46     1.55     1.58     1.64     1.74     1.87
-#&gt; 66:     1.44     1.52     1.56     1.63     1.72     1.99
-#&gt; 67:     1.43     1.51     1.57     1.64     1.74     2.07
-#&gt; 68:     1.51     1.57     1.59     1.67     1.71     1.82
-#&gt; 69:     1.47     1.56     1.58     1.67     1.73     1.88
-#&gt; 70:     1.43     1.51     1.55     1.63     1.69     2.05
-#&gt; 71:     1.43     1.51     1.56     1.64     1.74     2.09
-#&gt; 72:     1.43     1.51     1.56     1.65     1.71     2.09
-#&gt; 73:     1.49     1.56     1.59     1.69     1.73     1.88
-#&gt; 74:     1.51     1.56     1.59     1.68     1.73     1.85
+#&gt;  1:     1.14     1.38     1.43     1.53     1.57     1.74
+#&gt;  2:     1.25     1.41     1.46     1.54     1.58     1.71
+#&gt;  3:     1.06     1.39     1.45     1.56     1.62     1.95
+#&gt;  4:     1.11     1.40     1.45     1.56     1.63     1.90
+#&gt;  5:     1.00     1.30     1.45     1.58     1.72     2.07
+#&gt;  6:     1.02     1.37     1.46     1.55     1.63     1.98
+#&gt;  7:     1.20     1.39     1.46     1.56     1.61     1.79
+#&gt;  8:     1.24     1.42     1.49     1.56     1.60     1.76
+#&gt;  9:     1.21     1.41     1.45     1.58     1.65     1.86
+#&gt; 10:     1.32     1.43     1.48     1.59     1.65     1.82
+#&gt; 11:     1.00     1.31     1.46     1.58     1.67     2.06
+#&gt; 12:     0.97     1.29     1.43     1.59     1.76     2.14
+#&gt; 13:     0.99     1.32     1.46     1.58     1.64     2.01
+#&gt; 14:     0.98     1.30     1.46     1.59     1.64     2.03
+#&gt; 15:     1.26     1.47     1.50     1.57     1.60     1.74
+#&gt; 16:     1.34     1.46     1.49     1.56     1.59     1.68
+#&gt; 17:     0.95     1.29     1.40     1.59     1.79     2.29
+#&gt; 18:     0.70     1.35     1.49     1.59     1.69     2.15
+#&gt; 19:     0.68     1.33     1.49     1.59     1.70     2.27
+#&gt; 20:     0.99     1.43     1.52     1.59     1.64     1.84
+#&gt; 21:     0.66     1.34     1.49     1.59     1.71     2.39
+#&gt; 22:     0.61     1.36     1.48     1.60     1.73     2.52
+#&gt; 23:     0.56     1.38     1.46     1.61     1.74     2.65
+#&gt; 24:     1.42     1.50     1.52     1.57     1.61     1.67
+#&gt; 25:     0.80     1.38     1.49     1.57     1.67     2.02
+#&gt; 26:     0.74     1.37     1.48     1.59     1.68     2.08
+#&gt; 27:     0.89     1.40     1.51     1.58     1.65     1.93
+#&gt; 28:     1.32     1.48     1.52     1.57     1.60     1.70
+#&gt; 29:     1.40     1.46     1.50     1.58     1.66     1.81
+#&gt; 30:     0.51     1.38     1.46     1.63     1.75     2.78
+#&gt; 31:     1.40     1.51     1.54     1.58     1.61     1.71
+#&gt; 32:     0.47     1.41     1.47     1.65     1.76     2.91
+#&gt; 33:     1.09     1.44     1.52     1.60     1.64     1.79
+#&gt; 34:     1.29     1.47     1.54     1.60     1.63     1.79
+#&gt; 35:     1.45     1.52     1.56     1.59     1.61     1.69
+#&gt; 36:     1.38     1.52     1.55     1.61     1.63     1.78
+#&gt; 37:     1.40     1.51     1.53     1.60     1.67     1.81
+#&gt; 38:     1.19     1.45     1.53     1.61     1.63     1.81
+#&gt; 39:     1.45     1.53     1.56     1.59     1.62     1.69
+#&gt; 40:     0.92     1.28     1.46     1.60     1.83     2.43
+#&gt; 41:     0.42     1.41     1.50     1.69     1.81     3.03
+#&gt; 42:     0.91     1.26     1.47     1.62     1.89     2.62
+#&gt; 43:     0.88     1.23     1.48     1.66     1.94     2.82
+#&gt; 44:     1.47     1.54     1.57     1.60     1.61     1.68
+#&gt; 45:     1.44     1.53     1.57     1.61     1.64     1.76
+#&gt; 46:     1.40     1.53     1.58     1.62     1.69     1.80
+#&gt; 47:     1.48     1.55     1.58     1.61     1.64     1.72
+#&gt; 48:     1.47     1.54     1.58     1.61     1.64     1.75
+#&gt; 49:     1.47     1.54     1.58     1.61     1.67     1.81
+#&gt; 50:     1.50     1.55     1.59     1.62     1.67     1.83
+#&gt; 51:     1.47     1.56     1.59     1.62     1.66     1.86
+#&gt; 52:     0.38     1.40     1.51     1.70     1.84     3.20
+#&gt; 53:     1.49     1.55     1.59     1.62     1.66     1.74
+#&gt; 54:     1.49     1.57     1.58     1.64     1.67     1.80
+#&gt; 55:     1.51     1.55     1.60     1.64     1.67     1.88
+#&gt; 56:     1.47     1.57     1.59     1.63     1.67     1.89
+#&gt; 57:     1.49     1.57     1.60     1.65     1.67     1.89
+#&gt; 58:     1.48     1.58     1.60     1.63     1.68     1.91
+#&gt; 59:     0.34     1.39     1.50     1.71     1.82     3.44
+#&gt; 60:     0.86     1.22     1.49     1.70     1.99     3.01
+#&gt; 61:     1.48     1.58     1.60     1.64     1.69     1.92
+#&gt; 62:     0.31     1.38     1.51     1.73     1.80     3.94
+#&gt; 63:     1.43     1.55     1.59     1.64     1.69     1.80
+#&gt; 64:     1.46     1.56     1.61     1.66     1.71     1.82
+#&gt; 65:     1.50     1.58     1.59     1.66     1.69     1.85
+#&gt; 66:     1.50     1.59     1.61     1.66     1.73     1.88
+#&gt; 67:     1.47     1.58     1.63     1.69     1.74     1.85
+#&gt; 68:     1.50     1.60     1.62     1.68     1.75     1.88
+#&gt; 69:     0.84     1.19     1.54     1.76     2.02     3.32
+#&gt; 70:     0.82     1.17     1.55     1.81     2.07     3.73
+#&gt; 71:     0.80     1.17     1.55     1.87     2.15     4.13
+#&gt; 72:     1.49     1.59     1.63     1.68     1.77     1.88
+#&gt; 73:     1.50     1.59     1.63     1.67     1.79     1.87
+#&gt; 74:     1.49     1.59     1.62     1.68     1.76     1.87
 #&gt;     lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
 #&gt; 
 #&gt; $summarised_measures$growth_rate
 #&gt;       region       date strat                           type median  mean    sd
-#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate  0.105 0.097 0.066
-#&gt;  2: testland 2020-02-23  &lt;NA&gt;                       estimate  0.115 0.106 0.054
-#&gt;  3: testland 2020-02-24  &lt;NA&gt;                       estimate  0.121 0.116 0.043
-#&gt;  4: realland 2020-02-22  &lt;NA&gt;                       estimate  0.126 0.103 0.077
-#&gt;  5: realland 2020-02-23  &lt;NA&gt;                       estimate  0.126 0.109 0.063
-#&gt;  6: realland 2020-03-13  &lt;NA&gt; estimate based on partial data  0.127 0.107 0.066
-#&gt;  7: realland 2020-03-12  &lt;NA&gt; estimate based on partial data  0.127 0.114 0.057
-#&gt;  8: testland 2020-02-25  &lt;NA&gt;                       estimate  0.127 0.126 0.033
-#&gt;  9: realland 2020-03-14  &lt;NA&gt; estimate based on partial data  0.128 0.102 0.076
-#&gt; 10: realland 2020-03-11  &lt;NA&gt; estimate based on partial data  0.128 0.121 0.048
-#&gt; 11: realland 2020-03-15  &lt;NA&gt; estimate based on partial data  0.129 0.098 0.085
-#&gt; 12: realland 2020-02-24  &lt;NA&gt;                       estimate  0.129 0.116 0.048
-#&gt; 13: realland 2020-02-25  &lt;NA&gt;                       estimate  0.129 0.124 0.032
-#&gt; 14: realland 2020-03-17  &lt;NA&gt; estimate based on partial data  0.131 0.095 0.103
-#&gt; 15: realland 2020-03-16  &lt;NA&gt; estimate based on partial data  0.131 0.096 0.094
-#&gt; 16: realland 2020-03-10  &lt;NA&gt; estimate based on partial data  0.131 0.129 0.039
-#&gt; 17: realland 2020-02-26  &lt;NA&gt;                       estimate  0.133 0.132 0.021
-#&gt; 18: realland 2020-03-18  &lt;NA&gt; estimate based on partial data  0.134 0.097 0.114
-#&gt; 19: realland 2020-03-19  &lt;NA&gt; estimate based on partial data  0.134 0.102 0.127
-#&gt; 20: realland 2020-03-20  &lt;NA&gt; estimate based on partial data  0.134 0.109 0.146
-#&gt; 21: realland 2020-03-21  &lt;NA&gt; estimate based on partial data  0.134 0.120 0.172
-#&gt; 22: testland 2020-02-26  &lt;NA&gt;                       estimate  0.134 0.135 0.026
-#&gt; 23: realland 2020-03-22  &lt;NA&gt; estimate based on partial data  0.135 0.134 0.207
-#&gt; 24: realland 2020-03-23  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 25: realland 2020-03-24  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 26: realland 2020-03-25  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 27: realland 2020-03-26  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 28: realland 2020-03-27  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 29: realland 2020-03-28  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 30: realland 2020-03-29  &lt;NA&gt;                       forecast  0.135 0.134 0.207
-#&gt; 31: realland 2020-03-09  &lt;NA&gt; estimate based on partial data  0.135 0.137 0.032
-#&gt; 32: testland 2020-03-14  &lt;NA&gt; estimate based on partial data  0.137 0.131 0.056
-#&gt; 33: testland 2020-03-13  &lt;NA&gt; estimate based on partial data  0.138 0.134 0.047
-#&gt; 34: realland 2020-02-27  &lt;NA&gt;                       estimate  0.140 0.141 0.023
-#&gt; 35: testland 2020-03-15  &lt;NA&gt; estimate based on partial data  0.141 0.130 0.067
-#&gt; 36: testland 2020-03-16  &lt;NA&gt; estimate based on partial data  0.141 0.130 0.081
-#&gt; 37: testland 2020-03-12  &lt;NA&gt; estimate based on partial data  0.141 0.138 0.041
-#&gt; 38: testland 2020-03-19  &lt;NA&gt; estimate based on partial data  0.141 0.141 0.142
-#&gt; 39: testland 2020-02-27  &lt;NA&gt;                       estimate  0.141 0.144 0.023
-#&gt; 40: realland 2020-03-08  &lt;NA&gt; estimate based on partial data  0.141 0.145 0.029
-#&gt; 41: testland 2020-03-20  &lt;NA&gt; estimate based on partial data  0.141 0.149 0.171
-#&gt; 42: testland 2020-03-17  &lt;NA&gt; estimate based on partial data  0.142 0.132 0.098
-#&gt; 43: testland 2020-03-21  &lt;NA&gt; estimate based on partial data  0.142 0.159 0.203
-#&gt; 44: testland 2020-03-22  &lt;NA&gt; estimate based on partial data  0.142 0.170 0.241
-#&gt; 45: testland 2020-03-23  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 46: testland 2020-03-24  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 47: testland 2020-03-25  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 48: testland 2020-03-26  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 49: testland 2020-03-27  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 50: testland 2020-03-28  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 51: testland 2020-03-29  &lt;NA&gt;                       forecast  0.142 0.170 0.241
-#&gt; 52: testland 2020-03-18  &lt;NA&gt; estimate based on partial data  0.143 0.136 0.118
-#&gt; 53: testland 2020-03-11  &lt;NA&gt; estimate based on partial data  0.143 0.142 0.037
-#&gt; 54: realland 2020-02-28  &lt;NA&gt;                       estimate  0.144 0.150 0.035
-#&gt; 55: testland 2020-03-10  &lt;NA&gt; estimate based on partial data  0.145 0.147 0.035
-#&gt; 56: testland 2020-03-09  &lt;NA&gt; estimate based on partial data  0.145 0.151 0.034
-#&gt; 57: realland 2020-03-07  &lt;NA&gt;                       estimate  0.145 0.152 0.031
-#&gt; 58: realland 2020-02-29  &lt;NA&gt;                       estimate  0.146 0.157 0.048
-#&gt; 59: realland 2020-03-06  &lt;NA&gt;                       estimate  0.146 0.159 0.038
-#&gt; 60: testland 2020-03-08  &lt;NA&gt; estimate based on partial data  0.147 0.156 0.033
-#&gt; 61: realland 2020-03-01  &lt;NA&gt;                       estimate  0.148 0.163 0.057
-#&gt; 62: realland 2020-03-05  &lt;NA&gt;                       estimate  0.148 0.164 0.047
-#&gt; 63: testland 2020-02-28  &lt;NA&gt;                       estimate  0.149 0.152 0.024
-#&gt; 64: realland 2020-03-02  &lt;NA&gt;                       estimate  0.149 0.167 0.061
-#&gt; 65: testland 2020-03-07  &lt;NA&gt;                       estimate  0.151 0.160 0.033
-#&gt; 66: realland 2020-03-04  &lt;NA&gt;                       estimate  0.151 0.167 0.055
-#&gt; 67: realland 2020-03-03  &lt;NA&gt;                       estimate  0.151 0.168 0.060
-#&gt; 68: testland 2020-02-29  &lt;NA&gt;                       estimate  0.153 0.158 0.027
-#&gt; 69: testland 2020-03-02  &lt;NA&gt;                       estimate  0.156 0.166 0.032
-#&gt; 70: testland 2020-03-01  &lt;NA&gt;                       estimate  0.157 0.163 0.030
-#&gt; 71: testland 2020-03-06  &lt;NA&gt;                       estimate  0.157 0.164 0.033
-#&gt; 72: testland 2020-03-05  &lt;NA&gt;                       estimate  0.158 0.167 0.033
-#&gt; 73: testland 2020-03-03  &lt;NA&gt;                       estimate  0.159 0.168 0.033
-#&gt; 74: testland 2020-03-04  &lt;NA&gt;                       estimate  0.161 0.168 0.033
+#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate  0.120 0.121 0.046
+#&gt;  2: testland 2020-03-16  &lt;NA&gt; estimate based on partial data  0.125 0.126 0.066
+#&gt;  3: testland 2020-02-23  &lt;NA&gt;                       estimate  0.125 0.127 0.036
+#&gt;  4: testland 2020-03-15  &lt;NA&gt; estimate based on partial data  0.125 0.127 0.060
+#&gt;  5: realland 2020-02-22  &lt;NA&gt;                       estimate  0.126 0.128 0.045
+#&gt;  6: testland 2020-03-14  &lt;NA&gt; estimate based on partial data  0.126 0.130 0.055
+#&gt;  7: testland 2020-03-13  &lt;NA&gt; estimate based on partial data  0.126 0.133 0.049
+#&gt;  8: testland 2020-03-20  &lt;NA&gt; estimate based on partial data  0.128 0.134 0.101
+#&gt;  9: realland 2020-02-23  &lt;NA&gt;                       estimate  0.129 0.131 0.039
+#&gt; 10: testland 2020-03-17  &lt;NA&gt; estimate based on partial data  0.130 0.126 0.073
+#&gt; 11: testland 2020-03-18  &lt;NA&gt; estimate based on partial data  0.133 0.127 0.080
+#&gt; 12: testland 2020-03-19  &lt;NA&gt; estimate based on partial data  0.133 0.130 0.089
+#&gt; 13: realland 2020-02-24  &lt;NA&gt;                       estimate  0.133 0.134 0.033
+#&gt; 14: testland 2020-03-21  &lt;NA&gt; estimate based on partial data  0.133 0.140 0.115
+#&gt; 15: testland 2020-03-12  &lt;NA&gt; estimate based on partial data  0.134 0.137 0.044
+#&gt; 16: testland 2020-02-24  &lt;NA&gt;                       estimate  0.135 0.133 0.027
+#&gt; 17: testland 2020-03-22  &lt;NA&gt; estimate based on partial data  0.135 0.147 0.133
+#&gt; 18: realland 2020-03-19  &lt;NA&gt; estimate based on partial data  0.140 0.120 0.113
+#&gt; 19: realland 2020-03-20  &lt;NA&gt; estimate based on partial data  0.140 0.120 0.125
+#&gt; 20: realland 2020-03-21  &lt;NA&gt; estimate based on partial data  0.140 0.122 0.138
+#&gt; 21: realland 2020-03-22  &lt;NA&gt; estimate based on partial data  0.140 0.125 0.151
+#&gt; 22: realland 2020-03-15  &lt;NA&gt; estimate based on partial data  0.140 0.128 0.066
+#&gt; 23: realland 2020-03-23  &lt;NA&gt;                       forecast  0.140 0.130 0.165
+#&gt; 24: realland 2020-02-25  &lt;NA&gt;                       estimate  0.140 0.138 0.028
+#&gt; 25: realland 2020-03-24  &lt;NA&gt;                       forecast  0.141 0.135 0.180
+#&gt; 26: realland 2020-03-18  &lt;NA&gt; estimate based on partial data  0.142 0.120 0.101
+#&gt; 27: testland 2020-02-25  &lt;NA&gt;                       estimate  0.142 0.140 0.021
+#&gt; 28: realland 2020-03-17  &lt;NA&gt; estimate based on partial data  0.143 0.122 0.089
+#&gt; 29: realland 2020-03-16  &lt;NA&gt; estimate based on partial data  0.143 0.125 0.077
+#&gt; 30: testland 2020-03-11  &lt;NA&gt; estimate based on partial data  0.143 0.142 0.038
+#&gt; 31: realland 2020-02-26  &lt;NA&gt;                       estimate  0.144 0.142 0.023
+#&gt; 32: realland 2020-03-14  &lt;NA&gt; estimate based on partial data  0.146 0.133 0.055
+#&gt; 33: realland 2020-03-25  &lt;NA&gt;                       forecast  0.146 0.142 0.196
+#&gt; 34: realland 2020-02-27  &lt;NA&gt;                       estimate  0.146 0.146 0.020
+#&gt; 35: testland 2020-03-10  &lt;NA&gt; estimate based on partial data  0.146 0.147 0.034
+#&gt; 36: testland 2020-03-23  &lt;NA&gt;                       forecast  0.146 0.156 0.155
+#&gt; 37: realland 2020-03-12  &lt;NA&gt; estimate based on partial data  0.147 0.142 0.037
+#&gt; 38: realland 2020-03-13  &lt;NA&gt; estimate based on partial data  0.148 0.137 0.045
+#&gt; 39: testland 2020-02-26  &lt;NA&gt;                       estimate  0.148 0.147 0.020
+#&gt; 40: realland 2020-02-28  &lt;NA&gt;                       estimate  0.148 0.150 0.018
+#&gt; 41: testland 2020-03-24  &lt;NA&gt;                       forecast  0.148 0.166 0.181
+#&gt; 42: realland 2020-03-11  &lt;NA&gt; estimate based on partial data  0.149 0.147 0.031
+#&gt; 43: realland 2020-03-26  &lt;NA&gt;                       forecast  0.149 0.149 0.212
+#&gt; 44: testland 2020-02-27  &lt;NA&gt;                       estimate  0.151 0.153 0.022
+#&gt; 45: realland 2020-03-27  &lt;NA&gt;                       forecast  0.151 0.157 0.230
+#&gt; 46: testland 2020-03-25  &lt;NA&gt;                       forecast  0.151 0.177 0.211
+#&gt; 47: realland 2020-03-10  &lt;NA&gt; estimate based on partial data  0.152 0.152 0.028
+#&gt; 48: testland 2020-03-09  &lt;NA&gt; estimate based on partial data  0.152 0.153 0.030
+#&gt; 49: realland 2020-03-01  &lt;NA&gt;                       estimate  0.152 0.157 0.021
+#&gt; 50: realland 2020-02-29  &lt;NA&gt;                       estimate  0.153 0.154 0.019
+#&gt; 51: realland 2020-03-09  &lt;NA&gt; estimate based on partial data  0.153 0.156 0.028
+#&gt; 52: realland 2020-03-02  &lt;NA&gt;                       estimate  0.153 0.160 0.023
+#&gt; 53: realland 2020-03-03  &lt;NA&gt;                       estimate  0.153 0.162 0.026
+#&gt; 54: realland 2020-03-28  &lt;NA&gt;                       forecast  0.153 0.167 0.249
+#&gt; 55: realland 2020-03-08  &lt;NA&gt;                       estimate  0.154 0.159 0.028
+#&gt; 56: realland 2020-03-04  &lt;NA&gt;                       estimate  0.155 0.163 0.029
+#&gt; 57: testland 2020-03-08  &lt;NA&gt;                       estimate  0.157 0.158 0.028
+#&gt; 58: testland 2020-02-28  &lt;NA&gt;                       estimate  0.157 0.159 0.027
+#&gt; 59: realland 2020-03-07  &lt;NA&gt;                       estimate  0.157 0.162 0.030
+#&gt; 60: testland 2020-03-26  &lt;NA&gt;                       forecast  0.157 0.189 0.245
+#&gt; 61: realland 2020-03-06  &lt;NA&gt;                       estimate  0.158 0.163 0.030
+#&gt; 62: realland 2020-03-05  &lt;NA&gt;                       estimate  0.158 0.164 0.030
+#&gt; 63: testland 2020-03-07  &lt;NA&gt;                       estimate  0.159 0.162 0.028
+#&gt; 64: testland 2020-02-29  &lt;NA&gt;                       estimate  0.160 0.164 0.031
+#&gt; 65: realland 2020-03-29  &lt;NA&gt;                       forecast  0.160 0.177 0.270
+#&gt; 66: testland 2020-03-06  &lt;NA&gt;                       estimate  0.161 0.166 0.029
+#&gt; 67: testland 2020-03-01  &lt;NA&gt;                       estimate  0.162 0.168 0.033
+#&gt; 68: testland 2020-03-02  &lt;NA&gt;                       estimate  0.165 0.170 0.034
+#&gt; 69: testland 2020-03-03  &lt;NA&gt;                       estimate  0.165 0.171 0.034
+#&gt; 70: testland 2020-03-29  &lt;NA&gt;                       forecast  0.166 0.227 0.364
+#&gt; 71: testland 2020-03-05  &lt;NA&gt;                       estimate  0.167 0.169 0.031
+#&gt; 72: testland 2020-03-04  &lt;NA&gt;                       estimate  0.168 0.171 0.033
+#&gt; 73: testland 2020-03-27  &lt;NA&gt;                       forecast  0.168 0.202 0.282
+#&gt; 74: testland 2020-03-28  &lt;NA&gt;                       forecast  0.169 0.215 0.323
 #&gt;       region       date strat                           type median  mean    sd
 #&gt;     lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
-#&gt;  1:    0.012    0.051    0.086    0.124    0.140    0.179
-#&gt;  2:    0.034    0.069    0.093    0.127    0.142    0.174
-#&gt;  3:    0.051    0.090    0.102    0.130    0.142    0.171
-#&gt;  4:   -0.072    0.084    0.117    0.132    0.150    0.180
-#&gt;  5:   -0.029    0.089    0.117    0.131    0.147    0.172
-#&gt;  6:   -0.031    0.074    0.121    0.135    0.143    0.184
-#&gt;  7:    0.000    0.093    0.121    0.136    0.143    0.179
-#&gt;  8:    0.071    0.107    0.120    0.137    0.147    0.171
-#&gt;  9:   -0.056    0.063    0.120    0.134    0.144    0.188
-#&gt; 10:    0.031    0.104    0.126    0.137    0.145    0.177
-#&gt; 11:   -0.083    0.057    0.120    0.136    0.146    0.193
-#&gt; 12:    0.017    0.100    0.115    0.132    0.144    0.167
-#&gt; 13:    0.075    0.108    0.120    0.136    0.143    0.164
-#&gt; 14:   -0.131    0.066    0.122    0.138    0.152    0.207
-#&gt; 15:   -0.101    0.074    0.119    0.136    0.146    0.200
-#&gt; 16:    0.059    0.115    0.127    0.138    0.146    0.176
-#&gt; 17:    0.099    0.120    0.129    0.139    0.144    0.161
-#&gt; 18:   -0.164    0.058    0.123    0.139    0.157    0.219
-#&gt; 19:   -0.195    0.056    0.124    0.140    0.159    0.275
-#&gt; 20:   -0.221    0.058    0.123    0.143    0.161    0.332
-#&gt; 21:   -0.242    0.064    0.125    0.144    0.161    0.418
-#&gt; 22:    0.097    0.118    0.126    0.140    0.151    0.177
-#&gt; 23:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 24:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 25:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 26:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 27:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 28:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 29:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 30:   -0.259    0.074    0.124    0.144    0.162    0.577
-#&gt; 31:    0.098    0.123    0.128    0.142    0.149    0.181
-#&gt; 32:    0.034    0.104    0.131    0.145    0.167    0.210
-#&gt; 33:    0.061    0.108    0.132    0.145    0.160    0.197
-#&gt; 34:    0.110    0.128    0.136    0.146    0.152    0.187
-#&gt; 35:    0.020    0.092    0.136    0.147    0.162    0.232
-#&gt; 36:   -0.014    0.087    0.136    0.147    0.164    0.246
-#&gt; 37:    0.082    0.119    0.137    0.148    0.159    0.194
-#&gt; 38:   -0.093    0.078    0.128    0.153    0.188    0.422
-#&gt; 39:    0.112    0.129    0.137    0.145    0.153    0.185
-#&gt; 40:    0.113    0.127    0.138    0.145    0.152    0.194
-#&gt; 41:   -0.109    0.067    0.128    0.154    0.189    0.491
-#&gt; 42:   -0.046    0.084    0.125    0.151    0.169    0.271
-#&gt; 43:   -0.123    0.059    0.128    0.155    0.195    0.559
-#&gt; 44:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 45:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 46:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 47:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 48:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 49:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 50:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 51:   -0.135    0.055    0.127    0.160    0.201    0.620
-#&gt; 52:   -0.074    0.075    0.128    0.154    0.181    0.339
-#&gt; 53:    0.081    0.124    0.139    0.149    0.162    0.198
-#&gt; 54:    0.118    0.128    0.141    0.147    0.158    0.210
-#&gt; 55:    0.082    0.128    0.139    0.154    0.167    0.204
-#&gt; 56:    0.092    0.134    0.142    0.154    0.177    0.210
-#&gt; 57:    0.120    0.130    0.142    0.153    0.165    0.195
-#&gt; 58:    0.114    0.130    0.141    0.152    0.166    0.241
-#&gt; 59:    0.120    0.130    0.142    0.154    0.173    0.228
-#&gt; 60:    0.104    0.138    0.143    0.152    0.180    0.218
-#&gt; 61:    0.114    0.131    0.142    0.156    0.171    0.263
-#&gt; 62:    0.116    0.132    0.144    0.157    0.175    0.245
-#&gt; 63:    0.124    0.139    0.143    0.151    0.158    0.194
-#&gt; 64:    0.114    0.129    0.143    0.158    0.172    0.273
-#&gt; 65:    0.114    0.142    0.147    0.158    0.181    0.222
-#&gt; 66:    0.113    0.133    0.145    0.155    0.178    0.265
-#&gt; 67:    0.113    0.132    0.144    0.156    0.174    0.273
-#&gt; 68:    0.131    0.140    0.150    0.158    0.167    0.198
-#&gt; 69:    0.135    0.143    0.151    0.169    0.182    0.209
-#&gt; 70:    0.136    0.142    0.151    0.161    0.176    0.200
-#&gt; 71:    0.124    0.142    0.147    0.163    0.184    0.224
-#&gt; 72:    0.127    0.144    0.150    0.168    0.180    0.232
-#&gt; 73:    0.132    0.142    0.151    0.172    0.183    0.218
-#&gt; 74:    0.131    0.143    0.152    0.173    0.183    0.226
+#&gt;  1:    0.039    0.099    0.113    0.131    0.148    0.188
+#&gt;  2:    0.005    0.097    0.120    0.140    0.160    0.246
+#&gt;  3:    0.067    0.111    0.120    0.137    0.147    0.182
+#&gt;  4:    0.015    0.101    0.117    0.138    0.160    0.239
+#&gt;  5:    0.052    0.104    0.119    0.141    0.156    0.197
+#&gt;  6:    0.028    0.103    0.118    0.144    0.162    0.229
+#&gt;  7:    0.054    0.108    0.118    0.144    0.161    0.217
+#&gt;  8:    0.001    0.079    0.118    0.154    0.177    0.270
+#&gt;  9:    0.060    0.109    0.125    0.142    0.156    0.190
+#&gt; 10:   -0.002    0.086    0.120    0.146    0.160    0.253
+#&gt; 11:   -0.005    0.084    0.118    0.148    0.160    0.260
+#&gt; 12:   -0.001    0.087    0.118    0.147    0.172    0.266
+#&gt; 13:    0.069    0.118    0.129    0.146    0.156    0.186
+#&gt; 14:   -0.007    0.075    0.112    0.153    0.185    0.280
+#&gt; 15:    0.081    0.112    0.123    0.149    0.161    0.206
+#&gt; 16:    0.089    0.119    0.129    0.141    0.149    0.176
+#&gt; 17:   -0.014    0.077    0.107    0.152    0.192    0.302
+#&gt; 18:   -0.084    0.091    0.127    0.150    0.175    0.285
+#&gt; 19:   -0.090    0.085    0.127    0.150    0.179    0.311
+#&gt; 20:   -0.099    0.086    0.126    0.152    0.181    0.338
+#&gt; 21:   -0.115    0.090    0.124    0.155    0.188    0.367
+#&gt; 22:   -0.003    0.109    0.135    0.151    0.163    0.211
+#&gt; 23:   -0.131    0.095    0.122    0.156    0.192    0.396
+#&gt; 24:    0.083    0.124    0.134    0.145    0.156    0.180
+#&gt; 25:   -0.146    0.100    0.123    0.160    0.195    0.426
+#&gt; 26:   -0.071    0.092    0.127    0.149    0.170    0.264
+#&gt; 27:    0.108    0.129    0.137    0.146    0.154    0.172
+#&gt; 28:   -0.055    0.092    0.130    0.148    0.167    0.252
+#&gt; 29:   -0.030    0.103    0.132    0.149    0.164    0.233
+#&gt; 30:    0.103    0.119    0.130    0.154    0.163    0.207
+#&gt; 31:    0.103    0.132    0.137    0.147    0.159    0.179
+#&gt; 32:    0.024    0.111    0.136    0.154    0.161    0.206
+#&gt; 33:   -0.162    0.105    0.125    0.161    0.197    0.455
+#&gt; 34:    0.114    0.133    0.141    0.149    0.160    0.178
+#&gt; 35:    0.103    0.131    0.139    0.156    0.169    0.206
+#&gt; 36:   -0.023    0.075    0.120    0.156    0.200    0.337
+#&gt; 37:    0.074    0.125    0.141    0.153    0.161    0.200
+#&gt; 38:    0.049    0.115    0.138    0.154    0.165    0.202
+#&gt; 39:    0.117    0.135    0.142    0.151    0.159    0.180
+#&gt; 40:    0.121    0.138    0.145    0.153    0.158    0.181
+#&gt; 41:   -0.025    0.070    0.122    0.165    0.225    0.377
+#&gt; 42:    0.098    0.133    0.143    0.153    0.159    0.195
+#&gt; 43:   -0.177    0.105    0.131    0.171    0.199    0.483
+#&gt; 44:    0.121    0.139    0.148    0.155    0.163    0.189
+#&gt; 45:   -0.192    0.102    0.134    0.174    0.219    0.516
+#&gt; 46:   -0.034    0.062    0.126    0.170    0.229    0.419
+#&gt; 47:    0.113    0.137    0.148    0.154    0.164    0.193
+#&gt; 48:    0.104    0.139    0.147    0.160    0.173    0.204
+#&gt; 49:    0.126    0.143    0.149    0.160    0.172    0.192
+#&gt; 50:    0.122    0.143    0.148    0.157    0.162    0.186
+#&gt; 51:    0.117    0.139    0.148    0.157    0.171    0.203
+#&gt; 52:    0.132    0.143    0.149    0.162    0.177    0.202
+#&gt; 53:    0.133    0.143    0.150    0.164    0.179    0.214
+#&gt; 54:   -0.206    0.100    0.130    0.178    0.212    0.567
+#&gt; 55:    0.121    0.145    0.152    0.159    0.169    0.204
+#&gt; 56:    0.129    0.145    0.151    0.165    0.175    0.216
+#&gt; 57:    0.113    0.139    0.152    0.161    0.177    0.202
+#&gt; 58:    0.122    0.144    0.151    0.161    0.168    0.206
+#&gt; 59:    0.122    0.146    0.153    0.159    0.174    0.222
+#&gt; 60:   -0.041    0.058    0.129    0.176    0.235    0.459
+#&gt; 61:    0.123    0.146    0.154    0.161    0.175    0.223
+#&gt; 62:    0.125    0.146    0.152    0.164    0.175    0.220
+#&gt; 63:    0.119    0.145    0.155    0.171    0.180    0.212
+#&gt; 64:    0.126    0.147    0.155    0.163    0.176    0.217
+#&gt; 65:   -0.221    0.097    0.133    0.182    0.206    0.622
+#&gt; 66:    0.121    0.148    0.155    0.178    0.184    0.218
+#&gt; 67:    0.125    0.148    0.157    0.167    0.178    0.221
+#&gt; 68:    0.128    0.153    0.159    0.170    0.185    0.223
+#&gt; 69:    0.126    0.153    0.160    0.174    0.194    0.223
+#&gt; 70:   -0.057    0.046    0.142    0.216    0.275    0.649
+#&gt; 71:    0.124    0.150    0.157    0.176    0.191    0.225
+#&gt; 72:    0.126    0.152    0.158    0.176    0.196    0.222
+#&gt; 73:   -0.047    0.049    0.136    0.190    0.243    0.535
+#&gt; 74:   -0.051    0.045    0.139    0.204    0.252    0.618
 #&gt;     lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
 #&gt; 
 #&gt; $summarised_measures$cases_by_infection
-#&gt;        region       date strat     type median     mean       sd lower_90
-#&gt;   1: testland 2020-02-07  &lt;NA&gt; estimate      2        2        0        2
-#&gt;   2: realland 2020-02-07  &lt;NA&gt; estimate      2        2        0        2
-#&gt;   3: testland 2020-02-08  &lt;NA&gt; estimate     11       11        1        9
-#&gt;   4: realland 2020-02-08  &lt;NA&gt; estimate     11       11        1        9
-#&gt;   5: testland 2020-02-09  &lt;NA&gt; estimate     18       18        2       16
-#&gt;  ---                                                                     
-#&gt; 100: realland 2020-03-28  &lt;NA&gt; forecast  48390   419455  1599479      132
-#&gt; 101: testland 2020-03-27  &lt;NA&gt; forecast  53082  2183595  9589731     1156
-#&gt; 102: realland 2020-03-29  &lt;NA&gt; forecast  55327   730747  2942776      103
-#&gt; 103: testland 2020-03-28  &lt;NA&gt; forecast  61423  4717446 21482772     1019
-#&gt; 104: testland 2020-03-29  &lt;NA&gt; forecast  70346 10303314 48174895      898
+#&gt;        region       date strat     type median     mean        sd lower_90
+#&gt;   1: testland 2020-02-08  &lt;NA&gt; estimate      2        2         0        2
+#&gt;   2: realland 2020-02-08  &lt;NA&gt; estimate      2        2         0        2
+#&gt;   3: testland 2020-02-09  &lt;NA&gt; estimate     11       11         1        9
+#&gt;   4: realland 2020-02-09  &lt;NA&gt; estimate     11       11         1        9
+#&gt;   5: realland 2020-02-10  &lt;NA&gt; estimate     18       18         2       16
+#&gt;  ---                                                                      
+#&gt;  98: realland 2020-03-27  &lt;NA&gt; forecast  50261   225238    824660     1083
+#&gt;  99: testland 2020-03-28  &lt;NA&gt; forecast  55861  5327271  37414353     5918
+#&gt; 100: realland 2020-03-28  &lt;NA&gt; forecast  56710   445203   2002715      842
+#&gt; 101: realland 2020-03-29  &lt;NA&gt; forecast  65249   985980   5196161      620
+#&gt; 102: testland 2020-03-29  &lt;NA&gt; forecast  65766 22387929 159990252     5481
 #&gt;      lower_50 lower_20 upper_20 upper_50 upper_90
 #&gt;   1:        2        2        2        2        2
 #&gt;   2:        2        2        2        2        2
-#&gt;   3:       10       11       11       11       13
+#&gt;   3:       10       11       11       12       13
 #&gt;   4:       10       11       11       12       13
-#&gt;   5:       17       17       19       20       21
+#&gt;   5:       17       17       18       19       21
 #&gt;  ---                                             
-#&gt; 100:    13943    40794    55570    88727  1367663
-#&gt; 101:    18938    39955    66451    97883  5016675
-#&gt; 102:    14947    46253    63343   105058  2299984
-#&gt; 103:    20694    45147    78382   116942  8819442
-#&gt; 104:    21622    51013    92497   139715 15523029
+#&gt;  98:    18222    43128    59233    95347   747675
+#&gt;  99:    21857    38831    75421   138901   815592
+#&gt; 100:    23543    47930    71120   118303  1246093
+#&gt; 101:    30552    53300    84708   144102  2137340
+#&gt; 102:    24533    43188    86659   176892  1315728
 #&gt; 
 #&gt; $summarised_measures$cases_by_report
 #&gt;       region       date strat                           type median   mean
-#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate     64     84
-#&gt;  2: realland 2020-02-22  &lt;NA&gt;                       estimate     74     83
-#&gt;  3: realland 2020-02-23  &lt;NA&gt;                       estimate     97    138
-#&gt;  4: testland 2020-02-23  &lt;NA&gt;                       estimate    108    118
-#&gt;  5: testland 2020-02-24  &lt;NA&gt;                       estimate    153    161
-#&gt;  6: realland 2020-02-26  &lt;NA&gt;                       estimate    158    191
-#&gt;  7: realland 2020-02-24  &lt;NA&gt;                       estimate    163    193
-#&gt;  8: testland 2020-02-26  &lt;NA&gt;                       estimate    169    186
-#&gt;  9: realland 2020-02-25  &lt;NA&gt;                       estimate    188    216
-#&gt; 10: testland 2020-02-25  &lt;NA&gt;                       estimate    202    260
-#&gt; 11: testland 2020-02-27  &lt;NA&gt;                       estimate    218    256
-#&gt; 12: realland 2020-02-27  &lt;NA&gt;                       estimate    252    305
-#&gt; 13: realland 2020-02-29  &lt;NA&gt;                       estimate    254    267
-#&gt; 14: testland 2020-02-29  &lt;NA&gt;                       estimate    286    324
-#&gt; 15: realland 2020-03-01  &lt;NA&gt;                       estimate    305    394
-#&gt; 16: realland 2020-02-28  &lt;NA&gt;                       estimate    306    366
-#&gt; 17: testland 2020-02-28  &lt;NA&gt;                       estimate    332    366
-#&gt; 18: testland 2020-03-01  &lt;NA&gt;                       estimate    398    471
-#&gt; 19: testland 2020-03-02  &lt;NA&gt;                       estimate    410    502
-#&gt; 20: realland 2020-03-04  &lt;NA&gt;                       estimate    436    566
-#&gt; 21: testland 2020-03-05  &lt;NA&gt;                       estimate    488    745
-#&gt; 22: realland 2020-03-02  &lt;NA&gt;                       estimate    490    598
-#&gt; 23: testland 2020-03-04  &lt;NA&gt;                       estimate    502    530
-#&gt; 24: testland 2020-03-03  &lt;NA&gt;                       estimate    570    689
-#&gt; 25: realland 2020-03-03  &lt;NA&gt;                       estimate    583    606
-#&gt; 26: realland 2020-03-05  &lt;NA&gt;                       estimate    690    744
-#&gt; 27: realland 2020-03-07  &lt;NA&gt;                       estimate    743    892
-#&gt; 28: testland 2020-03-07  &lt;NA&gt;                       estimate    805    860
-#&gt; 29: testland 2020-03-06  &lt;NA&gt;                       estimate    844   1122
-#&gt; 30: realland 2020-03-06  &lt;NA&gt;                       estimate    850    919
-#&gt; 31: testland 2020-03-08  &lt;NA&gt; estimate based on partial data    896   1121
-#&gt; 32: testland 2020-03-11  &lt;NA&gt; estimate based on partial data    968   1259
-#&gt; 33: realland 2020-03-08  &lt;NA&gt; estimate based on partial data   1072   1309
-#&gt; 34: realland 2020-03-10  &lt;NA&gt; estimate based on partial data   1384   1615
-#&gt; 35: testland 2020-03-10  &lt;NA&gt; estimate based on partial data   1386   2020
-#&gt; 36: realland 2020-03-09  &lt;NA&gt; estimate based on partial data   1402   1580
-#&gt; 37: realland 2020-03-11  &lt;NA&gt; estimate based on partial data   1458   1477
-#&gt; 38: testland 2020-03-09  &lt;NA&gt; estimate based on partial data   1494   1574
-#&gt; 39: testland 2020-03-12  &lt;NA&gt; estimate based on partial data   1548   1923
-#&gt; 40: realland 2020-03-12  &lt;NA&gt; estimate based on partial data   1554   1971
-#&gt; 41: realland 2020-03-14  &lt;NA&gt; estimate based on partial data   1790   2262
-#&gt; 42: realland 2020-03-13  &lt;NA&gt; estimate based on partial data   2220   2570
-#&gt; 43: testland 2020-03-15  &lt;NA&gt; estimate based on partial data   2339   2816
-#&gt; 44: testland 2020-03-14  &lt;NA&gt; estimate based on partial data   2444   2775
-#&gt; 45: testland 2020-03-13  &lt;NA&gt; estimate based on partial data   2456   2750
-#&gt; 46: realland 2020-03-15  &lt;NA&gt; estimate based on partial data   2714   3459
-#&gt; 47: testland 2020-03-18  &lt;NA&gt; estimate based on partial data   2812   3364
-#&gt; 48: realland 2020-03-16  &lt;NA&gt; estimate based on partial data   2972   4233
-#&gt; 49: realland 2020-03-18  &lt;NA&gt; estimate based on partial data   2974   3494
-#&gt; 50: realland 2020-03-17  &lt;NA&gt; estimate based on partial data   3386   3697
-#&gt; 51: testland 2020-03-16  &lt;NA&gt; estimate based on partial data   3494   3856
-#&gt; 52: realland 2020-03-21  &lt;NA&gt; estimate based on partial data   3584   5094
-#&gt; 53: testland 2020-03-17  &lt;NA&gt; estimate based on partial data   3708   4885
-#&gt; 54: testland 2020-03-19  &lt;NA&gt; estimate based on partial data   4097   4729
-#&gt; 55: realland 2020-03-20  &lt;NA&gt; estimate based on partial data   4283   4965
-#&gt; 56: realland 2020-03-19  &lt;NA&gt; estimate based on partial data   4447   4960
-#&gt; 57: testland 2020-03-21  &lt;NA&gt; estimate based on partial data   4618   5933
-#&gt; 58: realland 2020-03-22  &lt;NA&gt; estimate based on partial data   4776   6375
-#&gt; 59: testland 2020-03-20  &lt;NA&gt; estimate based on partial data   6484   6960
-#&gt; 60: realland 2020-03-25  &lt;NA&gt;                       forecast   6745   9004
-#&gt; 61: testland 2020-03-25  &lt;NA&gt;                       forecast   7150  11997
-#&gt; 62: realland 2020-03-23  &lt;NA&gt;                       forecast   7262   9821
-#&gt; 63: testland 2020-03-22  &lt;NA&gt; estimate based on partial data   7532   8425
-#&gt; 64: realland 2020-03-26  &lt;NA&gt;                       forecast   7621  10010
-#&gt; 65: realland 2020-03-24  &lt;NA&gt;                       forecast   8110  10001
-#&gt; 66: realland 2020-03-28  &lt;NA&gt;                       forecast   8171  14687
-#&gt; 67: testland 2020-03-23  &lt;NA&gt;                       forecast   8554  11366
-#&gt; 68: testland 2020-03-26  &lt;NA&gt;                       forecast   9157  19889
-#&gt; 69: testland 2020-03-24  &lt;NA&gt;                       forecast   9274  15919
-#&gt; 70: realland 2020-03-27  &lt;NA&gt;                       forecast  10390  16960
-#&gt; 71: testland 2020-03-27  &lt;NA&gt;                       forecast  12093  46362
-#&gt; 72: realland 2020-03-29  &lt;NA&gt;                       forecast  12614  29465
-#&gt; 73: testland 2020-03-28  &lt;NA&gt;                       forecast  12653  40026
-#&gt; 74: testland 2020-03-29  &lt;NA&gt;                       forecast  16009 133023
+#&gt;  1: testland 2020-02-22  &lt;NA&gt;                       estimate     59     73
+#&gt;  2: realland 2020-02-22  &lt;NA&gt;                       estimate     72     75
+#&gt;  3: realland 2020-02-23  &lt;NA&gt;                       estimate    112    125
+#&gt;  4: testland 2020-02-26  &lt;NA&gt;                       estimate    112    145
+#&gt;  5: testland 2020-02-23  &lt;NA&gt;                       estimate    122    123
+#&gt;  6: realland 2020-02-26  &lt;NA&gt;                       estimate    134    153
+#&gt;  7: realland 2020-02-24  &lt;NA&gt;                       estimate    165    178
+#&gt;  8: realland 2020-02-25  &lt;NA&gt;                       estimate    172    198
+#&gt;  9: testland 2020-02-25  &lt;NA&gt;                       estimate    175    197
+#&gt; 10: testland 2020-02-24  &lt;NA&gt;                       estimate    202    206
+#&gt; 11: testland 2020-02-29  &lt;NA&gt;                       estimate    214    261
+#&gt; 12: realland 2020-02-29  &lt;NA&gt;                       estimate    238    284
+#&gt; 13: testland 2020-02-27  &lt;NA&gt;                       estimate    250    264
+#&gt; 14: realland 2020-02-27  &lt;NA&gt;                       estimate    250    268
+#&gt; 15: realland 2020-02-28  &lt;NA&gt;                       estimate    286    347
+#&gt; 16: realland 2020-03-01  &lt;NA&gt;                       estimate    340    383
+#&gt; 17: testland 2020-03-01  &lt;NA&gt;                       estimate    348    397
+#&gt; 18: testland 2020-02-28  &lt;NA&gt;                       estimate    390    413
+#&gt; 19: realland 2020-03-04  &lt;NA&gt;                       estimate    399    488
+#&gt; 20: realland 2020-03-02  &lt;NA&gt;                       estimate    420    554
+#&gt; 21: testland 2020-03-04  &lt;NA&gt;                       estimate    438    438
+#&gt; 22: realland 2020-03-03  &lt;NA&gt;                       estimate    440    506
+#&gt; 23: testland 2020-03-05  &lt;NA&gt;                       estimate    460    631
+#&gt; 24: testland 2020-03-02  &lt;NA&gt;                       estimate    474    556
+#&gt; 25: testland 2020-03-03  &lt;NA&gt;                       estimate    531    603
+#&gt; 26: realland 2020-03-05  &lt;NA&gt;                       estimate    607    627
+#&gt; 27: realland 2020-03-07  &lt;NA&gt;                       estimate    668    838
+#&gt; 28: testland 2020-03-06  &lt;NA&gt;                       estimate    774    946
+#&gt; 29: testland 2020-03-07  &lt;NA&gt;                       estimate    812    871
+#&gt; 30: testland 2020-03-08  &lt;NA&gt;                       estimate    879   1046
+#&gt; 31: realland 2020-03-06  &lt;NA&gt;                       estimate    910    975
+#&gt; 32: realland 2020-03-08  &lt;NA&gt;                       estimate   1049   1162
+#&gt; 33: testland 2020-03-11  &lt;NA&gt; estimate based on partial data   1076   1256
+#&gt; 34: realland 2020-03-11  &lt;NA&gt; estimate based on partial data   1125   1229
+#&gt; 35: realland 2020-03-09  &lt;NA&gt; estimate based on partial data   1127   1539
+#&gt; 36: realland 2020-03-10  &lt;NA&gt; estimate based on partial data   1202   1286
+#&gt; 37: testland 2020-03-10  &lt;NA&gt; estimate based on partial data   1335   1571
+#&gt; 38: testland 2020-03-09  &lt;NA&gt; estimate based on partial data   1494   1738
+#&gt; 39: realland 2020-03-12  &lt;NA&gt; estimate based on partial data   1735   2173
+#&gt; 40: realland 2020-03-14  &lt;NA&gt; estimate based on partial data   1781   2238
+#&gt; 41: testland 2020-03-12  &lt;NA&gt; estimate based on partial data   1942   2368
+#&gt; 42: testland 2020-03-13  &lt;NA&gt; estimate based on partial data   2108   2811
+#&gt; 43: testland 2020-03-14  &lt;NA&gt; estimate based on partial data   2201   2439
+#&gt; 44: realland 2020-03-13  &lt;NA&gt; estimate based on partial data   2444   2651
+#&gt; 45: realland 2020-03-15  &lt;NA&gt; estimate based on partial data   2536   2670
+#&gt; 46: realland 2020-03-18  &lt;NA&gt; estimate based on partial data   2820   3468
+#&gt; 47: testland 2020-03-15  &lt;NA&gt; estimate based on partial data   3171   3445
+#&gt; 48: testland 2020-03-18  &lt;NA&gt; estimate based on partial data   3328   3528
+#&gt; 49: realland 2020-03-17  &lt;NA&gt; estimate based on partial data   3758   4195
+#&gt; 50: testland 2020-03-16  &lt;NA&gt; estimate based on partial data   3875   4366
+#&gt; 51: testland 2020-03-17  &lt;NA&gt; estimate based on partial data   4106   4741
+#&gt; 52: realland 2020-03-16  &lt;NA&gt; estimate based on partial data   4248   4931
+#&gt; 53: testland 2020-03-21  &lt;NA&gt; estimate based on partial data   4318   4925
+#&gt; 54: realland 2020-03-21  &lt;NA&gt; estimate based on partial data   4320   5536
+#&gt; 55: testland 2020-03-19  &lt;NA&gt; estimate based on partial data   4816   5492
+#&gt; 56: realland 2020-03-19  &lt;NA&gt; estimate based on partial data   4926   5784
+#&gt; 57: testland 2020-03-20  &lt;NA&gt; estimate based on partial data   6078   7199
+#&gt; 58: realland 2020-03-20  &lt;NA&gt; estimate based on partial data   6180   6622
+#&gt; 59: testland 2020-03-22  &lt;NA&gt; estimate based on partial data   6380   7782
+#&gt; 60: testland 2020-03-25  &lt;NA&gt;                       forecast   7464   9563
+#&gt; 61: realland 2020-03-23  &lt;NA&gt;                       forecast   8100  10228
+#&gt; 62: realland 2020-03-25  &lt;NA&gt;                       forecast   8135   9822
+#&gt; 63: realland 2020-03-22  &lt;NA&gt; estimate based on partial data   8190   8179
+#&gt; 64: realland 2020-03-24  &lt;NA&gt;                       forecast   8788  10648
+#&gt; 65: testland 2020-03-23  &lt;NA&gt;                       forecast   9456  12251
+#&gt; 66: realland 2020-03-26  &lt;NA&gt;                       forecast   9759  12917
+#&gt; 67: testland 2020-03-24  &lt;NA&gt;                       forecast   9843  11955
+#&gt; 68: testland 2020-03-28  &lt;NA&gt;                       forecast  10365  38048
+#&gt; 69: realland 2020-03-28  &lt;NA&gt;                       forecast  10647  16278
+#&gt; 70: testland 2020-03-26  &lt;NA&gt;                       forecast  11530  16963
+#&gt; 71: realland 2020-03-27  &lt;NA&gt;                       forecast  13246  20690
+#&gt; 72: testland 2020-03-29  &lt;NA&gt;                       forecast  15642 126648
+#&gt; 73: testland 2020-03-27  &lt;NA&gt;                       forecast  16086  27340
+#&gt; 74: realland 2020-03-29  &lt;NA&gt;                       forecast  17138  30855
 #&gt;       region       date strat                           type median   mean
 #&gt;         sd lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
-#&gt;  1:     73       19       44       56       70       96      245
-#&gt;  2:     50       30       48       60       85      107      153
-#&gt;  3:    117       42       73       90      143      168      286
-#&gt;  4:     76       15       65       90      131      156      242
-#&gt;  5:     87       46       89      135      181      204      321
-#&gt;  6:    132       49       98      127      197      247      464
-#&gt;  7:    123       60      106      137      192      244      421
-#&gt;  8:    119       50       93      153      189      228      403
-#&gt;  9:    143       38      100      167      233      294      497
-#&gt; 10:    222       58      118      150      256      345      581
-#&gt; 11:    159       77      152      182      250      346      567
-#&gt; 12:    218       95      154      225      287      394      626
-#&gt; 13:    128       78      162      209      294      368      469
-#&gt; 14:    198       77      172      244      359      427      710
-#&gt; 15:    303       74      176      250      328      558     1004
-#&gt; 16:    212      138      228      282      346      468      717
-#&gt; 17:    200       90      231      297      349      479      720
-#&gt; 18:    270      187      268      336      443      593      987
-#&gt; 19:    346       86      281      370      461      694     1018
-#&gt; 20:    418       92      285      360      590      795     1237
-#&gt; 21:    797      163      318      447      678      872     1852
-#&gt; 22:    425      148      308      397      610      764     1451
-#&gt; 23:    305      128      280      425      587      702     1033
-#&gt; 24:    492      207      329      464      678      840     1789
-#&gt; 25:    333      155      336      462      620      832     1171
-#&gt; 26:    434      199      421      592      785      928     1482
-#&gt; 27:    677      205      434      605      844     1155     1828
-#&gt; 28:    483      230      530      756      891     1084     1707
-#&gt; 29:    731      282      560      724     1256     1635     2334
-#&gt; 30:    567      189      437      721     1058     1194     2014
-#&gt; 31:    635      263      693      815     1159     1572     2169
-#&gt; 32:    907      359      726      869     1123     1452     3225
-#&gt; 33:   1028      154      610      960     1232     1608     3387
-#&gt; 34:    981      433      886     1048     1811     2170     3337
-#&gt; 35:   1610      418      984     1230     2065     2573     5480
-#&gt; 36:    963      584      867     1121     1495     1991     3089
-#&gt; 37:    865      328      818     1182     1519     1875     3001
-#&gt; 38:    811      549      918     1291     1719     1944     3219
-#&gt; 39:   1371      534      887     1276     1777     2456     4291
-#&gt; 40:   1629      428     1154     1340     1704     2100     4987
-#&gt; 41:   1565      553     1090     1588     2096     3060     5363
-#&gt; 42:   1721      581     1487     1818     2338     3395     6003
-#&gt; 43:   1674      880     1723     2134     2713     3538     6253
-#&gt; 44:   1686      937     1692     1984     2599     3442     5331
-#&gt; 45:   1433      920     1712     2059     3041     3572     5444
-#&gt; 46:   3695      636     1825     2299     3244     4007     6548
-#&gt; 47:   2120      925     1860     2415     3263     4062     6999
-#&gt; 48:   3408     1335     1916     2532     3616     5687     9174
-#&gt; 49:   2841     1140     1736     2278     3165     4027     8997
-#&gt; 50:   2431      961     2064     2770     3765     4928     7916
-#&gt; 51:   1966     1303     2457     2919     3991     4866     7313
-#&gt; 52:   3744     1448     2548     3021     5408     6690    13037
-#&gt; 53:   3805      927     2044     3315     4989     6084    12096
-#&gt; 54:   3060     1085     2765     3810     4841     5530    11310
-#&gt; 55:   3216     1456     2998     3848     4606     6005    11046
-#&gt; 56:   3286     1559     2362     3710     4727     5926    11185
-#&gt; 57:   4270     1696     3099     4073     5726     7686    14203
-#&gt; 58:   4798     1831     2933     3507     5604     8144    16986
-#&gt; 59:   4306     1550     4228     5583     7542     8359    14339
-#&gt; 60:   8839     1667     3829     6232     7554    10715    23785
-#&gt; 61:  13648     1505     4959     5938     9446    15518    34827
-#&gt; 62:   7807     3279     4682     5717     9939    11644    23891
-#&gt; 63:   5257     1949     4379     6132     9052    11109    18190
-#&gt; 64:   9015     1633     3992     5921     9514    12279    26658
-#&gt; 65:   7641     2280     4095     6569     9156    13692    24783
-#&gt; 66:  17833     1511     3116     5941    11538    21190    46713
-#&gt; 67:  10212     2363     4580     7160    10286    15334    29651
-#&gt; 68:  34734     2493     5713     7675    13253    20735    40438
-#&gt; 69:  19821     1487     4653     7045    10898    21275    46881
-#&gt; 70:  18870     2019     5232     8632    12000    18442    48198
-#&gt; 71: 114364     1397     5953    10207    15777    30290   249183
-#&gt; 72:  53039     1669     7346    10875    17298    23384    93085
-#&gt; 73: 119547     3115     4809    10318    18184    26317    92332
-#&gt; 74: 522481     2298     9298    12640    18514    25992   285742
+#&gt;  1:     47       23       35       48       70      110      165
+#&gt;  2:     45       15       40       56       83      101      151
+#&gt;  3:     71       43       72      101      119      152      258
+#&gt;  4:     90       50       78       97      141      214      321
+#&gt;  5:     74       30       68       88      126      164      264
+#&gt;  6:     99       31       83      124      144      200      342
+#&gt;  7:    103       54      107      134      182      238      368
+#&gt;  8:    124       44      110      151      213      263      452
+#&gt;  9:    106       75      120      149      198      245      411
+#&gt; 10:    112       54      105      160      237      284      401
+#&gt; 11:    182       87      137      185      240      319      635
+#&gt; 12:    223       89      148      169      279      346      659
+#&gt; 13:    157       71      141      208      290      330      618
+#&gt; 14:    148       93      150      208      279      356      493
+#&gt; 15:    228       90      194      243      357      459      773
+#&gt; 16:    225      100      213      312      373      518      785
+#&gt; 17:    256      123      211      288      373      518      927
+#&gt; 18:    211      124      267      346      428      535      753
+#&gt; 19:    332      104      283      354      482      585     1240
+#&gt; 20:    389      156      275      378      541      766     1132
+#&gt; 21:    232       93      254      385      494      611      859
+#&gt; 22:    300      161      282      394      491      654     1050
+#&gt; 23:    462      150      268      408      620      842     1578
+#&gt; 24:    349      215      352      413      578      688     1023
+#&gt; 25:    404      168      353      492      586      644     1359
+#&gt; 26:    382      175      356      511      657      779     1139
+#&gt; 27:    493      335      485      596      786     1077     1779
+#&gt; 28:    626      278      471      668     1032     1193     2089
+#&gt; 29:    389      351      602      745      868      986     1604
+#&gt; 30:    712      277      555      716     1088     1221     2462
+#&gt; 31:    525      349      606      810     1026     1173     1780
+#&gt; 32:    681      301      816      947     1142     1438     2392
+#&gt; 33:    605      470      864      984     1362     1576     2334
+#&gt; 34:    824      288      700      992     1252     1544     2771
+#&gt; 35:   1075      415      873     1000     1413     2090     3343
+#&gt; 36:    759      486      807      968     1325     1578     2342
+#&gt; 37:    913      532      966     1140     1467     2117     3095
+#&gt; 38:    984      449     1053     1374     1735     2398     3681
+#&gt; 39:   1689      655     1102     1433     1923     2478     5452
+#&gt; 40:   1395      820     1132     1582     2023     3162     4916
+#&gt; 41:   1671      600     1198     1665     2227     2772     5906
+#&gt; 42:   2201      567     1414     1819     2550     3681     6586
+#&gt; 43:   1364      688     1660     2060     2622     2934     4970
+#&gt; 44:   1369      963     1729     2089     2755     3248     4733
+#&gt; 45:   1196     1105     1851     2215     2741     3202     5031
+#&gt; 46:   2148      774     1853     2577     3824     4646     7374
+#&gt; 47:   2083      924     1970     2556     3859     4444     7199
+#&gt; 48:   1930     1231     2225     2886     3447     4129     6739
+#&gt; 49:   2124     1739     2782     2954     4229     5256     9049
+#&gt; 50:   2651     1452     2418     3313     4370     5551     8978
+#&gt; 51:   2803     1474     2822     3388     4650     6131    10222
+#&gt; 52:   2939     1386     3025     3869     4736     5975    11396
+#&gt; 53:   2717     1579     2868     4003     5101     6364     9651
+#&gt; 54:   4059     1227     2642     3566     5669     6976    12279
+#&gt; 55:   3561     1435     2918     4010     5326     7228    10971
+#&gt; 56:   4232     2004     3093     3933     5641     6618    13406
+#&gt; 57:   4745     1907     4067     5695     7334     9479    13015
+#&gt; 58:   2723     2630     4552     5384     7469     8642    10583
+#&gt; 59:   6325     1965     3662     5399     7028     8625    19112
+#&gt; 60:   7241     2140     5050     6065     9160    11912    23272
+#&gt; 61:   8433     2497     5901     6753     9055    11423    30392
+#&gt; 62:   7240     1692     4717     6195     8721    13243    23151
+#&gt; 63:   3970     2452     5356     6319     9087    10241    15158
+#&gt; 64:   6946     3088     5441     7836    10812    12995    25394
+#&gt; 65:  10338     2642     5963     7823    11819    15739    26153
+#&gt; 66:  12381     2505     4744     8904    11241    15372    33025
+#&gt; 67:  10222     3104     5251     7746    10886    12879    34028
+#&gt; 68: 163123     2699     6162     8023    11441    16974    66513
+#&gt; 69:  15905     2190     6134     9078    15493    19934    48547
+#&gt; 70:  26604     2616     6587     8981    12585    21362    33533
+#&gt; 71:  29454     1940     6793    11313    15212    22409    63380
+#&gt; 72: 721525     4584     9682    12695    20861    35516    76404
+#&gt; 73:  38004     5801     9054    13305    20461    26185    72875
+#&gt; 74:  46661     3577     9091    13683    22503    34306    83942
 #&gt;         sd lower_90 lower_50 lower_20 upper_20 upper_50 upper_90
 #&gt; 
 #&gt; 

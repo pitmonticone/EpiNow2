@@ -296,12 +296,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real r_beta;                               // beta parameter of the R gamma prior
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
-#&gt;   int noise_terms = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
-#&gt;                                              // no. of noise terms
-#&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
-#&gt;   
-#&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
+#&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
+#&gt;   //Update number of noise terms based on furure Rt assumption  
+#&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time;                                      // no. of noise terms
+#&gt;   matrix[noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;
@@ -690,12 +688,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real r_beta;                               // beta parameter of the R gamma prior
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
-#&gt;   int noise_terms = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
-#&gt;                                              // no. of noise terms
-#&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
-#&gt;   
-#&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
+#&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
+#&gt;   //Update number of noise terms based on furure Rt assumption  
+#&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time;                                      // no. of noise terms
+#&gt;   matrix[noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;
@@ -1066,12 +1062,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real r_beta;                               // beta parameter of the R gamma prior
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
-#&gt;   int noise_terms = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
-#&gt;                                              // no. of noise terms
-#&gt;   matrix[future_fixed &gt; 0 ? (noise_terms - horizon) : noise_terms, M] PHI;  // basis function 
-#&gt;   
-#&gt;   //Update number of noise terms based on furure Rt assumption
-#&gt;   noise_terms = future_fixed &gt; 0 ? (noise_terms - horizon + fixed_from) : noise_terms;
+#&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
+#&gt;   //Update number of noise terms based on furure Rt assumption  
+#&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time;                                      // no. of noise terms
+#&gt;   matrix[noise_terms, M] PHI;  // basis function 
 #&gt;   
 #&gt;   //Update time varables
 #&gt;   rt_h = rt - horizon;

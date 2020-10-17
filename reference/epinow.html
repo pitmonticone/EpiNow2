@@ -254,22 +254,22 @@ to assign <code>epinow</code> errors to regions.</p></td>
               delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
               stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
               control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-16 12:16:11] epinow: There were 11 divergent transitions after warmup. See
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-17 10:37:31] epinow: There were 7 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-16 12:16:11] epinow: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-10-17 10:37:31] epinow: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; WARN [2020-10-16 12:16:12] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; WARN [2020-10-17 10:37:32] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='input'><span class='va'>out</span>
+#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - </div><div class='input'><span class='va'>out</span>
 </div><div class='output co'>#&gt; $estimates
 #&gt; $estimates$samples
 #&gt;                 variable        parameter time       date sample       value
-#&gt;      1:       infections       infections    1 2020-02-08      1    1.630602
-#&gt;      2:       infections       infections    2 2020-02-09      1   12.187963
-#&gt;      3:       infections       infections    3 2020-02-10      1   19.017616
-#&gt;      4:       infections       infections    4 2020-02-11      1   32.497168
-#&gt;      5:       infections       infections    5 2020-02-12      1   38.017022
+#&gt;      1:       infections       infections    1 2020-02-08      1    1.794003
+#&gt;      2:       infections       infections    2 2020-02-09      1   11.204458
+#&gt;      3:       infections       infections    3 2020-02-10      1   19.202360
+#&gt;      4:       infections       infections    4 2020-02-11      1   30.229102
+#&gt;      5:       infections       infections    5 2020-02-12      1   46.030403
 #&gt;     ---                                                                     
 #&gt; 215057: prior_infections prior_infections   57 2020-04-04      1 4562.019565
 #&gt; 215058: prior_infections prior_infections   58 2020-04-05      1 4517.391996
@@ -290,170 +290,170 @@ to assign <code>epinow</code> errors to regions.</p></td>
 #&gt; 215061:  &lt;NA&gt; forecast
 #&gt; 
 #&gt; $estimates$summarised
-#&gt;            date       variable strat     type      median        mean
-#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate    1.357826    1.360536
-#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate    1.409891    1.407608
-#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate    1.461327    1.458628
-#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate    1.511550    1.512001
-#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate    1.563397    1.565790
-#&gt;  ---                                                                 
-#&gt; 272: 2020-04-04 reported_cases  &lt;NA&gt; forecast 3889.500000 4799.742000
-#&gt; 273: 2020-04-05 reported_cases  &lt;NA&gt; forecast 4424.500000 5771.646000
-#&gt; 274: 2020-04-06 reported_cases  &lt;NA&gt; forecast 4083.500000 5910.994000
-#&gt; 275: 2020-04-07 reported_cases  &lt;NA&gt; forecast 3620.500000 5403.050000
-#&gt; 276: 2020-04-08 reported_cases  &lt;NA&gt; forecast 2834.500000 4951.664000
+#&gt;            date       variable strat     type      median         mean
+#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate    1.357377     1.355167
+#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate    1.409588     1.403691
+#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate    1.455522     1.456035
+#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate    1.511693     1.510619
+#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate    1.568180     1.565509
+#&gt;  ---                                                                  
+#&gt; 272: 2020-04-04 reported_cases  &lt;NA&gt; forecast 3798.000000  4765.425000
+#&gt; 273: 2020-04-05 reported_cases  &lt;NA&gt; forecast 4354.000000  5835.285000
+#&gt; 274: 2020-04-06 reported_cases  &lt;NA&gt; forecast 4117.000000  5799.364000
+#&gt; 275: 2020-04-07 reported_cases  &lt;NA&gt; forecast 3570.500000  7228.778000
+#&gt; 276: 2020-04-08 reported_cases  &lt;NA&gt; forecast 2810.000000 11207.838000
 #&gt;                sd     lower_90    lower_50    lower_20    upper_20    upper_50
-#&gt;   1: 2.285914e-01    0.9875167    1.204365    1.319828    1.411440    1.506893
-#&gt;   2: 1.866944e-01    1.0909402    1.280489    1.369066    1.457525    1.528403
-#&gt;   3: 1.480604e-01    1.2054320    1.358315    1.428813    1.496581    1.555266
-#&gt;   4: 1.156732e-01    1.3194656    1.435628    1.483653    1.540216    1.585197
-#&gt;   5: 9.465121e-02    1.4159711    1.497616    1.538899    1.587122    1.626507
+#&gt;   1: 2.163936e-01    0.9962241    1.209787    1.307419    1.413115    1.500375
+#&gt;   2: 1.783797e-01    1.1149674    1.280577    1.363078    1.452396    1.525855
+#&gt;   3: 1.428894e-01    1.2207196    1.358450    1.422933    1.494407    1.554461
+#&gt;   4: 1.128768e-01    1.3232343    1.433892    1.485948    1.543672    1.588387
+#&gt;   5: 9.334108e-02    1.4129911    1.498916    1.543420    1.588125    1.625669
 #&gt;  ---                                                                          
-#&gt; 272: 3.464941e+03 1313.9500000 2576.250000 3289.200000 4559.600000 5983.250000
-#&gt; 273: 4.745286e+03 1391.9500000 2836.750000 3756.200000 5286.400000 7034.250000
-#&gt; 274: 7.720809e+03 1289.9000000 2552.000000 3425.800000 4880.800000 6749.000000
-#&gt; 275: 8.411846e+03 1112.7500000 2216.750000 2977.400000 4332.800000 5983.750000
-#&gt; 276: 1.179888e+04  844.4000000 1757.500000 2364.800000 3487.000000 4966.750000
+#&gt; 272: 3.865247e+03 1260.8000000 2527.750000 3258.600000 4436.400000 5739.500000
+#&gt; 273: 5.374745e+03 1506.8000000 2724.250000 3688.400000 5201.000000 7039.750000
+#&gt; 274: 6.893495e+03 1318.9000000 2614.500000 3475.400000 4805.000000 6542.250000
+#&gt; 275: 4.582783e+04 1107.0000000 2219.000000 2959.200000 4327.600000 6119.750000
+#&gt; 276: 1.344258e+05  834.7500000 1677.000000 2305.600000 3385.400000 4845.500000
 #&gt;          upper_90
-#&gt;   1:     1.713833
-#&gt;   2:     1.711638
-#&gt;   3:     1.699641
-#&gt;   4:     1.702408
-#&gt;   5:     1.731089
+#&gt;   1:     1.712968
+#&gt;   2:     1.688478
+#&gt;   3:     1.681880
+#&gt;   4:     1.694953
+#&gt;   5:     1.716590
 #&gt;  ---             
-#&gt; 272: 11430.450000
-#&gt; 273: 15371.250000
-#&gt; 274: 15550.850000
-#&gt; 275: 14599.250000
-#&gt; 276: 13170.750000
+#&gt; 272: 11436.550000
+#&gt; 273: 15002.250000
+#&gt; 274: 15550.600000
+#&gt; 275: 14761.150000
+#&gt; 276: 13181.100000
 #&gt; 
 #&gt; 
 #&gt; $estimated_reported_cases
 #&gt; $estimated_reported_cases$samples
 #&gt;              date sample cases  type
-#&gt;     1: 2020-02-22      1    30 gp_rt
-#&gt;     2: 2020-02-23      1   125 gp_rt
-#&gt;     3: 2020-02-24      1   219 gp_rt
-#&gt;     4: 2020-02-25      1    88 gp_rt
-#&gt;     5: 2020-02-26      1   132 gp_rt
+#&gt;     1: 2020-02-22      1    86 gp_rt
+#&gt;     2: 2020-02-23      1    79 gp_rt
+#&gt;     3: 2020-02-24      1   323 gp_rt
+#&gt;     4: 2020-02-25      1   252 gp_rt
+#&gt;     5: 2020-02-26      1    87 gp_rt
 #&gt;    ---                              
-#&gt; 46996: 2020-04-04   1000  4465 gp_rt
-#&gt; 46997: 2020-04-05   1000  2656 gp_rt
-#&gt; 46998: 2020-04-06   1000  3693 gp_rt
-#&gt; 46999: 2020-04-07   1000  2025 gp_rt
-#&gt; 47000: 2020-04-08   1000  1466 gp_rt
+#&gt; 46996: 2020-04-04   1000  1903 gp_rt
+#&gt; 46997: 2020-04-05   1000  7508 gp_rt
+#&gt; 46998: 2020-04-06   1000  9653 gp_rt
+#&gt; 46999: 2020-04-07   1000  7564 gp_rt
+#&gt; 47000: 2020-04-08   1000 22770 gp_rt
 #&gt; 
 #&gt; $estimated_reported_cases$summarised
-#&gt;           date  type median     mean          sd lower_90 lower_50 lower_20
-#&gt;  1: 2020-02-22 gp_rt   69.0   76.748    38.69923    27.00    49.00     62.0
-#&gt;  2: 2020-02-23 gp_rt  109.0  120.030    60.22076    43.00    79.00     96.0
-#&gt;  3: 2020-02-24 gp_rt  133.5  150.372    78.25068    51.00    95.00    116.0
-#&gt;  4: 2020-02-25 gp_rt  144.0  158.478    80.21386    57.95    98.75    124.6
-#&gt;  5: 2020-02-26 gp_rt  141.0  158.344    81.43444    57.00   101.00    127.0
-#&gt;  6: 2020-02-27 gp_rt  200.5  219.197   116.21964    71.00   140.00    172.6
-#&gt;  7: 2020-02-28 gp_rt  296.0  326.740   172.32443   119.95   213.75    261.0
-#&gt;  8: 2020-02-29 gp_rt  255.5  283.736   153.23107   100.00   177.00    217.6
-#&gt;  9: 2020-03-01 gp_rt  351.0  384.203   189.40665   132.95   246.75    316.0
-#&gt; 10: 2020-03-02 gp_rt  397.0  439.062   229.98682   162.00   277.00    348.0
-#&gt; 11: 2020-03-03 gp_rt  413.0  454.505   226.95425   160.95   297.75    363.0
-#&gt; 12: 2020-03-04 gp_rt  408.5  443.750   228.89453   150.00   281.00    358.8
-#&gt; 13: 2020-03-05 gp_rt  562.0  628.346   333.31442   220.85   390.75    492.6
-#&gt; 14: 2020-03-06 gp_rt  841.0  937.390   487.77446   290.90   600.50    744.0
-#&gt; 15: 2020-03-07 gp_rt  750.0  835.464   439.36157   277.80   524.00    665.6
-#&gt; 16: 2020-03-08 gp_rt 1101.0 1217.743   650.03777   390.90   757.25    936.6
-#&gt; 17: 2020-03-09 gp_rt 1262.0 1421.599   774.57436   464.00   868.75   1083.0
-#&gt; 18: 2020-03-10 gp_rt 1355.0 1481.031   793.50161   486.95   919.00   1175.6
-#&gt; 19: 2020-03-11 gp_rt 1300.0 1455.463   758.43501   494.85   941.75   1154.0
-#&gt; 20: 2020-03-12 gp_rt 1837.0 2041.927  1071.54116   731.85  1296.50   1617.0
-#&gt; 21: 2020-03-13 gp_rt 2677.5 3055.366  1683.47094  1096.00  1874.75   2373.2
-#&gt; 22: 2020-03-14 gp_rt 2371.0 2644.672  1371.91139   925.55  1671.75   2136.8
-#&gt; 23: 2020-03-15 gp_rt 3126.5 3520.248  1854.24140  1178.80  2221.00   2765.2
-#&gt; 24: 2020-03-16 gp_rt 3447.0 3819.392  1997.37798  1308.25  2459.25   3066.2
-#&gt; 25: 2020-03-17 gp_rt 3553.0 3938.462  2086.20688  1431.35  2471.75   3062.8
-#&gt; 26: 2020-03-18 gp_rt 3217.5 3595.217  1963.92024  1159.50  2225.75   2798.8
-#&gt; 27: 2020-03-19 gp_rt 4143.5 4574.228  2407.65960  1602.55  2869.75   3571.6
-#&gt; 28: 2020-03-20 gp_rt 5371.0 6064.970  3192.03879  2083.50  3852.00   4752.8
-#&gt; 29: 2020-03-21 gp_rt 4303.0 4912.480  2737.24725  1706.40  2979.50   3813.8
-#&gt; 30: 2020-03-22 gp_rt 5628.5 6108.709  3142.13489  2240.65  3943.50   4908.2
-#&gt; 31: 2020-03-23 gp_rt 5627.5 6222.936  3469.14627  2252.70  3859.00   4866.2
-#&gt; 32: 2020-03-24 gp_rt 4984.0 5621.822  3057.22244  1975.65  3537.00   4351.6
-#&gt; 33: 2020-03-25 gp_rt 4374.0 4831.416  2582.32827  1712.85  3003.75   3839.8
-#&gt; 34: 2020-03-26 gp_rt 5081.5 5709.975  3178.05874  1938.65  3521.50   4413.8
-#&gt; 35: 2020-03-27 gp_rt 6411.5 7159.962  3737.72674  2602.40  4574.25   5715.6
-#&gt; 36: 2020-03-28 gp_rt 4770.0 5403.676  2856.23138  1801.75  3388.25   4207.2
-#&gt; 37: 2020-03-29 gp_rt 5616.5 6211.770  3239.03006  2192.95  3990.50   4930.6
-#&gt; 38: 2020-03-30 gp_rt 5503.0 6158.420  3675.68285  2044.70  3892.75   4800.6
-#&gt; 39: 2020-03-31 gp_rt 4736.5 5284.343  3013.76036  1730.50  3283.50   4101.0
-#&gt; 40: 2020-04-01 gp_rt 3790.5 4384.195  2697.20831  1442.40  2697.75   3338.4
-#&gt; 41: 2020-04-02 gp_rt 4400.0 5102.224  3432.45366  1622.70  2920.75   3750.2
-#&gt; 42: 2020-04-03 gp_rt 5059.0 6315.321  4669.92294  1876.65  3410.50   4439.8
-#&gt; 43: 2020-04-04 gp_rt 3889.5 4799.742  3464.94137  1313.95  2576.25   3289.2
-#&gt; 44: 2020-04-05 gp_rt 4424.5 5771.646  4745.28641  1391.95  2836.75   3756.2
-#&gt; 45: 2020-04-06 gp_rt 4083.5 5910.994  7720.80876  1289.90  2552.00   3425.8
-#&gt; 46: 2020-04-07 gp_rt 3620.5 5403.050  8411.84641  1112.75  2216.75   2977.4
-#&gt; 47: 2020-04-08 gp_rt 2834.5 4951.664 11798.88034   844.40  1757.50   2364.8
-#&gt;           date  type median     mean          sd lower_90 lower_50 lower_20
+#&gt;           date  type median      mean           sd lower_90 lower_50 lower_20
+#&gt;  1: 2020-02-22 gp_rt   69.0    76.178     37.93779    28.00    49.00     61.0
+#&gt;  2: 2020-02-23 gp_rt  109.0   121.433     59.60242    45.00    80.00     98.0
+#&gt;  3: 2020-02-24 gp_rt  130.0   145.223     75.96311    53.00    92.00    113.6
+#&gt;  4: 2020-02-25 gp_rt  146.0   161.039     83.79399    56.00   101.00    128.0
+#&gt;  5: 2020-02-26 gp_rt  147.0   165.198     87.04054    53.00   103.00    131.6
+#&gt;  6: 2020-02-27 gp_rt  197.0   218.524    112.68565    74.00   137.75    177.6
+#&gt;  7: 2020-02-28 gp_rt  296.0   326.180    171.33609   115.95   209.00    262.0
+#&gt;  8: 2020-02-29 gp_rt  252.5   283.518    146.17690   102.00   179.00    219.0
+#&gt;  9: 2020-03-01 gp_rt  350.0   385.117    204.13877   134.95   244.00    309.0
+#&gt; 10: 2020-03-02 gp_rt  384.5   436.962    229.03172   159.90   280.00    342.6
+#&gt; 11: 2020-03-03 gp_rt  406.0   453.568    239.53944   154.00   275.00    352.0
+#&gt; 12: 2020-03-04 gp_rt  409.5   445.767    233.39304   146.85   284.75    350.0
+#&gt; 13: 2020-03-05 gp_rt  568.0   628.118    321.79329   216.95   398.75    493.6
+#&gt; 14: 2020-03-06 gp_rt  836.5   929.862    511.54030   307.85   578.00    734.0
+#&gt; 15: 2020-03-07 gp_rt  779.5   867.188    455.87798   300.85   560.50    690.6
+#&gt; 16: 2020-03-08 gp_rt 1085.0  1212.504    650.28994   410.00   786.25    952.0
+#&gt; 17: 2020-03-09 gp_rt 1224.5  1382.769    713.66516   505.95   900.00   1100.2
+#&gt; 18: 2020-03-10 gp_rt 1323.0  1476.714    793.68461   480.85   946.00   1169.8
+#&gt; 19: 2020-03-11 gp_rt 1273.5  1422.790    734.76219   491.00   908.75   1151.2
+#&gt; 20: 2020-03-12 gp_rt 1791.5  2004.040   1098.04288   685.95  1260.25   1562.2
+#&gt; 21: 2020-03-13 gp_rt 2685.0  3026.344   1598.43415  1069.05  1929.00   2362.2
+#&gt; 22: 2020-03-14 gp_rt 2400.0  2604.904   1299.53282   914.95  1671.75   2107.8
+#&gt; 23: 2020-03-15 gp_rt 3265.0  3532.043   1780.21394  1274.40  2285.00   2844.6
+#&gt; 24: 2020-03-16 gp_rt 3448.0  3787.308   1952.18782  1377.90  2401.50   3012.6
+#&gt; 25: 2020-03-17 gp_rt 3484.0  3930.162   2106.41405  1425.95  2444.75   3024.2
+#&gt; 26: 2020-03-18 gp_rt 3212.5  3592.846   1922.94244  1347.60  2195.00   2821.0
+#&gt; 27: 2020-03-19 gp_rt 4148.5  4658.160   2519.79744  1669.15  2879.75   3635.4
+#&gt; 28: 2020-03-20 gp_rt 5520.5  6165.724   3206.66538  2200.85  3935.50   4936.6
+#&gt; 29: 2020-03-21 gp_rt 4457.5  4907.015   2400.33349  1860.85  3218.75   3941.6
+#&gt; 30: 2020-03-22 gp_rt 5542.5  6126.525   3226.40981  2047.80  3900.00   4919.0
+#&gt; 31: 2020-03-23 gp_rt 5520.5  6062.717   3165.75256  2254.70  3938.50   4896.8
+#&gt; 32: 2020-03-24 gp_rt 4977.0  5584.030   2852.00100  2090.45  3461.75   4344.6
+#&gt; 33: 2020-03-25 gp_rt 4275.0  4833.121   2566.13087  1806.70  3118.25   3784.0
+#&gt; 34: 2020-03-26 gp_rt 5305.5  5894.586   3032.13204  2050.85  3677.50   4709.8
+#&gt; 35: 2020-03-27 gp_rt 6375.0  7133.133   3755.46240  2494.75  4598.50   5619.8
+#&gt; 36: 2020-03-28 gp_rt 4944.0  5519.927   3035.02213  1947.65  3454.75   4313.0
+#&gt; 37: 2020-03-29 gp_rt 5584.0  6183.774   3121.10517  2340.60  3972.00   4902.6
+#&gt; 38: 2020-03-30 gp_rt 5412.5  5987.455   3306.87517  1954.80  3765.00   4758.8
+#&gt; 39: 2020-03-31 gp_rt 4646.5  5290.672   2905.64443  1842.80  3181.75   4100.6
+#&gt; 40: 2020-04-01 gp_rt 3761.0  4291.192   2392.62111  1430.60  2629.00   3279.0
+#&gt; 41: 2020-04-02 gp_rt 4272.5  4914.443   2937.76139  1527.00  2833.25   3659.6
+#&gt; 42: 2020-04-03 gp_rt 5091.5  6325.874   4592.73968  1888.00  3336.75   4316.4
+#&gt; 43: 2020-04-04 gp_rt 3798.0  4765.425   3865.24712  1260.80  2527.75   3258.6
+#&gt; 44: 2020-04-05 gp_rt 4354.0  5835.285   5374.74496  1506.80  2724.25   3688.4
+#&gt; 45: 2020-04-06 gp_rt 4117.0  5799.364   6893.49504  1318.90  2614.50   3475.4
+#&gt; 46: 2020-04-07 gp_rt 3570.5  7228.778  45827.83196  1107.00  2219.00   2959.2
+#&gt; 47: 2020-04-08 gp_rt 2810.0 11207.838 134425.75998   834.75  1677.00   2305.6
+#&gt;           date  type median      mean           sd lower_90 lower_50 lower_20
 #&gt;     upper_20 upper_50 upper_90
-#&gt;  1:     79.0    99.00   148.05
-#&gt;  2:    124.0   148.00   233.15
-#&gt;  3:    156.0   191.00   293.00
-#&gt;  4:    164.0   206.00   307.00
-#&gt;  5:    161.0   199.00   322.05
-#&gt;  6:    223.0   277.00   447.10
-#&gt;  7:    335.4   398.25   633.30
-#&gt;  8:    293.4   360.25   550.10
-#&gt;  9:    401.0   481.25   731.20
-#&gt; 10:    447.0   550.25   853.05
-#&gt; 11:    469.0   570.50   880.25
-#&gt; 12:    454.2   546.00   838.25
-#&gt; 13:    646.8   795.25  1251.70
-#&gt; 14:    959.4  1212.50  1859.25
-#&gt; 15:    861.8  1057.25  1682.95
-#&gt; 16:   1239.0  1562.75  2451.65
-#&gt; 17:   1461.4  1788.25  2948.10
-#&gt; 18:   1508.4  1839.50  2917.40
-#&gt; 19:   1486.2  1809.00  2782.15
-#&gt; 20:   2030.4  2547.50  4138.85
-#&gt; 21:   3038.0  3802.75  6229.10
-#&gt; 22:   2658.6  3322.25  5439.10
-#&gt; 23:   3627.2  4450.00  7118.30
-#&gt; 24:   3968.0  4766.25  7518.05
-#&gt; 25:   4009.4  4893.00  7749.65
-#&gt; 26:   3679.0  4593.75  7354.95
-#&gt; 27:   4747.2  5730.00  9177.10
-#&gt; 28:   6194.6  7686.50 12294.15
-#&gt; 29:   4980.8  6182.00  9877.05
-#&gt; 30:   6221.4  7531.75 12166.55
-#&gt; 31:   6306.6  7725.00 11884.35
-#&gt; 32:   5719.6  6909.00 11799.10
-#&gt; 33:   4997.2  6071.25  9465.10
-#&gt; 34:   5893.4  7244.25 11377.30
-#&gt; 35:   7281.8  8831.25 13866.70
-#&gt; 36:   5460.4  6979.50 10796.80
-#&gt; 37:   6465.6  7931.25 12293.35
-#&gt; 38:   6207.8  7401.00 12188.45
-#&gt; 39:   5369.2  6601.75 10550.60
-#&gt; 40:   4381.8  5522.50  9152.70
-#&gt; 41:   4943.2  6210.75 11206.40
-#&gt; 42:   6028.8  7889.00 13717.75
-#&gt; 43:   4559.6  5983.25 11430.45
-#&gt; 44:   5286.4  7034.25 15371.25
-#&gt; 45:   4880.8  6749.00 15550.85
-#&gt; 46:   4332.8  5983.75 14599.25
-#&gt; 47:   3487.0  4966.75 13170.75
+#&gt;  1:     79.0    96.25   146.00
+#&gt;  2:    124.0   149.00   235.10
+#&gt;  3:    144.0   185.25   286.20
+#&gt;  4:    166.0   207.25   319.05
+#&gt;  5:    169.0   212.00   332.05
+#&gt;  6:    224.0   278.25   429.05
+#&gt;  7:    336.0   401.25   643.15
+#&gt;  8:    293.0   358.25   559.15
+#&gt;  9:    399.4   481.00   748.45
+#&gt; 10:    441.0   543.00   885.05
+#&gt; 11:    471.0   584.25   909.10
+#&gt; 12:    464.4   560.50   862.50
+#&gt; 13:    655.4   803.25  1265.30
+#&gt; 14:    931.4  1187.00  1860.10
+#&gt; 15:    883.4  1071.25  1706.75
+#&gt; 16:   1225.0  1481.00  2451.25
+#&gt; 17:   1391.2  1700.25  2735.15
+#&gt; 18:   1480.2  1857.00  2995.65
+#&gt; 19:   1454.4  1783.50  2702.10
+#&gt; 20:   2018.0  2533.00  4036.55
+#&gt; 21:   3037.4  3815.00  6052.35
+#&gt; 22:   2697.0  3254.50  4903.05
+#&gt; 23:   3626.8  4400.25  6903.95
+#&gt; 24:   3835.8  4786.75  7228.05
+#&gt; 25:   4030.2  4978.00  8000.05
+#&gt; 26:   3606.4  4540.00  7167.60
+#&gt; 27:   4763.2  5824.25  9694.35
+#&gt; 28:   6291.6  7581.75 12339.05
+#&gt; 29:   5044.4  6181.25  9349.00
+#&gt; 30:   6272.8  7571.50 12406.60
+#&gt; 31:   6228.4  7576.75 11521.55
+#&gt; 32:   5769.2  7226.75 10693.20
+#&gt; 33:   4878.4  5940.50  9884.85
+#&gt; 34:   6004.0  7456.75 11797.45
+#&gt; 35:   7208.2  8859.25 14459.10
+#&gt; 36:   5539.4  6910.50 10995.10
+#&gt; 37:   6381.2  7805.50 12008.00
+#&gt; 38:   6162.6  7432.75 11741.75
+#&gt; 39:   5331.8  6667.50 10906.95
+#&gt; 40:   4300.6  5428.00  8571.90
+#&gt; 41:   4951.8  6190.50 10378.80
+#&gt; 42:   5939.4  7904.00 14443.30
+#&gt; 43:   4436.4  5739.50 11436.55
+#&gt; 44:   5201.0  7039.75 15002.25
+#&gt; 45:   4805.0  6542.25 15550.60
+#&gt; 46:   4327.6  6119.75 14761.15
+#&gt; 47:   3385.4  4845.50 13181.10
 #&gt;     upper_20 upper_50 upper_90
 #&gt; 
 #&gt; 
 #&gt; $summary
 #&gt;                                  measure              estimate
-#&gt; 1: New confirmed cases by infection date   2517 (262 -- 18833)
+#&gt; 1: New confirmed cases by infection date   2529 (249 -- 19817)
 #&gt; 2:        Expected change in daily cases                Unsure
-#&gt; 3:            Effective reproduction no.      0.7 (0.2 -- 1.7)
-#&gt; 4:                        Rate of growth -0.08 (-0.25 -- 0.18)
-#&gt; 5:          Doubling/halving time (days)    -8.7 (3.9 -- -2.7)
+#&gt; 3:            Effective reproduction no.      0.7 (0.2 -- 1.6)
+#&gt; 4:                        Rate of growth -0.08 (-0.26 -- 0.16)
+#&gt; 5:          Doubling/halving time (days)    -8.7 (4.3 -- -2.7)
 #&gt;     numeric_estimate
 #&gt; 1: &lt;data.table[1x9]&gt;
-#&gt; 2:              0.76
+#&gt; 2:              0.75
 #&gt; 3: &lt;data.table[1x9]&gt;
 #&gt; 4: &lt;data.table[1x9]&gt;
 #&gt; 5: &lt;data.table[1x9]&gt;
@@ -485,15 +485,15 @@ to assign <code>epinow</code> errors to regions.</p></td>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: EpiSoon</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: forecastHybrid</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp1ykgRW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-16 12:21:51] epinow: The largest R-hat is 1.06, indicating chains have not mixed.
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpDy5hT0/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-17 10:43:47] epinow: The largest R-hat is 1.07, indicating chains have not mixed.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#r-hat - 
-#&gt; WARN [2020-10-16 12:21:51] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; WARN [2020-10-17 10:43:47] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; WARN [2020-10-16 12:21:51] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; WARN [2020-10-17 10:43:48] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 #&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='output co'>#&gt; <span class='error'>Error in data.table::rbindlist(list(reported_cases_rt$samples[, `:=`(type,     "rt")], reported_cases_cases$samples[, `:=`(type, "case")],     reported_cases_ensemble$samples[, `:=`(type, "ensemble")],     estimates$samples[variable == "reported_cases"][, .(date,         sample, cases = value, type = "gp_rt")]), use.names = TRUE): Column 3 ['cases'] of item 4 is missing in item 1. Use fill=TRUE to fill with NA (NULL for list columns), or use.names=FALSE to ignore column names.</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 352.5 0.435 353.1</span></div><div class='input'><span class='co'># }</span>
+#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='output co'>#&gt; <span class='error'>Error in data.table::rbindlist(list(reported_cases_rt$samples[, `:=`(type,     "rt")], reported_cases_cases$samples[, `:=`(type, "case")],     reported_cases_ensemble$samples[, `:=`(type, "ensemble")],     estimates$samples[variable == "reported_cases"][, .(date,         sample, cases = value, type = "gp_rt")]), use.names = TRUE): Column 3 ['cases'] of item 4 is missing in item 1. Use fill=TRUE to fill with NA (NULL for list columns), or use.names=FALSE to ignore column names.</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 388.3 0.467 388.9</span></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
