@@ -130,6 +130,7 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
+<li>Update the prior on the initial Rt estimate to be lognormal rather than gamma distributed. For users the interface remains unchanged but this parameterisation should be more numerically stable.</li>
 <li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
 <li>Added <code>setup_logging</code> to enable users to specify the level and location of logging (wrapping functionality from <code>futile.logger</code>). Also added <code>setup_default_logging</code> to give users sensible defaults and embedded this function in <code>regional_epinow</code> and <code>epinow</code>.</li>
 <li>Added <code>setup_future</code> to making using nested futures easier (required when using <code>future = TRUE</code>).</li>

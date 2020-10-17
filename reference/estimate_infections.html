@@ -225,9 +225,9 @@ contain <code>alpha_sd</code> the standard deviation for the alpha parameter of 
     </tr>
     <tr>
       <th>rt_prior</th>
-      <td><p>A list contain the mean and standard deviation (sd) of the gamma distributed prior for
-Rt. By default this is assumed to be mean 1 with a standard deviation of 1. To infer infections only using
-non-parametric backcalculation set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <td><p>A list contain the mean and standard deviation (sd) of the lognormally distributed prior for
+Rt. By default this is assumed to be mean 1 with a standard deviation of 1 (note in model these will be mapped to
+log space). To infer infections only using non-parametric backcalculation set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
     </tr>
     <tr>
       <th>week_effect</th>

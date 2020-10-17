@@ -292,8 +292,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; transformed data{
-#&gt;   real r_alpha;                              // alpha parameter of the R gamma prior
-#&gt;   real r_beta;                               // beta parameter of the R gamma prior
+#&gt;   real r_logmean;                             // Initial R mean in log space
+#&gt;   real r_logsd;                              // Iniital R sd in log space
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
@@ -305,17 +305,17 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_h = rt - horizon;
 #&gt;   
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   r_alpha = (r_mean / r_sd)^2;
-#&gt;   r_beta = r_mean / (r_sd^2);
+#&gt;   r_logmean = log(r_mean^2 / sqrt(r_sd^2 + r_mean^2));
+#&gt;   r_logsd = sqrt(log(1 + (r_sd^2 / r_mean^2)));
+#&gt; 
+#&gt;   // time without estimating Rt is the differrence of t and rt
+#&gt;   no_rt_time = t - rt;
 #&gt;    
-#&gt;    // time without estimating Rt is the differrence of t and rt
-#&gt;    no_rt_time = t - rt;
-#&gt;    
-#&gt;    // basis functions
-#&gt;    // see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt;    for (m in 1:M){ 
-#&gt;      PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
-#&gt;     }
+#&gt;   // basis functions
+#&gt;   // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt;   for (m in 1:M){ 
+#&gt;     PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
+#&gt;   }
 #&gt; }
 #&gt; parameters{
 #&gt;   simplex[est_week_eff ? 7 : 1] day_of_week_eff_raw;  // day of week reporting effect + control parameters
@@ -374,8 +374,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     real log_R = log(initial_R[estimate_r]);
-#&gt;     R = rep_vector(log_R, rt);
+#&gt;     R = rep_vector(initial_R[estimate_r], rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
@@ -395,7 +394,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = log(initial_R[estimate_r]);
+#&gt;     R[1] = initial_R[estimate_r];
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
 #&gt;         R[s] = R[s - 1] + noise[s - 1];
@@ -497,7 +496,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   // estimate rt
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
-#&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
+#&gt;     initial_R[estimate_r] ~ normal(r_logmean, r_logsd);
 #&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
@@ -684,8 +683,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; transformed data{
-#&gt;   real r_alpha;                              // alpha parameter of the R gamma prior
-#&gt;   real r_beta;                               // beta parameter of the R gamma prior
+#&gt;   real r_logmean;                             // Initial R mean in log space
+#&gt;   real r_logsd;                              // Iniital R sd in log space
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
@@ -697,17 +696,17 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_h = rt - horizon;
 #&gt;   
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   r_alpha = (r_mean / r_sd)^2;
-#&gt;   r_beta = r_mean / (r_sd^2);
+#&gt;   r_logmean = log(r_mean^2 / sqrt(r_sd^2 + r_mean^2));
+#&gt;   r_logsd = sqrt(log(1 + (r_sd^2 / r_mean^2)));
+#&gt; 
+#&gt;   // time without estimating Rt is the differrence of t and rt
+#&gt;   no_rt_time = t - rt;
 #&gt;    
-#&gt;    // time without estimating Rt is the differrence of t and rt
-#&gt;    no_rt_time = t - rt;
-#&gt;    
-#&gt;    // basis functions
-#&gt;    // see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt;    for (m in 1:M){ 
-#&gt;      PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
-#&gt;     }
+#&gt;   // basis functions
+#&gt;   // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt;   for (m in 1:M){ 
+#&gt;     PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
+#&gt;   }
 #&gt; }
 #&gt; parameters{
 #&gt;   simplex[est_week_eff ? 7 : 1] day_of_week_eff_raw;  // day of week reporting effect + control parameters
@@ -766,8 +765,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     real log_R = log(initial_R[estimate_r]);
-#&gt;     R = rep_vector(log_R, rt);
+#&gt;     R = rep_vector(initial_R[estimate_r], rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
@@ -787,7 +785,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = log(initial_R[estimate_r]);
+#&gt;     R[1] = initial_R[estimate_r];
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
 #&gt;         R[s] = R[s - 1] + noise[s - 1];
@@ -889,7 +887,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   // estimate rt
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
-#&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
+#&gt;     initial_R[estimate_r] ~ normal(r_logmean, r_logsd);
 #&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
@@ -1058,8 +1056,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; transformed data{
-#&gt;   real r_alpha;                              // alpha parameter of the R gamma prior
-#&gt;   real r_beta;                               // beta parameter of the R gamma prior
+#&gt;   real r_logmean;                             // Initial R mean in log space
+#&gt;   real r_logsd;                              // Iniital R sd in log space
 #&gt;   int no_rt_time;                            // time without estimating Rt
 #&gt;   int rt_h;                                  // rt estimation time minus the forecasting horizon
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? rt : rt - 1) : t;
@@ -1071,17 +1069,17 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_h = rt - horizon;
 #&gt;   
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   r_alpha = (r_mean / r_sd)^2;
-#&gt;   r_beta = r_mean / (r_sd^2);
+#&gt;   r_logmean = log(r_mean^2 / sqrt(r_sd^2 + r_mean^2));
+#&gt;   r_logsd = sqrt(log(1 + (r_sd^2 / r_mean^2)));
+#&gt; 
+#&gt;   // time without estimating Rt is the differrence of t and rt
+#&gt;   no_rt_time = t - rt;
 #&gt;    
-#&gt;    // time without estimating Rt is the differrence of t and rt
-#&gt;    no_rt_time = t - rt;
-#&gt;    
-#&gt;    // basis functions
-#&gt;    // see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt;    for (m in 1:M){ 
-#&gt;      PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
-#&gt;     }
+#&gt;   // basis functions
+#&gt;   // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt;   for (m in 1:M){ 
+#&gt;     PHI[,m] = phi_SE(L, m, (estimate_r &gt; 0 ? time[1:noise_terms] : inf_time)); 
+#&gt;   }
 #&gt; }
 #&gt; parameters{
 #&gt;   simplex[est_week_eff ? 7 : 1] day_of_week_eff_raw;  // day of week reporting effect + control parameters
@@ -1140,8 +1138,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   rt_break_count = 0;
 #&gt;   // assume a global Rt * GP
 #&gt;   if (stationary) {
-#&gt;     real log_R = log(initial_R[estimate_r]);
-#&gt;     R = rep_vector(log_R, rt);
+#&gt;     R = rep_vector(initial_R[estimate_r], rt);
 #&gt;     for (s in 1:rt) {
 #&gt;       if (!fixed) {
 #&gt;          if (!future_fixed || (s &lt;= noise_terms)) {
@@ -1161,7 +1158,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     }
 #&gt;   // assume GP on gradient of Rt (i.e Rt = R(t-1) * GP)
 #&gt;   }else{
-#&gt;     R[1] = log(initial_R[estimate_r]);
+#&gt;     R[1] = initial_R[estimate_r];
 #&gt;     for (s in 2:rt) {
 #&gt;       if (!future_fixed || (s &lt;= (noise_terms + 1))) {
 #&gt;         R[s] = R[s - 1] + noise[s - 1];
@@ -1263,7 +1260,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   // estimate rt
 #&gt;   if (estimate_r) {
 #&gt;     // prior on R
-#&gt;     initial_R[estimate_r] ~ gamma(r_alpha, r_beta);
+#&gt;     initial_R[estimate_r] ~ normal(r_logmean, r_logsd);
 #&gt;     initial_infections ~ lognormal(0, 0.1);
 #&gt;     
 #&gt;     // penalised_prior on generation interval
