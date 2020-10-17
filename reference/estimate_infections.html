@@ -272,7 +272,7 @@ fail gracefully (i.e when combined with <code>max_execution_time</code>). Should
     </tr>
     <tr>
       <th>max_execution_time</th>
-      <td><p>Numeric, defaults to Inf. If set will kill off processing of each chain if not finished within the specified timeout.
+      <td><p>Numeric, defaults to Inf (seconds). If set will kill off processing of each chain if not finished within the specified timeout.
 When more than 2 chains finish successfully estimates will still be returned. If less than 2 chains return within the allowed time then estimation
 will fail with an informative error.</p></td>
     </tr>
