@@ -154,6 +154,7 @@
 <li>Fix to normalisation of delay and generation time distributions from @sbfnk. This will impact nowcast infections but not reproduction number estimate.</li>
 <li>Updated <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) to constrain gamma shape and (inverse) scale parameters to be positive and finite (<code>alpha &gt; 0</code> and <code>beta &gt; 0</code>).</li>
 <li>Fixed <code>readLines</code> incomplete final line warnings.</li>
+<li>Fix from @medewitt from the internal <code>fit_chain</code> function where an interaction between <code>rstan</code> and timing out may have introduced an exception that caused whole regions to fail. This did not show on current unit tests or exploration using examples etc. indicating a gap in testing.</li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
