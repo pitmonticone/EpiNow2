@@ -11,7 +11,9 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Estimate Real-Time Case Counts and Time-Varying Epidemiological Parameters">
+<script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<link href="docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Estimate Real-Time Case Counts and Time-Varying Epidemiological Parameters">
 <meta property="og:description" content="Estimates the time-varying reproduction number, rate of spread,
              and doubling time using a range of open-source tools (Abbott et al. (2020) &lt;doi:10.12688/wellcomeopenres.16006.1&gt;),
              and current best practices (Gostic et al. (2020) &lt;doi:10.1101/2020.06.18.20134858&gt;).
@@ -68,7 +70,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -83,7 +91,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#epinow2-estimate-real-time-case-counts-and-time-varying-epidemiological-parameters" class="anchor"></a>EpiNow2: Estimate real-time case counts and time-varying epidemiological parameters</h1></div>
 
-<p><a href="https://lbesson.mit-license.org/"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT license"></a> <a href="https://github.com/epiforecasts/EpiNow2/graphs/contributors"><img src="https://img.shields.io/github/contributors/epiforecasts/EpiNow2" alt="GitHub contributors"></a> <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-yellow.svg" alt="PRs Welcome"></a> <a href="https://GitHub.com/epiforecasts/EpiNow2/commit/"><img src="https://img.shields.io/github/commits-since/epiforecasts/EpiNow2/v1.2.1.svg?color=orange" alt="GitHub commits"></a> <a href="https://zenodo.org/badge/latestdoi/272995211"><img src="https://zenodo.org/badge/272995211.svg" alt="DOI"></a></p>
+<p><a href="https://lbesson.mit-license.org/"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT license"></a> <a href="https://github.com/epiforecasts/EpiNow2/graphs/contributors"><img src="https://img.shields.io/github/contributors/epiforecasts/EpiNow2" alt="GitHub contributors"></a> <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-yellow.svg" alt="PRs Welcome"></a> <a href="https://GitHub.com/epiforecasts/EpiNow2/commit/master/"><img src="https://img.shields.io/github/commits-since/epiforecasts/EpiNow2/v1.2.1.svg?color=orange" alt="GitHub commits"></a> <a href="https://zenodo.org/badge/latestdoi/272995211"><img src="https://zenodo.org/badge/272995211.svg" alt="DOI"></a></p>
 <p>This package estimates the time-varying reproduction number, rate of spread, and doubling time using a range of open-source tools (<a href="https://doi.org/10.12688/wellcomeopenres.16006.1">Abbott et al.</a>), and current best practices (<a href="https://doi.org/10.1101/2020.06.18.20134858">Gostic et al.</a>). It aims to help users avoid some of the limitations of naive implementations in a framework that is informed by community feedback and is under active development.</p>
 <p>It estimates the time-varying reproduction number on cases by date of infection (using a similar approach to that implemented in the <a href="https://github.com/mrc-ide/EpiEstim"><code>{EpiEstim}</code></a>). Imputed infections are then mapped to observed data (for example cases by date of report) via a series of uncertain delay distributions (in the examples in the package documentation these are an incubation period and a reporting delay) and a reporting model that can include weekly periodicity.</p>
 <p>Uncertainty is propagated from all inputs into the final parameter estimates, helping to mitigate spurious findings. This is handled internally. The time-varying reproduction estimates and the uncertain generation time also give time-varying estimates of the rate of growth.</p>
@@ -341,7 +349,7 @@
 <div id="interactive-figures" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interactive-figures" class="anchor"></a>Interactive figures</h2>
-<p><code>{EpiNow2}</code> is integrated with the <code>{RtD3}</code> package which provides interactive visualisations of Rt estimates. See the package <a href="https://epiforecasts.io/RtD3">documentation</a> for details.</p>
+<p><code>{EpiNow2}</code> is integrated with the <code>{RtD3}</code> package which provides interactive visualisations of Rt estimates. See the package <a href="https://epiforecasts.io/RtD3/">documentation</a> for details.</p>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
@@ -416,7 +424,20 @@
 </div>
 
   
-
-
-  </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
+  docsearch({
+    
+    
+    apiKey: '43da981922253a06c4dfab7b53f2410e',
+    indexName: 'epinow2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

@@ -37,6 +37,12 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 
 <meta property="og:title" content="Real-time Rt Estimation, Forecasting and Reporting — epinow" />
@@ -108,6 +114,12 @@ results and interpreting them." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -254,12 +266,12 @@ to assign <code>epinow</code> errors to regions.</p></td>
               delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
               stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
               control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 20:01:26] epinow: There were 5 divergent transitions after warmup. See
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 21:56:55] epinow: There were 5 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-19 20:01:26] epinow: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-10-19 21:56:55] epinow: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; WARN [2020-10-19 20:01:26] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; WARN [2020-10-19 21:56:56] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - </div><div class='input'><span class='va'>out</span>
 </div><div class='output co'>#&gt; $estimates
@@ -485,20 +497,20 @@ to assign <code>epinow</code> errors to regions.</p></td>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: EpiSoon</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: forecastHybrid</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpeEhLo8/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 20:06:19] epinow: There were 1 divergent transitions after warmup. See
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 22:01:54] epinow: There were 1 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-19 20:06:19] epinow: Examine the pairs() plot to diagnose sampling problems
+#&gt; WARN [2020-10-19 22:01:54] epinow: Examine the pairs() plot to diagnose sampling problems
 #&gt;  - 
-#&gt; WARN [2020-10-19 20:06:20] epinow: The largest R-hat is 1.08, indicating chains have not mixed.
+#&gt; WARN [2020-10-19 22:01:55] epinow: The largest R-hat is 1.08, indicating chains have not mixed.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#r-hat - 
-#&gt; WARN [2020-10-19 20:06:20] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; WARN [2020-10-19 22:01:55] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
 #&gt; Running the chains for more iterations may help. See
 #&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; WARN [2020-10-19 20:06:20] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; WARN [2020-10-19 22:01:55] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
 #&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='output co'>#&gt; <span class='error'>Error in data.table::rbindlist(list(reported_cases_rt$samples[, `:=`(type,     "rt")], reported_cases_cases$samples[, `:=`(type, "case")],     reported_cases_ensemble$samples[, `:=`(type, "ensemble")],     estimates$samples[variable == "reported_cases"][, .(date,         sample, cases = value, type = "gp_rt")]), use.names = TRUE): Column 3 ['cases'] of item 4 is missing in item 1. Use fill=TRUE to fill with NA (NULL for list columns), or use.names=FALSE to ignore column names.</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 305.2 0.403 305.8</span></div><div class='input'><span class='co'># }</span>
+#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='output co'>#&gt; <span class='error'>Error in data.table::rbindlist(list(reported_cases_rt$samples[, `:=`(type,     "rt")], reported_cases_cases$samples[, `:=`(type, "case")],     reported_cases_ensemble$samples[, `:=`(type, "ensemble")],     estimates$samples[variable == "reported_cases"][, .(date,         sample, cases = value, type = "gp_rt")]), use.names = TRUE): Column 3 ['cases'] of item 4 is missing in item 1. Use fill=TRUE to fill with NA (NULL for list columns), or use.names=FALSE to ignore column names.</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 311.9 0.363 312.3</span></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -523,6 +535,23 @@ to assign <code>epinow</code> errors to regions.</p></td>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '43da981922253a06c4dfab7b53f2410e',
+    indexName: 'epinow2',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
