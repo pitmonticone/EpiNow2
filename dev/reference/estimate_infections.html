@@ -84,7 +84,7 @@ cases. It can optionally then estimate the time-varying reproduction number and 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.3</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ cases. It can optionally then estimate the time-varying reproduction number and 
   max_execution_time <span class='op'>=</span> <span class='cn'>Inf</span>,
   return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
   id <span class='op'>=</span> <span class='st'>"estimate_infections"</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -300,7 +300,7 @@ to assign errors to regions. Alter the default to run with error catching.</p></
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Logical, defaults to <code>FALSE</code>. Should verbose debug progress messages be printed. Corresponds to the "DEBUG" level from
+      <td><p>Logical, defaults to <code>TRUE</code> when used interactively and otherwise <code>FALSE</code>. Should verbose debug progress messages be printed. Corresponds to the "DEBUG" level from
 <code>futile.logger</code>. See <code>setup_logging</code> for more detailed logging options.</p></td>
     </tr>
     </table>
@@ -326,16 +326,9 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                            stan_args <span class='op'>=</span> 
                               <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>,
                                    control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
-                                   cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>, 
-                           verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Error in sampler$call_sampler(args_list[[i]]) : 
-#&gt;   Exception: Exception: neg_binomial_2_rng: Random number that came from gamma distribution is 1.37122e+09, but must be less than 1.07374e+09  (in 'functions/generated_quantities.stan' at line 40; included from 'model_estimate_infections' at line 8)
-#&gt;   (in 'model_estimate_infections' at line 123)
-#&gt; 
-#&gt; [1] "In addition: Warning message:"                               
-#&gt; [2] "In '_pkgdown.yml', topic must be a known topic name or alias"
-#&gt; [3] "\033[31m✖\033[39m Not 'stop_timeout' "                       </div><div class='output co'>#&gt; <span class='message'>error occurred during calling the sampler; sampling not done</span></div><div class='output co'>#&gt; <span class='error'>Error: $ operator is invalid for atomic vectors</span></div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in plot(def): object 'def' not found</span></div><div class='input'>
+                                   cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
+</div><div class='img'><img src='estimate_infections-1.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># run model using backcalculation</span>
 <span class='va'>backcalc</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
@@ -343,9 +336,9 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                                   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
                                        cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
                                        control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>,
-                                rt_prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+                                rt_prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>backcalc</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-1.png' alt='' width='768' height='1152' /></div><div class='input'>                           
+</div><div class='img'><img src='estimate_infections-2.png' alt='' width='864' height='864' /></div><div class='input'>                           
 <span class='co'># run model with Rt fixed into the future using the latest estimate</span>
 <span class='va'>fixed_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
@@ -353,9 +346,15 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                                    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
                                         control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
                                         cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
-                                future_rt <span class='op'>=</span> <span class='st'>"latest"</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>fixed_rt</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-2.png' alt='' width='768' height='1152' /></div><div class='input'>
+                                future_rt <span class='op'>=</span> <span class='st'>"latest"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Error in sampler$call_sampler(args_list[[i]]) : 
+#&gt;   Exception: Exception: neg_binomial_2_rng: Random number that came from gamma distribution is 2.11738e+09, but must be less than 1.07374e+09  (in 'functions/generated_quantities.stan' at line 40; included from 'model_estimate_infections' at line 8)
+#&gt;   (in 'model_estimate_infections' at line 123)
+#&gt; 
+#&gt; [1] "In addition: Warning message:"                               
+#&gt; [2] "In '_pkgdown.yml', topic must be a known topic name or alias"
+#&gt; [3] "\033[31m✖\033[39m Not 'stop_timeout' "                       </div><div class='output co'>#&gt; <span class='message'>error occurred during calling the sampler; sampling not done</span></div><div class='output co'>#&gt; <span class='error'>Error: $ operator is invalid for atomic vectors</span></div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>fixed_rt</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in plot(fixed_rt): object 'fixed_rt' not found</span></div><div class='input'>
 <span class='co'># run the model with default settings on a later snapshot of </span>
 <span class='co'># data (use burn_in here to remove the first week of estimates that may</span>
 <span class='co'># be impacted by this most).</span>
@@ -366,36 +365,35 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                                    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
                                         control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
                                         cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
-                                burn_in <span class='op'>=</span> <span class='fl'>7</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+                                burn_in <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>snapshot</span><span class='op'>)</span> 
-</div><div class='img'><img src='estimate_infections-3.png' alt='' width='768' height='1152' /></div><div class='input'>
+</div><div class='img'><img src='estimate_infections-3.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># run model with stationary Rt assumption (likely to provide biased real-time estimates)</span>
 <span class='va'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                             delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                             stan_args <span class='op'>=</span> 
                                <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
                                     control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>,
-                            stationary <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+                            stationary <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>stat</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-4.png' alt='' width='768' height='1152' /></div><div class='input'>       
+</div><div class='img'><img src='estimate_infections-4.png' alt='' width='864' height='864' /></div><div class='input'>       
 <span class='co'># run model with fixed Rt assumption </span>
 <span class='va'>fixed</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                              delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                              stan_args <span class='op'>=</span> 
                                 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
                                      control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>,
-                             gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+                             gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>fixed</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-5.png' alt='' width='768' height='1152' /></div><div class='input'>
+</div><div class='img'><img src='estimate_infections-5.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># run model with no delays </span>
 <span class='va'>no_delay</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                 stan_args <span class='op'>=</span> 
                                      <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>,
                                           cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
-                                          control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>,
-                                verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+                                          control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>no_delay</span><span class='op'>)</span>    
-</div><div class='img'><img src='estimate_infections-6.png' alt='' width='768' height='1152' /></div><div class='input'>
+</div><div class='img'><img src='estimate_infections-6.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># run model with breakpoints but otherwise static Rt</span>
 <span class='co'># add a dummy breakpoint (used only when optionally estimating breakpoints)</span>
 <span class='va'>reported_cases_bp</span> <span class='op'>&lt;-</span> 
@@ -407,14 +405,14 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                               <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
                                    cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
                                    control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>,
-                           gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>                                                         
+                           gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>                                                         
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>bkp</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-7.png' alt='' width='768' height='1152' /></div><div class='input'><span class='co'># breakpoint effect</span>
+</div><div class='img'><img src='estimate_infections-7.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># breakpoint effect</span>
 <span class='va'>bkp</span><span class='op'>$</span><span class='va'>summarised</span><span class='op'>[</span><span class='va'>variable</span> <span class='op'>==</span> <span class='st'>"breakpoints"</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;    date    variable strat type     median       mean         sd   lower_90
-#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.5505113 -0.5478161 0.03365321 -0.5991562
+#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.5504439 -0.5476875 0.03341866 -0.6010502
 #&gt;      lower_50   lower_20   upper_20   upper_50   upper_90
-#&gt; 1: -0.5705715 -0.5568722 -0.5410562 -0.5250782 -0.4942172</div><div class='input'><span class='co'># }                                </span>
+#&gt; 1: -0.5714929 -0.5578384 -0.5407276 -0.5252507 -0.4888789</div><div class='input'><span class='co'># }                                </span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

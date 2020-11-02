@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.3</span>
       </span>
     </div>
 
@@ -138,7 +138,14 @@
     <p>Extract Parameter Samples from a Stan Model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_parameter_samples</span><span class='op'>(</span><span class='va'>stan_fit</span>, <span class='va'>data</span>, <span class='va'>reported_dates</span>, <span class='va'>reported_inf_dates</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>extract_parameter_samples</span><span class='op'>(</span>
+  <span class='va'>stan_fit</span>,
+  <span class='va'>data</span>,
+  <span class='va'>reported_dates</span>,
+  <span class='va'>reported_inf_dates</span>,
+  drop_length_1 <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  merge <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +165,16 @@
     <tr>
       <th>reported_inf_dates</th>
       <td><p>A vector of dates to report infection estimates for.</p></td>
+    </tr>
+    <tr>
+      <th>drop_length_1</th>
+      <td><p>Logical; whether the first dimension should be dropped if it
+is if length 1; this is necessary when processing simulation results</p></td>
+    </tr>
+    <tr>
+      <th>merge</th>
+      <td><p>if TRUE, merge samples and data so that parameters can be
+extracted from data</p></td>
     </tr>
     </table>
 
