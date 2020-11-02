@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.2</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 <li>A fixed reproduction number.</li>
 <li>As piecewise constant by combining a fixed reproduction number with breakpoints.</li>
 <li>As a random walk (by combining a fixed reproduction number with regularly spaced breakpoints (i.e weekly)).</li>
-<li>Inferring infections using back-calculation and then calculating the time-varing reproduction number.</li>
+<li>Inferring infections using back-calculation and then calculating the time-varying reproduction number.</li>
 </ul>
 <p>The documentation for <a href="https://epiforecasts.io/EpiNow2/reference/estimate_infections.html"><code>estimate_infections</code></a> provides examples of the different options available.</p>
 <p>Forecasting is also supported for the time-varying reproduction number, infections and reported cases. The time-varying reproduction number can be forecast forwards in time using an integration with the <a href="https://epiforecasts.io/EpiSoon/"><code>{EpiSoon}</code></a> package, and converted to a case forecast using the renewal equation. Alternatively, the time-varying reproduction number and cases can be forecast using a Gaussian process.</p>

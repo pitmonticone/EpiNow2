@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.2</span>
       </span>
     </div>
 
@@ -144,6 +144,7 @@
 <li>Reduced the default maximum generation time and incubation period allowed in the truncated distribution (from 30 days to 15). This decreases the model run time substantially at a marginal accuracy cost. This new default is not suitable for longer generation times and should be modified by the user if these are used.</li>
 <li>Adds basic S3 plot and summary measures for <code>epinow</code> and a plot method for <code>estimate_infections</code>. This functionality will likely be further built out in later releases.</li>
 <li>Added a new function, <code>expose_stan_fns</code> that exposes the internal stan functions into R. The enables unit testing, exploration of the stan functionality and potentially within R use cases for these functions.</li>
+<li>Updates the initialisation of the generative Rt model (the default) so that initial infections that occur in unobserved time (i.e before the first reported case) are generated using an exponential growth model with priors based on fitting the same model to the first week of data. This replaces the previous approach which was to use delay shifted reported cases multiplied by independent noise terms. It reduces degrees of freedom and fitting time at the cost of some model flexibility. Alternatives such as using the generative Rt model were considered but ultimately these approaches were not used as they introduced spurious variation to the gaussian process and result in unreliable Rt estimates due to the lack of historic infections.</li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
@@ -153,6 +154,7 @@
 <li>Recoded the core stan model to be functional with the aim of making the code modular and extendable.</li>
 <li>Added unit tests for the internal stan update_rt function.</li>
 <li>Reworked the package logging system to improve the reporting of issues both in <code>epinow</code> and in <code>regional_epinow</code> for large batch runs.</li>
+<li>Fix from @hsbadr to prevent overflow when overdispersion is larger (by switching to a Poisson approximation). Hitting this issue may indicate a bug in other model code that will need further work to explore.</li>
 </ul>
 </div>
 </div>
@@ -190,7 +192,7 @@
 <li>Fix to normalisation of delay and generation time distributions from @sbfnk. This will impact nowcast infections but not reproduction number estimate.</li>
 <li>Updated <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) to constrain gamma shape and (inverse) scale parameters to be positive and finite (<code>alpha &gt; 0</code> and <code>beta &gt; 0</code>).</li>
 <li>Fixed <code>readLines</code> incomplete final line warnings.</li>
-<li>Fix from @medewitt from the internal <code>fit_chain</code> function where an interaction between <code>rstan</code> and timing out may have introduced an exception that caused whole regions to fail. This did not show on current unit tests or exploration using examples etc. indicating a gap in testing.</li>
+<li>Fix from @medewitt from the internal <code>fit_chain</code> function where an interaction between <code>rstan</code> and timing out may have introduced an exception that caused whole regions to fail. This did not show on current unit tests or exploration using examples indicating a gap in testing.</li>
 </ul>
 </div>
 <div id="other-changes-1" class="section level2">
