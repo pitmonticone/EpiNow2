@@ -679,7 +679,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       bp_effects ~ normal(0, 0.1);
 #&gt;     }
 #&gt;     // initial infections
-#&gt;     initial_infections ~ normal(prior_infections, prior_infections * 0.2);
+#&gt;     initial_infections ~ normal(prior_infections, 0.2);
 #&gt;     if (seeding_time &gt; 1) {
 #&gt;        initial_growth ~ normal(prior_growth, 0.2);
 #&gt;      }
@@ -1226,7 +1226,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       bp_effects ~ normal(0, 0.1);
 #&gt;     }
 #&gt;     // initial infections
-#&gt;     initial_infections ~ normal(prior_infections, prior_infections * 0.2);
+#&gt;     initial_infections ~ normal(prior_infections, 0.2);
 #&gt;     if (seeding_time &gt; 1) {
 #&gt;        initial_growth ~ normal(prior_growth, 0.2);
 #&gt;      }
@@ -1755,7 +1755,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;       bp_effects ~ normal(0, 0.1);
 #&gt;     }
 #&gt;     // initial infections
-#&gt;     initial_infections ~ normal(prior_infections, prior_infections * 0.2);
+#&gt;     initial_infections ~ normal(prior_infections, 0.2);
 #&gt;     if (seeding_time &gt; 1) {
 #&gt;        initial_growth ~ normal(prior_growth, 0.2);
 #&gt;      }
