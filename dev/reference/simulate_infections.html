@@ -46,7 +46,9 @@
 
 
 <meta property="og:title" content="Simulate infections using a given trajectory of the time-varying reproduction number — simulate_infections" />
-<meta property="og:description" content="This function simulates infections using an existing fit to observed cases but with a modified time-varying reproduction number. This can be used to explore forecast models or past counterfactuals." />
+<meta property="og:description" content="This function simulates infections using an existing fit to observed cases but
+with a modified time-varying reproduction number. This can be used to explore forecast models
+or past counterfactuals. Simulations can be run in parallel using future::plan." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -135,30 +137,53 @@
     </div>
 
     <div class="ref-description">
-    <p>This function simulates infections using an existing fit to observed cases but with a modified time-varying reproduction number. This can be used to explore forecast models or past counterfactuals.</p>
+    <p>This function simulates infections using an existing fit to observed cases but
+with a modified time-varying reproduction number. This can be used to explore forecast models
+or past counterfactuals. Simulations can be run in parallel using <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simulate_infections</span><span class='op'>(</span><span class='va'>estimates</span>, R <span class='op'>=</span> <span class='cn'>NULL</span>, model <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>simulate_infections</span><span class='op'>(</span>
+  <span class='va'>estimates</span>,
+  R <span class='op'>=</span> <span class='cn'>NULL</span>,
+  model <span class='op'>=</span> <span class='cn'>NULL</span>,
+  samples <span class='op'>=</span> <span class='cn'>NULL</span>,
+  batch_size <span class='op'>=</span> <span class='fl'>10</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>estimates</th>
-      <td><p>The <code>estimates</code> element of an <code>epinow</code> run that has been done with output = "fit", or the result of <code>estimate_infections</code> with <code>return_fit</code> set to TRUE.</p></td>
+      <td><p>The <code>estimates</code> element of an <code>epinow</code> run that has been done with
+output = "fit", or the result of <code>estimate_infections</code> with <code>return_fit</code> set to TRUE.</p></td>
     </tr>
     <tr>
       <th>R</th>
-      <td><p>A numeric vector of reproduction numbers; these will overwrite the reproduction numbers contained in <code>estimates</code>, except elements set to NA. If it is longer than the time series of reproduction numbers contained in <code>estimates</code>, the values going beyond the length of estimated reproduction numbers are taken as forecast.</p></td>
+      <td><p>A numeric vector of reproduction numbers; these will overwrite the reproduction numbers
+contained in <code>estimates</code>, except elements set to NA. If it is longer than the time series
+of reproduction numbers contained in <code>estimates</code>, the values going beyond the length of
+estimated reproduction numbers are taken as forecast.</p></td>
     </tr>
     <tr>
       <th>model</th>
       <td><p>A compiled stan model. By default uses the internal package model.</p></td>
     </tr>
     <tr>
+      <th>samples</th>
+      <td><p>Numeric, number of posterior samples to simulate from. The default is to use all
+samples in the <code>estimates</code> input.</p></td>
+    </tr>
+    <tr>
+      <th>batch_size</th>
+      <td><p>Numeric, defaults to 100. Size of batches in which to simulate. May decrease
+runtimes due to reduced IO costs. If set to NULL then all simulations are done at once.</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
-      <td><p>Logical, defaults to <code>TRUE</code> when used interactively and otherwise <code>FALSE</code>. Should verbose debug progress messages be printed. Corresponds to the "DEBUG" level from
-<code>futile.logger</code>. See <code>setup_logging</code> for more detailed logging options.</p></td>
+      <td><p>Logical defaults to <code><a href='https://rdrr.io/r/base/interactive.html'>interactive()</a></code>. Should a progress bar (from <code>progressr</code>) be
+shown.</p></td>
     </tr>
     </table>
 
@@ -184,7 +209,7 @@
                                   cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
                                   
 <span class='co'># update Rt trajectory and simulate new infections using it</span>
-<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA_real_</span>, <span class='fl'>40</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>17</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA_real_</span>, <span class='fl'>40</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.8</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>sims</span> <span class='op'>&lt;-</span> <span class='fu'>simulate_infections</span><span class='op'>(</span><span class='va'>est</span>, <span class='va'>R</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>sims</span><span class='op'>)</span>
 </div><div class='img'><img src='simulate_infections-1.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># }</span>

@@ -268,10 +268,8 @@ from this many days into the future (or past if negative) past will be used forw
     </tr>
     <tr>
       <th>burn_in</th>
-      <td><p>Numeric, defaults to 0. The number of initial Rt estimates to discard. This argument may be used to reduce
-spurious findings when running <code>estimate_infections</code> on a partial timeseries (as the earliest estimates will not be informed by
-all cases that occurred only those supplied to <code>estimate_infections</code>). The combined delays used will inform the appropriate length
-of this burn in but 7 days is likely a sensible starting point.</p></td>
+      <td><p>Numeric, defaults to 0. The number of initial Rt estimates to discard. This argument is depreciated and will be
+removed from the package unless a clear user need is given.</p></td>
     </tr>
     <tr>
       <th>prior_smoothing_window</th>
@@ -364,8 +362,7 @@ to assign errors to regions. Alter the default to run with error catching.</p></
                                 stan_args <span class='op'>=</span> 
                                    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, 
                                         control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>,
-                                        cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
-                                burn_in <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
+                                        cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>snapshot</span><span class='op'>)</span> 
 </div><div class='img'><img src='estimate_infections-3.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># run model with stationary Rt assumption (likely to provide biased real-time estimates)</span>

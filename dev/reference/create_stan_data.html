@@ -147,6 +147,7 @@
   <span class='va'>generation_time</span>,
   <span class='va'>rt_prior</span>,
   <span class='va'>estimate_rt</span>,
+  <span class='va'>burn_in</span>,
   <span class='va'>week_effect</span>,
   <span class='va'>stationary</span>,
   <span class='va'>fixed</span>,
@@ -196,6 +197,11 @@ log space). To infer infections and then calculate Rt using backcalculation set 
     <tr>
       <th>estimate_rt</th>
       <td><p>Logical, should Rt be estimated.</p></td>
+    </tr>
+    <tr>
+      <th>burn_in</th>
+      <td><p>Numeric, defaults to 0. The number of initial Rt estimates to discard. This argument is depreciated and will be
+removed from the package unless a clear user need is given.</p></td>
     </tr>
     <tr>
       <th>week_effect</th>
