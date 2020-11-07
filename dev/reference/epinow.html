@@ -86,7 +86,7 @@ results and interpreting them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
       </span>
     </div>
 
@@ -263,20 +263,24 @@ to assign errors to regions. Alter the default to run with error catching.</p></
 <span class='co'># estimate Rt and nowcast/forecast cases by date of infection</span>
 <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
               delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-              stan_args <span class='op'>=</span> 
-                 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,  
-                      control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span>, max_treedepth <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMqHM2J/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMqHM2J/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-11-07 00:01:49] epinow: There were 8 divergent transitions after warmup. See
+              stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpEJJooW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpEJJooW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-11-07 21:33:35] epinow: There were 5 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-11-07 00:01:49] epinow: Examine the pairs() plot to diagnose sampling problems
-#&gt;  - </div><div class='input'><span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>             
+#&gt; WARN [2020-11-07 21:33:35] epinow: Examine the pairs() plot to diagnose sampling problems
+#&gt;  - 
+#&gt; WARN [2020-11-07 21:33:36] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+#&gt; Running the chains for more iterations may help. See
+#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
+#&gt; WARN [2020-11-07 21:33:37] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+#&gt; Running the chains for more iterations may help. See
+#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='input'><span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>             
 </div><div class='output co'>#&gt;                                  measure              estimate
-#&gt; 1: New confirmed cases by infection date   3111 (1143 -- 7904)
+#&gt; 1: New confirmed cases by infection date   3129 (1122 -- 7695)
 #&gt; 2:        Expected change in daily cases     Likely decreasing
 #&gt; 3:            Effective reproduction no.      0.8 (0.4 -- 1.2)
-#&gt; 4:                        Rate of growth -0.07 (-0.18 -- 0.06)
-#&gt; 5:          Doubling/halving time (days)    -10 (12.4 -- -3.9)</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>
+#&gt; 4:                        Rate of growth -0.07 (-0.18 -- 0.04)
+#&gt; 5:          Doubling/halving time (days)    -10.2 (15.6 -- -4)</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>
 </div><div class='img'><img src='epinow-1.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

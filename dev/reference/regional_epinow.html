@@ -85,7 +85,7 @@ and enable it in batch by setting R_PROGRESSR_ENABLE=TRUE as an environment vari
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
       </span>
     </div>
 
@@ -219,8 +219,10 @@ place to start.</p></td>
 <span class='co'># construct example distributions</span>
 <span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
 <span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
-                        sd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>, max <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='convert_to_logmean.html'>convert_to_logmean</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>,
+                        mean_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
+                        sd <span class='op'>=</span> <span class='fu'><a href='convert_to_logsd.html'>convert_to_logsd</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span>,
+                        sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>, max <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
                         
 <span class='co'># uses example case vector</span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
@@ -234,22 +236,21 @@ place to start.</p></td>
                        samples <span class='op'>=</span> <span class='fl'>100</span>,
                        generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                        delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                       stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>100</span>, 
-                                        cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
+                       stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
                        verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-11-07 01:00:30] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMqHM2J/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpMqHM2J/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; INFO [2020-11-07 01:00:30] Reporting estimates using data up to: 2020-04-01
-#&gt; INFO [2020-11-07 01:00:30] No target directory specified so returning output
-#&gt; INFO [2020-11-07 01:00:30] Producing estimates for: testland, realland
-#&gt; INFO [2020-11-07 01:00:30] Regions excluded: none
-#&gt; INFO [2020-11-07 01:00:30] Showing progress using progressr. Modify this behaviour using progressr::handlers.
-#&gt; INFO [2020-11-07 01:04:07] Completed estimates for: testland
-#&gt; INFO [2020-11-07 01:08:12] Completed estimates for: realland
-#&gt; INFO [2020-11-07 01:08:12] Completed regional estimates
-#&gt; INFO [2020-11-07 01:08:12] Regions with estimates: 2
-#&gt; INFO [2020-11-07 01:08:12] Regions with runtime errors: 0
-#&gt; INFO [2020-11-07 01:08:12] Producing summary
-#&gt; INFO [2020-11-07 01:08:12] No summary directory specified so returning summary output
-#&gt; INFO [2020-11-07 01:08:12] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; INFO [2020-11-07 22:38:28] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpEJJooW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpEJJooW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; INFO [2020-11-07 22:38:28] Reporting estimates using data up to: 2020-04-01
+#&gt; INFO [2020-11-07 22:38:28] No target directory specified so returning output
+#&gt; INFO [2020-11-07 22:38:28] Producing estimates for: testland, realland
+#&gt; INFO [2020-11-07 22:38:28] Regions excluded: none
+#&gt; INFO [2020-11-07 22:38:28] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+#&gt; INFO [2020-11-07 22:47:50] Completed estimates for: testland
+#&gt; INFO [2020-11-07 22:54:10] Completed estimates for: realland
+#&gt; INFO [2020-11-07 22:54:10] Completed regional estimates
+#&gt; INFO [2020-11-07 22:54:10] Regions with estimates: 2
+#&gt; INFO [2020-11-07 22:54:10] Regions with runtime errors: 0
+#&gt; INFO [2020-11-07 22:54:10] Producing summary
+#&gt; INFO [2020-11-07 22:54:10] No summary directory specified so returning summary output
+#&gt; INFO [2020-11-07 22:54:11] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

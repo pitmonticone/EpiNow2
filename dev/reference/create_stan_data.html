@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
       </span>
     </div>
 
@@ -148,10 +148,9 @@
   <span class='va'>rt_prior</span>,
   <span class='va'>estimate_rt</span>,
   <span class='va'>burn_in</span>,
-  <span class='va'>week_effect</span>,
   <span class='va'>break_no</span>,
   <span class='va'>gp</span>,
-  <span class='va'>family</span>,
+  <span class='va'>obs_model</span>,
   <span class='va'>delays</span>
 <span class='op'>)</span></pre>
 
@@ -187,8 +186,7 @@ generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
       <th>rt_prior</th>
-      <td><p>A list contain the mean and standard deviation (sd) of the lognormally distributed prior for
-Rt. By default this is assumed to be mean 1 with a standard deviation of 1 (note in model these will be mapped to
+      <td><p>A list contain the mean and standard deviation (sd) of the lognormal prior for Rt. By default this is assumed to be mean 1 with a standard deviation of 1 (note in model these will be mapped to
 log space). To infer infections and then calculate Rt using backcalculation set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
     </tr>
     <tr>
@@ -201,10 +199,6 @@ log space). To infer infections and then calculate Rt using backcalculation set 
 removed from the package unless a clear user need is given.</p></td>
     </tr>
     <tr>
-      <th>week_effect</th>
-      <td><p>Logical, defaults TRUE. Should weekly reporting effects be estimated.</p></td>
-    </tr>
-    <tr>
       <th>break_no</th>
       <td><p>Numeric, number of breakpoints</p></td>
     </tr>
@@ -215,9 +209,10 @@ process settings. See the documentation for <code>gp_settings</code> for details
 settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the current defaults.</p></td>
     </tr>
     <tr>
-      <th>family</th>
-      <td><p>A character string indicating the reporting model to use. Defaults to negative
-binomial ("negbin") with poisson ("poisson") also supported.</p></td>
+      <th>obs_model</th>
+      <td><p>A list of settings to override the package default observation
+model settings. See the documentation for <code>obs_model_settings</code> for details of these
+settings and <code><a href='obs_model_settings.html'>obs_model_settings()</a></code> for the current defaults.</p></td>
     </tr>
     <tr>
       <th>delays</th>

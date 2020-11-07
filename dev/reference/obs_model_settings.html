@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate Cases by Date of Infection, Onset and Report — simulate_cases • EpiNow2</title>
+<title>Observation Model Settings — obs_model_settings • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,21 @@
 
 
 
-<meta property="og:title" content="Simulate Cases by Date of Infection, Onset and Report — simulate_cases" />
-<meta property="og:description" content="Simulate Cases by Date of Infection, Onset and Report" />
+<meta property="og:title" content="Observation Model Settings — obs_model_settings" />
+<meta property="og:description" content="Defines a list specifying the structure of the observation
+model. Custom settings can be supplied which override the defaults. Used internally
+by create_obs_model, create_stan_data, and estimate_infections. The settings
+returned (all of which are modifiable by the user) are:
+family: Observation model family. Options are Negative binomial (&quot;negbin&quot;),
+the default, and Poisson.
+weight: Weight to give the observed data in the log density. Numeric, defaults
+to 1.
+week_effect: Logical defaulting to TRUE. Should a day of the week effect be used.
+scale List, defaulting to an empty list. Should an scaling factor be applied to map
+latent infections (convolved to date of report). If none empty a mean (mean) and standard
+deviation (sd) needs to be supplied defining the normally distributed scaling factor.
+
+" />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -129,85 +142,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate Cases by Date of Infection, Onset and Report</h1>
+    <h1>Observation Model Settings</h1>
     
-    <div class="hidden name"><code>simulate_cases.Rd</code></div>
+    <div class="hidden name"><code>obs_model_settings.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Simulate Cases by Date of Infection, Onset and Report</p>
+    <p>Defines a list specifying the structure of the observation
+model. Custom settings can be supplied which override the defaults. Used internally
+by <code>create_obs_model</code>, <code>create_stan_data</code>, and <code>estimate_infections</code>. The settings
+returned (all of which are modifiable by the user) are:</p><ul>
+<li><p><code>family</code>: Observation model family. Options are Negative binomial ("negbin"),
+the default, and Poisson.</p></li>
+<li><p><code>weight</code>: Weight to give the observed data in the log density. Numeric, defaults
+to 1.</p></li>
+<li><p><code>week_effect</code>: Logical defaulting to <code>TRUE</code>. Should a day of the week effect be used.</p></li>
+<li><p><code>scale</code> List, defaulting to an empty list. Should an scaling factor be applied to map
+latent infections (convolved to date of report). If none empty a mean (<code>mean</code>) and standard
+deviation (<code>sd</code>) needs to be supplied defining the normally distributed scaling factor.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>simulate_cases</span><span class='op'>(</span>
-  <span class='va'>rts</span>,
-  <span class='va'>initial_cases</span>,
-  <span class='va'>initial_date</span>,
-  <span class='va'>generation_interval</span>,
-  rdist <span class='op'>=</span> <span class='va'>rpois</span>,
-  <span class='va'>delay_defs</span>,
-  <span class='va'>reporting_effect</span>,
-  <span class='va'>reporting_model</span>,
-  truncate_future <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  type <span class='op'>=</span> <span class='st'>"sample"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>obs_model_settings</span><span class='op'>(</span>obs_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rts</th>
-      <td><p>A dataframe of containing two variables <code>rt</code> and  <code>date</code> with
-<code>rt</code> being numeric and <code>date</code> being a date.</p></td>
-    </tr>
-    <tr>
-      <th>initial_cases</th>
-      <td><p>Integer, initial number of cases.</p></td>
-    </tr>
-    <tr>
-      <th>initial_date</th>
-      <td><p>Date, (i.e <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date("2020-02-01")</a></code>). Starting date of the simulation.</p></td>
-    </tr>
-    <tr>
-      <th>generation_interval</th>
-      <td><p>Numeric vector describing the generation interval probability density</p></td>
-    </tr>
-    <tr>
-      <th>rdist</th>
-      <td><p>A function to be used to sample the number of cases. Must take two
-arguments with the first specifying the number of samples and the second the mean. Defaults
-to <code>rpois</code> if not supplied</p></td>
-    </tr>
-    <tr>
-      <th>delay_defs</th>
-      <td><p>A list of single row data.tables that each  defines a delay distribution (model, parameters and maximum delay for each model).
-See <code>lognorm_dist_def</code> for an example of the structure.</p></td>
-    </tr>
-    <tr>
-      <th>reporting_effect</th>
-      <td><p>A numeric vector of length 7 that allows the scaling of reported cases
-by the day on which they report (1 = Monday, 7 = Sunday). By default no scaling occurs.</p></td>
-    </tr>
-    <tr>
-      <th>reporting_model</th>
-      <td><p>A function that takes a single numeric vector as an argument and returns a
-single numeric vector. Can be used to apply stochastic reporting effects. See the examples for details.</p></td>
-    </tr>
-    <tr>
-      <th>truncate_future</th>
-      <td><p>Logical, should cases be truncated if they occur after the first date reported in the data.
-Defaults to <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Character string indicating the method to use to transform counts. Supports either "sample"
-which approximates sampling or "median" would shift by the median of the distribution.</p></td>
+      <th>obs_model</th>
+      <td><p>A list of settings to override the defaults.
+Defaults to an empty list.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe containing three variables: <code>date</code>, <code>cases</code> and <code>reference</code>.</p>
+    <p>A list of observation model settings.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># default settings</span>
+<span class='fu'>obs_model_settings</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $family
+#&gt; [1] "negbin"
+#&gt; 
+#&gt; $weight
+#&gt; [1] 1
+#&gt; 
+#&gt; $week_effect
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $scale
+#&gt; list()
+#&gt; </div><div class='input'>
+<span class='co'># Turn off day of the week effect</span>
+<span class='fu'>obs_model_settings</span><span class='op'>(</span>obs_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>week_effect <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $family
+#&gt; [1] "negbin"
+#&gt; 
+#&gt; $weight
+#&gt; [1] 1
+#&gt; 
+#&gt; $scale
+#&gt; list()
+#&gt; 
+#&gt; $week_effect
+#&gt; [1] TRUE
+#&gt; </div><div class='input'>
+
+<span class='co'># Scale reported data</span>
+<span class='fu'>obs_model_settings</span><span class='op'>(</span>obs_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>0.2</span>, sd <span class='op'>=</span> <span class='fl'>0.02</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $family
+#&gt; [1] "negbin"
+#&gt; 
+#&gt; $weight
+#&gt; [1] 1
+#&gt; 
+#&gt; $week_effect
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $scale
+#&gt; $scale$mean
+#&gt; [1] 0.2
+#&gt; 
+#&gt; $scale$sd
+#&gt; [1] 0.02
+#&gt; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

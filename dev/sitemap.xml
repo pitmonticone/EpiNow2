@@ -13,6 +13,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/allocate_delays.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/allocate_empty.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/bootstrapped_dist_fit.html</loc>
   </url>
   <url>
@@ -59,6 +62,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_initial_conditions.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_obs_model.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_shifted_cases.html</loc>
@@ -164,6 +170,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/match_output_arguments.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/obs_model_settings.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/plot.epinow.html</loc>

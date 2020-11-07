@@ -50,31 +50,35 @@
 process. Custom settings can be supplied which override the defaults. Used internally
 by create_gp_data, create_stan_data, and estimate_infections. The settings
 returned (all of which are modifiable by the user) are:
-The mean and standard deviation of the log normal length scale (ls_mean and ls_sd) with
+ls_mean and ls_sd. The mean and standard deviation of the log normal length scale with
 default values of 21 days and 7 days respectively.
-The minimum and maximum values of the length scale (ls_min and ls_max) with default values
+ls_min and ls_max: The minimum and maximum values of the length scale with default values
 of 3 and the maximum length of the data (input by the user) or 9 weeks if no maximum given.
-The standard deviation of the magnitude parameter of the kernel. This defaults to 0.1 and
+alpha_sd: The standard deviation of the magnitude parameter of the kernel. This defaults to 0.1 and
 should be approximately the expected standard deviation of the logged Rt.
-The type of kernel required, currently supporting the squared exponential kernel (&quot;se&quot;)
-and the 3 over 2 Matern kernel (&quot;matern_3/2&quot;). Defaulting to the Materin 3 over 2 kernel
+kernel: The type of kernel required, currently supporting the squared exponential kernel (&quot;se&quot;)
+and the 3 over 2 Matern kernel (&quot;matern&quot;, with matern_type = 3/2 (no other form of Matern
+kernels are currently supported)). Defaulting to the Matern 3 over 2 kernel.
 as discontinuities are expected in Rt and infections.
-The proportion of basis functions to time points (basis_prop) and the boundary scale of
-the approximate gaussian process (boundary_scale). The proportion of basis functions
+basis_prop and boundary_scale: The proportion of basis functions to time points and
+the boundary scale of the approximate gaussian process. The proportion of basis functions
 defaults to 0.3 (and much be greater than 0), and the boundary scale defaults to 2.
 Decreasing either of these values should increase run times at the cost of the accuracy of
-gaussian process approximation. In general smaller posterior lengthscales require a
+Gaussian process approximation. In general smaller posterior length scales require a
 higher proportion of basis functions and the user should only rarely alter the boundary scale.
 These settings are an area of active research. See https://arxiv.org/abs/2004.11408 for further
 details.
-Should the Gaussian process be estimated with a stationary global mean or be second
+stationary: Should the Gaussian process be estimated with a stationary global mean or be second
 order and so depend on the previous value. A stationary Gaussian process may be more
 tractable but will revert to the global average when data is sparse i.e for near real
 time estimates. The default is FALSE. This feature is experimental.
-How should the Gaussian process be extended when data is sparse. The default is to
-project the kernal forwards in time (&quot;project&quot;) but other options project the latest estimate
-based on &amp;gt;50% complete data (&quot;estimate&quot;), based on all partial data (&quot;latest&quot;) or a numeric
-number of days. See ?create_future_rt for further details and complete options.
+future: How should the Gaussian process be extended when data is sparse. The default
+is to fix it  based on the last estimate based on partial data (&quot;latest&quot;) but other options
+include projecting the latest estimate based on &amp;gt;50% complete data (&quot;estimate&quot;), or projecting
+the kernel of the gaussian process forwards in time (&quot;project&quot;). Alternatively the number
+of days to project the gaussian process can be passed (if negative then fixes within
+estimated time). When using backcalculation (i.e rt_prior = list()) only projection
+using the gaussian process is supported. See ?create_future_rt for further details and complete options.
 
 " />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
@@ -113,7 +117,7 @@ number of days. See ?create_future_rt for further details and complete options.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
       </span>
     </div>
 
@@ -169,31 +173,35 @@ number of days. See ?create_future_rt for further details and complete options.
 process. Custom settings can be supplied which override the defaults. Used internally
 by <code>create_gp_data</code>, <code>create_stan_data</code>, and <code>estimate_infections</code>. The settings
 returned (all of which are modifiable by the user) are:</p><ul>
-<li><p>The mean and standard deviation of the log normal length scale (<code>ls_mean</code> and <code>ls_sd</code>) with
+<li><p><code>ls_mean</code> and <code>ls_sd</code>. The mean and standard deviation of the log normal length scale with
 default values of 21 days and 7 days respectively.</p></li>
-<li><p>The minimum and maximum values of the length scale (<code>ls_min</code> and <code>ls_max</code>) with default values
+<li><p><code>ls_min</code> and <code>ls_max</code>: The minimum and maximum values of the length scale with default values
 of 3 and the maximum length of the data (input by the user) or 9 weeks if no maximum given.</p></li>
-<li><p>The standard deviation of the magnitude parameter of the kernel. This defaults to 0.1 and
+<li><p><code>alpha_sd</code>: The standard deviation of the magnitude parameter of the kernel. This defaults to 0.1 and
 should be approximately the expected standard deviation of the logged Rt.</p></li>
-<li><p>The type of kernel required, currently supporting the squared exponential kernel ("se")
-and the 3 over 2 Matern kernel ("matern_3/2"). Defaulting to the Materin 3 over 2 kernel
+<li><p><code>kernel</code>: The type of kernel required, currently supporting the squared exponential kernel ("se")
+and the 3 over 2 Matern kernel ("matern", with <code>matern_type = 3/2</code> (no other form of Matern
+kernels are currently supported)). Defaulting to the Matern 3 over 2 kernel.
 as discontinuities are expected in Rt and infections.</p></li>
-<li><p>The proportion of basis functions to time points (<code>basis_prop</code>) and the boundary scale of
-the approximate gaussian process (<code>boundary_scale</code>). The proportion of basis functions
+<li><p><code>basis_prop</code> and <code>boundary_scale</code>: The proportion of basis functions to time points and
+the boundary scale of the approximate gaussian process. The proportion of basis functions
 defaults to 0.3 (and much be greater than 0), and the boundary scale defaults to 2.
 Decreasing either of these values should increase run times at the cost of the accuracy of
-gaussian process approximation. In general smaller posterior lengthscales require a
+Gaussian process approximation. In general smaller posterior length scales require a
 higher proportion of basis functions and the user should only rarely alter the boundary scale.
 These settings are an area of active research. See https://arxiv.org/abs/2004.11408 for further
 details.</p></li>
-<li><p>Should the Gaussian process be estimated with a stationary global mean or be second
+<li><p><code>stationary</code>: Should the Gaussian process be estimated with a stationary global mean or be second
 order and so depend on the previous value. A stationary Gaussian process may be more
 tractable but will revert to the global average when data is sparse i.e for near real
 time estimates. The default is FALSE. This feature is experimental.</p></li>
-<li><p>How should the Gaussian process be extended when data is sparse. The default is to
-project the kernal forwards in time ("project") but other options project the latest estimate
-based on &gt;50% complete data ("estimate"), based on all partial data ("latest") or a numeric
-number of days. See ?create_future_rt for further details and complete options.</p></li>
+<li><p><code>future</code>: How should the Gaussian process be extended when data is sparse. The default
+is to fix it  based on the last estimate based on partial data ("latest") but other options
+include projecting the latest estimate based on &gt;50% complete data ("estimate"), or projecting
+the kernel of the gaussian process forwards in time ("project"). Alternatively the number
+of days to project the gaussian process can be passed (if negative then fixes within
+estimated time). When using backcalculation (i.e <code>rt_prior = list()</code>) only projection
+using the gaussian process is supported. See ?create_future_rt for further details and complete options.</p></li>
 </ul>
 
     </div>
@@ -251,7 +259,7 @@ number of days. See ?create_future_rt for further details and complete options.<
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $future
-#&gt; [1] "project"
+#&gt; [1] "latest"
 #&gt; </div><div class='input'>
 <span class='co'># add a custom length scale</span>
 <span class='fu'>gp_settings</span><span class='op'>(</span>gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ls_mean <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
@@ -283,7 +291,7 @@ number of days. See ?create_future_rt for further details and complete options.<
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $future
-#&gt; [1] "project"
+#&gt; [1] "latest"
 #&gt; 
 #&gt; $ls_mean
 #&gt; [1] 4

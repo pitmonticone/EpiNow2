@@ -85,7 +85,7 @@ functions for additional options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@ functions for additional options.</p>
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   init <span class='op'>=</span> <span class='st'>"random"</span>,
   samples <span class='op'>=</span> <span class='fl'>1000</span>,
-  stan_args <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   method <span class='op'>=</span> <span class='st'>"exact"</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
@@ -232,11 +232,13 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
+#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
+#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
-#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
-#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
-#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
-#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - c_mu) / c_sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - c_mu) / c_sigma, 0.0, 1.0);
 #&gt;   real trunc_cdf = max_cdf - min_cdf;
 #&gt;   for (i in 1:n) {
 #&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
@@ -529,11 +531,19 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
+#&gt; // Scale observations by fraction reported and update log density of 
+#&gt; // fraction reported
+#&gt; vector scale_obs(vector reports, real frac_obs) {
+#&gt;   int t = num_elements(reports);
+#&gt;   vector[t] scaled_reports;
+#&gt;   scaled_reports = reports * frac_obs;
+#&gt;   return(scaled_reports);
+#&gt; }
 #&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
-#&gt;                int weight) {
+#&gt;                real weight) {
 #&gt;   int t = num_elements(reports) - horizon;
 #&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
@@ -654,6 +664,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
 #&gt;   int week_effect;                   // should a day of the week effect be estimated
+#&gt;   int obs_scale;                                    // logical controlling scaling of observations
+#&gt;   real obs_scale_mean;                              // mean scaling factor for observations
+#&gt;   real obs_scale_sd;                                // standard deviation of observation scaling
+#&gt;   real obs_weight;                                  // weight given to observation in log density
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -684,6 +698,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
 #&gt;   real&lt;lower = 0&gt; delay_sd[delays];     // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale]; // fraction of cases that are ultimately observed
 #&gt;   real&lt;lower = 0&gt; rep_phi[model_type];  // overdispersion of the reporting process
 #&gt; }
 #&gt; 
@@ -712,6 +727,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;  if (week_effect) {
 #&gt;    reports = day_of_week_effect(reports, day_of_week, day_of_week_simplex);
 #&gt;   }
+#&gt;   // scaling of reported cases by fraction oberserved
+#&gt;  if (obs_scale) {
+#&gt;    reports = scale_obs(reports, frac_obs[1]);
+#&gt;  }
 #&gt; }
 #&gt; 
 #&gt; model {
@@ -738,8 +757,11 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     // penalised_prior on generation interval
 #&gt;     generation_time_lp(gt_mean, gt_mean_mean, gt_mean_sd, gt_sd, gt_sd_mean, gt_sd_sd, ot);
 #&gt;   }
+#&gt;   if (obs_scale) {
+#&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0, 1];
+#&gt;   }
 #&gt;   // observed reports from mean of reports
-#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, 1);
+#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, obs_weight);
 #&gt; }
 #&gt;   
 #&gt; generated quantities {
@@ -775,14 +797,14 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; [1] 4
 #&gt; 
 #&gt; $warmup
-#&gt; [1] 500
+#&gt; [1] 250
 #&gt; 
 #&gt; $chains
 #&gt; [1] 4
 #&gt; 
 #&gt; $control
 #&gt; $control$adapt_delta
-#&gt; [1] 0.99
+#&gt; [1] 0.98
 #&gt; 
 #&gt; $control$max_treedepth
 #&gt; [1] 15
@@ -795,7 +817,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; [1] 67020432
 #&gt; 
 #&gt; $iter
-#&gt; [1] 750
+#&gt; [1] 500
 #&gt; </div><div class='input'>
 <span class='co'># approximate settings</span>
 <span class='fu'>create_stan_args</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"approximate"</span><span class='op'>)</span> 
@@ -831,11 +853,13 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
+#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
+#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
-#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
-#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
-#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
-#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - c_mu) / c_sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - c_mu) / c_sigma, 0.0, 1.0);
 #&gt;   real trunc_cdf = max_cdf - min_cdf;
 #&gt;   for (i in 1:n) {
 #&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
@@ -1128,11 +1152,19 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
+#&gt; // Scale observations by fraction reported and update log density of 
+#&gt; // fraction reported
+#&gt; vector scale_obs(vector reports, real frac_obs) {
+#&gt;   int t = num_elements(reports);
+#&gt;   vector[t] scaled_reports;
+#&gt;   scaled_reports = reports * frac_obs;
+#&gt;   return(scaled_reports);
+#&gt; }
 #&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
-#&gt;                int weight) {
+#&gt;                real weight) {
 #&gt;   int t = num_elements(reports) - horizon;
 #&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
@@ -1253,6 +1285,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
 #&gt;   int week_effect;                   // should a day of the week effect be estimated
+#&gt;   int obs_scale;                                    // logical controlling scaling of observations
+#&gt;   real obs_scale_mean;                              // mean scaling factor for observations
+#&gt;   real obs_scale_sd;                                // standard deviation of observation scaling
+#&gt;   real obs_weight;                                  // weight given to observation in log density
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -1283,6 +1319,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
 #&gt;   real&lt;lower = 0&gt; delay_sd[delays];     // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale]; // fraction of cases that are ultimately observed
 #&gt;   real&lt;lower = 0&gt; rep_phi[model_type];  // overdispersion of the reporting process
 #&gt; }
 #&gt; 
@@ -1311,6 +1348,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;  if (week_effect) {
 #&gt;    reports = day_of_week_effect(reports, day_of_week, day_of_week_simplex);
 #&gt;   }
+#&gt;   // scaling of reported cases by fraction oberserved
+#&gt;  if (obs_scale) {
+#&gt;    reports = scale_obs(reports, frac_obs[1]);
+#&gt;  }
 #&gt; }
 #&gt; 
 #&gt; model {
@@ -1337,8 +1378,11 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     // penalised_prior on generation interval
 #&gt;     generation_time_lp(gt_mean, gt_mean_mean, gt_mean_sd, gt_sd, gt_sd_mean, gt_sd_sd, ot);
 #&gt;   }
+#&gt;   if (obs_scale) {
+#&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0, 1];
+#&gt;   }
 #&gt;   // observed reports from mean of reports
-#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, 1);
+#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, obs_weight);
 #&gt; }
 #&gt;   
 #&gt; generated quantities {
@@ -1412,11 +1456,13 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
+#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
+#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
-#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
-#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
-#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
-#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - c_mu) / c_sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - c_mu) / c_sigma, 0.0, 1.0);
 #&gt;   real trunc_cdf = max_cdf - min_cdf;
 #&gt;   for (i in 1:n) {
 #&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
@@ -1709,11 +1755,19 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
+#&gt; // Scale observations by fraction reported and update log density of 
+#&gt; // fraction reported
+#&gt; vector scale_obs(vector reports, real frac_obs) {
+#&gt;   int t = num_elements(reports);
+#&gt;   vector[t] scaled_reports;
+#&gt;   scaled_reports = reports * frac_obs;
+#&gt;   return(scaled_reports);
+#&gt; }
 #&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
-#&gt;                int weight) {
+#&gt;                real weight) {
 #&gt;   int t = num_elements(reports) - horizon;
 #&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
@@ -1834,6 +1888,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
 #&gt;   int week_effect;                   // should a day of the week effect be estimated
+#&gt;   int obs_scale;                                    // logical controlling scaling of observations
+#&gt;   real obs_scale_mean;                              // mean scaling factor for observations
+#&gt;   real obs_scale_sd;                                // standard deviation of observation scaling
+#&gt;   real obs_weight;                                  // weight given to observation in log density
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -1864,6 +1922,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
 #&gt;   real&lt;lower = 0&gt; delay_sd[delays];     // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale]; // fraction of cases that are ultimately observed
 #&gt;   real&lt;lower = 0&gt; rep_phi[model_type];  // overdispersion of the reporting process
 #&gt; }
 #&gt; 
@@ -1892,6 +1951,10 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;  if (week_effect) {
 #&gt;    reports = day_of_week_effect(reports, day_of_week, day_of_week_simplex);
 #&gt;   }
+#&gt;   // scaling of reported cases by fraction oberserved
+#&gt;  if (obs_scale) {
+#&gt;    reports = scale_obs(reports, frac_obs[1]);
+#&gt;  }
 #&gt; }
 #&gt; 
 #&gt; model {
@@ -1918,8 +1981,11 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;     // penalised_prior on generation interval
 #&gt;     generation_time_lp(gt_mean, gt_mean_mean, gt_mean_sd, gt_sd, gt_sd_mean, gt_sd_sd, ot);
 #&gt;   }
+#&gt;   if (obs_scale) {
+#&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0, 1];
+#&gt;   }
 #&gt;   // observed reports from mean of reports
-#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, 1);
+#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, obs_weight);
 #&gt; }
 #&gt;   
 #&gt; generated quantities {
@@ -1959,7 +2025,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; $control
 #&gt; $control$adapt_delta
-#&gt; [1] 0.99
+#&gt; [1] 0.98
 #&gt; 
 #&gt; $control$max_treedepth
 #&gt; [1] 15
