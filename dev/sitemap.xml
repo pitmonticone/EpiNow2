@@ -37,6 +37,12 @@
     <loc>epiforecasts.io/EpiNow2//reference/construct_output.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/convert_to_logmean.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/convert_to_logsd.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/copy_results_to_latest.html</loc>
   </url>
   <url>
@@ -47,6 +53,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_future_rt.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_gp_data.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_initial_conditions.html</loc>
@@ -134,6 +143,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/global_map.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/gp_settings.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/growth_to_R.html</loc>

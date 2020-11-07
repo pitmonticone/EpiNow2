@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.3</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
       </span>
     </div>
 
@@ -146,6 +146,8 @@
 <li>Added a new function, <code>expose_stan_fns</code> that exposes the internal stan functions into R. The enables unit testing, exploration of the stan functionality and potentially within R use cases for these functions.</li>
 <li>Updates the initialisation of the generative Rt model (the default) so that initial infections that occur in unobserved time (i.e before the first reported case) are generated using an exponential growth model with priors based on fitting the same model to the first week of data. This replaces the previous approach which was to use delay shifted reported cases multiplied by independent noise terms. It reduces degrees of freedom and fitting time at the cost of some model flexibility. Alternatives such as using the generative Rt model were considered but ultimately these approaches were not used as they introduced spurious variation to the gaussian process and result in unreliable Rt estimates due to the lack of historic infections.</li>
 <li>New <code>simulate_infections</code> function from @sbfnk which allows the simulation of different Rt traces when combined with estimates as produced by <code>estimate_infections</code>. This function is likely to form the basis for moving all forecasting out of <code>estimate_infections</code> which may improve model stability.</li>
+<li>Updates the implementation of the Gaussian process to support the Matern 3/2 Kernel (and set this as the default) in addition to the squared exponential kernel. Updates the handling of Gaussian process arguments so that only overridden settings need to be passed by the user when making changes. Settings are now defined, and documented, in <code>gp_settings</code>. The length scale is now defined using a log normal truncated prior with a mean of 21 days and a standard deviation of 7 days truncated at 3 days and the length of the data by default. This prior is an area of active research and so may change in future releases.</li>
+<li>Updates the over dispersion prior to be <code>1 / sqrt(half_normal(0, rho_prior))</code> based on <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">this</a> advice and as the over dispersion being measured is in reports and not infections and hence a priori there is not strong evidence for over dispersion (which may be the case for infections) so the previous prior was overly weighted towards this.</li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
@@ -158,6 +160,9 @@
 <li>Fix from @hsbadr to prevent overflow when overdispersion is larger (by switching to a Poisson approximation). Hitting this issue may indicate a bug in other model code that will need further work to explore.</li>
 <li>Moved default verbosity for all functions (excepting <code>regional_epinow</code>) to be based on whether or not usage is interactive.</li>
 <li>Depreciated <code>burn_in</code> argument of <code>estimate_infections</code> as updates to model initialisation mean that this feature is likely no longer needed. Please contact the developers if you feel you have a use case for this argument.</li>
+<li>Adds utility functions to map between mean and standard deviation and the log mean and log standard deviation for a log normal distribution (<code>convert_to_logmean</code> and <code>convert_to_logsd</code>).</li>
+<li>Optimised all discrete probability mass functions to be as vectorised as possible.</li>
+<li>Updated the Gaussian process to be internally on the unit scale.</li>
 </ul>
 </div>
 </div>

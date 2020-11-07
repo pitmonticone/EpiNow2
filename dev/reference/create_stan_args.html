@@ -85,7 +85,7 @@ functions for additional options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.3</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
       </span>
     </div>
 
@@ -204,42 +204,68 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; S4 class stanmodel 'estimate_infections' coded as follows:
 #&gt; functions {
 #&gt; 
-#&gt;  // discretised truncated gamma pmf
-#&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     // calculate alpha and beta for gamma distribution
-#&gt;     real c_sigma = sigma + 1e-5;
-#&gt;     real alpha = ((mu)/ c_sigma)^2;
-#&gt;     real beta = (mu) / (c_sigma^2);
-#&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;     beta = is_inf(beta) ? 1e8 : beta; 
-#&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
-#&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
+#&gt; // discretised truncated gamma pmf
+#&gt; vector discretised_gamma_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real trunc_pmf;
+#&gt;   // calculate alpha and beta for gamma distribution
+#&gt;   real c_sigma = sigma + 1e-5;
+#&gt;   real alpha = ((mu)/ c_sigma)^2;
+#&gt;   real beta = (mu) / (c_sigma^2);
+#&gt;   //account for numerical issues
+#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
+#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
+#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   // calculate pmf
+#&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
+#&gt;   for (i in 1:n){
+#&gt;     pmf[i] = (gamma_cdf(y[i] + 1, alpha, beta) - gamma_cdf(y[i], alpha, beta)) / 
+#&gt;     trunc_pmf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
 #&gt; 
-#&gt; 
-#&gt;   // discretised truncated lognormal pmf
-#&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     real small = 1e-5;
-#&gt;     real adj_y = y + small;
-#&gt;     return((normal_cdf((log(adj_y + 1) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(adj_y) - mu) / sigma, 0.0, 1.0)) /
-#&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
+#&gt; // discretised truncated lognormal pmf
+#&gt; vector discretised_lognormal_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real small = 1e-5;
+#&gt;   vector[n] adj_y = to_vector(y) + small;
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real trunc_cdf = max_cdf - min_cdf;
+#&gt;   for (i in 1:n) {
+#&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
+#&gt;     trunc_cdf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
+#&gt; 
+#&gt; // reverse a pmf
+#&gt; vector reverse_pmf(vector pmf, int max_pmf) {
+#&gt;   vector[max_pmf] rev_pmf;
+#&gt;   for (d in 1:max_pmf) {
+#&gt;     rev_pmf[d] = pmf[max_pmf - d + 1];
+#&gt;   }
+#&gt;   return rev_pmf;
+#&gt; }
 #&gt; 
 #&gt; // convolve a pdf and case vector 
-#&gt; vector convolve(vector cases, vector pdf) {
+#&gt; vector convolve(vector cases, vector rev_pmf) {
 #&gt;     int t = num_elements(cases);
-#&gt;     int max_pdf = num_elements(pdf);
-#&gt;     vector[t] convolved_cases = rep_vector(1e-5, t);
+#&gt;     int max_pmf = num_elements(rev_pmf);
+#&gt;     vector[t] conv_cases = rep_vector(1e-5, t);
 #&gt;     for (s in 1:t) {
-#&gt;         convolved_cases[s] += dot_product(cases[max(1, (s - max_pdf + 1)):s], tail(pdf, min(max_pdf, s)));
+#&gt;         conv_cases[s] += dot_product(cases[max(1, (s - max_pmf + 1)):s],
+#&gt;                                      tail(rev_pmf, min(max_pmf, s)));
 #&gt;     }
-#&gt;    return(convolved_cases);
+#&gt;    return(conv_cases);
 #&gt;   }
+#&gt; 
 #&gt; 
 #&gt; // convolve latent infections to reported (but still unobserved) cases
 #&gt; vector convolve_to_report(vector infections, 
@@ -249,18 +275,20 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;                           int seeding_time) {
 #&gt;   int t = num_elements(infections);
 #&gt;   vector[t - seeding_time] reports;
-#&gt;   vector[t] reports_hold = infections;
+#&gt;   vector[t] unobs_reports = infections;
 #&gt;   int delays = num_elements(delay_mean);
 #&gt;   if (delays) {
 #&gt;     for (s in 1:delays) {
-#&gt;       vector[max_delay[s]] rev_delay = rep_vector(1e-5, max_delay[s]);
-#&gt;       for (j in 1:(max_delay[s])) {
-#&gt;         rev_delay[j] +=
-#&gt;         discretised_lognormal_pmf(max_delay[s] - j, delay_mean[s], delay_sd[s], max_delay[s]);
+#&gt;       vector[max_delay[s]] pmf = rep_vector(1e-5, max_delay[s]);
+#&gt;       int delay_indexes[max_delay[s]];
+#&gt;       for (i in 1:max_delay[s]) {
+#&gt;         delay_indexes[i] = max_delay[s] - i;
 #&gt;       }
-#&gt;       reports_hold = convolve(reports_hold, rev_delay);
+#&gt;       pmf = pmf + discretised_lognormal_pmf(delay_indexes, delay_mean[s],
+#&gt;                                             delay_sd[s], max_delay[s]);
+#&gt;       unobs_reports = convolve(unobs_reports, pmf);
 #&gt;     }
-#&gt;     reports = reports_hold[(seeding_time + 1):t];
+#&gt;     reports = unobs_reports[(seeding_time + 1):t];
 #&gt;   }else{
 #&gt;     reports = infections[(seeding_time + 1):t];
 #&gt;   }
@@ -278,68 +306,79 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt; }
 #&gt; 
-#&gt;   // exponential quadratic kernal
-#&gt; 	real spd_SE(real alpha, real rho, real w) {
-#&gt; 		real S;
-#&gt; 		S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
-#&gt; 		return S;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// basis function for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	vector phi_SE(real L, int m, vector x) {
-#&gt; 		vector[rows(x)] fi;
-#&gt; 		fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
-#&gt; 		return fi;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// eigenvalues for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	real lambda(real L, int m) {
-#&gt; 		real lam;
-#&gt; 		lam = ((m*pi())/(2*L))^2;
-#&gt; 		return lam;
-#&gt; 	}
-#&gt; 
-#&gt; 
+#&gt; // eigenvalues for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; real lambda(real L, int m) {
+#&gt;   real lam;
+#&gt;   lam = ((m*pi())/(2*L))^2;
+#&gt;   return lam;
+#&gt; }
+#&gt; // eigenfunction for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; vector phi(real L, int m, vector x) {
+#&gt;   vector[rows(x)] fi;
+#&gt;   fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
+#&gt;   return fi;
+#&gt; }	
+#&gt; // spectral density of the exponential quadratic kernal
+#&gt; real spd_se(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
+#&gt;   return S;
+#&gt; }
+#&gt; // spectral density of the Matern 3/2 kernel
+#&gt; real spd_matern(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = 4*alpha^2 * (sqrt(3)/rho)^3 * 1/((sqrt(3)/rho)^2 + w^2)^2;
+#&gt;   return S;
+#&gt; }
+#&gt; // setup gaussian process noise dimensions
 #&gt; int setup_noise(int ot_h, int t, int horizon, int estimate_r, 
 #&gt;                 int stationary, int future_fixed, int fixed_from) {
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? ot_h : ot_h - 1) : t;
 #&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time; 
 #&gt;   return(noise_terms);
 #&gt; }
-#&gt; 
-#&gt; 
+#&gt; // setup approximate gaussian process
 #&gt; matrix setup_gp(int M, real L, int dimension) {
 #&gt;   vector[dimension] time;
 #&gt;   matrix[dimension, M] PHI;
+#&gt;   real half_dim = dimension / 2.0;
 #&gt;   for (s in 1:dimension) {
-#&gt;     time[s] = s;
+#&gt;     time[s] = (s - half_dim) / half_dim;
 #&gt;   }
 #&gt;   for (m in 1:M){ 
-#&gt;     PHI[,m] = phi_SE(L, m, time); 
+#&gt;     PHI[,m] = phi(L, m, time); 
 #&gt;   }
 #&gt;   return(PHI);
 #&gt; }
-#&gt; 
-#&gt; 
-#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, real rho, vector eta) {
+#&gt; // update gaussian process using spectral densities
+#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, 
+#&gt;                  real rho, vector eta, int type) {
 #&gt;   vector[M] diagSPD;    // spectral density
 #&gt;   vector[M] SPD_eta;    // spectral density * noise
 #&gt;   int noise_terms = rows(PHI);
 #&gt;   vector[noise_terms] noise = rep_vector(1e-6, noise_terms);
+#&gt;   real unit_rho = rho / noise_terms;
 #&gt;   // GP in noise - spectral densities
-#&gt;   for(m in 1:M){ 
-#&gt;     diagSPD[m] =  sqrt(spd_SE(alpha, rho, sqrt(lambda(L, m)))); 
+#&gt;   if (type == 0) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_se(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
+#&gt;   }else if (type == 1) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_matern(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
 #&gt;   }
 #&gt;   SPD_eta = diagSPD .* eta;
 #&gt;   noise = noise + PHI[,] * SPD_eta;
 #&gt;   return(noise);
 #&gt; }
-#&gt; 
-#&gt; void gaussian_process_lp(real[] rho, real[] alpha, vector eta,
-#&gt;                          real ls_alpha, real ls_beta, real alpha_sd) {
-#&gt;   rho ~ inv_gamma(ls_alpha, ls_beta);
+#&gt; // priors for gaussian process
+#&gt; void gaussian_process_lp(real rho, real alpha, vector eta,
+#&gt;                          real ls_meanlog, real ls_sdlog,
+#&gt;                          real ls_min, real ls_max, real alpha_sd) {
+#&gt;   rho ~ lognormal(ls_meanlog, ls_sdlog) T[ls_min, ls_max];
 #&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt; }
@@ -419,6 +458,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
+#&gt; // calculate infectiousness (weighted sum of the generation time and infections)
+#&gt; // for a single time point
 #&gt; real update_infectiousness(vector infections, vector gt_pmf,
 #&gt;                            int seeding_time, int max_gt, int index){
 #&gt;   int inf_start = max(1, (index + seeding_time - max_gt));
@@ -427,7 +468,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real new_inf = dot_product(infections[inf_start:inf_end], tail(gt_pmf, pmf_accessed));
 #&gt;   return(new_inf);
 #&gt; }
-#&gt; 
+#&gt; // generate infections by using Rt = Rt-1 * sum(reversed generation time pmf * infections)
 #&gt; vector generate_infections(vector R, int uot, 
 #&gt;                            real[] gt_mean, real[] gt_sd, int max_gt,
 #&gt;                            real[] initial_infections, real[] initial_growth) {
@@ -437,10 +478,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot);
 #&gt;   // generation time pmf
-#&gt;   vector[max_gt] gt_pmf;               
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] = discretised_gamma_pmf(max_gt - j + 1, gt_mean[1], gt_sd[1], max_gt);
+#&gt;   vector[max_gt] gt_pmf = rep_vector(1e-5, max_gt);   
+#&gt;   int gt_indexes[max_gt];
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = gt_pmf + discretised_gamma_pmf(gt_indexes, gt_mean[1], gt_sd[1], max_gt);
 #&gt;   // Initialise infections using daily growth
 #&gt;   infections[1] = exp(initial_infections[1]);
 #&gt;   if (uot &gt; 1) {
@@ -455,7 +498,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // backcalculate infections using mean shifted cases and non-parametric noise
 #&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed) {
 #&gt;   int t = num_elements(shifted_cases);
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
@@ -466,7 +509,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // Update the log density for the generation time distribution mean and sd
 #&gt; void generation_time_lp(real[] gt_mean, real gt_mean_mean, real gt_mean_sd, 
 #&gt;                         real[] gt_sd, real gt_sd_mean, real gt_sd_sd, int weight) {
 #&gt;     target += normal_lpdf(gt_mean[1] | gt_mean_mean, gt_mean_sd) * weight;
@@ -474,7 +517,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
-#&gt; 
+#&gt; // apply day of the week effect
 #&gt; vector day_of_week_effect(vector reports, int[] day_of_week, vector effect) {
 #&gt;   int t = num_elements(reports);
 #&gt;   // scale day of week effect
@@ -486,21 +529,22 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
-#&gt; 
-#&gt;    
+#&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
 #&gt;                int weight) {
 #&gt;   int t = num_elements(reports) - horizon;
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
 #&gt;     // the reciprocal overdispersion parameter (phi)
-#&gt;     rep_phi[model_type] ~ exponential(phi_prior);
+#&gt;     rep_phi[model_type] ~ normal(0, phi_prior) T[0,];
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     // defer to poisson if phi is large, to avoid overflow
-#&gt;     if (rep_phi[model_type] &gt; 1e4) {
+#&gt;     if (sqrt_phi &gt; 1e4) {
 #&gt;       target += poisson_lpmf(cases | reports[1:t]) * weight;
 #&gt;     } else {
-#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], rep_phi[model_type]) * weight;
+#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], sqrt_phi) * weight;
 #&gt;     }
 #&gt;   } else {
 #&gt;     target += poisson_lpmf(cases | reports[1:t]) * weight;
@@ -511,14 +555,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
 #&gt;                     real gt_mean, real gt_sd, int max_gt) {
 #&gt;   vector[max_gt] gt_pmf;  
+#&gt;   int gt_indexes[max_gt];
 #&gt;   int t = num_elements(infections);
 #&gt;   int ot = t - seeding_time;
 #&gt;   vector[ot] R;
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot); 
 #&gt;   // calculate PMF of the generation time
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] =  discretised_gamma_pmf(max_gt - j + 1, gt_mean, gt_sd, max_gt);
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = discretised_gamma_pmf(gt_indexes, gt_mean, gt_sd, max_gt);
 #&gt;   // calculate Rt using Cori et al. approach
 #&gt;   for (s in 1:ot) {
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, seeding_time, max_gt, s);
@@ -540,13 +586,15 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
 #&gt;   int t = num_elements(reports);
 #&gt;   int sampled_reports[t];
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     for (s in 1:t) {
 #&gt;       // defer to poisson if phi is large, to avoid overflow
-#&gt;       if (rep_phi[model_type] &gt; 1e4) {
+#&gt;       if (sqrt_phi &gt; 1e4) {
 #&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
 #&gt;       } else {
-#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], rep_phi[model_type]);
+#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
 #&gt;       }
 #&gt;     }
 #&gt;   } else {
@@ -578,9 +626,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt;   int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt;   real lengthscale_alpha;            // alpha for gp lengthscale prior
-#&gt;   real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt;   real ls_meanlog;                   // meanlog for gp lengthscale prior
+#&gt;   real ls_sdlog;                     // sdlog for gp lengthscale prior
+#&gt;   real&lt;lower=0&gt; ls_min;              // Lower bound for the lengthscale  
+#&gt;   real&lt;lower=0&gt; ls_max;              // Upper bound for the lengthscale
 #&gt;   real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
+#&gt;   int gp_type;                       // type of gp, 0 = squared exponential, 1 = 3/2 matern
 #&gt;   int stationary;                    // is underlying gaussian process first or second order
 #&gt;   int fixed;                         //  should a gaussian process be used
 #&gt; 
@@ -619,7 +670,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; parameters{
 #&gt;   // gaussian process
-#&gt;   real&lt;lower = 0&gt; rho[fixed ? 0 : 1];    // length scale of noise GP
+#&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
 #&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];  // scale of of noise GP
 #&gt;   vector[fixed ? 0 : M] eta;             // unconstrained noise
 #&gt;   // Rt
@@ -627,7 +678,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real initial_infections[estimate_r] ; // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
 #&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];  // mean of generation time
-#&gt;   real &lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
+#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
 #&gt;   real bp_effects[bp_n];                // Rt breakpoint effects
 #&gt;   // observation model
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
@@ -643,7 +694,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[ot_h] reports;                                   // observed cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
-#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta);
+#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
 #&gt;   }
 #&gt;   // Estimate latent infections
 #&gt;   if (estimate_r) {
@@ -666,7 +717,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;     gaussian_process_lp(rho, alpha, eta, lengthscale_alpha, lengthscale_beta, alpha_sd);
+#&gt;     gaussian_process_lp(rho[1], alpha[1], eta, ls_meanlog, 
+#&gt;                         ls_sdlog, ls_min, ls_max, alpha_sd);
 #&gt;   }
 #&gt;   // penalised priors for delay distributions
 #&gt;   delays_lp(delay_mean, delay_mean_mean, delay_mean_sd, delay_sd, delay_sd_mean, delay_sd_sd, t);
@@ -751,42 +803,68 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; S4 class stanmodel 'estimate_infections' coded as follows:
 #&gt; functions {
 #&gt; 
-#&gt;  // discretised truncated gamma pmf
-#&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     // calculate alpha and beta for gamma distribution
-#&gt;     real c_sigma = sigma + 1e-5;
-#&gt;     real alpha = ((mu)/ c_sigma)^2;
-#&gt;     real beta = (mu) / (c_sigma^2);
-#&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;     beta = is_inf(beta) ? 1e8 : beta; 
-#&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
-#&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
+#&gt; // discretised truncated gamma pmf
+#&gt; vector discretised_gamma_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real trunc_pmf;
+#&gt;   // calculate alpha and beta for gamma distribution
+#&gt;   real c_sigma = sigma + 1e-5;
+#&gt;   real alpha = ((mu)/ c_sigma)^2;
+#&gt;   real beta = (mu) / (c_sigma^2);
+#&gt;   //account for numerical issues
+#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
+#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
+#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   // calculate pmf
+#&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
+#&gt;   for (i in 1:n){
+#&gt;     pmf[i] = (gamma_cdf(y[i] + 1, alpha, beta) - gamma_cdf(y[i], alpha, beta)) / 
+#&gt;     trunc_pmf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
 #&gt; 
-#&gt; 
-#&gt;   // discretised truncated lognormal pmf
-#&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     real small = 1e-5;
-#&gt;     real adj_y = y + small;
-#&gt;     return((normal_cdf((log(adj_y + 1) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(adj_y) - mu) / sigma, 0.0, 1.0)) /
-#&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
+#&gt; // discretised truncated lognormal pmf
+#&gt; vector discretised_lognormal_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real small = 1e-5;
+#&gt;   vector[n] adj_y = to_vector(y) + small;
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real trunc_cdf = max_cdf - min_cdf;
+#&gt;   for (i in 1:n) {
+#&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
+#&gt;     trunc_cdf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
+#&gt; 
+#&gt; // reverse a pmf
+#&gt; vector reverse_pmf(vector pmf, int max_pmf) {
+#&gt;   vector[max_pmf] rev_pmf;
+#&gt;   for (d in 1:max_pmf) {
+#&gt;     rev_pmf[d] = pmf[max_pmf - d + 1];
+#&gt;   }
+#&gt;   return rev_pmf;
+#&gt; }
 #&gt; 
 #&gt; // convolve a pdf and case vector 
-#&gt; vector convolve(vector cases, vector pdf) {
+#&gt; vector convolve(vector cases, vector rev_pmf) {
 #&gt;     int t = num_elements(cases);
-#&gt;     int max_pdf = num_elements(pdf);
-#&gt;     vector[t] convolved_cases = rep_vector(1e-5, t);
+#&gt;     int max_pmf = num_elements(rev_pmf);
+#&gt;     vector[t] conv_cases = rep_vector(1e-5, t);
 #&gt;     for (s in 1:t) {
-#&gt;         convolved_cases[s] += dot_product(cases[max(1, (s - max_pdf + 1)):s], tail(pdf, min(max_pdf, s)));
+#&gt;         conv_cases[s] += dot_product(cases[max(1, (s - max_pmf + 1)):s],
+#&gt;                                      tail(rev_pmf, min(max_pmf, s)));
 #&gt;     }
-#&gt;    return(convolved_cases);
+#&gt;    return(conv_cases);
 #&gt;   }
+#&gt; 
 #&gt; 
 #&gt; // convolve latent infections to reported (but still unobserved) cases
 #&gt; vector convolve_to_report(vector infections, 
@@ -796,18 +874,20 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;                           int seeding_time) {
 #&gt;   int t = num_elements(infections);
 #&gt;   vector[t - seeding_time] reports;
-#&gt;   vector[t] reports_hold = infections;
+#&gt;   vector[t] unobs_reports = infections;
 #&gt;   int delays = num_elements(delay_mean);
 #&gt;   if (delays) {
 #&gt;     for (s in 1:delays) {
-#&gt;       vector[max_delay[s]] rev_delay = rep_vector(1e-5, max_delay[s]);
-#&gt;       for (j in 1:(max_delay[s])) {
-#&gt;         rev_delay[j] +=
-#&gt;         discretised_lognormal_pmf(max_delay[s] - j, delay_mean[s], delay_sd[s], max_delay[s]);
+#&gt;       vector[max_delay[s]] pmf = rep_vector(1e-5, max_delay[s]);
+#&gt;       int delay_indexes[max_delay[s]];
+#&gt;       for (i in 1:max_delay[s]) {
+#&gt;         delay_indexes[i] = max_delay[s] - i;
 #&gt;       }
-#&gt;       reports_hold = convolve(reports_hold, rev_delay);
+#&gt;       pmf = pmf + discretised_lognormal_pmf(delay_indexes, delay_mean[s],
+#&gt;                                             delay_sd[s], max_delay[s]);
+#&gt;       unobs_reports = convolve(unobs_reports, pmf);
 #&gt;     }
-#&gt;     reports = reports_hold[(seeding_time + 1):t];
+#&gt;     reports = unobs_reports[(seeding_time + 1):t];
 #&gt;   }else{
 #&gt;     reports = infections[(seeding_time + 1):t];
 #&gt;   }
@@ -825,68 +905,79 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt; }
 #&gt; 
-#&gt;   // exponential quadratic kernal
-#&gt; 	real spd_SE(real alpha, real rho, real w) {
-#&gt; 		real S;
-#&gt; 		S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
-#&gt; 		return S;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// basis function for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	vector phi_SE(real L, int m, vector x) {
-#&gt; 		vector[rows(x)] fi;
-#&gt; 		fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
-#&gt; 		return fi;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// eigenvalues for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	real lambda(real L, int m) {
-#&gt; 		real lam;
-#&gt; 		lam = ((m*pi())/(2*L))^2;
-#&gt; 		return lam;
-#&gt; 	}
-#&gt; 
-#&gt; 
+#&gt; // eigenvalues for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; real lambda(real L, int m) {
+#&gt;   real lam;
+#&gt;   lam = ((m*pi())/(2*L))^2;
+#&gt;   return lam;
+#&gt; }
+#&gt; // eigenfunction for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; vector phi(real L, int m, vector x) {
+#&gt;   vector[rows(x)] fi;
+#&gt;   fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
+#&gt;   return fi;
+#&gt; }	
+#&gt; // spectral density of the exponential quadratic kernal
+#&gt; real spd_se(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
+#&gt;   return S;
+#&gt; }
+#&gt; // spectral density of the Matern 3/2 kernel
+#&gt; real spd_matern(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = 4*alpha^2 * (sqrt(3)/rho)^3 * 1/((sqrt(3)/rho)^2 + w^2)^2;
+#&gt;   return S;
+#&gt; }
+#&gt; // setup gaussian process noise dimensions
 #&gt; int setup_noise(int ot_h, int t, int horizon, int estimate_r, 
 #&gt;                 int stationary, int future_fixed, int fixed_from) {
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? ot_h : ot_h - 1) : t;
 #&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time; 
 #&gt;   return(noise_terms);
 #&gt; }
-#&gt; 
-#&gt; 
+#&gt; // setup approximate gaussian process
 #&gt; matrix setup_gp(int M, real L, int dimension) {
 #&gt;   vector[dimension] time;
 #&gt;   matrix[dimension, M] PHI;
+#&gt;   real half_dim = dimension / 2.0;
 #&gt;   for (s in 1:dimension) {
-#&gt;     time[s] = s;
+#&gt;     time[s] = (s - half_dim) / half_dim;
 #&gt;   }
 #&gt;   for (m in 1:M){ 
-#&gt;     PHI[,m] = phi_SE(L, m, time); 
+#&gt;     PHI[,m] = phi(L, m, time); 
 #&gt;   }
 #&gt;   return(PHI);
 #&gt; }
-#&gt; 
-#&gt; 
-#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, real rho, vector eta) {
+#&gt; // update gaussian process using spectral densities
+#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, 
+#&gt;                  real rho, vector eta, int type) {
 #&gt;   vector[M] diagSPD;    // spectral density
 #&gt;   vector[M] SPD_eta;    // spectral density * noise
 #&gt;   int noise_terms = rows(PHI);
 #&gt;   vector[noise_terms] noise = rep_vector(1e-6, noise_terms);
+#&gt;   real unit_rho = rho / noise_terms;
 #&gt;   // GP in noise - spectral densities
-#&gt;   for(m in 1:M){ 
-#&gt;     diagSPD[m] =  sqrt(spd_SE(alpha, rho, sqrt(lambda(L, m)))); 
+#&gt;   if (type == 0) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_se(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
+#&gt;   }else if (type == 1) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_matern(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
 #&gt;   }
 #&gt;   SPD_eta = diagSPD .* eta;
 #&gt;   noise = noise + PHI[,] * SPD_eta;
 #&gt;   return(noise);
 #&gt; }
-#&gt; 
-#&gt; void gaussian_process_lp(real[] rho, real[] alpha, vector eta,
-#&gt;                          real ls_alpha, real ls_beta, real alpha_sd) {
-#&gt;   rho ~ inv_gamma(ls_alpha, ls_beta);
+#&gt; // priors for gaussian process
+#&gt; void gaussian_process_lp(real rho, real alpha, vector eta,
+#&gt;                          real ls_meanlog, real ls_sdlog,
+#&gt;                          real ls_min, real ls_max, real alpha_sd) {
+#&gt;   rho ~ lognormal(ls_meanlog, ls_sdlog) T[ls_min, ls_max];
 #&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt; }
@@ -966,6 +1057,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
+#&gt; // calculate infectiousness (weighted sum of the generation time and infections)
+#&gt; // for a single time point
 #&gt; real update_infectiousness(vector infections, vector gt_pmf,
 #&gt;                            int seeding_time, int max_gt, int index){
 #&gt;   int inf_start = max(1, (index + seeding_time - max_gt));
@@ -974,7 +1067,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real new_inf = dot_product(infections[inf_start:inf_end], tail(gt_pmf, pmf_accessed));
 #&gt;   return(new_inf);
 #&gt; }
-#&gt; 
+#&gt; // generate infections by using Rt = Rt-1 * sum(reversed generation time pmf * infections)
 #&gt; vector generate_infections(vector R, int uot, 
 #&gt;                            real[] gt_mean, real[] gt_sd, int max_gt,
 #&gt;                            real[] initial_infections, real[] initial_growth) {
@@ -984,10 +1077,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot);
 #&gt;   // generation time pmf
-#&gt;   vector[max_gt] gt_pmf;               
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] = discretised_gamma_pmf(max_gt - j + 1, gt_mean[1], gt_sd[1], max_gt);
+#&gt;   vector[max_gt] gt_pmf = rep_vector(1e-5, max_gt);   
+#&gt;   int gt_indexes[max_gt];
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = gt_pmf + discretised_gamma_pmf(gt_indexes, gt_mean[1], gt_sd[1], max_gt);
 #&gt;   // Initialise infections using daily growth
 #&gt;   infections[1] = exp(initial_infections[1]);
 #&gt;   if (uot &gt; 1) {
@@ -1002,7 +1097,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // backcalculate infections using mean shifted cases and non-parametric noise
 #&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed) {
 #&gt;   int t = num_elements(shifted_cases);
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
@@ -1013,7 +1108,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // Update the log density for the generation time distribution mean and sd
 #&gt; void generation_time_lp(real[] gt_mean, real gt_mean_mean, real gt_mean_sd, 
 #&gt;                         real[] gt_sd, real gt_sd_mean, real gt_sd_sd, int weight) {
 #&gt;     target += normal_lpdf(gt_mean[1] | gt_mean_mean, gt_mean_sd) * weight;
@@ -1021,7 +1116,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
-#&gt; 
+#&gt; // apply day of the week effect
 #&gt; vector day_of_week_effect(vector reports, int[] day_of_week, vector effect) {
 #&gt;   int t = num_elements(reports);
 #&gt;   // scale day of week effect
@@ -1033,21 +1128,22 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
-#&gt; 
-#&gt;    
+#&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
 #&gt;                int weight) {
 #&gt;   int t = num_elements(reports) - horizon;
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
 #&gt;     // the reciprocal overdispersion parameter (phi)
-#&gt;     rep_phi[model_type] ~ exponential(phi_prior);
+#&gt;     rep_phi[model_type] ~ normal(0, phi_prior) T[0,];
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     // defer to poisson if phi is large, to avoid overflow
-#&gt;     if (rep_phi[model_type] &gt; 1e4) {
+#&gt;     if (sqrt_phi &gt; 1e4) {
 #&gt;       target += poisson_lpmf(cases | reports[1:t]) * weight;
 #&gt;     } else {
-#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], rep_phi[model_type]) * weight;
+#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], sqrt_phi) * weight;
 #&gt;     }
 #&gt;   } else {
 #&gt;     target += poisson_lpmf(cases | reports[1:t]) * weight;
@@ -1058,14 +1154,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
 #&gt;                     real gt_mean, real gt_sd, int max_gt) {
 #&gt;   vector[max_gt] gt_pmf;  
+#&gt;   int gt_indexes[max_gt];
 #&gt;   int t = num_elements(infections);
 #&gt;   int ot = t - seeding_time;
 #&gt;   vector[ot] R;
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot); 
 #&gt;   // calculate PMF of the generation time
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] =  discretised_gamma_pmf(max_gt - j + 1, gt_mean, gt_sd, max_gt);
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = discretised_gamma_pmf(gt_indexes, gt_mean, gt_sd, max_gt);
 #&gt;   // calculate Rt using Cori et al. approach
 #&gt;   for (s in 1:ot) {
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, seeding_time, max_gt, s);
@@ -1087,13 +1185,15 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
 #&gt;   int t = num_elements(reports);
 #&gt;   int sampled_reports[t];
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     for (s in 1:t) {
 #&gt;       // defer to poisson if phi is large, to avoid overflow
-#&gt;       if (rep_phi[model_type] &gt; 1e4) {
+#&gt;       if (sqrt_phi &gt; 1e4) {
 #&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
 #&gt;       } else {
-#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], rep_phi[model_type]);
+#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
 #&gt;       }
 #&gt;     }
 #&gt;   } else {
@@ -1125,9 +1225,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt;   int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt;   real lengthscale_alpha;            // alpha for gp lengthscale prior
-#&gt;   real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt;   real ls_meanlog;                   // meanlog for gp lengthscale prior
+#&gt;   real ls_sdlog;                     // sdlog for gp lengthscale prior
+#&gt;   real&lt;lower=0&gt; ls_min;              // Lower bound for the lengthscale  
+#&gt;   real&lt;lower=0&gt; ls_max;              // Upper bound for the lengthscale
 #&gt;   real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
+#&gt;   int gp_type;                       // type of gp, 0 = squared exponential, 1 = 3/2 matern
 #&gt;   int stationary;                    // is underlying gaussian process first or second order
 #&gt;   int fixed;                         //  should a gaussian process be used
 #&gt; 
@@ -1166,7 +1269,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; parameters{
 #&gt;   // gaussian process
-#&gt;   real&lt;lower = 0&gt; rho[fixed ? 0 : 1];    // length scale of noise GP
+#&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
 #&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];  // scale of of noise GP
 #&gt;   vector[fixed ? 0 : M] eta;             // unconstrained noise
 #&gt;   // Rt
@@ -1174,7 +1277,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real initial_infections[estimate_r] ; // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
 #&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];  // mean of generation time
-#&gt;   real &lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
+#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
 #&gt;   real bp_effects[bp_n];                // Rt breakpoint effects
 #&gt;   // observation model
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
@@ -1190,7 +1293,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[ot_h] reports;                                   // observed cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
-#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta);
+#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
 #&gt;   }
 #&gt;   // Estimate latent infections
 #&gt;   if (estimate_r) {
@@ -1213,7 +1316,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;     gaussian_process_lp(rho, alpha, eta, lengthscale_alpha, lengthscale_beta, alpha_sd);
+#&gt;     gaussian_process_lp(rho[1], alpha[1], eta, ls_meanlog, 
+#&gt;                         ls_sdlog, ls_min, ls_max, alpha_sd);
 #&gt;   }
 #&gt;   // penalised priors for delay distributions
 #&gt;   delays_lp(delay_mean, delay_mean_mean, delay_mean_sd, delay_sd, delay_sd_mean, delay_sd_sd, t);
@@ -1280,42 +1384,68 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; S4 class stanmodel 'estimate_infections' coded as follows:
 #&gt; functions {
 #&gt; 
-#&gt;  // discretised truncated gamma pmf
-#&gt;   real discretised_gamma_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     // calculate alpha and beta for gamma distribution
-#&gt;     real c_sigma = sigma + 1e-5;
-#&gt;     real alpha = ((mu)/ c_sigma)^2;
-#&gt;     real beta = (mu) / (c_sigma^2);
-#&gt;     //account for numerical issues
-#&gt;     alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;     beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;     alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;     beta = is_inf(beta) ? 1e8 : beta; 
-#&gt;     return((gamma_cdf(y + 1, alpha, beta) - gamma_cdf(y, alpha, beta)) / 
-#&gt;     (gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta)));
+#&gt; // discretised truncated gamma pmf
+#&gt; vector discretised_gamma_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real trunc_pmf;
+#&gt;   // calculate alpha and beta for gamma distribution
+#&gt;   real c_sigma = sigma + 1e-5;
+#&gt;   real alpha = ((mu)/ c_sigma)^2;
+#&gt;   real beta = (mu) / (c_sigma^2);
+#&gt;   //account for numerical issues
+#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
+#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
+#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
+#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   // calculate pmf
+#&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
+#&gt;   for (i in 1:n){
+#&gt;     pmf[i] = (gamma_cdf(y[i] + 1, alpha, beta) - gamma_cdf(y[i], alpha, beta)) / 
+#&gt;     trunc_pmf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
 #&gt; 
-#&gt; 
-#&gt;   // discretised truncated lognormal pmf
-#&gt;   real discretised_lognormal_pmf(int y, real mu, real sigma, int max_val) {
-#&gt;     real small = 1e-5;
-#&gt;     real adj_y = y + small;
-#&gt;     return((normal_cdf((log(adj_y + 1) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(adj_y) - mu) / sigma, 0.0, 1.0)) /
-#&gt;            (normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0) -
-#&gt;             normal_cdf((log(small) - mu) / sigma, 0.0, 1.0)));
+#&gt; // discretised truncated lognormal pmf
+#&gt; vector discretised_lognormal_pmf(int[] y, real mu, real sigma, int max_val) {
+#&gt;   int n = num_elements(y);
+#&gt;   vector[n] pmf;
+#&gt;   real small = 1e-5;
+#&gt;   vector[n] adj_y = to_vector(y) + small;
+#&gt;   vector[n] upper_y = (log(adj_y + 1) - mu) / sigma;
+#&gt;   vector[n] lower_y = (log(adj_y) - mu) / sigma;
+#&gt;   real max_cdf = normal_cdf((log(max_val + small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real min_cdf = normal_cdf((log(small) - mu) / sigma, 0.0, 1.0);
+#&gt;   real trunc_cdf = max_cdf - min_cdf;
+#&gt;   for (i in 1:n) {
+#&gt;     pmf[i] = (normal_cdf(upper_y[i], 0.0, 1.0) - normal_cdf(lower_y[i], 0.0, 1.0)) /
+#&gt;     trunc_cdf;
 #&gt;   }
+#&gt;   return(pmf);
+#&gt; }
+#&gt; 
+#&gt; // reverse a pmf
+#&gt; vector reverse_pmf(vector pmf, int max_pmf) {
+#&gt;   vector[max_pmf] rev_pmf;
+#&gt;   for (d in 1:max_pmf) {
+#&gt;     rev_pmf[d] = pmf[max_pmf - d + 1];
+#&gt;   }
+#&gt;   return rev_pmf;
+#&gt; }
 #&gt; 
 #&gt; // convolve a pdf and case vector 
-#&gt; vector convolve(vector cases, vector pdf) {
+#&gt; vector convolve(vector cases, vector rev_pmf) {
 #&gt;     int t = num_elements(cases);
-#&gt;     int max_pdf = num_elements(pdf);
-#&gt;     vector[t] convolved_cases = rep_vector(1e-5, t);
+#&gt;     int max_pmf = num_elements(rev_pmf);
+#&gt;     vector[t] conv_cases = rep_vector(1e-5, t);
 #&gt;     for (s in 1:t) {
-#&gt;         convolved_cases[s] += dot_product(cases[max(1, (s - max_pdf + 1)):s], tail(pdf, min(max_pdf, s)));
+#&gt;         conv_cases[s] += dot_product(cases[max(1, (s - max_pmf + 1)):s],
+#&gt;                                      tail(rev_pmf, min(max_pmf, s)));
 #&gt;     }
-#&gt;    return(convolved_cases);
+#&gt;    return(conv_cases);
 #&gt;   }
+#&gt; 
 #&gt; 
 #&gt; // convolve latent infections to reported (but still unobserved) cases
 #&gt; vector convolve_to_report(vector infections, 
@@ -1325,18 +1455,20 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;                           int seeding_time) {
 #&gt;   int t = num_elements(infections);
 #&gt;   vector[t - seeding_time] reports;
-#&gt;   vector[t] reports_hold = infections;
+#&gt;   vector[t] unobs_reports = infections;
 #&gt;   int delays = num_elements(delay_mean);
 #&gt;   if (delays) {
 #&gt;     for (s in 1:delays) {
-#&gt;       vector[max_delay[s]] rev_delay = rep_vector(1e-5, max_delay[s]);
-#&gt;       for (j in 1:(max_delay[s])) {
-#&gt;         rev_delay[j] +=
-#&gt;         discretised_lognormal_pmf(max_delay[s] - j, delay_mean[s], delay_sd[s], max_delay[s]);
+#&gt;       vector[max_delay[s]] pmf = rep_vector(1e-5, max_delay[s]);
+#&gt;       int delay_indexes[max_delay[s]];
+#&gt;       for (i in 1:max_delay[s]) {
+#&gt;         delay_indexes[i] = max_delay[s] - i;
 #&gt;       }
-#&gt;       reports_hold = convolve(reports_hold, rev_delay);
+#&gt;       pmf = pmf + discretised_lognormal_pmf(delay_indexes, delay_mean[s],
+#&gt;                                             delay_sd[s], max_delay[s]);
+#&gt;       unobs_reports = convolve(unobs_reports, pmf);
 #&gt;     }
-#&gt;     reports = reports_hold[(seeding_time + 1):t];
+#&gt;     reports = unobs_reports[(seeding_time + 1):t];
 #&gt;   }else{
 #&gt;     reports = infections[(seeding_time + 1):t];
 #&gt;   }
@@ -1354,68 +1486,79 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt; }
 #&gt; 
-#&gt;   // exponential quadratic kernal
-#&gt; 	real spd_SE(real alpha, real rho, real w) {
-#&gt; 		real S;
-#&gt; 		S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
-#&gt; 		return S;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// basis function for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	vector phi_SE(real L, int m, vector x) {
-#&gt; 		vector[rows(x)] fi;
-#&gt; 		fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
-#&gt; 		return fi;
-#&gt; 	}
-#&gt; 	
-#&gt; 	// eigenvalues for approximate hilbert space gp
-#&gt; 	// see here for details: https://arxiv.org/pdf/2004.11408.pdf
-#&gt; 	real lambda(real L, int m) {
-#&gt; 		real lam;
-#&gt; 		lam = ((m*pi())/(2*L))^2;
-#&gt; 		return lam;
-#&gt; 	}
-#&gt; 
-#&gt; 
+#&gt; // eigenvalues for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; real lambda(real L, int m) {
+#&gt;   real lam;
+#&gt;   lam = ((m*pi())/(2*L))^2;
+#&gt;   return lam;
+#&gt; }
+#&gt; // eigenfunction for approximate hilbert space gp
+#&gt; // see here for details: https://arxiv.org/pdf/2004.11408.pdf
+#&gt; vector phi(real L, int m, vector x) {
+#&gt;   vector[rows(x)] fi;
+#&gt;   fi = 1/sqrt(L) * sin(m*pi()/(2*L) * (x+L));
+#&gt;   return fi;
+#&gt; }	
+#&gt; // spectral density of the exponential quadratic kernal
+#&gt; real spd_se(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = (alpha^2) * sqrt(2*pi()) * rho * exp(-0.5*(rho^2)*(w^2));
+#&gt;   return S;
+#&gt; }
+#&gt; // spectral density of the Matern 3/2 kernel
+#&gt; real spd_matern(real alpha, real rho, real w) {
+#&gt;   real S;
+#&gt;   S = 4*alpha^2 * (sqrt(3)/rho)^3 * 1/((sqrt(3)/rho)^2 + w^2)^2;
+#&gt;   return S;
+#&gt; }
+#&gt; // setup gaussian process noise dimensions
 #&gt; int setup_noise(int ot_h, int t, int horizon, int estimate_r, 
 #&gt;                 int stationary, int future_fixed, int fixed_from) {
 #&gt;   int noise_time = estimate_r &gt; 0 ? (stationary &gt; 0 ? ot_h : ot_h - 1) : t;
 #&gt;   int noise_terms =  future_fixed &gt; 0 ? (noise_time - horizon + fixed_from) : noise_time; 
 #&gt;   return(noise_terms);
 #&gt; }
-#&gt; 
-#&gt; 
+#&gt; // setup approximate gaussian process
 #&gt; matrix setup_gp(int M, real L, int dimension) {
 #&gt;   vector[dimension] time;
 #&gt;   matrix[dimension, M] PHI;
+#&gt;   real half_dim = dimension / 2.0;
 #&gt;   for (s in 1:dimension) {
-#&gt;     time[s] = s;
+#&gt;     time[s] = (s - half_dim) / half_dim;
 #&gt;   }
 #&gt;   for (m in 1:M){ 
-#&gt;     PHI[,m] = phi_SE(L, m, time); 
+#&gt;     PHI[,m] = phi(L, m, time); 
 #&gt;   }
 #&gt;   return(PHI);
 #&gt; }
-#&gt; 
-#&gt; 
-#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, real rho, vector eta) {
+#&gt; // update gaussian process using spectral densities
+#&gt; vector update_gp(matrix PHI, int M, real L, real alpha, 
+#&gt;                  real rho, vector eta, int type) {
 #&gt;   vector[M] diagSPD;    // spectral density
 #&gt;   vector[M] SPD_eta;    // spectral density * noise
 #&gt;   int noise_terms = rows(PHI);
 #&gt;   vector[noise_terms] noise = rep_vector(1e-6, noise_terms);
+#&gt;   real unit_rho = rho / noise_terms;
 #&gt;   // GP in noise - spectral densities
-#&gt;   for(m in 1:M){ 
-#&gt;     diagSPD[m] =  sqrt(spd_SE(alpha, rho, sqrt(lambda(L, m)))); 
+#&gt;   if (type == 0) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_se(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
+#&gt;   }else if (type == 1) {
+#&gt;     for(m in 1:M){ 
+#&gt;       diagSPD[m] =  sqrt(spd_matern(alpha, unit_rho, sqrt(lambda(L, m)))); 
+#&gt;     }
 #&gt;   }
 #&gt;   SPD_eta = diagSPD .* eta;
 #&gt;   noise = noise + PHI[,] * SPD_eta;
 #&gt;   return(noise);
 #&gt; }
-#&gt; 
-#&gt; void gaussian_process_lp(real[] rho, real[] alpha, vector eta,
-#&gt;                          real ls_alpha, real ls_beta, real alpha_sd) {
-#&gt;   rho ~ inv_gamma(ls_alpha, ls_beta);
+#&gt; // priors for gaussian process
+#&gt; void gaussian_process_lp(real rho, real alpha, vector eta,
+#&gt;                          real ls_meanlog, real ls_sdlog,
+#&gt;                          real ls_min, real ls_max, real alpha_sd) {
+#&gt;   rho ~ lognormal(ls_meanlog, ls_sdlog) T[ls_min, ls_max];
 #&gt;   alpha ~ normal(0, alpha_sd);
 #&gt;   eta ~ std_normal();
 #&gt; }
@@ -1495,6 +1638,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
+#&gt; // calculate infectiousness (weighted sum of the generation time and infections)
+#&gt; // for a single time point
 #&gt; real update_infectiousness(vector infections, vector gt_pmf,
 #&gt;                            int seeding_time, int max_gt, int index){
 #&gt;   int inf_start = max(1, (index + seeding_time - max_gt));
@@ -1503,7 +1648,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real new_inf = dot_product(infections[inf_start:inf_end], tail(gt_pmf, pmf_accessed));
 #&gt;   return(new_inf);
 #&gt; }
-#&gt; 
+#&gt; // generate infections by using Rt = Rt-1 * sum(reversed generation time pmf * infections)
 #&gt; vector generate_infections(vector R, int uot, 
 #&gt;                            real[] gt_mean, real[] gt_sd, int max_gt,
 #&gt;                            real[] initial_infections, real[] initial_growth) {
@@ -1513,10 +1658,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot);
 #&gt;   // generation time pmf
-#&gt;   vector[max_gt] gt_pmf;               
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] = discretised_gamma_pmf(max_gt - j + 1, gt_mean[1], gt_sd[1], max_gt);
+#&gt;   vector[max_gt] gt_pmf = rep_vector(1e-5, max_gt);   
+#&gt;   int gt_indexes[max_gt];
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = gt_pmf + discretised_gamma_pmf(gt_indexes, gt_mean[1], gt_sd[1], max_gt);
 #&gt;   // Initialise infections using daily growth
 #&gt;   infections[1] = exp(initial_infections[1]);
 #&gt;   if (uot &gt; 1) {
@@ -1531,7 +1678,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // backcalculate infections using mean shifted cases and non-parametric noise
 #&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed) {
 #&gt;   int t = num_elements(shifted_cases);
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
@@ -1542,7 +1689,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
-#&gt; 
+#&gt; // Update the log density for the generation time distribution mean and sd
 #&gt; void generation_time_lp(real[] gt_mean, real gt_mean_mean, real gt_mean_sd, 
 #&gt;                         real[] gt_sd, real gt_sd_mean, real gt_sd_sd, int weight) {
 #&gt;     target += normal_lpdf(gt_mean[1] | gt_mean_mean, gt_mean_sd) * weight;
@@ -1550,7 +1697,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; }
 #&gt; 
 #&gt; 
-#&gt; 
+#&gt; // apply day of the week effect
 #&gt; vector day_of_week_effect(vector reports, int[] day_of_week, vector effect) {
 #&gt;   int t = num_elements(reports);
 #&gt;   // scale day of week effect
@@ -1562,21 +1709,22 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;    }
 #&gt;   return(scaled_reports);
 #&gt; }
-#&gt; 
-#&gt;    
+#&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
 #&gt;                int model_type, int horizon,
 #&gt;                int weight) {
 #&gt;   int t = num_elements(reports) - horizon;
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
 #&gt;     // the reciprocal overdispersion parameter (phi)
-#&gt;     rep_phi[model_type] ~ exponential(phi_prior);
+#&gt;     rep_phi[model_type] ~ normal(0, phi_prior) T[0,];
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     // defer to poisson if phi is large, to avoid overflow
-#&gt;     if (rep_phi[model_type] &gt; 1e4) {
+#&gt;     if (sqrt_phi &gt; 1e4) {
 #&gt;       target += poisson_lpmf(cases | reports[1:t]) * weight;
 #&gt;     } else {
-#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], rep_phi[model_type]) * weight;
+#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], sqrt_phi) * weight;
 #&gt;     }
 #&gt;   } else {
 #&gt;     target += poisson_lpmf(cases | reports[1:t]) * weight;
@@ -1587,14 +1735,16 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
 #&gt;                     real gt_mean, real gt_sd, int max_gt) {
 #&gt;   vector[max_gt] gt_pmf;  
+#&gt;   int gt_indexes[max_gt];
 #&gt;   int t = num_elements(infections);
 #&gt;   int ot = t - seeding_time;
 #&gt;   vector[ot] R;
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot); 
 #&gt;   // calculate PMF of the generation time
-#&gt;   for (j in 1:(max_gt)) {
-#&gt;     gt_pmf[j] =  discretised_gamma_pmf(max_gt - j + 1, gt_mean, gt_sd, max_gt);
+#&gt;   for (i in 1:(max_gt)) {
+#&gt;     gt_indexes[i] = max_gt - i + 1;
 #&gt;   }
+#&gt;   gt_pmf = discretised_gamma_pmf(gt_indexes, gt_mean, gt_sd, max_gt);
 #&gt;   // calculate Rt using Cori et al. approach
 #&gt;   for (s in 1:ot) {
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, seeding_time, max_gt, s);
@@ -1616,13 +1766,15 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
 #&gt;   int t = num_elements(reports);
 #&gt;   int sampled_reports[t];
+#&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     for (s in 1:t) {
 #&gt;       // defer to poisson if phi is large, to avoid overflow
-#&gt;       if (rep_phi[model_type] &gt; 1e4) {
+#&gt;       if (sqrt_phi &gt; 1e4) {
 #&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
 #&gt;       } else {
-#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], rep_phi[model_type]);
+#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
 #&gt;       }
 #&gt;     }
 #&gt;   } else {
@@ -1654,9 +1806,12 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt;   real L;				                     // boundary value for infections gp
 #&gt;   int&lt;lower=1&gt; M;			               // basis functions for infections gp
-#&gt;   real lengthscale_alpha;            // alpha for gp lengthscale prior
-#&gt;   real lengthscale_beta;             // beta for gp lengthscale prior
+#&gt;   real ls_meanlog;                   // meanlog for gp lengthscale prior
+#&gt;   real ls_sdlog;                     // sdlog for gp lengthscale prior
+#&gt;   real&lt;lower=0&gt; ls_min;              // Lower bound for the lengthscale  
+#&gt;   real&lt;lower=0&gt; ls_max;              // Upper bound for the lengthscale
 #&gt;   real alpha_sd;                     // standard deviation of the alpha gp kernal parameter
+#&gt;   int gp_type;                       // type of gp, 0 = squared exponential, 1 = 3/2 matern
 #&gt;   int stationary;                    // is underlying gaussian process first or second order
 #&gt;   int fixed;                         //  should a gaussian process be used
 #&gt; 
@@ -1695,7 +1850,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; 
 #&gt; parameters{
 #&gt;   // gaussian process
-#&gt;   real&lt;lower = 0&gt; rho[fixed ? 0 : 1];    // length scale of noise GP
+#&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
 #&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];  // scale of of noise GP
 #&gt;   vector[fixed ? 0 : M] eta;             // unconstrained noise
 #&gt;   // Rt
@@ -1703,7 +1858,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   real initial_infections[estimate_r] ; // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
 #&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];  // mean of generation time
-#&gt;   real &lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
+#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
 #&gt;   real bp_effects[bp_n];                // Rt breakpoint effects
 #&gt;   // observation model
 #&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
@@ -1719,7 +1874,7 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt;   vector[ot_h] reports;                                   // observed cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
-#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta);
+#&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
 #&gt;   }
 #&gt;   // Estimate latent infections
 #&gt;   if (estimate_r) {
@@ -1742,7 +1897,8 @@ several order of magnitudes faster than the exact method.</p></td>
 #&gt; model {
 #&gt;   // priors for noise GP
 #&gt;   if (!fixed) {
-#&gt;     gaussian_process_lp(rho, alpha, eta, lengthscale_alpha, lengthscale_beta, alpha_sd);
+#&gt;     gaussian_process_lp(rho[1], alpha[1], eta, ls_meanlog, 
+#&gt;                         ls_sdlog, ls_min, ls_max, alpha_sd);
 #&gt;   }
 #&gt;   // penalised priors for delay distributions
 #&gt;   delays_lp(delay_mean, delay_mean_mean, delay_mean_sd, delay_sd, delay_sd_mean, delay_sd_sd, t);

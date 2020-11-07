@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.3</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.4</span>
       </span>
     </div>
 
@@ -149,10 +149,7 @@
   <span class='va'>estimate_rt</span>,
   <span class='va'>burn_in</span>,
   <span class='va'>week_effect</span>,
-  <span class='va'>stationary</span>,
-  <span class='va'>fixed</span>,
   <span class='va'>break_no</span>,
-  <span class='va'>future_rt</span>,
   <span class='va'>gp</span>,
   <span class='va'>family</span>,
   <span class='va'>delays</span>
@@ -208,39 +205,14 @@ removed from the package unless a clear user need is given.</p></td>
       <td><p>Logical, defaults TRUE. Should weekly reporting effects be estimated.</p></td>
     </tr>
     <tr>
-      <th>stationary</th>
-      <td><p>Logical, defaults to FALSE. Should Rt be estimated with a global mean. When estimating Rt
-this should substantially improve run times but will revert to the global average for real time and forecasted estimates.
-This setting is most appropriate when estimating historic Rt or when combined with breakpoints.</p></td>
-    </tr>
-    <tr>
-      <th>fixed</th>
-      <td><p>Logical, should the gaussian process be used for non-parametric
-change over time.</p></td>
-    </tr>
-    <tr>
       <th>break_no</th>
       <td><p>Numeric, number of breakpoints</p></td>
     </tr>
     <tr>
-      <th>future_rt</th>
-      <td><p>A character string or integer. This argument indicates how to set future Rt values. Supported
-options are to project using the Rt model ("project"), to use the latest estimate based on partial data ("latest"),
-to use the latest estimate based on data that is over 50% complete ("estimate"). If an integer is supplied then the Rt estimate
-from this many days into the future (or past if negative) past will be used forwards in time.</p></td>
-    </tr>
-    <tr>
       <th>gp</th>
-      <td><p>List controlling the Gaussian process approximation if set to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> then <code>Rt</code> is assumed to be constant unless
-other settings introduce variation. If set must contain the <code>basis_prop</code> (number of basis functions based on scaling the time points)
-which defaults to 0.3 and must be between 0 and 1 (increasing this increases the accuracy of the approximation and the cost of
-additional compute. Must also contain the <code>boundary_scale</code> (multiplied by half the range of the input time series). Increasing this
-increases the accuracy of the approximation at the cost of additional compute.
-See here: https://arxiv.org/abs/2004.11408 for more information on setting these parameters.
-Must also contain the  <code>lengthscale_alpha</code> and <code>lengthscale_beta</code>. These tune the prior of the lengthscale. Principled
-values can be obtained using <code>tune_inv_gamma</code> which optimises based on the desired truncation (which should be based on the scale
-of the observed data). The default is tuned to have 98% of the density of the distribution between 2 and 21 days. Finally the list must
-contain <code>alpha_sd</code> the standard deviation for the alpha parameter of the gaussian process. This defaults to 0.1.</p></td>
+      <td><p>A list of settings to override the package default Gaussian
+process settings. See the documentation for <code>gp_settings</code> for details of these
+settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the current defaults.</p></td>
     </tr>
     <tr>
       <th>family</th>
