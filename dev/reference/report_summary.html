@@ -138,7 +138,12 @@
     <p>Provide Summary Statistics for Estimated Infections and Rt</p>
     </div>
 
-    <pre class="usage"><span class='fu'>report_summary</span><span class='op'>(</span><span class='va'>summarised_estimates</span>, <span class='va'>rt_samples</span>, target_folder <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>report_summary</span><span class='op'>(</span>
+  <span class='va'>summarised_estimates</span>,
+  <span class='va'>rt_samples</span>,
+  target_folder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  return_numeric <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +161,10 @@ variable, median, bottom, and top. It should contain the following estimates: R,
     <tr>
       <th>target_folder</th>
       <td><p>Character string specifying where to save results (will create if not present).</p></td>
+    </tr>
+    <tr>
+      <th>return_numeric</th>
+      <td><p>Should numeric summary information be returned.</p></td>
     </tr>
     </table>
 

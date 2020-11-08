@@ -138,12 +138,7 @@
     <p>Create a Data Frame of Mean Delay Shifted Cases</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_shifted_cases</span><span class='op'>(</span>
-  <span class='va'>reported_cases</span>,
-  <span class='va'>mean_shift</span>,
-  <span class='va'>prior_smoothing_window</span>,
-  <span class='va'>horizon</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_shifted_cases</span><span class='op'>(</span><span class='va'>reported_cases</span>, <span class='va'>mean_shift</span>, <span class='va'>smoothing_window</span>, <span class='va'>horizon</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,9 +153,9 @@ in date format.</p></td>
       <td><p>Numeric, mean delay shift</p></td>
     </tr>
     <tr>
-      <th>prior_smoothing_window</th>
-      <td><p>Numeric defaults to 7. The number of days over which to take a rolling average
-for the prior based on reported cases.</p></td>
+      <th>smoothing_window</th>
+      <td><p>Numeric, the rolling average smoothing window
+to apply.</p></td>
     </tr>
     <tr>
       <th>horizon</th>
@@ -172,6 +167,20 @@ for the prior based on reported cases.</p></td>
 
     <p>A dataframe for shifted reported cases</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>create_shifted_cases</span><span class='op'>(</span><span class='va'>example_confirmed</span>, <span class='fl'>7</span>, <span class='fl'>14</span>, <span class='fl'>7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            date confirm
+#&gt;   1: 2020-03-07    1198
+#&gt;   2: 2020-03-08    1431
+#&gt;   3: 2020-03-09    1593
+#&gt;   4: 2020-03-10    1854
+#&gt;   5: 2020-03-11    2072
+#&gt;  ---                   
+#&gt; 112: 2020-06-26     208
+#&gt; 113: 2020-06-27     203
+#&gt; 114: 2020-06-28     199
+#&gt; 115: 2020-06-29     194
+#&gt; 116: 2020-06-30     190</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

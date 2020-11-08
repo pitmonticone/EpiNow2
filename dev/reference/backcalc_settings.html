@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Stan Data Required for estimate_infections — create_stan_data • EpiNow2</title>
+<title>Back Calculation Settings — backcalc_settings • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,18 @@
 
 
 
-<meta property="og:title" content="Create Stan Data Required for estimate_infections — create_stan_data" />
-<meta property="og:description" content="Create Stan Data Required for estimate_infections" />
+<meta property="og:title" content="Back Calculation Settings — backcalc_settings" />
+<meta property="og:description" content="Defines a list specifying the optional arguments for the back calculation
+of cases. Only used if rt = NULL. Custom settings can be supplied which override the
+defaults. Used internally estimate_infections. The settings returned (all of which
+are modifiable by the user) are:
+smoothing_window: Numeric, defaults to 7 days. The mean smoothing window to apply
+to mean shifted reports (used as a prior during back calculation). 7 days is the default
+as this smooths day of the week effects but depending on the quality of the data and the
+amount of information users wish to use as a prior (higher values equaling a less
+informative prior).
+
+" />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -129,89 +139,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Stan Data Required for estimate_infections</h1>
+    <h1>Back Calculation Settings</h1>
     
-    <div class="hidden name"><code>create_stan_data.Rd</code></div>
+    <div class="hidden name"><code>backcalc_settings.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create Stan Data Required for estimate_infections</p>
+    <p>Defines a list specifying the optional arguments for the back calculation
+of cases. Only used if <code>rt = NULL</code>. Custom settings can be supplied which override the
+defaults. Used internally <code>estimate_infections</code>. The settings returned (all of which
+are modifiable by the user) are:</p><ul>
+<li><p><code>smoothing_window</code>: Numeric, defaults to 7 days. The mean smoothing window to apply
+to mean shifted reports (used as a prior during back calculation). 7 days is the default
+as this smooths day of the week effects but depending on the quality of the data and the
+amount of information users wish to use as a prior (higher values equaling a less
+informative prior).</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>create_stan_data</span><span class='op'>(</span>
-  <span class='va'>reported_cases</span>,
-  <span class='va'>shifted_reported_cases</span>,
-  <span class='va'>horizon</span>,
-  <span class='va'>no_delays</span>,
-  <span class='va'>mean_shift</span>,
-  <span class='va'>generation_time</span>,
-  <span class='va'>rt</span>,
-  <span class='va'>gp</span>,
-  <span class='va'>obs_model</span>,
-  <span class='va'>delays</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>backcalc_settings</span><span class='op'>(</span>backcalc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>reported_cases</th>
-      <td><p>A data frame of confirmed cases (confirm) by date (date). confirm must be integer and date must be
-in date format.</p></td>
-    </tr>
-    <tr>
-      <th>shifted_reported_cases</th>
-      <td><p>A dataframe of delay shifted reported cases</p></td>
-    </tr>
-    <tr>
-      <th>horizon</th>
-      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
-    </tr>
-    <tr>
-      <th>no_delays</th>
-      <td><p>Numeric, number of delays</p></td>
-    </tr>
-    <tr>
-      <th>mean_shift</th>
-      <td><p>Numeric, mean delay shift</p></td>
-    </tr>
-    <tr>
-      <th>generation_time</th>
-      <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-generation time (assuming a gamma distribution).</p></td>
-    </tr>
-    <tr>
-      <th>rt</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. Is Rt being estimated? This controls Rt
-specific Gaussian process settings that are not supported for back calculation.</p></td>
-    </tr>
-    <tr>
-      <th>gp</th>
-      <td><p>A list of settings to override the package default Gaussian
-process settings. See the documentation for <code><a href='gp_settings.html'>?gp_settings</a></code> for details of these
-settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>obs_model</th>
-      <td><p>A list of settings to override the package default observation
-model settings. See the documentation for <code><a href='obs_model_settings.html'>?obs_model_settings</a></code> for details of these
-settings and <code><a href='obs_model_settings.html'>obs_model_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <th>backcalc</th>
+      <td><p>A list of settings to override the back calculation settings. See
+<code>?backcalc_settings</code> for options and <code>backcalc_settings()</code> for current defaults.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of stan data</p>
+    <p>A list of back calculation settings</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># default settings</span>
+<span class='fu'>backcalc_settings</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $smoothing_window
+#&gt; [1] 7
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

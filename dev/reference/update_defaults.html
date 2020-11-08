@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Stan Data Required for estimate_infections — create_stan_data • EpiNow2</title>
+<title>Update Default Settings — update_defaults • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Create Stan Data Required for estimate_infections — create_stan_data" />
-<meta property="og:description" content="Create Stan Data Required for estimate_infections" />
+<meta property="og:title" content="Update Default Settings — update_defaults" />
+<meta property="og:description" content="Update Default Settings" />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -129,88 +129,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Stan Data Required for estimate_infections</h1>
+    <h1>Update Default Settings</h1>
     
-    <div class="hidden name"><code>create_stan_data.Rd</code></div>
+    <div class="hidden name"><code>update_defaults.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create Stan Data Required for estimate_infections</p>
+    <p>Update Default Settings</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_stan_data</span><span class='op'>(</span>
-  <span class='va'>reported_cases</span>,
-  <span class='va'>shifted_reported_cases</span>,
-  <span class='va'>horizon</span>,
-  <span class='va'>no_delays</span>,
-  <span class='va'>mean_shift</span>,
-  <span class='va'>generation_time</span>,
-  <span class='va'>rt</span>,
-  <span class='va'>gp</span>,
-  <span class='va'>obs_model</span>,
-  <span class='va'>delays</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>update_defaults</span><span class='op'>(</span>defaults <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, optional <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>reported_cases</th>
-      <td><p>A data frame of confirmed cases (confirm) by date (date). confirm must be integer and date must be
-in date format.</p></td>
+      <th>defaults</th>
+      <td><p>A list of default settings</p></td>
     </tr>
     <tr>
-      <th>shifted_reported_cases</th>
-      <td><p>A dataframe of delay shifted reported cases</p></td>
-    </tr>
-    <tr>
-      <th>horizon</th>
-      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
-    </tr>
-    <tr>
-      <th>no_delays</th>
-      <td><p>Numeric, number of delays</p></td>
-    </tr>
-    <tr>
-      <th>mean_shift</th>
-      <td><p>Numeric, mean delay shift</p></td>
-    </tr>
-    <tr>
-      <th>generation_time</th>
-      <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-generation time (assuming a gamma distribution).</p></td>
-    </tr>
-    <tr>
-      <th>rt</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. Is Rt being estimated? This controls Rt
-specific Gaussian process settings that are not supported for back calculation.</p></td>
-    </tr>
-    <tr>
-      <th>gp</th>
-      <td><p>A list of settings to override the package default Gaussian
-process settings. See the documentation for <code><a href='gp_settings.html'>?gp_settings</a></code> for details of these
-settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>obs_model</th>
-      <td><p>A list of settings to override the package default observation
-model settings. See the documentation for <code><a href='obs_model_settings.html'>?obs_model_settings</a></code> for details of these
-settings and <code><a href='obs_model_settings.html'>obs_model_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <th>optional</th>
+      <td><p>A list of optional settings to override defaults</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of stan data</p>
+    <p>A list</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

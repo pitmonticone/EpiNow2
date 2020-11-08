@@ -168,7 +168,7 @@ estimated reproduction numbers are taken as forecast.</p></td>
     </tr>
     <tr>
       <th>model</th>
-      <td><p>A compiled stan model. By default uses the internal package model.</p></td>
+      <td><p>A compiled stan model as returned by <code><a href='https://mc-stan.org/rstan/reference/stan_model.html'>rstan::stan_model</a></code>.</p></td>
     </tr>
     <tr>
       <th>samples</th>
@@ -204,6 +204,7 @@ shown.</p></td>
 <span class='co'># fit model to data to recover Rt estimates</span>
 <span class='va'>est</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
                            stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
                                   
 <span class='co'># update Rt trajectory and simulate new infections using it</span>

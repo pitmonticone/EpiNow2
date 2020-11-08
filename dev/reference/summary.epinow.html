@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarised output from epinow — summary.epinow • EpiNow2</title>
+<title>Summary output from epinow — summary.epinow • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,7 +45,7 @@
 
 
 
-<meta property="og:title" content="Summarised output from epinow — summary.epinow" />
+<meta property="og:title" content="Summary output from epinow — summary.epinow" />
 <meta property="og:description" content="summary method for class &quot;epinow&quot;." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
@@ -129,7 +129,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarised output from epinow</h1>
+    <h1>Summary output from epinow</h1>
     
     <div class="hidden name"><code>summary.epinow.Rd</code></div>
     </div>
@@ -139,7 +139,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for epinow</span>
-<span class='fu'>summary</span><span class='op'>(</span><span class='va'>object</span>, type <span class='op'>=</span> <span class='st'>"summary"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>summary</span><span class='op'>(</span><span class='va'>object</span>, output <span class='op'>=</span> <span class='st'>"estimates"</span>, date <span class='op'>=</span> <span class='cn'>NULL</span>, params <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,22 +149,30 @@
       <td><p>A list of output as produced by "epinow".</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>A character vector of data types to return. Defaults to "summary"
-but also supports "estimates", "forecast", "estimated_reported_cases", and "all".</p></td>
+      <th>output</th>
+      <td><p>A character string of output to summarise. Defaults to "estimates"
+but also supports "forecast", and "estimated_reported_cases".</p></td>
+    </tr>
+    <tr>
+      <th>date</th>
+      <td><p>A date in the form "yyyy-mm-dd" to inspect estimates for.</p></td>
+    </tr>
+    <tr>
+      <th>params</th>
+      <td><p>A character vector of parameters to filter for.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Pass additional summary arguments</p></td>
+      <td><p>Pass additional summary arguments to lower level methods</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a list of summary output</p>
+    <p>Returns a data frame of summary output</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>summary epinow report_summary</p></div>
+    <div class='dont-index'><p>summary.estimate_infections epinow</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
