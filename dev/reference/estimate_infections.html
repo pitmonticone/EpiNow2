@@ -192,6 +192,13 @@ that delay (assuming a lognormal distribution with all parameters excepting the 
 on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>rt</th>
+      <td><p>A list of settings to override the package default time-varying reproduction
+number settings. See the documentation for <code><a href='rt_settings.html'>?rt_settings</a></code> for details of these settings
+and <code><a href='rt_settings.html'>rt_settings()</a></code> for the current defaults. Set to <code>NULL</code> to switch to using
+back calculation rather than generating infections using Rt.</p></td>
+    </tr>
+    <tr>
       <th>gp</th>
       <td><p>A list of settings to override the package default Gaussian
 process settings. See the documentation for <code><a href='gp_settings.html'>?gp_settings</a></code> for details of these
