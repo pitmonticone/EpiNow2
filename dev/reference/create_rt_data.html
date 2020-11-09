@@ -138,7 +138,7 @@
     <p>Create Time-varying Reproduction Number Data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_rt_data</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, breakpoints <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_rt_data</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, breakpoints <span class='op'>=</span> <span class='cn'>NULL</span>, delay <span class='op'>=</span> <span class='fl'>0</span>, horizon <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,6 +153,14 @@ back calculation rather than generating infections using Rt.</p></td>
     <tr>
       <th>breakpoints</th>
       <td><p>An integer vector (binary) indicating the location of breakpoints.</p></td>
+    </tr>
+    <tr>
+      <th>delay</th>
+      <td><p>Numeric mean delay</p></td>
+    </tr>
+    <tr>
+      <th>horizon</th>
+      <td><p>Numeric, forecast horizon.</p></td>
     </tr>
     </table>
 
@@ -180,6 +188,12 @@ back calculation rather than generating infections using Rt.</p></td>
 #&gt; 
 #&gt; $breakpoints
 #&gt; NULL
+#&gt; 
+#&gt; $future_fixed
+#&gt; [1] 1
+#&gt; 
+#&gt; $fixed_from
+#&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='co'># settings when no Rt is desired</span>
 <span class='fu'>create_rt_data</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
@@ -197,6 +211,12 @@ back calculation rather than generating infections using Rt.</p></td>
 #&gt; 
 #&gt; $breakpoints
 #&gt; NULL
+#&gt; 
+#&gt; $future_fixed
+#&gt; [1] 0
+#&gt; 
+#&gt; $fixed_from
+#&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='co'># using breakpoints</span>
 <span class='fu'>create_rt_data</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>use_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, breakpoints <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
@@ -214,6 +234,12 @@ back calculation rather than generating infections using Rt.</p></td>
 #&gt; 
 #&gt; $breakpoints
 #&gt;  [1] 1 1 1 1 1 1 1 1 1 1
+#&gt; 
+#&gt; $future_fixed
+#&gt; [1] 1
+#&gt; 
+#&gt; $fixed_from
+#&gt; [1] 0
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

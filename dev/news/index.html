@@ -148,7 +148,7 @@
 <li>Updates the implementation of the Gaussian process to support the Matern 3/2 Kernel (and set this as the default) in addition to the squared exponential kernel. Updates the handling of Gaussian process arguments so that only overridden settings need to be passed by the user when making changes. Settings are now defined, and documented, in <code>gp_settings</code>. The length scale is now defined using a log normal truncated prior with a mean of 21 days and a standard deviation of 7 days truncated at 3 days and the length of the data by default. This prior is an area of active research and so may change in future releases.</li>
 <li>Updates the over dispersion prior to be <code>1 / sqrt(half_normal(0, rho_prior))</code> based on <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">this</a> advice and as the over dispersion being measured is in reports and not infections and hence a priori there is not strong evidence for over dispersion (which may be the case for infections) so the previous prior was overly weighted towards this.</li>
 <li>Updates the interface for the observation model with arguments now passed using <code>obs_model</code>. This removes <code>week_effect</code> and <code>family</code> from the main argument list which will allow for future extensions. Also adds a new argument <code>scale</code> which controls the uncertain fraction of cases that are eventually observed (defined as normally distributed). Setting this parameter will not impact Rt estimates.</li>
-<li>Updates the interface to the Rt settings with all arguments passed to <code>rt</code> this includes the initial prior, and <code>use_breakpoints</code>. Adds a new helper argument <code>rw</code> which enables easy parameterisation of a fixed length random walk. These changes also help make it clear that these arguments only impact the Rt generative model and not the back calculation model.</li>
+<li>Updates the interface to the Rt settings with all arguments passed to <code>rt</code> this includes the initial prior,<code>use_breakpoints</code>, and <code>future</code>. Adds a new helper argument <code>rw</code> which enables easy parameterisation of a fixed length random walk. These changes also help make it clear that these arguments only impact the Rt generative model and not the back calculation model.</li>
 <li>Updates the interface to back calculation options to be passed via <code>backcalc</code>. Currently this only impacts <code>prior_smoothing_window</code> which can now be passed using <code>backcalc = list(smoothing_window = 7)</code>
 </li>
 </ul>
@@ -170,6 +170,7 @@
 <li>Updates the default <code>warmup</code> to be 250 samples and the default <code>adapt_delta</code> to be 0.98.</li>
 <li>Dropped the <code>model</code> and <code>method</code> arguments from <code>estimate_infections</code> as these are now included in <code>stan_args</code>. Also clarified the documentation for <code>stan_args</code> to better indicate what the defaults are and how they can be updated.</li>
 <li>Adds a new <code>summary</code> method for <code>estimate_infections</code> and updates the <code>epinow</code> summary method to be based on it.</li>
+<li>Adds a pooling parameter for the standard deviation of breakpoint effects.</li>
 </ul>
 </div>
 </div>

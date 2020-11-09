@@ -61,6 +61,12 @@ use_breakpoints: Should break points be used if present as a breakpoint variable
 the input data. Break points should be defined as 1 if present and otherwise 0. By default
 breakpoints are fit jointly with a global non-parametric effect and so represent a conservative
 estimate of break point changes (alter this by setting gp = NULL).
+future: How should Rt be extended when data is sparse (applies to the GP, and automated breakpoints).
+The default is to fix it  based on the last estimate based on partial data (&quot;latest&quot;) but other options
+include projecting the latest estimate based on &amp;gt;50% complete data (&quot;estimate&quot;), or projecting
+the kernel of the gaussian process forwards in time (&quot;project&quot;). Alternatively the number
+of days to project can be passed (if negative then fixes within
+estimated time). See ?create_future_rt for further details and complete options.
 
 " />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
@@ -166,6 +172,12 @@ variable as outlined in the next section.</p></li>
 the input data. Break points should be defined as 1 if present and otherwise 0. By default
 breakpoints are fit jointly with a global non-parametric effect and so represent a conservative
 estimate of break point changes (alter this by setting <code>gp = NULL</code>).</p></li>
+<li><p><code>future</code>: How should Rt be extended when data is sparse (applies to the GP, and automated breakpoints).
+The default is to fix it  based on the last estimate based on partial data ("latest") but other options
+include projecting the latest estimate based on &gt;50% complete data ("estimate"), or projecting
+the kernel of the gaussian process forwards in time ("project"). Alternatively the number
+of days to project can be passed (if negative then fixes within
+estimated time). See ?create_future_rt for further details and complete options.</p></li>
 </ul>
 
     </div>
@@ -204,6 +216,9 @@ estimate of break point changes (alter this by setting <code>gp = NULL</code>).<
 #&gt; 
 #&gt; $use_breakpoints
 #&gt; [1] TRUE
+#&gt; 
+#&gt; $future
+#&gt; [1] "latest"
 #&gt; </div><div class='input'>
 <span class='co'># add a custom length scale</span>
 <span class='fu'>rt_settings</span><span class='op'>(</span>rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
@@ -215,6 +230,9 @@ estimate of break point changes (alter this by setting <code>gp = NULL</code>).<
 #&gt; 
 #&gt; $use_breakpoints
 #&gt; [1] TRUE
+#&gt; 
+#&gt; $future
+#&gt; [1] "latest"
 #&gt; 
 #&gt; $prior
 #&gt; $prior$mean
@@ -239,6 +257,9 @@ estimate of break point changes (alter this by setting <code>gp = NULL</code>).<
 #&gt; 
 #&gt; $use_breakpoints
 #&gt; [1] TRUE
+#&gt; 
+#&gt; $future
+#&gt; [1] "latest"
 #&gt; 
 #&gt; $rw
 #&gt; [1] 7

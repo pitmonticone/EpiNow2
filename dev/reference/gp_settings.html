@@ -72,13 +72,6 @@ stationary: Should the Gaussian process be estimated with a stationary global me
 order and so depend on the previous value. A stationary Gaussian process may be more
 tractable but will revert to the global average when data is sparse i.e for near real
 time estimates. The default is FALSE. This feature is experimental.
-future: How should the Gaussian process be extended when data is sparse. The default
-is to fix it  based on the last estimate based on partial data (&quot;latest&quot;) but other options
-include projecting the latest estimate based on &amp;gt;50% complete data (&quot;estimate&quot;), or projecting
-the kernel of the gaussian process forwards in time (&quot;project&quot;). Alternatively the number
-of days to project the gaussian process can be passed (if negative then fixes within
-estimated time). When using backcalculation (i.e rt_prior = list()) only projection
-using the gaussian process is supported. See ?create_future_rt for further details and complete options.
 
 " />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
@@ -195,13 +188,6 @@ details.</p></li>
 order and so depend on the previous value. A stationary Gaussian process may be more
 tractable but will revert to the global average when data is sparse i.e for near real
 time estimates. The default is FALSE. This feature is experimental.</p></li>
-<li><p><code>future</code>: How should the Gaussian process be extended when data is sparse. The default
-is to fix it  based on the last estimate based on partial data ("latest") but other options
-include projecting the latest estimate based on &gt;50% complete data ("estimate"), or projecting
-the kernel of the gaussian process forwards in time ("project"). Alternatively the number
-of days to project the gaussian process can be passed (if negative then fixes within
-estimated time). When using backcalculation (i.e <code>rt_prior = list()</code>) only projection
-using the gaussian process is supported. See ?create_future_rt for further details and complete options.</p></li>
 </ul>
 
     </div>
@@ -257,9 +243,6 @@ using the gaussian process is supported. See ?create_future_rt for further detai
 #&gt; 
 #&gt; $stationary
 #&gt; [1] FALSE
-#&gt; 
-#&gt; $future
-#&gt; [1] "latest"
 #&gt; </div><div class='input'>
 <span class='co'># add a custom length scale</span>
 <span class='fu'>gp_settings</span><span class='op'>(</span>gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ls_mean <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
@@ -289,9 +272,6 @@ using the gaussian process is supported. See ?create_future_rt for further detai
 #&gt; 
 #&gt; $stationary
 #&gt; [1] FALSE
-#&gt; 
-#&gt; $future
-#&gt; [1] "latest"
 #&gt; 
 #&gt; $ls_mean
 #&gt; [1] 4

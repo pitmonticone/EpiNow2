@@ -138,7 +138,7 @@
     <p>Create Gaussian Process Data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_gp_data</span><span class='op'>(</span>gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>data</span>, rt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_gp_data</span><span class='op'>(</span>gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,11 +153,6 @@ settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the c
       <th>data</th>
       <td><p>A list containing the following numeric values: <code>t</code>, <code>seeding_time</code>,
 <code>horizon</code>.</p></td>
-    </tr>
-    <tr>
-      <th>rt</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. Is Rt being estimated? This controls Rt
-specific Gaussian process settings that are not supported for back calculation.</p></td>
     </tr>
     </table>
 
@@ -181,12 +176,6 @@ specific Gaussian process settings that are not supported for back calculation.<
 #&gt; [1] 0
 #&gt; 
 #&gt; $stationary
-#&gt; [1] 0
-#&gt; 
-#&gt; $future_fixed
-#&gt; [1] 1
-#&gt; 
-#&gt; $fixed_from
 #&gt; [1] 0
 #&gt; 
 #&gt; $M
@@ -221,12 +210,6 @@ specific Gaussian process settings that are not supported for back calculation.<
 #&gt; $stationary
 #&gt; [1] 1
 #&gt; 
-#&gt; $future_fixed
-#&gt; [1] 1
-#&gt; 
-#&gt; $fixed_from
-#&gt; [1] 0
-#&gt; 
 #&gt; $M
 #&gt; [1] 7
 #&gt; 
@@ -257,12 +240,6 @@ specific Gaussian process settings that are not supported for back calculation.<
 #&gt; [1] 0
 #&gt; 
 #&gt; $stationary
-#&gt; [1] 0
-#&gt; 
-#&gt; $future_fixed
-#&gt; [1] 1
-#&gt; 
-#&gt; $fixed_from
 #&gt; [1] 0
 #&gt; 
 #&gt; $M

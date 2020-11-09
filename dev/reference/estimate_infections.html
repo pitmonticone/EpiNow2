@@ -192,11 +192,6 @@ that delay (assuming a lognormal distribution with all parameters excepting the 
 on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>rt</th>
-      <td><p>Logical, defaults to <code>TRUE</code>. Is Rt being estimated? This controls Rt
-specific Gaussian process settings that are not supported for back calculation.</p></td>
-    </tr>
-    <tr>
       <th>gp</th>
       <td><p>A list of settings to override the package default Gaussian
 process settings. See the documentation for <code><a href='gp_settings.html'>?gp_settings</a></code> for details of these
@@ -299,8 +294,8 @@ to assign errors to regions. Alter the default to run with error catching.</p></
 <span class='co'># Rt projected into the future using the Gaussian process</span>
 <span class='va'>project_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                   delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                                  rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                                  gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>future <span class='op'>=</span> <span class='st'>"project"</span><span class='op'>)</span>,
+                                  rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>, 
+                                            future <span class='op'>=</span> <span class='st'>"project"</span><span class='op'>)</span>,
                                   stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>project_rt</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-3.png' alt='' width='864' height='864' /></div><div class='input'>
@@ -356,26 +351,24 @@ to assign errors to regions. Alter the default to run with error catching.</p></
 
 <span class='co'># random walk effects</span>
 <span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>rw</span>, type <span class='op'>=</span> <span class='st'>"parameters"</span>, params <span class='op'>=</span> <span class='st'>"breakpoints"</span><span class='op'>)</span>                                                    
-</div><div class='output co'>#&gt;    date    variable strat type       median         mean         sd   lower_90
-#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.172810081 -0.173425653 0.09008478 -0.3244017
-#&gt; 2: &lt;NA&gt; breakpoints     2 &lt;NA&gt; -0.140141611 -0.141817318 0.08392807 -0.2792776
-#&gt; 3: &lt;NA&gt; breakpoints     3 &lt;NA&gt; -0.242123135 -0.241110324 0.08548097 -0.3738892
-#&gt; 4: &lt;NA&gt; breakpoints     4 &lt;NA&gt; -0.267099562 -0.270252984 0.09929313 -0.4315003
-#&gt; 5: &lt;NA&gt; breakpoints     5 &lt;NA&gt; -0.026751179 -0.026267762 0.09959832 -0.1843325
-#&gt; 6: &lt;NA&gt; breakpoints     6 &lt;NA&gt;  0.032543466  0.031414692 0.09923512 -0.1347238
-#&gt; 7: &lt;NA&gt; breakpoints     7 &lt;NA&gt; -0.065685337 -0.071964303 0.11789002 -0.2647143
-#&gt; 8: &lt;NA&gt; breakpoints     8 &lt;NA&gt; -0.003263605 -0.007363708 0.17102190 -0.2902053
-#&gt; 9: &lt;NA&gt; breakpoints     9 &lt;NA&gt;  0.001800934  0.011349923 0.17886175 -0.2745863
-#&gt;       lower_50     lower_20     upper_20    upper_50     upper_90
-#&gt; 1: -0.23316843 -0.195688153 -0.152252753 -0.11140337 -0.021276081
-#&gt; 2: -0.19979096 -0.163899793 -0.117786207 -0.08527005 -0.006208444
-#&gt; 3: -0.29865120 -0.265495683 -0.221829464 -0.18478763 -0.099174609
-#&gt; 4: -0.33304687 -0.291090895 -0.242391751 -0.20438535 -0.108597197
-#&gt; 5: -0.09285564 -0.053466491 -0.003502586  0.03878445  0.131063172
-#&gt; 6: -0.03531093  0.005598348  0.054771174  0.09837378  0.200330692
-#&gt; 7: -0.14645977 -0.098461662 -0.041764539  0.00817829  0.112254079
-#&gt; 8: -0.12028281 -0.038315056  0.034911911  0.10063448  0.266502958
-#&gt; 9: -0.09731781 -0.036893413  0.053200467  0.12202048  0.313719337</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>rw</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    date    variable strat type       median        mean         sd   lower_90
+#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.172193695 -0.17496222 0.08650410 -0.3219475
+#&gt; 2: &lt;NA&gt; breakpoints     2 &lt;NA&gt; -0.140505226 -0.14077143 0.08256755 -0.2726374
+#&gt; 3: &lt;NA&gt; breakpoints     3 &lt;NA&gt; -0.241135336 -0.24128851 0.08492014 -0.3810639
+#&gt; 4: &lt;NA&gt; breakpoints     4 &lt;NA&gt; -0.270205223 -0.26785581 0.09695705 -0.4246153
+#&gt; 5: &lt;NA&gt; breakpoints     5 &lt;NA&gt; -0.032994528 -0.03145758 0.09529011 -0.1918580
+#&gt; 6: &lt;NA&gt; breakpoints     6 &lt;NA&gt;  0.036374502  0.03719977 0.09470751 -0.1081312
+#&gt; 7: &lt;NA&gt; breakpoints     7 &lt;NA&gt; -0.068938962 -0.07391686 0.11852490 -0.2727513
+#&gt; 8: &lt;NA&gt; breakpoints     8 &lt;NA&gt; -0.006299332 -0.00919967 0.18368991 -0.3073298
+#&gt;       lower_50     lower_20     upper_20     upper_50     upper_90
+#&gt; 1: -0.23177740 -0.193278221 -0.150101659 -0.115027190 -0.041838492
+#&gt; 2: -0.19838068 -0.162297457 -0.119865300 -0.085990459 -0.001909209
+#&gt; 3: -0.29706098 -0.260922302 -0.220553267 -0.185179602 -0.101344600
+#&gt; 4: -0.33329528 -0.293220044 -0.243317520 -0.204472361 -0.098042882
+#&gt; 5: -0.09661587 -0.053321318 -0.008759404  0.029974346  0.126895012
+#&gt; 6: -0.02940336  0.009107231  0.058913601  0.101171854  0.190517221
+#&gt; 7: -0.15354943 -0.101269762 -0.037677260  0.006861449  0.107305202
+#&gt; 8: -0.13063244 -0.051184964  0.036032717  0.106241840  0.300615207</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>rw</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-9.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># }                                </span>
 </div></pre>
   </div>
