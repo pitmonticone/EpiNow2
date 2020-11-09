@@ -85,7 +85,7 @@ or past counterfactuals. Simulations can be run in parallel using future::plan."
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
       </span>
     </div>
 
@@ -203,9 +203,8 @@ shown.</p></td>
                         
 <span class='co'># fit model to data to recover Rt estimates</span>
 <span class='va'>est</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                           delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
                                   
 <span class='co'># update Rt trajectory and simulate new infections using it</span>
 <span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA_real_</span>, <span class='fl'>40</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.8</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>

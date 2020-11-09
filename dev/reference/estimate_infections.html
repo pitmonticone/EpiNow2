@@ -89,7 +89,7 @@ issues with the MCMC fit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
       </span>
     </div>
 
@@ -153,18 +153,14 @@ issues with the MCMC fit.</p>
     <pre class="usage"><span class='fu'>estimate_infections</span><span class='op'>(</span>
   <span class='va'>reported_cases</span>,
   <span class='va'>generation_time</span>,
-  delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  obs_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  backcalc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  backcalc <span class='op'>=</span> <span class='fu'><a href='backcalc_opts.html'>backcalc_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  gp <span class='op'>=</span> <span class='fu'><a href='gp_opts.html'>gp_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  obs <span class='op'>=</span> <span class='fu'><a href='obs_opts.html'>obs_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  stan <span class='op'>=</span> <span class='fu'><a href='stan_opts.html'>stan_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
   horizon <span class='op'>=</span> <span class='fl'>7</span>,
-  samples <span class='op'>=</span> <span class='fl'>1000</span>,
   CrIs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.9</span><span class='op'>)</span>,
-  future <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  max_execution_time <span class='op'>=</span> <span class='cn'>Inf</span>,
-  return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
   id <span class='op'>=</span> <span class='st'>"estimate_infections"</span>,
   verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -185,67 +181,43 @@ generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
       <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <td><p>A call to <code>delay_opts</code> defining delay distributions and options. See the documentation of <code>delay_opts</code>
+and the examples below for details.</p></td>
     </tr>
     <tr>
       <th>rt</th>
-      <td><p>A list of settings to override the package default time-varying reproduction
-number settings. See the documentation for <code><a href='rt_settings.html'>?rt_settings</a></code> for details of these settings
-and <code><a href='rt_settings.html'>rt_settings()</a></code> for the current defaults. Set to <code>NULL</code> to switch to using
-back calculation rather than generating infections using Rt.</p></td>
-    </tr>
-    <tr>
-      <th>gp</th>
-      <td><p>A list of settings to override the package default Gaussian
-process settings. See the documentation for <code><a href='gp_settings.html'>?gp_settings</a></code> for details of these
-settings and <code><a href='gp_settings.html'>gp_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>obs_model</th>
-      <td><p>A list of settings to override the package default observation
-model settings. See the documentation for <code><a href='obs_model_settings.html'>?obs_model_settings</a></code> for details of these
-settings and <code><a href='obs_model_settings.html'>obs_model_settings()</a></code> for the current defaults.</p></td>
-    </tr>
-    <tr>
-      <th>stan_args</th>
-      <td><p>A list of settings to override the package default stan settings. See the documentation
-for <code>create_stan_args</code> for details and <code><a href='create_stan_args.html'>create_stan_args()</a></code> for current defaults.</p></td>
+      <td><p>A list of options as generated by <code>rt_opts</code> defining Rt estimation.
+Defaults to <code><a href='rt_opts.html'>rt_opts()</a></code>. Set to <code>NULL</code> to switch to using  back calculation
+rather than generating infections using Rt.</p></td>
     </tr>
     <tr>
       <th>backcalc</th>
-      <td><p>A list of settings to override the back calculation settings. See
-<code><a href='backcalc_settings.html'>?backcalc_settings</a></code> for options and <code><a href='backcalc_settings.html'>backcalc_settings()</a></code> for current defaults.</p></td>
+      <td><p>A call to <code>backcalc_opts</code> defining back calculation settings. See the documentation of <code>backcalc_opts</code>
+and the examples below for details. Only used if <code>rt = NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>gp</th>
+      <td><p>A list of options as generated by <code>gp_opts</code> to define the
+Gaussian process. Defaults to <code><a href='gp_opts.html'>gp_opts()</a></code>.Set to NULL to disable the
+Gaussian process.</p></td>
+    </tr>
+    <tr>
+      <th>obs</th>
+      <td><p>A list of options as generated by <code>obs_opts</code> defining the
+observation model. Defaults to <code><a href='obs_opts.html'>obs_opts()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>stan</th>
+      <td><p>A list of stan options as generated by <code>stan_opts</code>. Defaults to <code><a href='stan_opts.html'>stan_opts()</a></code>. Can be used to override
+<code>data</code>, <code>init</code>, and <code>verbose</code> settings if desired.</p></td>
     </tr>
     <tr>
       <th>horizon</th>
       <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
     </tr>
     <tr>
-      <th>samples</th>
-      <td><p>Numeric, defaults to 1000. Number of samples post warmup.</p></td>
-    </tr>
-    <tr>
       <th>CrIs</th>
       <td><p>Numeric vector of credible intervals to calculate.</p></td>
-    </tr>
-    <tr>
-      <th>future</th>
-      <td><p>Logical, defaults to <code>FALSE</code>. Should stan chains be run in parallel using <code>future</code>. This allows users to have chains
-fail gracefully (i.e when combined with <code>max_execution_time</code>). Should be combined with a call to <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan</a></code></p></td>
-    </tr>
-    <tr>
-      <th>max_execution_time</th>
-      <td><p>Numeric, defaults to Inf (seconds). If set will kill off processing of each chain if not finished within the specified timeout.
-When more than 2 chains finish successfully estimates will still be returned. If less than 2 chains return within the allowed time then estimation
-will fail with an informative error.</p></td>
-    </tr>
-    <tr>
-      <th>return_fit</th>
-      <td><p>Logical, defaults to TRUE. Should the fitted stan model be returned.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -277,106 +249,97 @@ to assign errors to regions. Alter the default to run with error catching.</p></
       
 <span class='co'># default setting</span>
 <span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                           delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># real time estimates</span>
 <span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                                  measure              estimate
-#&gt; 1: New confirmed cases by infection date    1929 (837 -- 3920)
+#&gt; 1: New confirmed cases by infection date    2037 (885 -- 4242)
 #&gt; 2:        Expected change in daily cases                Unsure
-#&gt; 3:            Effective reproduction no.      0.8 (0.5 -- 1.1)
-#&gt; 4:                        Rate of growth -0.05 (-0.14 -- 0.04)
-#&gt; 5:          Doubling/halving time (days)      -14 (17.2 -- -5)</div><div class='input'><span class='co'># summary plot</span>
+#&gt; 3:            Effective reproduction no.      0.9 (0.5 -- 1.2)
+#&gt; 4:                        Rate of growth -0.04 (-0.14 -- 0.05)
+#&gt; 5:          Doubling/halving time (days)    -16.5 (14.2 -- -5)</div><div class='input'><span class='co'># summary plot</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-1.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># using back calculation (combined here with under reporting)</span>
 <span class='va'>backcalc</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                                 rt <span class='op'>=</span> <span class='cn'>NULL</span>,
-                                obs_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>0.4</span>, sd <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>,
-                                stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                                obs <span class='op'>=</span> <span class='fu'><a href='obs_opts.html'>obs_opts</a></span><span class='op'>(</span>scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>0.4</span>, sd <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>backcalc</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-2.png' alt='' width='864' height='864' /></div><div class='input'>                           
 <span class='co'># Rt projected into the future using the Gaussian process</span>
 <span class='va'>project_rt</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                  delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                                  rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>, 
-                                            future <span class='op'>=</span> <span class='st'>"project"</span><span class='op'>)</span>,
-                                  stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                                  delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                  rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>, 
+                                               future <span class='op'>=</span> <span class='st'>"project"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>project_rt</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-3.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># default settings on a later snapshot of data </span>
 <span class='va'>snapshot_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>80</span><span class='op'>:</span><span class='fl'>130</span><span class='op'>]</span>
 <span class='va'>snapshot</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>snapshot_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                                rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                                stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                                delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                                rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>snapshot</span><span class='op'>)</span> 
 </div><div class='img'><img src='estimate_infections-4.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># stationary Rt assumption (likely to provide biased real-time estimates)</span>
 <span class='va'>stat</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                            delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                            gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>stationary <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-                            rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                            stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                            delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                            gp <span class='op'>=</span> <span class='fu'><a href='gp_opts.html'>gp_opts</a></span><span class='op'>(</span>stationary <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+                            rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>stat</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-5.png' alt='' width='864' height='864' /></div><div class='input'>       
 <span class='co'># no gaussian process (i.e fixed Rt assuming no breakpoints)</span>
 <span class='va'>fixed</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                             delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                             gp <span class='op'>=</span> <span class='cn'>NULL</span>,
-                             stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+                             delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                             gp <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 <span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>fixed</span><span class='op'>)</span>
 </div><div class='img'><img src='estimate_infections-6.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># no delays </span>
-<span class='va'>no_delay</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>no_delay</span><span class='op'>)</span>    
-</div><div class='img'><img src='estimate_infections-7.png' alt='' width='864' height='864' /></div><div class='input'>
+<span class='va'>no_delay</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in create_stan_data(reported_cases = reported_cases, generation_time = generation_time,     delays = delays, rt = rt, gp = gp, obs = obs, shifted_cases = shifted_cases$confirm,     horizon = horizon): object 'shifted_cases' not found</span></div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>no_delay</span><span class='op'>)</span>    
+</div><div class='output co'>#&gt; <span class='error'>Error in plot(no_delay): object 'no_delay' not found</span></div><div class='input'>
 <span class='co'># break point but otherwise static Rt</span>
 <span class='va'>bp_cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>reported_cases</span><span class='op'>)</span>
 <span class='va'>bp_cases</span> <span class='op'>&lt;-</span> <span class='va'>bp_cases</span><span class='op'>[</span>, <span class='va'>breakpoint</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2020-03-16"</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>]</span>
 <span class='va'>bkp</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>bp_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
-                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
+                           delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
                            gp <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>                                                         
 <span class='co'># break point effect</span>
 <span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>bkp</span>, type <span class='op'>=</span> <span class='st'>"parameters"</span>, params <span class='op'>=</span> <span class='st'>"breakpoints"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    date    variable strat type    median       mean         sd   lower_90
-#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.632155 -0.6320511 0.02912639 -0.6777271
+</div><div class='output co'>#&gt;    date    variable strat type     median       mean         sd   lower_90
+#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.6521102 -0.6527205 0.02983502 -0.7015691
 #&gt;      lower_50   lower_20   upper_20   upper_50   upper_90
-#&gt; 1: -0.6542384 -0.6407839 -0.6242054 -0.6114191 -0.5835084</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>bkp</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-8.png' alt='' width='864' height='864' /></div><div class='input'>
+#&gt; 1: -0.6734724 -0.6592952 -0.6439436 -0.6324674 -0.6059557</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>bkp</span><span class='op'>)</span>
+</div><div class='img'><img src='estimate_infections-7.png' alt='' width='864' height='864' /></div><div class='input'>
 <span class='co'># weekly random walk</span>
 <span class='va'>rw</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                          delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                          rt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>, rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>,
-                          stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,
+                          delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                          rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>, rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>,
                           gp <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>     
 
 <span class='co'># random walk effects</span>
 <span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>rw</span>, type <span class='op'>=</span> <span class='st'>"parameters"</span>, params <span class='op'>=</span> <span class='st'>"breakpoints"</span><span class='op'>)</span>                                                    
-</div><div class='output co'>#&gt;    date    variable strat type       median        mean         sd   lower_90
-#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.172193695 -0.17496222 0.08650410 -0.3219475
-#&gt; 2: &lt;NA&gt; breakpoints     2 &lt;NA&gt; -0.140505226 -0.14077143 0.08256755 -0.2726374
-#&gt; 3: &lt;NA&gt; breakpoints     3 &lt;NA&gt; -0.241135336 -0.24128851 0.08492014 -0.3810639
-#&gt; 4: &lt;NA&gt; breakpoints     4 &lt;NA&gt; -0.270205223 -0.26785581 0.09695705 -0.4246153
-#&gt; 5: &lt;NA&gt; breakpoints     5 &lt;NA&gt; -0.032994528 -0.03145758 0.09529011 -0.1918580
-#&gt; 6: &lt;NA&gt; breakpoints     6 &lt;NA&gt;  0.036374502  0.03719977 0.09470751 -0.1081312
-#&gt; 7: &lt;NA&gt; breakpoints     7 &lt;NA&gt; -0.068938962 -0.07391686 0.11852490 -0.2727513
-#&gt; 8: &lt;NA&gt; breakpoints     8 &lt;NA&gt; -0.006299332 -0.00919967 0.18368991 -0.3073298
-#&gt;       lower_50     lower_20     upper_20     upper_50     upper_90
-#&gt; 1: -0.23177740 -0.193278221 -0.150101659 -0.115027190 -0.041838492
-#&gt; 2: -0.19838068 -0.162297457 -0.119865300 -0.085990459 -0.001909209
-#&gt; 3: -0.29706098 -0.260922302 -0.220553267 -0.185179602 -0.101344600
-#&gt; 4: -0.33329528 -0.293220044 -0.243317520 -0.204472361 -0.098042882
-#&gt; 5: -0.09661587 -0.053321318 -0.008759404  0.029974346  0.126895012
-#&gt; 6: -0.02940336  0.009107231  0.058913601  0.101171854  0.190517221
-#&gt; 7: -0.15354943 -0.101269762 -0.037677260  0.006861449  0.107305202
-#&gt; 8: -0.13063244 -0.051184964  0.036032717  0.106241840  0.300615207</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>rw</span><span class='op'>)</span>
-</div><div class='img'><img src='estimate_infections-9.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># }                                </span>
+</div><div class='output co'>#&gt;    date    variable strat type      median        mean         sd   lower_90
+#&gt; 1: &lt;NA&gt; breakpoints     1 &lt;NA&gt; -0.14456451 -0.14392936 0.06751208 -0.2580510
+#&gt; 2: &lt;NA&gt; breakpoints     2 &lt;NA&gt; -0.14843954 -0.14879239 0.07912780 -0.2749682
+#&gt; 3: &lt;NA&gt; breakpoints     3 &lt;NA&gt; -0.24175192 -0.24301429 0.08563770 -0.3808445
+#&gt; 4: &lt;NA&gt; breakpoints     4 &lt;NA&gt; -0.26631272 -0.26560766 0.08935826 -0.4194696
+#&gt; 5: &lt;NA&gt; breakpoints     5 &lt;NA&gt; -0.03057601 -0.02963414 0.09133343 -0.1743495
+#&gt; 6: &lt;NA&gt; breakpoints     6 &lt;NA&gt;  0.03381638  0.03173172 0.09453757 -0.1275632
+#&gt; 7: &lt;NA&gt; breakpoints     7 &lt;NA&gt; -0.06236387 -0.06617661 0.11559804 -0.2573454
+#&gt; 8: &lt;NA&gt; breakpoints     8 &lt;NA&gt; -0.01056583 -0.01325639 0.17041851 -0.2965873
+#&gt;       lower_50    lower_20     upper_20    upper_50    upper_90
+#&gt; 1: -0.18507395 -0.15770489 -0.126592195 -0.09936506 -0.03569371
+#&gt; 2: -0.19984703 -0.16574042 -0.127901941 -0.10126281 -0.01888190
+#&gt; 3: -0.30215719 -0.26280514 -0.221512618 -0.18757706 -0.09999760
+#&gt; 4: -0.32391185 -0.28894207 -0.242209412 -0.20133269 -0.11937972
+#&gt; 5: -0.08779582 -0.05306577 -0.009022918  0.03016550  0.12772649
+#&gt; 6: -0.02709410  0.01178516  0.053509266  0.09601088  0.17928733
+#&gt; 7: -0.14246914 -0.09201412 -0.032963653  0.01030118  0.11333137
+#&gt; 8: -0.12110113 -0.05386797  0.026040280  0.09660494  0.24854544</div><div class='input'><span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>rw</span><span class='op'>)</span>
+</div><div class='img'><img src='estimate_infections-8.png' alt='' width='864' height='864' /></div><div class='input'><span class='co'># }                                </span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

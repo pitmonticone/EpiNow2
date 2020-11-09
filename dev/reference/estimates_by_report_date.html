@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
       </span>
     </div>
 
@@ -160,11 +160,8 @@
     </tr>
     <tr>
       <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <td><p>A call to <code>delay_opts</code> defining delay distributions and options. See the documentation of <code>delay_opts</code>
+and the examples below for details.</p></td>
     </tr>
     <tr>
       <th>CrIs</th>

@@ -85,7 +85,7 @@ available here." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
       </span>
     </div>
 
@@ -220,10 +220,8 @@ summarised forecasts.</p>
 
 <span class='co'># estimate Rt and infections from data</span>
 <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, samples <span class='op'>=</span> <span class='fl'>100</span>,
-                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, 
-                                            warmup <span class='op'>=</span> <span class='fl'>100</span>, chains <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+                           delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># forecast Rt and infections from estimates</span>
 <span class='va'>forecast</span> <span class='op'>&lt;-</span> <span class='fu'>forecast_infections</span><span class='op'>(</span>
@@ -244,180 +242,8 @@ summarised forecasts.</p>
  <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: EpiSoon</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: forecastHybrid</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt;           date type forecast_type       median         mean           sd
-#&gt;  1: 2020-04-09 case          case 3.455131e+04 3.961873e+04 2.890127e+04
-#&gt;  2: 2020-04-10 case          case 3.299715e+04 3.928453e+04 2.956729e+04
-#&gt;  3: 2020-04-11 case          case 3.061106e+04 3.594012e+04 2.714408e+04
-#&gt;  4: 2020-04-12 case          case 3.329760e+04 3.817390e+04 2.790260e+04
-#&gt;  5: 2020-04-13 case          case 3.460793e+04 3.954861e+04 2.905368e+04
-#&gt;  6: 2020-04-14 case          case 3.299103e+04 3.852631e+04 2.839594e+04
-#&gt;  7: 2020-04-15 case          case 3.396848e+04 3.960855e+04 2.911850e+04
-#&gt;  8: 2020-04-16 case          case 3.557191e+04 4.020413e+04 2.871989e+04
-#&gt;  9: 2020-04-17 case          case 3.440965e+04 4.006690e+04 2.846210e+04
-#&gt; 10: 2020-04-18 case          case 3.405732e+04 4.016721e+04 2.932622e+04
-#&gt; 11: 2020-04-19 case          case 3.477726e+04 4.007987e+04 2.921362e+04
-#&gt; 12: 2020-04-20 case          case 3.417230e+04 3.929495e+04 2.829153e+04
-#&gt; 13: 2020-04-21 case          case 3.770447e+04 4.263675e+04 2.985870e+04
-#&gt; 14: 2020-04-22 case          case 3.624888e+04 4.140423e+04 2.952085e+04
-#&gt; 15: 2020-04-09 case      ensemble 3.532531e+04 3.859010e+04 1.997108e+04
-#&gt; 16: 2020-04-10 case      ensemble 3.520226e+04 3.777091e+04 1.975957e+04
-#&gt; 17: 2020-04-11 case      ensemble 3.478515e+04 3.686937e+04 1.956904e+04
-#&gt; 18: 2020-04-12 case      ensemble 3.571390e+04 3.774210e+04 1.943084e+04
-#&gt; 19: 2020-04-13 case      ensemble 3.596908e+04 3.836751e+04 1.982693e+04
-#&gt; 20: 2020-04-14 case      ensemble 3.488284e+04 3.697765e+04 1.970876e+04
-#&gt; 21: 2020-04-15 case      ensemble 3.568481e+04 3.808978e+04 1.982442e+04
-#&gt; 22: 2020-04-16 case      ensemble 3.617582e+04 3.905028e+04 2.084258e+04
-#&gt; 23: 2020-04-17 case      ensemble 3.587460e+04 3.821150e+04 1.953661e+04
-#&gt; 24: 2020-04-18 case      ensemble 3.558820e+04 3.835179e+04 1.973006e+04
-#&gt; 25: 2020-04-19 case      ensemble 3.568135e+04 3.830477e+04 2.026613e+04
-#&gt; 26: 2020-04-20 case      ensemble 3.530807e+04 3.786820e+04 1.949771e+04
-#&gt; 27: 2020-04-21 case      ensemble 3.760623e+04 3.955422e+04 2.013296e+04
-#&gt; 28: 2020-04-22 case      ensemble 3.740436e+04 3.954375e+04 2.066163e+04
-#&gt; 29: 2020-04-09 case            rt 3.274900e+04 3.756147e+04 2.753545e+04
-#&gt; 30: 2020-04-10 case            rt 3.077000e+04 3.625730e+04 2.704258e+04
-#&gt; 31: 2020-04-11 case            rt 3.175550e+04 3.779861e+04 2.879103e+04
-#&gt; 32: 2020-04-12 case            rt 3.290300e+04 3.731029e+04 2.766402e+04
-#&gt; 33: 2020-04-13 case            rt 3.183100e+04 3.718640e+04 2.796367e+04
-#&gt; 34: 2020-04-14 case            rt 3.041100e+04 3.542900e+04 2.707756e+04
-#&gt; 35: 2020-04-15 case            rt 3.020500e+04 3.657101e+04 2.711683e+04
-#&gt; 36: 2020-04-16 case            rt 3.178000e+04 3.789643e+04 2.883419e+04
-#&gt; 37: 2020-04-17 case            rt 3.029000e+04 3.635610e+04 2.709640e+04
-#&gt; 38: 2020-04-18 case            rt 3.016850e+04 3.653638e+04 2.756274e+04
-#&gt; 39: 2020-04-19 case            rt 3.048250e+04 3.652967e+04 2.784726e+04
-#&gt; 40: 2020-04-20 case            rt 3.131000e+04 3.644144e+04 2.695305e+04
-#&gt; 41: 2020-04-21 case            rt 3.101900e+04 3.647169e+04 2.734765e+04
-#&gt; 42: 2020-04-22 case            rt 3.175700e+04 3.768326e+04 2.803446e+04
-#&gt; 43: 2020-04-09   rt          &lt;NA&gt; 6.503578e-01 6.783940e-01 3.527954e-01
-#&gt; 44: 2020-04-10   rt          &lt;NA&gt; 6.903000e-01 6.945853e-01 3.592611e-01
-#&gt; 45: 2020-04-11   rt          &lt;NA&gt; 6.523651e-01 6.668246e-01 3.477128e-01
-#&gt; 46: 2020-04-12   rt          &lt;NA&gt; 7.190503e-01 7.157102e-01 3.442529e-01
-#&gt; 47: 2020-04-13   rt          &lt;NA&gt; 6.912089e-01 6.981720e-01 3.585325e-01
-#&gt; 48: 2020-04-14   rt          &lt;NA&gt; 6.561208e-01 6.835391e-01 3.591651e-01
-#&gt; 49: 2020-04-15   rt          &lt;NA&gt; 6.591402e-01 6.816130e-01 3.624616e-01
-#&gt; 50: 2020-04-16   rt          &lt;NA&gt; 6.886898e-01 7.000361e-01 3.714867e-01
-#&gt; 51: 2020-04-17   rt          &lt;NA&gt; 6.833696e-01 6.978035e-01 3.590699e-01
-#&gt; 52: 2020-04-18   rt          &lt;NA&gt; 6.864063e-01 6.904981e-01 3.615620e-01
-#&gt; 53: 2020-04-19   rt          &lt;NA&gt; 6.611352e-01 6.725625e-01 3.529493e-01
-#&gt; 54: 2020-04-20   rt          &lt;NA&gt; 6.829530e-01 7.019771e-01 3.715964e-01
-#&gt; 55: 2020-04-21   rt          &lt;NA&gt; 6.535992e-01 6.893691e-01 3.695278e-01
-#&gt; 56: 2020-04-22   rt          &lt;NA&gt; 6.578903e-01 6.824542e-01 3.589573e-01
-#&gt;           date type forecast_type       median         mean           sd
-#&gt;         lower_90     lower_50     lower_20     upper_20     upper_50
-#&gt;  1: 3.783152e+03 1.742360e+04 2.750176e+04 4.165508e+04 5.494553e+04
-#&gt;  2: 3.509483e+03 1.630372e+04 2.632533e+04 4.083211e+04 5.499218e+04
-#&gt;  3: 2.968331e+03 1.464427e+04 2.310929e+04 3.892532e+04 5.103985e+04
-#&gt;  4: 3.076605e+03 1.589108e+04 2.630041e+04 4.099675e+04 5.498452e+04
-#&gt;  5: 3.558753e+03 1.596095e+04 2.698749e+04 4.216904e+04 5.639568e+04
-#&gt;  6: 3.571006e+03 1.591584e+04 2.555506e+04 4.044160e+04 5.591327e+04
-#&gt;  7: 3.604730e+03 1.590972e+04 2.639060e+04 4.264920e+04 5.678109e+04
-#&gt;  8: 3.980106e+03 1.709595e+04 2.712780e+04 4.436540e+04 5.761619e+04
-#&gt;  9: 3.717999e+03 1.840853e+04 2.724153e+04 4.326923e+04 5.621695e+04
-#&gt; 10: 4.055516e+03 1.751298e+04 2.744535e+04 4.120424e+04 5.764283e+04
-#&gt; 11: 2.985022e+03 1.783171e+04 2.785831e+04 4.230458e+04 5.751518e+04
-#&gt; 12: 3.223503e+03 1.605306e+04 2.603872e+04 4.233935e+04 5.558239e+04
-#&gt; 13: 3.950047e+03 1.739248e+04 2.989029e+04 4.812109e+04 6.228661e+04
-#&gt; 14: 3.313545e+03 1.817684e+04 2.868386e+04 4.395217e+04 6.038850e+04
-#&gt; 15: 1.039506e+04 2.341501e+04 3.094258e+04 4.141960e+04 5.131563e+04
-#&gt; 16: 9.639235e+03 2.317063e+04 3.079647e+04 4.022396e+04 5.019782e+04
-#&gt; 17: 9.942960e+03 2.168242e+04 3.000393e+04 3.935002e+04 4.940553e+04
-#&gt; 18: 9.874336e+03 2.340209e+04 3.080697e+04 4.008396e+04 4.938458e+04
-#&gt; 19: 9.732231e+03 2.324559e+04 3.113720e+04 4.121346e+04 5.091992e+04
-#&gt; 20: 9.117294e+03 2.236664e+04 2.980113e+04 3.976353e+04 4.871206e+04
-#&gt; 21: 1.036598e+04 2.286352e+04 3.080419e+04 4.076904e+04 5.096600e+04
-#&gt; 22: 1.036380e+04 2.304382e+04 3.113839e+04 4.212955e+04 5.198328e+04
-#&gt; 23: 1.100491e+04 2.348131e+04 3.086950e+04 4.076970e+04 5.083508e+04
-#&gt; 24: 1.134120e+04 2.320149e+04 3.076486e+04 4.105459e+04 5.039789e+04
-#&gt; 25: 9.938845e+03 2.361743e+04 3.009799e+04 4.062893e+04 5.130047e+04
-#&gt; 26: 1.013999e+04 2.296206e+04 3.036674e+04 4.110900e+04 5.040762e+04
-#&gt; 27: 1.143001e+04 2.410693e+04 3.211211e+04 4.297078e+04 5.217388e+04
-#&gt; 28: 1.039578e+04 2.368939e+04 3.172921e+04 4.250205e+04 5.213552e+04
-#&gt; 29: 2.834350e+03 1.576725e+04 2.536380e+04 4.047880e+04 5.374000e+04
-#&gt; 30: 2.766500e+03 1.476625e+04 2.403060e+04 3.818980e+04 5.196275e+04
-#&gt; 31: 2.446950e+03 1.481925e+04 2.448420e+04 3.954960e+04 5.680800e+04
-#&gt; 32: 3.110950e+03 1.529700e+04 2.520640e+04 3.958620e+04 5.303775e+04
-#&gt; 33: 2.650050e+03 1.514700e+04 2.506460e+04 3.890080e+04 5.135575e+04
-#&gt; 34: 2.856450e+03 1.313075e+04 2.339020e+04 3.831340e+04 5.190375e+04
-#&gt; 35: 3.567550e+03 1.500825e+04 2.375200e+04 3.862260e+04 5.362250e+04
-#&gt; 36: 3.040450e+03 1.434250e+04 2.443960e+04 4.091420e+04 5.627400e+04
-#&gt; 37: 3.088700e+03 1.441350e+04 2.365860e+04 3.912460e+04 5.259900e+04
-#&gt; 38: 3.018400e+03 1.544250e+04 2.457520e+04 3.783960e+04 5.319025e+04
-#&gt; 39: 2.918350e+03 1.460625e+04 2.487380e+04 3.872260e+04 5.197875e+04
-#&gt; 40: 3.100550e+03 1.506825e+04 2.462080e+04 3.879380e+04 5.196300e+04
-#&gt; 41: 3.046350e+03 1.424625e+04 2.354100e+04 3.808240e+04 5.298150e+04
-#&gt; 42: 3.294100e+03 1.525325e+04 2.495320e+04 4.008800e+04 5.468325e+04
-#&gt; 43: 1.426371e-01 4.202608e-01 5.705364e-01 7.407584e-01 9.169053e-01
-#&gt; 44: 1.107966e-01 4.258932e-01 6.054620e-01 7.829366e-01 9.320021e-01
-#&gt; 45: 1.292596e-01 4.014083e-01 5.477549e-01 7.484912e-01 9.004132e-01
-#&gt; 46: 1.697083e-01 4.602453e-01 6.180642e-01 8.076198e-01 9.491097e-01
-#&gt; 47: 1.527523e-01 4.151690e-01 5.930650e-01 7.823264e-01 9.382339e-01
-#&gt; 48: 1.214019e-01 4.108375e-01 5.790295e-01 7.574044e-01 9.328281e-01
-#&gt; 49: 1.418105e-01 3.960424e-01 5.668422e-01 7.520100e-01 9.165176e-01
-#&gt; 50: 1.178693e-01 4.317014e-01 5.745046e-01 7.956304e-01 9.562083e-01
-#&gt; 51: 1.304136e-01 4.361169e-01 5.791588e-01 7.952589e-01 9.496729e-01
-#&gt; 52: 1.392934e-01 4.112592e-01 5.899662e-01 7.703617e-01 9.320342e-01
-#&gt; 53: 1.024819e-01 4.181201e-01 5.692293e-01 7.546231e-01 9.040616e-01
-#&gt; 54: 1.239160e-01 4.124914e-01 5.818588e-01 7.816288e-01 9.620358e-01
-#&gt; 55: 1.257011e-01 4.176729e-01 5.634176e-01 7.581798e-01 9.268239e-01
-#&gt; 56: 1.166771e-01 4.278452e-01 5.709932e-01 7.644320e-01 9.250882e-01
-#&gt;         lower_90     lower_50     lower_20     upper_20     upper_50
-#&gt;         upper_90
-#&gt;  1: 94206.154477
-#&gt;  2: 98035.854115
-#&gt;  3: 88519.987318
-#&gt;  4: 92268.803016
-#&gt;  5: 95497.385780
-#&gt;  6: 92462.559273
-#&gt;  7: 94135.415897
-#&gt;  8: 94652.086885
-#&gt;  9: 96303.224180
-#&gt; 10: 96860.119123
-#&gt; 11: 93126.227438
-#&gt; 12: 94499.241460
-#&gt; 13: 97181.225876
-#&gt; 14: 96415.061540
-#&gt; 15: 74330.920296
-#&gt; 16: 73688.146985
-#&gt; 17: 71267.253001
-#&gt; 18: 74566.339718
-#&gt; 19: 74241.952279
-#&gt; 20: 71732.863039
-#&gt; 21: 74578.877295
-#&gt; 22: 76407.983668
-#&gt; 23: 75172.586545
-#&gt; 24: 74333.245480
-#&gt; 25: 75223.826107
-#&gt; 26: 72117.179444
-#&gt; 27: 75200.403419
-#&gt; 28: 78698.881153
-#&gt; 29: 91707.050000
-#&gt; 30: 90514.000000
-#&gt; 31: 92383.900000
-#&gt; 32: 87171.850000
-#&gt; 33: 92424.600000
-#&gt; 34: 85000.400000
-#&gt; 35: 90104.950000
-#&gt; 36: 94385.400000
-#&gt; 37: 89182.550000
-#&gt; 38: 90552.300000
-#&gt; 39: 91203.450000
-#&gt; 40: 88809.850000
-#&gt; 41: 89292.750000
-#&gt; 42: 91099.550000
-#&gt; 43:     1.324687
-#&gt; 44:     1.308936
-#&gt; 45:     1.256511
-#&gt; 46:     1.295641
-#&gt; 47:     1.317178
-#&gt; 48:     1.306509
-#&gt; 49:     1.334591
-#&gt; 50:     1.320284
-#&gt; 51:     1.304942
-#&gt; 52:     1.325546
-#&gt; 53:     1.273233
-#&gt; 54:     1.334382
-#&gt; 55:     1.344870
-#&gt; 56:     1.301879
-#&gt;         upper_90</div><div class='input'><span class='co'># }                              </span>
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; Error in sampler$call_sampler(args_list[[i]]) : Initialization failed.
+#&gt; character(0)</div><div class='output co'>#&gt; <span class='message'>error occurred during calling the sampler; sampling not done</span></div><div class='output co'>#&gt; <span class='error'>Error: $ operator is invalid for atomic vectors</span></div><div class='input'><span class='co'># }                              </span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

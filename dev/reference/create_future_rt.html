@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.5</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
       </span>
     </div>
 
@@ -138,13 +138,13 @@
     <p>Construct the Required Future Rt assumption</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_future_rt</span><span class='op'>(</span>future_rt <span class='op'>=</span> <span class='st'>"latest"</span>, delay <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_future_rt</span><span class='op'>(</span>future <span class='op'>=</span> <span class='st'>"latest"</span>, delay <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>future_rt</th>
+      <th>future</th>
       <td><p>A character string or integer. This argument indicates how to set future Rt values. Supported
 options are to project using the Rt model ("project"), to use the latest estimate based on partial data ("latest"),
 to use the latest estimate based on data that is over 50% complete ("estimate"). If an integer is supplied then the Rt estimate

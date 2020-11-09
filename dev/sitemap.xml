@@ -16,7 +16,7 @@
     <loc>epiforecasts.io/EpiNow2//reference/allocate_empty.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/backcalc_settings.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/backcalc_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/bootstrapped_dist_fit.html</loc>
@@ -80,6 +80,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_stan_data.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/delay_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/dist_fit.html</loc>
@@ -157,7 +160,7 @@
     <loc>epiforecasts.io/EpiNow2//reference/global_map.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/gp_settings.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/gp_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/growth_to_R.html</loc>
@@ -178,7 +181,7 @@
     <loc>epiforecasts.io/EpiNow2//reference/match_output_arguments.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/obs_model_settings.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/obs_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/plot.epinow.html</loc>
@@ -217,7 +220,16 @@
     <loc>epiforecasts.io/EpiNow2//reference/report_summary.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/rt_settings.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_sampling_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_vb_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rt_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/run_region.html</loc>
@@ -254,6 +266,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/simulate_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/stan_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/summarise_key_measures.html</loc>
