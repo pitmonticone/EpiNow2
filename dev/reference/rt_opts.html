@@ -145,7 +145,8 @@ reproduction number. Custom settings can be supplied which override the defaults
   use_rt <span class='op'>=</span> <span class='cn'>TRUE</span>,
   rw <span class='op'>=</span> <span class='fl'>0</span>,
   use_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  future <span class='op'>=</span> <span class='st'>"latest"</span>
+  future <span class='op'>=</span> <span class='st'>"latest"</span>,
+  pop <span class='op'>=</span> <span class='fl'>0</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -182,6 +183,12 @@ options are to project using the Rt model ("project"), to use the latest estimat
 to use the latest estimate based on data that is over 50% complete ("estimate"). If an integer is supplied then the Rt estimate
 from this many days into the future (or past if negative) past will be used forwards in time.</p></td>
     </tr>
+    <tr>
+      <th>pop</th>
+      <td><p>Integer, defaults to 0. Susceptible population initially present. Used to adjust
+Rt estimates when otherwise fixed based on the proportion of the population that is
+susceptible. When set to 0 no population adjustment is done.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -210,6 +217,9 @@ from this many days into the future (or past if negative) past will be used forw
 #&gt; 
 #&gt; $future
 #&gt; [1] "latest"
+#&gt; 
+#&gt; $pop
+#&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='co'># add a custom length scale</span>
 <span class='fu'>rt_opts</span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
@@ -232,6 +242,9 @@ from this many days into the future (or past if negative) past will be used forw
 #&gt; 
 #&gt; $future
 #&gt; [1] "latest"
+#&gt; 
+#&gt; $pop
+#&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='co'># add a weekly random walk</span>
 <span class='fu'>rt_opts</span><span class='op'>(</span>rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
@@ -254,6 +267,9 @@ from this many days into the future (or past if negative) past will be used forw
 #&gt; 
 #&gt; $future
 #&gt; [1] "latest"
+#&gt; 
+#&gt; $pop
+#&gt; [1] 0
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

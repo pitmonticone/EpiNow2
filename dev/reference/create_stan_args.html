@@ -461,13 +461,18 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   return(new_inf);
 #&gt; }
 #&gt; // generate infections by using Rt = Rt-1 * sum(reversed generation time pmf * infections)
-#&gt; vector generate_infections(vector R, int uot, 
+#&gt; vector generate_infections(vector oR, int uot, 
 #&gt;                            real[] gt_mean, real[] gt_sd, int max_gt,
-#&gt;                            real[] initial_infections, real[] initial_growth) {
+#&gt;                            real[] initial_infections, real[] initial_growth,
+#&gt;                            int pop, int ht) {
 #&gt;   // time indices and storage
-#&gt;   int ot = num_elements(R);
+#&gt;   int ot = num_elements(oR);
+#&gt;   int nht = ot - ht;
 #&gt;   int t = ot + uot;
+#&gt;   vector[ot] R = oR;
+#&gt;   real exp_adj_Rt;
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
+#&gt;   vector[ot] cum_infections = rep_vector(0, ot);
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot);
 #&gt;   // generation time pmf
 #&gt;   vector[max_gt] gt_pmf = rep_vector(1e-5, max_gt);   
@@ -479,14 +484,27 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   // Initialise infections using daily growth
 #&gt;   infections[1] = exp(initial_infections[1]);
 #&gt;   if (uot &gt; 1) {
-#&gt;       for (s in 2:uot) {
-#&gt;         infections[s] = exp(initial_infections[1] + initial_growth[1] * (s - 1));
-#&gt;       }
+#&gt;     for (s in 2:uot) {
+#&gt;       infections[s] = exp(initial_infections[1] + initial_growth[1] * (s - 1));
+#&gt;     }
 #&gt;   }
-#&gt;   // iteratively update infections using Cori et al method
+#&gt;   // calculate cumulative infections
+#&gt;   if (pop) {
+#&gt;     cum_infections[1] = sum(infections[1:uot]);
+#&gt;   }
+#&gt;   // iteratively update infections
 #&gt;   for (s in 1:ot) {
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, uot, max_gt, s);
-#&gt;     infections[s + uot] += R[s] * infectiousness[s];
+#&gt;     if (pop &amp;&amp; s &gt; nht) {
+#&gt;       exp_adj_Rt = exp(-R[s] * infectiousness[s] / (pop - cum_infections[nht]));
+#&gt;       exp_adj_Rt = exp_adj_Rt &gt; 1 ? 1 : exp_adj_Rt;
+#&gt;       infections[s + uot] = (pop - cum_infections[s]) * (1 - exp_adj_Rt);
+#&gt;     }else{
+#&gt;       infections[s + uot] += R[s] * infectiousness[s];
+#&gt;     }
+#&gt;     if (pop &amp;&amp; s &lt; ot) {
+#&gt;       cum_infections[s + 1] = cum_infections[s] + infections[s + uot];
+#&gt;     }
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
@@ -614,6 +632,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int t;                                            // unobserved time
 #&gt;   int seeding_time;                                 // time period used for seeding and not observed
 #&gt;   int horizon;                                      // forecast horizon
+#&gt;   int future_time;                                  // time in future for Rt
 #&gt;   int&lt;lower = 0&gt; cases[t - horizon - seeding_time]; // observed cases
 #&gt;   vector&lt;lower = 0&gt;[t] shifted_cases;               // prior infections (for backcalculation)
 #&gt; 
@@ -650,6 +669,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int breakpoints[t - seeding_time]; // when do breakpoints occur 
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
+#&gt;   int pop;                           // Initial susceptible population
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
@@ -707,7 +727,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     // via Rt
 #&gt;     R = update_Rt(R, log_R[estimate_r], noise, breakpoints, bp_effects, stationary);
 #&gt;     infections = generate_infections(R, seeding_time, gt_mean, gt_sd, max_gt,
-#&gt;                                      initial_infections, initial_growth);
+#&gt;                                      initial_infections, initial_growth,
+#&gt;                                      pop, future_time);
 #&gt;   }else{
 #&gt;     // via deconvolution
 #&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed);
@@ -1093,13 +1114,18 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   return(new_inf);
 #&gt; }
 #&gt; // generate infections by using Rt = Rt-1 * sum(reversed generation time pmf * infections)
-#&gt; vector generate_infections(vector R, int uot, 
+#&gt; vector generate_infections(vector oR, int uot, 
 #&gt;                            real[] gt_mean, real[] gt_sd, int max_gt,
-#&gt;                            real[] initial_infections, real[] initial_growth) {
+#&gt;                            real[] initial_infections, real[] initial_growth,
+#&gt;                            int pop, int ht) {
 #&gt;   // time indices and storage
-#&gt;   int ot = num_elements(R);
+#&gt;   int ot = num_elements(oR);
+#&gt;   int nht = ot - ht;
 #&gt;   int t = ot + uot;
+#&gt;   vector[ot] R = oR;
+#&gt;   real exp_adj_Rt;
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
+#&gt;   vector[ot] cum_infections = rep_vector(0, ot);
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot);
 #&gt;   // generation time pmf
 #&gt;   vector[max_gt] gt_pmf = rep_vector(1e-5, max_gt);   
@@ -1111,14 +1137,27 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   // Initialise infections using daily growth
 #&gt;   infections[1] = exp(initial_infections[1]);
 #&gt;   if (uot &gt; 1) {
-#&gt;       for (s in 2:uot) {
-#&gt;         infections[s] = exp(initial_infections[1] + initial_growth[1] * (s - 1));
-#&gt;       }
+#&gt;     for (s in 2:uot) {
+#&gt;       infections[s] = exp(initial_infections[1] + initial_growth[1] * (s - 1));
+#&gt;     }
 #&gt;   }
-#&gt;   // iteratively update infections using Cori et al method
+#&gt;   // calculate cumulative infections
+#&gt;   if (pop) {
+#&gt;     cum_infections[1] = sum(infections[1:uot]);
+#&gt;   }
+#&gt;   // iteratively update infections
 #&gt;   for (s in 1:ot) {
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, uot, max_gt, s);
-#&gt;     infections[s + uot] += R[s] * infectiousness[s];
+#&gt;     if (pop &amp;&amp; s &gt; nht) {
+#&gt;       exp_adj_Rt = exp(-R[s] * infectiousness[s] / (pop - cum_infections[nht]));
+#&gt;       exp_adj_Rt = exp_adj_Rt &gt; 1 ? 1 : exp_adj_Rt;
+#&gt;       infections[s + uot] = (pop - cum_infections[s]) * (1 - exp_adj_Rt);
+#&gt;     }else{
+#&gt;       infections[s + uot] += R[s] * infectiousness[s];
+#&gt;     }
+#&gt;     if (pop &amp;&amp; s &lt; ot) {
+#&gt;       cum_infections[s + 1] = cum_infections[s] + infections[s + uot];
+#&gt;     }
 #&gt;   }
 #&gt;   return(infections);
 #&gt; }
@@ -1246,6 +1285,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int t;                                            // unobserved time
 #&gt;   int seeding_time;                                 // time period used for seeding and not observed
 #&gt;   int horizon;                                      // forecast horizon
+#&gt;   int future_time;                                  // time in future for Rt
 #&gt;   int&lt;lower = 0&gt; cases[t - horizon - seeding_time]; // observed cases
 #&gt;   vector&lt;lower = 0&gt;[t] shifted_cases;               // prior infections (for backcalculation)
 #&gt; 
@@ -1282,6 +1322,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int breakpoints[t - seeding_time]; // when do breakpoints occur 
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
+#&gt;   int pop;                           // Initial susceptible population
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
@@ -1339,7 +1380,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     // via Rt
 #&gt;     R = update_Rt(R, log_R[estimate_r], noise, breakpoints, bp_effects, stationary);
 #&gt;     infections = generate_infections(R, seeding_time, gt_mean, gt_sd, max_gt,
-#&gt;                                      initial_infections, initial_growth);
+#&gt;                                      initial_infections, initial_growth,
+#&gt;                                      pop, future_time);
 #&gt;   }else{
 #&gt;     // via deconvolution
 #&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed);
