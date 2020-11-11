@@ -146,6 +146,7 @@ reproduction number. Custom settings can be supplied which override the defaults
   rw <span class='op'>=</span> <span class='fl'>0</span>,
   use_breakpoints <span class='op'>=</span> <span class='cn'>TRUE</span>,
   future <span class='op'>=</span> <span class='st'>"latest"</span>,
+  gp_on <span class='op'>=</span> <span class='st'>"R_t-1"</span>,
   pop <span class='op'>=</span> <span class='fl'>0</span>
 <span class='op'>)</span></pre>
 
@@ -184,6 +185,15 @@ to use the latest estimate based on data that is over 50% complete ("estimate").
 from this many days into the future (or past if negative) past will be used forwards in time.</p></td>
     </tr>
     <tr>
+      <th>gp_on</th>
+      <td><p>Character string, defaulting to  "R_t-1". Indicates how the Gaussian process,
+if in use, should be applied to Rt.  Currently supported options are applying the Gaussian
+process to the last estimated Rt (i.e Rt = Rt-1 * GP), and applying the Gaussian process to
+a global mean (i.e Rt = R0 * GP). Both should produced comparable results when data is not
+sparse but the method relying on a global mean will revert to this for real time estimates,
+which may not be desirable.</p></td>
+    </tr>
+    <tr>
       <th>pop</th>
       <td><p>Integer, defaults to 0. Susceptible population initially present. Used to adjust
 Rt estimates when otherwise fixed based on the proportion of the population that is
@@ -220,6 +230,9 @@ susceptible. When set to 0 no population adjustment is done.</p></td>
 #&gt; 
 #&gt; $pop
 #&gt; [1] 0
+#&gt; 
+#&gt; $gp_on
+#&gt; [1] "R_t-1"
 #&gt; </div><div class='input'>
 <span class='co'># add a custom length scale</span>
 <span class='fu'>rt_opts</span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
@@ -245,6 +258,9 @@ susceptible. When set to 0 no population adjustment is done.</p></td>
 #&gt; 
 #&gt; $pop
 #&gt; [1] 0
+#&gt; 
+#&gt; $gp_on
+#&gt; [1] "R_t-1"
 #&gt; </div><div class='input'>
 <span class='co'># add a weekly random walk</span>
 <span class='fu'>rt_opts</span><span class='op'>(</span>rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
@@ -270,6 +286,9 @@ susceptible. When set to 0 no population adjustment is done.</p></td>
 #&gt; 
 #&gt; $pop
 #&gt; [1] 0
+#&gt; 
+#&gt; $gp_on
+#&gt; [1] "R_t-1"
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

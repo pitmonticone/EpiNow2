@@ -172,17 +172,23 @@ Gaussian process.</p></td>
 
 <span class='co'># default gaussian process data     </span>
 <span class='fu'>create_gp_data</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $fixed
-#&gt; [1] 0
+</div><div class='output co'>#&gt; $t
+#&gt; [1] 30
 #&gt; 
-#&gt; $stationary
+#&gt; $seeding_time
+#&gt; [1] 7
+#&gt; 
+#&gt; $horizon
+#&gt; [1] 7
+#&gt; 
+#&gt; $fixed
 #&gt; [1] 0
 #&gt; 
 #&gt; $M
-#&gt; [1] 7
+#&gt; numeric(0)
 #&gt; 
 #&gt; $L
-#&gt; [1] 2
+#&gt; [1] 1.5
 #&gt; 
 #&gt; $ls_meanlog
 #&gt; [1] 2.991842
@@ -191,7 +197,7 @@ Gaussian process.</p></td>
 #&gt; [1] 0.3245928
 #&gt; 
 #&gt; $ls_min
-#&gt; [1] 3
+#&gt; [1] 7
 #&gt; 
 #&gt; $ls_max
 #&gt; [1] 16
@@ -204,17 +210,26 @@ Gaussian process.</p></td>
 #&gt; </div><div class='input'>
 <span class='co'># settings when no gaussian process is desired</span>
 <span class='fu'>create_gp_data</span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $fixed
-#&gt; [1] 1
+</div><div class='output co'>#&gt; $t
+#&gt; [1] 30
+#&gt; 
+#&gt; $seeding_time
+#&gt; [1] 7
+#&gt; 
+#&gt; $horizon
+#&gt; [1] 7
 #&gt; 
 #&gt; $stationary
 #&gt; [1] 1
 #&gt; 
+#&gt; $fixed
+#&gt; [1] 1
+#&gt; 
 #&gt; $M
-#&gt; [1] 7
+#&gt; numeric(0)
 #&gt; 
 #&gt; $L
-#&gt; [1] 2
+#&gt; [1] 1.5
 #&gt; 
 #&gt; $ls_meanlog
 #&gt; [1] 2.991842
@@ -223,7 +238,7 @@ Gaussian process.</p></td>
 #&gt; [1] 0.3245928
 #&gt; 
 #&gt; $ls_min
-#&gt; [1] 3
+#&gt; [1] 7
 #&gt; 
 #&gt; $ls_max
 #&gt; [1] 16
@@ -236,17 +251,23 @@ Gaussian process.</p></td>
 #&gt; </div><div class='input'>
 <span class='co'># custom lengthscale</span>
 <span class='fu'>create_gp_data</span><span class='op'>(</span><span class='fu'><a href='gp_opts.html'>gp_opts</a></span><span class='op'>(</span>ls_mean <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>, <span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $fixed
-#&gt; [1] 0
+</div><div class='output co'>#&gt; $t
+#&gt; [1] 30
 #&gt; 
-#&gt; $stationary
+#&gt; $seeding_time
+#&gt; [1] 7
+#&gt; 
+#&gt; $horizon
+#&gt; [1] 7
+#&gt; 
+#&gt; $fixed
 #&gt; [1] 0
 #&gt; 
 #&gt; $M
-#&gt; [1] 7
+#&gt; numeric(0)
 #&gt; 
 #&gt; $L
-#&gt; [1] 2
+#&gt; [1] 1.5
 #&gt; 
 #&gt; $ls_meanlog
 #&gt; [1] 2.527486
@@ -255,7 +276,7 @@ Gaussian process.</p></td>
 #&gt; [1] 0.4723807
 #&gt; 
 #&gt; $ls_min
-#&gt; [1] 3
+#&gt; [1] 7
 #&gt; 
 #&gt; $ls_max
 #&gt; [1] 16
