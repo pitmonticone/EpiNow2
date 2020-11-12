@@ -46,7 +46,12 @@
 
 
 <meta property="og:title" content="Estimate Cases by Report Date — estimates_by_report_date" />
-<meta property="og:description" content="Estimate Cases by Report Date" />
+<meta property="og:description" content="
+
+Either extracts or converts reported cases from an input datatable. For ouput from
+estimate_infections this is a simple filtering step but for output from forecast_infection
+this is currently an approximate convolution. This step is likely to be updated/deprecated
+in new releases as forecast_infections evolves to be based on stan functionality." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -135,7 +140,12 @@
     </div>
 
     <div class="ref-description">
-    <p>Estimate Cases by Report Date</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a>
+
+Either extracts or converts reported cases from an input datatable. For ouput from
+<code>estimate_infections</code> this is a simple filtering step but for output from <code>forecast_infection</code>
+this is currently an approximate convolution. This step is likely to be updated/deprecated
+in new releases as <code>forecast_infections</code> evolves to be based on <code>stan</code> functionality.</p>
     </div>
 
     <pre class="usage"><span class='fu'>estimates_by_report_date</span><span class='op'>(</span>

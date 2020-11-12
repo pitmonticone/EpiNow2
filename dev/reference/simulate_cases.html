@@ -46,7 +46,11 @@
 
 
 <meta property="og:title" content="Simulate Cases by Date of Infection, Onset and Report — simulate_cases" />
-<meta property="og:description" content="Simulate Cases by Date of Infection, Onset and Report" />
+<meta property="og:description" content="\@description 
+
+Simulate cases from a single Rt trace, an initial number of cases, and a reporting model
+This functionality has largely been superseded by simulate_infections and will likely to replaced
+or updated to depend on stan code." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -135,7 +139,11 @@
     </div>
 
     <div class="ref-description">
-    <p>Simulate Cases by Date of Infection, Onset and Report</p>
+    <p>\@description <a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a>
+
+Simulate cases from a single Rt trace, an initial number of cases, and a reporting model
+This functionality has largely been superseded by <code>simulate_infections</code> and will likely to replaced
+or updated to depend on <code>stan</code> code.</p>
     </div>
 
     <pre class="usage"><span class='fu'>simulate_cases</span><span class='op'>(</span>
@@ -207,6 +215,9 @@ which approximates sampling or "median" would shift by the median of the distrib
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataframe containing three variables: <code>date</code>, <code>cases</code> and <code>reference</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>simulate_infections</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

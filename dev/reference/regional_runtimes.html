@@ -46,7 +46,9 @@
 
 
 <meta property="og:title" content="Summarise Regional Runtimes — regional_runtimes" />
-<meta property="og:description" content="Summarise Regional Runtimes" />
+<meta property="og:description" content="
+
+Used internally by regional_epinow to summarise region runtimes." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -135,7 +137,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Summarise Regional Runtimes</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>
+
+Used internally by <code>regional_epinow</code> to summarise region runtimes.</p>
     </div>
 
     <pre class="usage"><span class='fu'>regional_runtimes</span><span class='op'>(</span>
@@ -172,6 +176,9 @@ if no directory for saving is specified.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data.table of region run times</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>regional_summary regional_epinow</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -192,11 +199,11 @@ if no directory for saving is specified.</p></td>
                                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                                 samples <span class='op'>=</span> <span class='fl'>100</span>, stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>,
                                 output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"region"</span>, <span class='st'>"timing"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-11-11 21:02:37] Producing following optional outputs: regions, timing</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpRr3Ikc/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpRr3Ikc/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-11-11 21:02:37] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-11-11 21:02:37] No target directory specified so returning output
-#&gt; INFO [2020-11-11 21:02:37] Producing estimates for: testland, realland
-#&gt; INFO [2020-11-11 21:02:37] Regions excluded: none
-#&gt; INFO [2020-11-11 21:02:37] Showing progress using progressr. Modify this behaviour using progressr::handlers.</div><div class='output co'>#&gt; <span class='error'>Error in epinow(generation_time = generation_time, delays = delays, rt = rt,     backcalc = backcalc, gp = gp, obs = obs, stan = stan, horizon = horizon,     CrIs = CrIs, reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_output = ifelse(output["summary"],         TRUE, return_output), output = names(output[output]),     logs = NULL, verbose = verbose, id = target_region, ...): unused arguments (samples = 100, stan_args = list(100))</span></div><div class='input'>
+</div><div class='output co'>#&gt; INFO [2020-11-12 22:36:15] Producing following optional outputs: regions, timing</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2cny9x/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2cny9x/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-11-12 22:36:15] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-11-12 22:36:15] No target directory specified so returning output
+#&gt; INFO [2020-11-12 22:36:15] Producing estimates for: testland, realland
+#&gt; INFO [2020-11-12 22:36:15] Regions excluded: none
+#&gt; INFO [2020-11-12 22:36:15] Showing progress using progressr. Modify this behaviour using progressr::handlers.</div><div class='output co'>#&gt; <span class='error'>Error in epinow(generation_time = generation_time, delays = delays, rt = rt,     backcalc = backcalc, gp = gp, obs = obs, stan = stan, horizon = horizon,     CrIs = CrIs, reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_output = ifelse(output["summary"],         TRUE, return_output), output = names(output[output]),     logs = NULL, verbose = verbose, id = target_region, ...): unused arguments (samples = 100, stan_args = list(100))</span></div><div class='input'>
 <span class='fu'>regional_runtimes</span><span class='op'>(</span>regional_output <span class='op'>=</span> <span class='va'>regional_out</span><span class='op'>$</span><span class='va'>regional</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in regional_runtimes(regional_output = regional_out$regional): object 'regional_out' not found</span></div><div class='input'><span class='co'># } </span>
 </div></pre>

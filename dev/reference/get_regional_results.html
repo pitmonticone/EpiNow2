@@ -46,7 +46,10 @@
 
 
 <meta property="og:title" content="Get Combined Regional Results — get_regional_results" />
-<meta property="og:description" content="Get Combined Regional Results" />
+<meta property="og:description" content="
+
+Summarises results across regions either from input or from disk. See the examples for
+details." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -135,7 +138,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Get Combined Regional Results</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+Summarises results across regions either from input or from disk. See the examples for
+details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_regional_results</span><span class='op'>(</span>
@@ -197,11 +203,11 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
                                 generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                 delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                                 rt <span class='op'>=</span> <span class='cn'>NULL</span>, output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regions"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-11-11 20:51:58] Producing following optional outputs: regions</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpRr3Ikc/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpRr3Ikc/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-11-11 20:51:58] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-11-11 20:51:58] No target directory specified so returning output
-#&gt; INFO [2020-11-11 20:51:58] Producing estimates for: testland, realland
-#&gt; INFO [2020-11-11 20:51:58] Regions excluded: none
-#&gt; INFO [2020-11-11 20:51:58] Showing progress using progressr. Modify this behaviour using progressr::handlers.</div><div class='output co'>#&gt; <span class='error'>Error in epinow(generation_time = generation_time, delays = delays, rt = rt,     backcalc = backcalc, gp = gp, obs = obs, stan = stan, horizon = horizon,     CrIs = CrIs, reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_output = ifelse(output["summary"],         TRUE, return_output), output = names(output[output]),     logs = NULL, verbose = verbose, id = target_region, ...): unused argument (samples = 100)</span></div><div class='input'>
+</div><div class='output co'>#&gt; INFO [2020-11-12 22:25:15] Producing following optional outputs: regions</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2cny9x/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp2cny9x/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-11-12 22:25:15] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-11-12 22:25:15] No target directory specified so returning output
+#&gt; INFO [2020-11-12 22:25:15] Producing estimates for: testland, realland
+#&gt; INFO [2020-11-12 22:25:15] Regions excluded: none
+#&gt; INFO [2020-11-12 22:25:15] Showing progress using progressr. Modify this behaviour using progressr::handlers.</div><div class='output co'>#&gt; <span class='error'>Error in epinow(generation_time = generation_time, delays = delays, rt = rt,     backcalc = backcalc, gp = gp, obs = obs, stan = stan, horizon = horizon,     CrIs = CrIs, reported_cases = regional_cases, target_folder = target_folder,     target_date = target_date, return_output = ifelse(output["summary"],         TRUE, return_output), output = names(output[output]),     logs = NULL, verbose = verbose, id = target_region, ...): unused argument (samples = 100)</span></div><div class='input'>
 <span class='va'>summary_only</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span><span class='op'>(</span><span class='va'>regional_out</span><span class='op'>$</span><span class='va'>regional</span>, forecast <span class='op'>=</span> <span class='cn'>FALSE</span>, samples <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in get_regional_results(regional_out$regional, forecast = FALSE,     samples = FALSE): object 'regional_out' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>summary_only</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'summary_only' not found</span></div><div class='input'>

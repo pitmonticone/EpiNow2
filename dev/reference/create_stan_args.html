@@ -46,10 +46,12 @@
 
 
 <meta property="og:title" content="Create a List of Stan Arguments — create_stan_args" />
-<meta property="og:description" content="Generates a list of arguments as required by rstan::sampling (when stan_args$method = &quot;sampling)
-or rstan::vb (when stan_args$method = &quot;vb). See create_stan_args() for the defaults and the relevant rstan
-functions for additional options. Defaults can be overwritten by passing a list containing the new setting to
-stan_args." />
+<meta property="og:description" content="
+
+Generates a list of arguments as required by rstan::sampling (when stan_args$method = &quot;sampling)
+or rstan::vb (when stan_args$method = &quot;vb) by combining the required options, with data, and type of
+initilisation. Initialisation defaults to random but it is expected that create_initial_conditions will
+be used." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +88,7 @@ stan_args." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -138,10 +140,12 @@ stan_args." />
     </div>
 
     <div class="ref-description">
-    <p>Generates a list of arguments as required by <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code> (when <code>stan_args$method = "sampling</code>)
-or <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-vb.html'>rstan::vb</a></code> (when <code>stan_args$method = "vb</code>). See <code>create_stan_args()</code> for the defaults and the relevant <code>rstan</code>
-functions for additional options. Defaults can be overwritten by passing a list containing the new setting to
-<code>stan_args</code>.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+Generates a list of arguments as required by <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code> (when <code>stan_args$method = "sampling</code>)
+or <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-vb.html'>rstan::vb</a></code> (when <code>stan_args$method = "vb</code>) by combining the required options, with data, and type of
+initilisation. Initialisation defaults to random but it is expected that <code>create_initial_conditions</code> will
+be used.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_stan_args</span><span class='op'>(</span>
@@ -375,8 +379,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; 
-#&gt; 
+#&gt; // Update an individual breakpoint effect
 #&gt; real update_breakpoints(real input_R, real[] bp_effects,
 #&gt;                         int bp_index, int at_bp,
 #&gt;                         int stationary) {
@@ -392,7 +395,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }               
 #&gt;   return(R);
 #&gt; }
-#&gt; 
+#&gt; // update an individual R
 #&gt; real update_R(vector R, vector noise, int noise_terms,
 #&gt;               int index, int stationary) {
 #&gt;   real cR = R[index];
@@ -415,7 +418,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt;   return(cR);
 #&gt; }
-#&gt; 
+#&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
@@ -569,14 +572,16 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt; }
 #&gt; 
-#&gt; 
+#&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
-#&gt;                     real gt_mean, real gt_sd, int max_gt) {
+#&gt;                     real gt_mean, real gt_sd, int max_gt,
+#&gt;                     int smooth) {
 #&gt;   vector[max_gt] gt_pmf;  
 #&gt;   int gt_indexes[max_gt];
 #&gt;   int t = num_elements(infections);
 #&gt;   int ot = t - seeding_time;
 #&gt;   vector[ot] R;
+#&gt;   vector[ot] sR;
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot); 
 #&gt;   // calculate PMF of the generation time
 #&gt;   for (i in 1:(max_gt)) {
@@ -588,9 +593,22 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, seeding_time, max_gt, s);
 #&gt;     R[s] = infections[s + seeding_time] / infectiousness[s];
 #&gt;   }
-#&gt;   return(R);
+#&gt;   if (smooth) {
+#&gt;     for (s in 1:ot) {
+#&gt;       real window = 0;
+#&gt;       sR[s] = 0;
+#&gt;       for (i in max(1, s - smooth):min(ot, s + smooth)) {
+#&gt;         sR[s] += R[i];
+#&gt;         window += 1;
+#&gt;       }
+#&gt;       sR[s] = sR[s] / window;
+#&gt;     }
+#&gt;   }else{
+#&gt;     sR = R;
+#&gt;   }
+#&gt;   return(sR);
 #&gt; }
-#&gt; 
+#&gt; // Convert an estimate of Rt to growth
 #&gt; real[] R_to_growth(vector R, real gt_mean, real gt_sd) {
 #&gt;   real k = pow(gt_sd / gt_mean, 2);
 #&gt;   int t = num_elements(R);
@@ -600,7 +618,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   } 
 #&gt;   return(r);
 #&gt; }
-#&gt; 
+#&gt; // sample reported cases from the observation model
 #&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
 #&gt;   int t = num_elements(reports);
 #&gt;   int sampled_reports[t];
@@ -615,7 +633,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
 #&gt;       }
 #&gt;     }
-#&gt;   } else {
+#&gt;   }else {
 #&gt;     for (s in 1:t) {
 #&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
 #&gt;     }
@@ -670,6 +688,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
 #&gt;   int pop;                           // Initial susceptible population
+#&gt;   int rt_half_window;                // Half the moving average window used when calculating Rt
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
@@ -789,7 +808,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     real gt_mean_sample = normal_rng(gt_mean_mean, gt_mean_sd);
 #&gt;     real gt_sd_sample = normal_rng(gt_sd_mean, gt_sd_sd);
 #&gt;     // calculate Rt using infections and generation time
-#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt);
+#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt, rt_half_window);
 #&gt;     // estimate growth from calculated Rt
 #&gt;     r = R_to_growth(gen_R, gt_mean_sample, gt_sd_sample);
 #&gt;   }
@@ -1028,8 +1047,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; 
-#&gt; 
+#&gt; // Update an individual breakpoint effect
 #&gt; real update_breakpoints(real input_R, real[] bp_effects,
 #&gt;                         int bp_index, int at_bp,
 #&gt;                         int stationary) {
@@ -1045,7 +1063,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }               
 #&gt;   return(R);
 #&gt; }
-#&gt; 
+#&gt; // update an individual R
 #&gt; real update_R(vector R, vector noise, int noise_terms,
 #&gt;               int index, int stationary) {
 #&gt;   real cR = R[index];
@@ -1068,7 +1086,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt;   return(cR);
 #&gt; }
-#&gt; 
+#&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
@@ -1222,14 +1240,16 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt; }
 #&gt; 
-#&gt; 
+#&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
-#&gt;                     real gt_mean, real gt_sd, int max_gt) {
+#&gt;                     real gt_mean, real gt_sd, int max_gt,
+#&gt;                     int smooth) {
 #&gt;   vector[max_gt] gt_pmf;  
 #&gt;   int gt_indexes[max_gt];
 #&gt;   int t = num_elements(infections);
 #&gt;   int ot = t - seeding_time;
 #&gt;   vector[ot] R;
+#&gt;   vector[ot] sR;
 #&gt;   vector[ot] infectiousness = rep_vector(1e-5, ot); 
 #&gt;   // calculate PMF of the generation time
 #&gt;   for (i in 1:(max_gt)) {
@@ -1241,9 +1261,22 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     infectiousness[s] += update_infectiousness(infections, gt_pmf, seeding_time, max_gt, s);
 #&gt;     R[s] = infections[s + seeding_time] / infectiousness[s];
 #&gt;   }
-#&gt;   return(R);
+#&gt;   if (smooth) {
+#&gt;     for (s in 1:ot) {
+#&gt;       real window = 0;
+#&gt;       sR[s] = 0;
+#&gt;       for (i in max(1, s - smooth):min(ot, s + smooth)) {
+#&gt;         sR[s] += R[i];
+#&gt;         window += 1;
+#&gt;       }
+#&gt;       sR[s] = sR[s] / window;
+#&gt;     }
+#&gt;   }else{
+#&gt;     sR = R;
+#&gt;   }
+#&gt;   return(sR);
 #&gt; }
-#&gt; 
+#&gt; // Convert an estimate of Rt to growth
 #&gt; real[] R_to_growth(vector R, real gt_mean, real gt_sd) {
 #&gt;   real k = pow(gt_sd / gt_mean, 2);
 #&gt;   int t = num_elements(R);
@@ -1253,7 +1286,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   } 
 #&gt;   return(r);
 #&gt; }
-#&gt; 
+#&gt; // sample reported cases from the observation model
 #&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
 #&gt;   int t = num_elements(reports);
 #&gt;   int sampled_reports[t];
@@ -1268,7 +1301,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
 #&gt;       }
 #&gt;     }
-#&gt;   } else {
+#&gt;   }else {
 #&gt;     for (s in 1:t) {
 #&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
 #&gt;     }
@@ -1323,6 +1356,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
 #&gt;   int pop;                           // Initial susceptible population
+#&gt;   int rt_half_window;                // Half the moving average window used when calculating Rt
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
@@ -1442,7 +1476,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     real gt_mean_sample = normal_rng(gt_mean_mean, gt_mean_sd);
 #&gt;     real gt_sd_sample = normal_rng(gt_sd_mean, gt_sd_sd);
 #&gt;     // calculate Rt using infections and generation time
-#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt);
+#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt, rt_half_window);
 #&gt;     // estimate growth from calculated Rt
 #&gt;     r = R_to_growth(gen_R, gt_mean_sample, gt_sd_sample);
 #&gt;   }

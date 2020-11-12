@@ -46,7 +46,10 @@
 
 
 <meta property="og:title" content="Fit an Integer Adjusted Exponential, Gamma or Lognormal distributions — dist_fit" />
-<meta property="og:description" content="Fit an Integer Adjusted Exponential, Gamma or Lognormal distributions" />
+<meta property="og:description" content="
+
+Fits an integer adjusted exponential, gamma or lognormal distribution using
+stan." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.6</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
       </span>
     </div>
 
@@ -135,7 +138,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Fit an Integer Adjusted Exponential, Gamma or Lognormal distributions</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+Fits an integer adjusted exponential, gamma or lognormal distribution using
+<code>stan</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dist_fit</span><span class='op'>(</span>
@@ -189,8 +195,8 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 </div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'exp' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 2.7e-05 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.27 seconds.
+#&gt; Chain 1: Gradient evaluation took 2.5e-05 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.25 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -237,15 +243,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 0.064575 seconds (Warm-up)
-#&gt; Chain 1:                0.071416 seconds (Sampling)
-#&gt; Chain 1:                0.135991 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 0.061733 seconds (Warm-up)
+#&gt; Chain 1:                0.068269 seconds (Sampling)
+#&gt; Chain 1:                0.130002 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'exp' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 1.9e-05 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.19 seconds.
+#&gt; Chain 2: Gradient evaluation took 1.7e-05 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.17 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -292,9 +298,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 0.063987 seconds (Warm-up)
-#&gt; Chain 2:                0.078388 seconds (Sampling)
-#&gt; Chain 2:                0.142375 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 0.060799 seconds (Warm-up)
+#&gt; Chain 2:                0.073314 seconds (Sampling)
+#&gt; Chain 2:                0.134113 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: exp.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -303,7 +309,7 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; lambda   2.44    0.01 0.37   1.81   2.18   2.40   2.67   3.29   706 1.01
 #&gt; lp__   -18.42    0.03 0.73 -20.45 -18.58 -18.13 -17.96 -17.91   591 1.00
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Nov 11 19:43:52 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Thu Nov 12 21:15:25 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'>
@@ -314,8 +320,8 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 </div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'gamma' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 0.000222 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 2.22 seconds.
+#&gt; Chain 1: Gradient evaluation took 0.000196 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.96 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -362,15 +368,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 1.55299 seconds (Warm-up)
-#&gt; Chain 1:                2.13848 seconds (Sampling)
-#&gt; Chain 1:                3.69147 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 1.49584 seconds (Warm-up)
+#&gt; Chain 1:                2.03238 seconds (Sampling)
+#&gt; Chain 1:                3.52822 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'gamma' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 0.000172 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.72 seconds.
+#&gt; Chain 2: Gradient evaluation took 0.000168 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.68 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -417,9 +423,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 1.55009 seconds (Warm-up)
-#&gt; Chain 2:                1.60677 seconds (Sampling)
-#&gt; Chain 2:                3.15686 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 1.48997 seconds (Warm-up)
+#&gt; Chain 2:                1.52846 seconds (Sampling)
+#&gt; Chain 2:                3.01843 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: gamma.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -433,7 +439,7 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; sigma       0.42    0.00 0.03   0.36   0.40   0.42   0.44   0.47   706    1
 #&gt; lp__      -16.42    0.08 1.34 -19.98 -17.02 -16.03 -15.41 -15.01   284    1
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Nov 11 19:43:59 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Thu Nov 12 21:15:32 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'>
@@ -443,8 +449,8 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 </div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'lnorm' NOW (CHAIN 1).
 #&gt; Chain 1: 
-#&gt; Chain 1: Gradient evaluation took 3.5e-05 seconds
-#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.35 seconds.
+#&gt; Chain 1: Gradient evaluation took 3.3e-05 seconds
+#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.33 seconds.
 #&gt; Chain 1: Adjust your expectations accordingly!
 #&gt; Chain 1: 
 #&gt; Chain 1: 
@@ -491,15 +497,15 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 1: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 1: 
-#&gt; Chain 1:  Elapsed Time: 0.159116 seconds (Warm-up)
-#&gt; Chain 1:                0.142583 seconds (Sampling)
-#&gt; Chain 1:                0.301699 seconds (Total)
+#&gt; Chain 1:  Elapsed Time: 0.153285 seconds (Warm-up)
+#&gt; Chain 1:                0.132045 seconds (Sampling)
+#&gt; Chain 1:                0.28533 seconds (Total)
 #&gt; Chain 1: 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'lnorm' NOW (CHAIN 2).
 #&gt; Chain 2: 
-#&gt; Chain 2: Gradient evaluation took 3e-05 seconds
-#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.3 seconds.
+#&gt; Chain 2: Gradient evaluation took 3.1e-05 seconds
+#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.31 seconds.
 #&gt; Chain 2: Adjust your expectations accordingly!
 #&gt; Chain 2: 
 #&gt; Chain 2: 
@@ -546,9 +552,9 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; Chain 2: Iteration: 1950 / 2000 [ 97%]  (Sampling)
 #&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; Chain 2: 
-#&gt; Chain 2:  Elapsed Time: 0.152459 seconds (Warm-up)
-#&gt; Chain 2:                0.151149 seconds (Sampling)
-#&gt; Chain 2:                0.303608 seconds (Total)
+#&gt; Chain 2:  Elapsed Time: 0.149787 seconds (Warm-up)
+#&gt; Chain 2:                0.14364 seconds (Sampling)
+#&gt; Chain 2:                0.293427 seconds (Total)
 #&gt; Chain 2: </div><div class='output co'>#&gt; Inference for Stan model: lnorm.
 #&gt; 2 chains, each with iter=2000; warmup=1000; thin=1; 
 #&gt; post-warmup draws per chain=1000, total post-warmup draws=2000.
@@ -558,7 +564,7 @@ gamma (<code>"gamma"</code>) and lognormal (<code>"lognorma"</code>) are also su
 #&gt; sigma   0.18    0.00 0.02   0.15   0.17   0.18   0.20   0.22  1212    1
 #&gt; lp__  -81.57    0.03 0.99 -84.18 -81.97 -81.26 -80.85 -80.59   951    1
 #&gt; 
-#&gt; Samples were drawn using NUTS(diag_e) at Wed Nov 11 19:43:59 2020.
+#&gt; Samples were drawn using NUTS(diag_e) at Thu Nov 12 21:15:32 2020.
 #&gt; For each parameter, n_eff is a crude measure of effective sample size,
 #&gt; and Rhat is the potential scale reduction factor on split chains (at 
 #&gt; convergence, Rhat=1).</div><div class='input'><span class='co'># }</span>
