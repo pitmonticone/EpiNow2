@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def • EpiNow2</title>
+<title>Filter Options for a Target Region — filter_opts • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,11 +45,11 @@
 
 
 
-<meta property="og:title" content="Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def" />
+<meta property="og:title" content="Filter Options for a Target Region — filter_opts" />
 <meta property="og:description" content="
 
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See rlnorm for distribution information." />
+A helper function that allows the selection of region specific settings if
+present and otherwise applies the overarching settings" />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -132,102 +132,104 @@ are available for log normal distributed parameters. See rlnorm for distribution
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Log Normal Distribution Definition Based on Parameter Estimates</h1>
+    <h1>Filter Options for a Target Region</h1>
     
-    <div class="hidden name"><code>lognorm_dist_def.Rd</code></div>
+    <div class="hidden name"><code>filter_opts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>
 
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See <code>rlnorm</code> for distribution information.</p>
+A helper function that allows the selection of region specific settings if
+present and otherwise applies the overarching settings</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lognorm_dist_def</span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>mean_sd</span>, <span class='va'>sd</span>, <span class='va'>sd_sd</span>, <span class='va'>max_value</span>, <span class='va'>samples</span>, to_log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filter_opts</span><span class='op'>(</span><span class='va'>opts</span>, <span class='va'>region</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mean</th>
-      <td><p>Numeric, log mean parameter of the gamma distribution.</p></td>
+      <th>opts</th>
+      <td><p>Either a list of calls to an <code>_opts</code> function or a single
+call to an <code>_opts</code> function.</p></td>
     </tr>
     <tr>
-      <th>mean_sd</th>
-      <td><p>Numeric, standard deviation of the log mean parameter.</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>Numeric, log sd parameter of the gamma distribution.</p></td>
-    </tr>
-    <tr>
-      <th>sd_sd</th>
-      <td><p>Numeric, standard deviation of the log sd parameter.</p></td>
-    </tr>
-    <tr>
-      <th>max_value</th>
-      <td><p>Numeric, the maximum value to allow. Defaults to 120. Samples outside
-of this range are resampled.</p></td>
-    </tr>
-    <tr>
-      <th>samples</th>
-      <td><p>Numeric, number of sample distributions to generate.</p></td>
-    </tr>
-    <tr>
-      <th>to_log</th>
-      <td><p>Logical, should parameters be logged before use.</p></td>
+      <th>region</th>
+      <td><p>A character string indicating a region of interest.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.table defining the distribution as used by <code>dist_skel</code></p>
+    <p>A list of options</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1.621</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.0640</span>,
-                        sd <span class='op'>=</span> <span class='fl'>0.418</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.0691</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.681655
+    <pre class="examples"><div class='input'><span class='co'># uses example case vector</span>
+<span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='va'>example_confirmed</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
+<span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span><span class='op'>]</span>,
+  <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+  
+<span class='co'># regional options</span>
+<span class='va'>regional_opts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='opts_list.html'>opts_list</a></span><span class='op'>(</span><span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>cases</span><span class='op'>)</span>
+<span class='fu'>EpiNow2</span><span class='fu'>:::</span><span class='fu'>filter_opts</span><span class='op'>(</span><span class='va'>regional_opts</span>, <span class='st'>"realland"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $prior
+#&gt; $prior$mean
+#&gt; [1] 1
 #&gt; 
-#&gt; $sd
-#&gt; [1] 0.3903318
-#&gt; </div><div class='input'>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>,
-                        to_log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.604066
+#&gt; $prior$sd
+#&gt; [1] 1
 #&gt; 
-#&gt; $sd
-#&gt; [1] 0.4141685
-#&gt; </div></pre>
+#&gt; 
+#&gt; $use_rt
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $rw
+#&gt; [1] 0
+#&gt; 
+#&gt; $use_breakpoints
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $future
+#&gt; [1] "latest"
+#&gt; 
+#&gt; $pop
+#&gt; [1] 0
+#&gt; 
+#&gt; $gp_on
+#&gt; [1] "R_t-1"
+#&gt; </div><div class='input'><span class='co'># default only</span>
+<span class='fu'>EpiNow2</span><span class='fu'>:::</span><span class='fu'>filter_opts</span><span class='op'>(</span><span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"realland"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $prior
+#&gt; $prior$mean
+#&gt; [1] 1
+#&gt; 
+#&gt; $prior$sd
+#&gt; [1] 1
+#&gt; 
+#&gt; 
+#&gt; $use_rt
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $rw
+#&gt; [1] 0
+#&gt; 
+#&gt; $use_breakpoints
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $future
+#&gt; [1] "latest"
+#&gt; 
+#&gt; $pop
+#&gt; [1] 0
+#&gt; 
+#&gt; $gp_on
+#&gt; [1] "R_t-1"
+#&gt; </div><div class='input'><span class='co'>#settings are NULL in one regions</span>
+<span class='va'>regional_opts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='update_list.html'>update_list</a></span><span class='op'>(</span><span class='va'>regional_opts</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>realland <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>EpiNow2</span><span class='fu'>:::</span><span class='fu'>filter_opts</span><span class='op'>(</span><span class='va'>regional_opts</span>, <span class='st'>"realland"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

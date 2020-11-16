@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def • EpiNow2</title>
+<title>Update a List — update_list • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,11 +45,11 @@
 
 
 
-<meta property="og:title" content="Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def" />
+<meta property="og:title" content="Update a List — update_list" />
 <meta property="og:description" content="
 
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See rlnorm for distribution information." />
+Used to handle updating settings in a list. For example when making
+changes to opts_list output." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -132,102 +132,37 @@ are available for log normal distributed parameters. See rlnorm for distribution
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Log Normal Distribution Definition Based on Parameter Estimates</h1>
+    <h1>Update a List</h1>
     
-    <div class="hidden name"><code>lognorm_dist_def.Rd</code></div>
+    <div class="hidden name"><code>update_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
 
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See <code>rlnorm</code> for distribution information.</p>
+Used to handle updating settings in a list. For example when making
+changes to <code>opts_list</code> output.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lognorm_dist_def</span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>mean_sd</span>, <span class='va'>sd</span>, <span class='va'>sd_sd</span>, <span class='va'>max_value</span>, <span class='va'>samples</span>, to_log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>update_list</span><span class='op'>(</span>defaults <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, optional <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mean</th>
-      <td><p>Numeric, log mean parameter of the gamma distribution.</p></td>
+      <th>defaults</th>
+      <td><p>A list of default settings</p></td>
     </tr>
     <tr>
-      <th>mean_sd</th>
-      <td><p>Numeric, standard deviation of the log mean parameter.</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>Numeric, log sd parameter of the gamma distribution.</p></td>
-    </tr>
-    <tr>
-      <th>sd_sd</th>
-      <td><p>Numeric, standard deviation of the log sd parameter.</p></td>
-    </tr>
-    <tr>
-      <th>max_value</th>
-      <td><p>Numeric, the maximum value to allow. Defaults to 120. Samples outside
-of this range are resampled.</p></td>
-    </tr>
-    <tr>
-      <th>samples</th>
-      <td><p>Numeric, number of sample distributions to generate.</p></td>
-    </tr>
-    <tr>
-      <th>to_log</th>
-      <td><p>Logical, should parameters be logged before use.</p></td>
+      <th>optional</th>
+      <td><p>A list of optional settings to override defaults</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.table defining the distribution as used by <code>dist_skel</code></p>
+    <p>A list</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1.621</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.0640</span>,
-                        sd <span class='op'>=</span> <span class='fl'>0.418</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.0691</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.681655
-#&gt; 
-#&gt; $sd
-#&gt; [1] 0.3903318
-#&gt; </div><div class='input'>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>,
-                        to_log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.604066
-#&gt; 
-#&gt; $sd
-#&gt; [1] 0.4141685
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -144,14 +144,14 @@ Defines a list specifying the arguments passed to
 <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-vb.html'>rstan::vb</a></code>. Custom settings can be supplied which override the defaults.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rstan_vb_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>1000</span>, trials <span class='op'>=</span> <span class='fl'>10</span>, iter <span class='op'>=</span> <span class='fl'>10000</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rstan_vb_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>2000</span>, trials <span class='op'>=</span> <span class='fl'>10</span>, iter <span class='op'>=</span> <span class='fl'>10000</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>samples</th>
-      <td><p>Numeric, default 1000. Overall number of approximate posterior
+      <td><p>Numeric, default 2000. Overall number of approximate posterior
 samples.</p></td>
     </tr>
     <tr>
@@ -175,7 +175,7 @@ before failing.</p></td>
     <p>A list of arguments to pass to <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-vb.html'>rstan::vb</a></code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rstan_vb_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'>rstan_vb_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $trials
 #&gt; [1] 10
 #&gt; 
@@ -183,7 +183,7 @@ before failing.</p></td>
 #&gt; [1] 10000
 #&gt; 
 #&gt; $output_samples
-#&gt; [1] 2000
+#&gt; [1] 1000
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

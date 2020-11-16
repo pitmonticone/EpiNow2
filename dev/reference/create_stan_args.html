@@ -241,8 +241,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   return(pmf);
 #&gt; }
 #&gt; 
-#&gt; // reverse a pmf
-#&gt; vector reverse_pmf(vector pmf, int max_pmf) {
+#&gt; // reverse a mf
+#&gt; vector reverse_mf(vector pmf, int max_pmf) {
 #&gt;   vector[max_pmf] rev_pmf;
 #&gt;   for (d in 1:max_pmf) {
 #&gt;     rev_pmf[d] = pmf[max_pmf - d + 1];
@@ -451,7 +451,24 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
-#&gt; 
+#&gt; // Rt priors
+#&gt; void rt_lp(vector log_R, real[] initial_infections, real[] initial_growth,
+#&gt;            real[] bp_effects, real[] bp_sd, int bp_n, int seeding_time,
+#&gt;            real r_logmean, real r_logsd, real prior_infections, 
+#&gt;            real prior_growth) {
+#&gt;   // prior on R
+#&gt;   log_R ~ normal(r_logmean, r_logsd);
+#&gt;   //breakpoint effects on Rt
+#&gt;   if (bp_n &gt; 0) {
+#&gt;     bp_sd[1] ~ normal(0, 0.1) T[0,];
+#&gt;     bp_effects ~ normal(0, bp_sd[1]);
+#&gt;   }
+#&gt;   // initial infections
+#&gt;   initial_infections ~ normal(prior_infections, 0.2);
+#&gt;   if (seeding_time &gt; 1) {
+#&gt;     initial_growth ~ normal(prior_growth, 0.2);
+#&gt;   }
+#&gt; }
 #&gt; 
 #&gt; // calculate infectiousness (weighted sum of the generation time and infections)
 #&gt; // for a single time point
@@ -550,12 +567,55 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   scaled_reports = reports * frac_obs;
 #&gt;   return(scaled_reports);
 #&gt; }
+#&gt; // Calculate a truncation CMF
+#&gt; vector truncation_cmf(real trunc_mean, real trunc_sd, int trunc_max) {
+#&gt;     int  trunc_indexes[trunc_max];
+#&gt;     vector[trunc_max] cmf;
+#&gt;     for (i in 1:(trunc_max)) {
+#&gt;       trunc_indexes[i] = i - 1;
+#&gt;     }
+#&gt;     cmf = discretised_lognormal_pmf(trunc_indexes, trunc_mean, trunc_sd, trunc_max);   
+#&gt;     cmf[1] = cmf[1] + 1e-8;
+#&gt;     cmf = cumulative_sum(cmf);
+#&gt;     cmf = reverse_mf(cmf, trunc_max);
+#&gt;     return(cmf);
+#&gt; }
+#&gt; // Truncate observed data by some truncation distribution
+#&gt; vector truncate(vector reports, real[] truncation_mean, real[] truncation_sd, 
+#&gt;                 int[] truncation_max, int reconstruct) {
+#&gt;   int t = num_elements(reports);
+#&gt;   int truncation = num_elements(truncation_mean);
+#&gt;   vector[t] trunc_reports = reports;
+#&gt;   if (truncation) {
+#&gt;     // Calculate cmf of truncation delay
+#&gt;     int trunc_max = truncation_max[1] &gt; t ? t : truncation_max[1];
+#&gt;     int  trunc_indexes[trunc_max];
+#&gt;     vector[trunc_max] cmf;
+#&gt;     int first_t = t - trunc_max + 1;
+#&gt;     cmf = truncation_cmf(truncation_mean[1], truncation_sd[1], trunc_max);
+#&gt;     // Apply cdf of truncation delay to truncation max last entries in reports
+#&gt;     if (reconstruct) {
+#&gt;       trunc_reports[first_t:t] = trunc_reports[first_t:t] ./ cmf;
+#&gt;     }else{
+#&gt;       trunc_reports[first_t:t] = trunc_reports[first_t:t] .* cmf;
+#&gt;     }
+#&gt;   }
+#&gt;   return(trunc_reports);
+#&gt; }
+#&gt; // Truncation distribution priors
+#&gt; void truncation_lp(real[] truncation_mean, real[] truncation_sd, 
+#&gt;                    real[] trunc_mean_mean, real[] trunc_mean_sd, 
+#&gt;                    real[] trunc_sd_mean, real[] trunc_sd_sd) {
+#&gt;   int truncation = num_elements(truncation_mean);
+#&gt;   if (truncation) {
+#&gt;     truncation_mean ~ normal(trunc_mean_mean, trunc_mean_sd);
+#&gt;     truncation_sd ~ normal(trunc_sd_mean, trunc_sd_sd);
+#&gt;   }                     
+#&gt; }
 #&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
-#&gt;                int model_type, int horizon,
-#&gt;                real weight) {
-#&gt;   int t = num_elements(reports) - horizon;
+#&gt;                int model_type, real weight) {
 #&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
 #&gt;     // the reciprocal overdispersion parameter (phi)
@@ -563,12 +623,12 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     // defer to poisson if phi is large, to avoid overflow
 #&gt;     if (sqrt_phi &gt; 1e4) {
-#&gt;       target += poisson_lpmf(cases | reports[1:t]) * weight;
+#&gt;       target += poisson_lpmf(cases | reports) * weight;
 #&gt;     } else {
-#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], sqrt_phi) * weight;
+#&gt;       target += neg_binomial_2_lpmf(cases | reports, sqrt_phi) * weight;
 #&gt;     }
 #&gt;   } else {
-#&gt;     target += poisson_lpmf(cases | reports[1:t]) * weight;
+#&gt;     target += poisson_lpmf(cases | reports) * weight;
 #&gt;   }
 #&gt; }
 #&gt; 
@@ -693,10 +753,16 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
 #&gt;   int week_effect;                   // should a day of the week effect be estimated
-#&gt;   int obs_scale;                                    // logical controlling scaling of observations
-#&gt;   real obs_scale_mean;                              // mean scaling factor for observations
-#&gt;   real obs_scale_sd;                                // standard deviation of observation scaling
-#&gt;   real obs_weight;                                  // weight given to observation in log density
+#&gt;   int truncation;                    // 1/0 indicating if truncation should be adjusted for
+#&gt;   real trunc_mean_mean[truncation];  // truncation mean of mean
+#&gt;   real trunc_mean_sd[truncation];    // truncation sd of mean
+#&gt;   real trunc_sd_mean[truncation];    // truncation mean of sd
+#&gt;   real trunc_sd_sd[truncation];      // truncation sd of sd
+#&gt;   int max_truncation[truncation];    // maximum truncation supported
+#&gt;   int obs_scale;                     // logical controlling scaling of observations
+#&gt;   real obs_scale_mean;               // mean scaling factor for observations
+#&gt;   real obs_scale_sd;                 // standard deviation of observation scaling
+#&gt;   real obs_weight;                   // weight given to observation in log density
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -714,29 +780,32 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt; parameters{
 #&gt;   // gaussian process
 #&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
-#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];  // scale of of noise GP
-#&gt;   vector[fixed ? 0 : M] eta;             // unconstrained noise
+#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];     // scale of of noise GP
+#&gt;   vector[fixed ? 0 : M] eta;                // unconstrained noise
 #&gt;   // Rt
-#&gt;   vector[estimate_r] log_R;             // baseline reproduction number estimate (log)
-#&gt;   real initial_infections[estimate_r] ; // seed infections 
+#&gt;   vector[estimate_r] log_R;                 // baseline reproduction number estimate (log)
+#&gt;   real initial_infections[estimate_r] ;     // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
-#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];  // mean of generation time
-#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
+#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];     // mean of generation time
+#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];       // sd of generation time
 #&gt;   real&lt;lower = 0&gt; bp_sd[bp_n &gt; 0 ? 1 : 0]; // standard deviation of breakpoint effect
-#&gt;   real bp_effects[bp_n];               // Rt breakpoint effects
+#&gt;   real bp_effects[bp_n];                  // Rt breakpoint effects
 #&gt;   // observation model
-#&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
-#&gt;   real&lt;lower = 0&gt; delay_sd[delays];     // sd of delays
+#&gt;   real delay_mean[delays];                // mean of delays
+#&gt;   real delay_sd[delays];                 // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
-#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale]; // fraction of cases that are ultimately observed
-#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];  // overdispersion of the reporting process
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];   // fraction of cases that are ultimately observed
+#&gt;   real truncation_mean[truncation];      // mean of truncation
+#&gt;   real truncation_sd[truncation];        // sd of truncation
+#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];   // overdispersion of the reporting process
 #&gt; }
 #&gt; 
 #&gt; transformed parameters {
 #&gt;   vector[fixed ? 0 : noise_terms] noise;                  // noise  generated by the gaussian process
 #&gt;   vector[estimate_r &gt; 0 ? ot_h : 0] R;                    // reproduction number
 #&gt;   vector[t] infections;                                   // latent infections
-#&gt;   vector[ot_h] reports;                                   // observed cases
+#&gt;   vector[ot_h] reports;                                   // estimated reported cases
+#&gt;   vector[ot] obs_reports;                                 // observed estimated reported cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
 #&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
@@ -762,6 +831,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;  if (obs_scale) {
 #&gt;    reports = scale_obs(reports, frac_obs[1]);
 #&gt;  }
+#&gt;  // truncate near time cases to observed reports 
+#&gt;  obs_reports = truncate(reports[1:ot], truncation_mean, truncation_sd, max_truncation, 0);
 #&gt; }
 #&gt; 
 #&gt; model {
@@ -772,28 +843,22 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt;   // penalised priors for delay distributions
 #&gt;   delays_lp(delay_mean, delay_mean_mean, delay_mean_sd, delay_sd, delay_sd_mean, delay_sd_sd, t);
-#&gt;   // Rt priors
+#&gt;   // priors for truncation
+#&gt;   truncation_lp(truncation_mean, truncation_sd, trunc_mean_mean, trunc_mean_sd, 
+#&gt;                 trunc_sd_mean, trunc_sd_sd);
 #&gt;   if (estimate_r) {
-#&gt;     // prior on R
-#&gt;     log_R ~ normal(r_logmean, r_logsd);
-#&gt;     //breakpoint effects on Rt
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       bp_sd[1] ~ normal(0, 0.1) T[0,];
-#&gt;       bp_effects ~ normal(0, bp_sd[1]);
-#&gt;     }
-#&gt;     // initial infections
-#&gt;     initial_infections ~ normal(prior_infections, 0.2);
-#&gt;     if (seeding_time &gt; 1) {
-#&gt;        initial_growth ~ normal(prior_growth, 0.2);
-#&gt;      }
+#&gt;     // priors on Rt
+#&gt;     rt_lp(log_R, initial_infections, initial_growth, bp_effects, bp_sd, bp_n, seeding_time,
+#&gt;           r_logmean, r_logsd, prior_infections, prior_growth);
 #&gt;     // penalised_prior on generation interval
 #&gt;     generation_time_lp(gt_mean, gt_mean_mean, gt_mean_sd, gt_sd, gt_sd_mean, gt_sd_sd, ot);
 #&gt;   }
+#&gt;   // prior observation scaling
 #&gt;   if (obs_scale) {
 #&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0,];
 #&gt;   }
 #&gt;   // observed reports from mean of reports
-#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, obs_weight);
+#&gt;   report_lp(cases, obs_reports, rep_phi, 1, model_type, obs_weight);
 #&gt; }
 #&gt;   
 #&gt; generated quantities {
@@ -808,7 +873,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     real gt_mean_sample = normal_rng(gt_mean_mean, gt_mean_sd);
 #&gt;     real gt_sd_sample = normal_rng(gt_sd_mean, gt_sd_sd);
 #&gt;     // calculate Rt using infections and generation time
-#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt, rt_half_window);
+#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, 
+#&gt;                          max_gt, rt_half_window);
 #&gt;     // estimate growth from calculated Rt
 #&gt;     r = R_to_growth(gen_R, gt_mean_sample, gt_sd_sample);
 #&gt;   }
@@ -849,7 +915,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt; 
 #&gt; 
 #&gt; $iter
-#&gt; [1] 500
+#&gt; [1] 750
 #&gt; </div><div class='input'>
 <span class='co'># increasing warmup</span>
 <span class='fu'>create_stan_args</span><span class='op'>(</span>stan <span class='op'>=</span> <span class='fu'><a href='stan_opts.html'>stan_opts</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
@@ -909,8 +975,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   return(pmf);
 #&gt; }
 #&gt; 
-#&gt; // reverse a pmf
-#&gt; vector reverse_pmf(vector pmf, int max_pmf) {
+#&gt; // reverse a mf
+#&gt; vector reverse_mf(vector pmf, int max_pmf) {
 #&gt;   vector[max_pmf] rev_pmf;
 #&gt;   for (d in 1:max_pmf) {
 #&gt;     rev_pmf[d] = pmf[max_pmf - d + 1];
@@ -1119,7 +1185,24 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
-#&gt; 
+#&gt; // Rt priors
+#&gt; void rt_lp(vector log_R, real[] initial_infections, real[] initial_growth,
+#&gt;            real[] bp_effects, real[] bp_sd, int bp_n, int seeding_time,
+#&gt;            real r_logmean, real r_logsd, real prior_infections, 
+#&gt;            real prior_growth) {
+#&gt;   // prior on R
+#&gt;   log_R ~ normal(r_logmean, r_logsd);
+#&gt;   //breakpoint effects on Rt
+#&gt;   if (bp_n &gt; 0) {
+#&gt;     bp_sd[1] ~ normal(0, 0.1) T[0,];
+#&gt;     bp_effects ~ normal(0, bp_sd[1]);
+#&gt;   }
+#&gt;   // initial infections
+#&gt;   initial_infections ~ normal(prior_infections, 0.2);
+#&gt;   if (seeding_time &gt; 1) {
+#&gt;     initial_growth ~ normal(prior_growth, 0.2);
+#&gt;   }
+#&gt; }
 #&gt; 
 #&gt; // calculate infectiousness (weighted sum of the generation time and infections)
 #&gt; // for a single time point
@@ -1218,12 +1301,55 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   scaled_reports = reports * frac_obs;
 #&gt;   return(scaled_reports);
 #&gt; }
+#&gt; // Calculate a truncation CMF
+#&gt; vector truncation_cmf(real trunc_mean, real trunc_sd, int trunc_max) {
+#&gt;     int  trunc_indexes[trunc_max];
+#&gt;     vector[trunc_max] cmf;
+#&gt;     for (i in 1:(trunc_max)) {
+#&gt;       trunc_indexes[i] = i - 1;
+#&gt;     }
+#&gt;     cmf = discretised_lognormal_pmf(trunc_indexes, trunc_mean, trunc_sd, trunc_max);   
+#&gt;     cmf[1] = cmf[1] + 1e-8;
+#&gt;     cmf = cumulative_sum(cmf);
+#&gt;     cmf = reverse_mf(cmf, trunc_max);
+#&gt;     return(cmf);
+#&gt; }
+#&gt; // Truncate observed data by some truncation distribution
+#&gt; vector truncate(vector reports, real[] truncation_mean, real[] truncation_sd, 
+#&gt;                 int[] truncation_max, int reconstruct) {
+#&gt;   int t = num_elements(reports);
+#&gt;   int truncation = num_elements(truncation_mean);
+#&gt;   vector[t] trunc_reports = reports;
+#&gt;   if (truncation) {
+#&gt;     // Calculate cmf of truncation delay
+#&gt;     int trunc_max = truncation_max[1] &gt; t ? t : truncation_max[1];
+#&gt;     int  trunc_indexes[trunc_max];
+#&gt;     vector[trunc_max] cmf;
+#&gt;     int first_t = t - trunc_max + 1;
+#&gt;     cmf = truncation_cmf(truncation_mean[1], truncation_sd[1], trunc_max);
+#&gt;     // Apply cdf of truncation delay to truncation max last entries in reports
+#&gt;     if (reconstruct) {
+#&gt;       trunc_reports[first_t:t] = trunc_reports[first_t:t] ./ cmf;
+#&gt;     }else{
+#&gt;       trunc_reports[first_t:t] = trunc_reports[first_t:t] .* cmf;
+#&gt;     }
+#&gt;   }
+#&gt;   return(trunc_reports);
+#&gt; }
+#&gt; // Truncation distribution priors
+#&gt; void truncation_lp(real[] truncation_mean, real[] truncation_sd, 
+#&gt;                    real[] trunc_mean_mean, real[] trunc_mean_sd, 
+#&gt;                    real[] trunc_sd_mean, real[] trunc_sd_sd) {
+#&gt;   int truncation = num_elements(truncation_mean);
+#&gt;   if (truncation) {
+#&gt;     truncation_mean ~ normal(trunc_mean_mean, trunc_mean_sd);
+#&gt;     truncation_sd ~ normal(trunc_sd_mean, trunc_sd_sd);
+#&gt;   }                     
+#&gt; }
 #&gt; // update log density for reported cases
 #&gt; void report_lp(int[] cases, vector reports, 
 #&gt;                real[] rep_phi, int phi_prior,
-#&gt;                int model_type, int horizon,
-#&gt;                real weight) {
-#&gt;   int t = num_elements(reports) - horizon;
+#&gt;                int model_type, real weight) {
 #&gt;   real sqrt_phi;
 #&gt;   if (model_type) {
 #&gt;     // the reciprocal overdispersion parameter (phi)
@@ -1231,12 +1357,12 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
 #&gt;     // defer to poisson if phi is large, to avoid overflow
 #&gt;     if (sqrt_phi &gt; 1e4) {
-#&gt;       target += poisson_lpmf(cases | reports[1:t]) * weight;
+#&gt;       target += poisson_lpmf(cases | reports) * weight;
 #&gt;     } else {
-#&gt;       target += neg_binomial_2_lpmf(cases | reports[1:t], sqrt_phi) * weight;
+#&gt;       target += neg_binomial_2_lpmf(cases | reports, sqrt_phi) * weight;
 #&gt;     }
 #&gt;   } else {
-#&gt;     target += poisson_lpmf(cases | reports[1:t]) * weight;
+#&gt;     target += poisson_lpmf(cases | reports) * weight;
 #&gt;   }
 #&gt; }
 #&gt; 
@@ -1361,10 +1487,16 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
 #&gt;   int model_type;                    // type of model: 0 = poisson otherwise negative binomial
 #&gt;   int week_effect;                   // should a day of the week effect be estimated
-#&gt;   int obs_scale;                                    // logical controlling scaling of observations
-#&gt;   real obs_scale_mean;                              // mean scaling factor for observations
-#&gt;   real obs_scale_sd;                                // standard deviation of observation scaling
-#&gt;   real obs_weight;                                  // weight given to observation in log density
+#&gt;   int truncation;                    // 1/0 indicating if truncation should be adjusted for
+#&gt;   real trunc_mean_mean[truncation];  // truncation mean of mean
+#&gt;   real trunc_mean_sd[truncation];    // truncation sd of mean
+#&gt;   real trunc_sd_mean[truncation];    // truncation mean of sd
+#&gt;   real trunc_sd_sd[truncation];      // truncation sd of sd
+#&gt;   int max_truncation[truncation];    // maximum truncation supported
+#&gt;   int obs_scale;                     // logical controlling scaling of observations
+#&gt;   real obs_scale_mean;               // mean scaling factor for observations
+#&gt;   real obs_scale_sd;                 // standard deviation of observation scaling
+#&gt;   real obs_weight;                   // weight given to observation in log density
 #&gt; }
 #&gt; 
 #&gt; transformed data{
@@ -1382,29 +1514,32 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt; parameters{
 #&gt;   // gaussian process
 #&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
-#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];  // scale of of noise GP
-#&gt;   vector[fixed ? 0 : M] eta;             // unconstrained noise
+#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];     // scale of of noise GP
+#&gt;   vector[fixed ? 0 : M] eta;                // unconstrained noise
 #&gt;   // Rt
-#&gt;   vector[estimate_r] log_R;             // baseline reproduction number estimate (log)
-#&gt;   real initial_infections[estimate_r] ; // seed infections 
+#&gt;   vector[estimate_r] log_R;                 // baseline reproduction number estimate (log)
+#&gt;   real initial_infections[estimate_r] ;     // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
-#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];  // mean of generation time
-#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];   // sd of generation time
+#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];     // mean of generation time
+#&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];       // sd of generation time
 #&gt;   real&lt;lower = 0&gt; bp_sd[bp_n &gt; 0 ? 1 : 0]; // standard deviation of breakpoint effect
-#&gt;   real bp_effects[bp_n];               // Rt breakpoint effects
+#&gt;   real bp_effects[bp_n];                  // Rt breakpoint effects
 #&gt;   // observation model
-#&gt;   real&lt;lower = 0&gt; delay_mean[delays];   // mean of delays
-#&gt;   real&lt;lower = 0&gt; delay_sd[delays];     // sd of delays
+#&gt;   real delay_mean[delays];                // mean of delays
+#&gt;   real delay_sd[delays];                 // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
-#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale]; // fraction of cases that are ultimately observed
-#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];  // overdispersion of the reporting process
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];   // fraction of cases that are ultimately observed
+#&gt;   real truncation_mean[truncation];      // mean of truncation
+#&gt;   real truncation_sd[truncation];        // sd of truncation
+#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];   // overdispersion of the reporting process
 #&gt; }
 #&gt; 
 #&gt; transformed parameters {
 #&gt;   vector[fixed ? 0 : noise_terms] noise;                  // noise  generated by the gaussian process
 #&gt;   vector[estimate_r &gt; 0 ? ot_h : 0] R;                    // reproduction number
 #&gt;   vector[t] infections;                                   // latent infections
-#&gt;   vector[ot_h] reports;                                   // observed cases
+#&gt;   vector[ot_h] reports;                                   // estimated reported cases
+#&gt;   vector[ot] obs_reports;                                 // observed estimated reported cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
 #&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
@@ -1430,6 +1565,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;  if (obs_scale) {
 #&gt;    reports = scale_obs(reports, frac_obs[1]);
 #&gt;  }
+#&gt;  // truncate near time cases to observed reports 
+#&gt;  obs_reports = truncate(reports[1:ot], truncation_mean, truncation_sd, max_truncation, 0);
 #&gt; }
 #&gt; 
 #&gt; model {
@@ -1440,28 +1577,22 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   }
 #&gt;   // penalised priors for delay distributions
 #&gt;   delays_lp(delay_mean, delay_mean_mean, delay_mean_sd, delay_sd, delay_sd_mean, delay_sd_sd, t);
-#&gt;   // Rt priors
+#&gt;   // priors for truncation
+#&gt;   truncation_lp(truncation_mean, truncation_sd, trunc_mean_mean, trunc_mean_sd, 
+#&gt;                 trunc_sd_mean, trunc_sd_sd);
 #&gt;   if (estimate_r) {
-#&gt;     // prior on R
-#&gt;     log_R ~ normal(r_logmean, r_logsd);
-#&gt;     //breakpoint effects on Rt
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       bp_sd[1] ~ normal(0, 0.1) T[0,];
-#&gt;       bp_effects ~ normal(0, bp_sd[1]);
-#&gt;     }
-#&gt;     // initial infections
-#&gt;     initial_infections ~ normal(prior_infections, 0.2);
-#&gt;     if (seeding_time &gt; 1) {
-#&gt;        initial_growth ~ normal(prior_growth, 0.2);
-#&gt;      }
+#&gt;     // priors on Rt
+#&gt;     rt_lp(log_R, initial_infections, initial_growth, bp_effects, bp_sd, bp_n, seeding_time,
+#&gt;           r_logmean, r_logsd, prior_infections, prior_growth);
 #&gt;     // penalised_prior on generation interval
 #&gt;     generation_time_lp(gt_mean, gt_mean_mean, gt_mean_sd, gt_sd, gt_sd_mean, gt_sd_sd, ot);
 #&gt;   }
+#&gt;   // prior observation scaling
 #&gt;   if (obs_scale) {
 #&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0,];
 #&gt;   }
 #&gt;   // observed reports from mean of reports
-#&gt;   report_lp(cases, reports, rep_phi, 1, model_type, horizon, obs_weight);
+#&gt;   report_lp(cases, obs_reports, rep_phi, 1, model_type, obs_weight);
 #&gt; }
 #&gt;   
 #&gt; generated quantities {
@@ -1476,7 +1607,8 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;     real gt_mean_sample = normal_rng(gt_mean_mean, gt_mean_sd);
 #&gt;     real gt_sd_sample = normal_rng(gt_sd_mean, gt_sd_sd);
 #&gt;     // calculate Rt using infections and generation time
-#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, max_gt, rt_half_window);
+#&gt;     gen_R = calculate_Rt(infections, seeding_time, gt_mean_sample, gt_mean_sample, 
+#&gt;                          max_gt, rt_half_window);
 #&gt;     // estimate growth from calculated Rt
 #&gt;     r = R_to_growth(gen_R, gt_mean_sample, gt_sd_sample);
 #&gt;   }
@@ -1517,7 +1649,7 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt; 
 #&gt; 
 #&gt; $iter
-#&gt; [1] 1250
+#&gt; [1] 1500
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -180,7 +180,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-estimate-parameters" class="hasAnchor"><a href="#section-estimate-parameters" class="anchor"></a>Estimate Parameters</h2>
-          <p class="section-desc"><p>Function to estimate time-varying parameters of interest.</p></p>
+          <p class="section-desc"><p>Function to estimate parameters of interest.</p></p>
         </th>
       </tr>
       
@@ -200,6 +200,18 @@
           <p><code><a href="forecast_infections.html">forecast_infections()</a></code> </p>
         </td>
         <td><p>Forecast Infections and the Time-Varying Reproduction Number</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="estimate_delay.html">estimate_delay()</a></code> </p>
+        </td>
+        <td><p>Estimate a Delay Distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="estimate_truncation.html">estimate_truncation()</a></code> </p>
+        </td>
+        <td><p>Estimate Truncation of Observed Data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -260,7 +272,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-internal-estimate-infections-functions" class="hasAnchor"><a href="#section-internal-estimate-infections-functions" class="anchor"></a>Internal estimate_infections Functions</h2>
-          <p class="section-desc"><p>Functions used internally by estimate_infections</p></p>
+          <p class="section-desc"><p>Functions used by estimate_infections</p></p>
         </th>
       </tr>
       
@@ -280,6 +292,12 @@
           <p><code><a href="delay_opts.html">delay_opts()</a></code> </p>
         </td>
         <td><p>Delay Distribution Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_opts.html">filter_opts()</a></code> </p>
+        </td>
+        <td><p>Filter Options for a Target Region</p></td>
       </tr><tr>
         
         <td>
@@ -322,6 +340,18 @@
           <p><code><a href="stan_opts.html">stan_opts()</a></code> </p>
         </td>
         <td><p>Stan Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trunc_opts.html">trunc_opts()</a></code> </p>
+        </td>
+        <td><p>Truncation Distribution Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="opts_list.html">opts_list()</a></code> </p>
+        </td>
+        <td><p>Return an _opts List per Region</p></td>
       </tr><tr>
         
         <td>
@@ -572,6 +602,18 @@
           <p><code><a href="plot.estimate_infections.html">plot(<i>&lt;estimate_infections&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot method for estimate_infections</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.estimate_truncation.html">plot(<i>&lt;estimate_truncation&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot method for estimate_truncation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_CrIs.html">plot_CrIs()</a></code> </p>
+        </td>
+        <td><p>Plot EpiNow2 Credible Intervals</p></td>
       </tr><tr>
         
         <td>
@@ -992,9 +1034,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="update_defaults.html">update_defaults()</a></code> </p>
+          <p><code><a href="update_list.html">update_list()</a></code> </p>
         </td>
-        <td><p>Update Default Settings</p></td>
+        <td><p>Update a List</p></td>
       </tr>
     </tbody>
     </table>
