@@ -618,6 +618,31 @@ Currently only "rstan" is supported.</p></td>
 #&gt;     target += poisson_lpmf(cases | reports) * weight;
 #&gt;   }
 #&gt; }
+#&gt; // update log likelihood (as above but not vectorised and returning log likelihood)
+#&gt; vector report_log_lik(int[] cases, vector reports, 
+#&gt;                       real[] rep_phi, int model_type, real weight) {
+#&gt;     int t = num_elements(reports);
+#&gt;     vector[t] log_lik;
+#&gt;     if (model_type) {
+#&gt;     // the reciprocal overdispersion parameter (phi)
+#&gt;     real sqrt_phi = 1 / sqrt(rep_phi[model_type]);
+#&gt;     // defer to poisson if phi is large, to avoid overflow
+#&gt;     if (sqrt_phi &gt; 1e4) {
+#&gt;       for (i in 1:t) {
+#&gt;         log_lik[i] = poisson_lpmf(cases[i] | reports[i]) * weight;
+#&gt;       }
+#&gt;     } else {
+#&gt;       for (i in 1:t) {
+#&gt;         log_lik[i] = neg_binomial_2_lpmf(cases[i] | reports[i], sqrt_phi) * weight;
+#&gt;       }
+#&gt;     }
+#&gt;   } else {
+#&gt;     for (i in 1:t) {
+#&gt;       log_lik[i] = poisson_lpmf(cases[i] | reports[i]) * weight;
+#&gt;     }
+#&gt;   }
+#&gt;   return(log_lik);
+#&gt; }
 #&gt; 
 #&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
@@ -844,7 +869,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   if (obs_scale) {
 #&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0,];
 #&gt;   }
-#&gt;   // observed reports from mean of reports
+#&gt;   // observed reports from mean of reports (update likelihood)
 #&gt;   report_lp(cases, obs_reports, rep_phi, 1, model_type, obs_weight);
 #&gt; }
 #&gt;   
@@ -852,6 +877,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int imputed_reports[ot_h]; 
 #&gt;   vector[estimate_r &gt; 0 ? 0: ot_h] gen_R;
 #&gt;   real r[ot_h];
+#&gt;   vector[ot] log_lik;
 #&gt;   if (estimate_r){
 #&gt;     // estimate growth from estimated Rt
 #&gt;     r = R_to_growth(R, gt_mean[1], gt_sd[1]);
@@ -867,6 +893,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   }
 #&gt;   // simulate reported cases
 #&gt;   imputed_reports = report_rng(reports, rep_phi, model_type);
+#&gt;   // log likelihood of model
+#&gt;   log_lik = report_log_lik(cases, obs_reports, rep_phi, model_type, obs_weight);
 #&gt; } 
 #&gt; 
 #&gt; $method
@@ -1346,6 +1374,31 @@ Currently only "rstan" is supported.</p></td>
 #&gt;     target += poisson_lpmf(cases | reports) * weight;
 #&gt;   }
 #&gt; }
+#&gt; // update log likelihood (as above but not vectorised and returning log likelihood)
+#&gt; vector report_log_lik(int[] cases, vector reports, 
+#&gt;                       real[] rep_phi, int model_type, real weight) {
+#&gt;     int t = num_elements(reports);
+#&gt;     vector[t] log_lik;
+#&gt;     if (model_type) {
+#&gt;     // the reciprocal overdispersion parameter (phi)
+#&gt;     real sqrt_phi = 1 / sqrt(rep_phi[model_type]);
+#&gt;     // defer to poisson if phi is large, to avoid overflow
+#&gt;     if (sqrt_phi &gt; 1e4) {
+#&gt;       for (i in 1:t) {
+#&gt;         log_lik[i] = poisson_lpmf(cases[i] | reports[i]) * weight;
+#&gt;       }
+#&gt;     } else {
+#&gt;       for (i in 1:t) {
+#&gt;         log_lik[i] = neg_binomial_2_lpmf(cases[i] | reports[i], sqrt_phi) * weight;
+#&gt;       }
+#&gt;     }
+#&gt;   } else {
+#&gt;     for (i in 1:t) {
+#&gt;       log_lik[i] = poisson_lpmf(cases[i] | reports[i]) * weight;
+#&gt;     }
+#&gt;   }
+#&gt;   return(log_lik);
+#&gt; }
 #&gt; 
 #&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
@@ -1572,7 +1625,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   if (obs_scale) {
 #&gt;     frac_obs[1] ~ normal(obs_scale_mean, obs_scale_sd) T[0,];
 #&gt;   }
-#&gt;   // observed reports from mean of reports
+#&gt;   // observed reports from mean of reports (update likelihood)
 #&gt;   report_lp(cases, obs_reports, rep_phi, 1, model_type, obs_weight);
 #&gt; }
 #&gt;   
@@ -1580,6 +1633,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int imputed_reports[ot_h]; 
 #&gt;   vector[estimate_r &gt; 0 ? 0: ot_h] gen_R;
 #&gt;   real r[ot_h];
+#&gt;   vector[ot] log_lik;
 #&gt;   if (estimate_r){
 #&gt;     // estimate growth from estimated Rt
 #&gt;     r = R_to_growth(R, gt_mean[1], gt_sd[1]);
@@ -1595,6 +1649,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   }
 #&gt;   // simulate reported cases
 #&gt;   imputed_reports = report_rng(reports, rep_phi, model_type);
+#&gt;   // log likelihood of model
+#&gt;   log_lik = report_log_lik(cases, obs_reports, rep_phi, model_type, obs_weight);
 #&gt; } 
 #&gt; 
 #&gt; $method
