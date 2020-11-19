@@ -50,7 +50,8 @@
 
 Estimates a truncation distribution from multiple snapshots of the same
 data source over time. This distribution can then be used in regional_epinow,
-epinow, and estimate_infections to adjust for truncated data.
+epinow, and estimate_infections to adjust for truncated data. See here
+for an example of using this approach on Covid-19 data in England.
 The model of truncation is as follows:
 The truncation distribution is assumed to be log normal with a mean and
 standard deviation that is informed by the data.
@@ -162,8 +163,9 @@ Truncation is log normally distributed.
 
 Estimates a truncation distribution from multiple snapshots of the same
 data source over time. This distribution can then be used in <code>regional_epinow</code>,
-<code>epinow</code>, and <code>estimate_infections</code> to adjust for truncated data.
-The model of truncation is as follows:</p><ol>
+<code>epinow</code>, and <code>estimate_infections</code> to adjust for truncated data. See <a href='https://gist.github.com/seabbs/176b0c7f83eab1a7192a25b28bbd116a'>here</a>
+for an example of using this approach on Covid-19 data in England.</p>
+<p>The model of truncation is as follows:</p><ol>
 <li><p>The truncation distribution is assumed to be log normal with a mean and
 standard deviation that is informed by the data.</p></li>
 <li><p>The data set with the latest observations is adjusted for truncation using
