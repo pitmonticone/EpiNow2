@@ -46,7 +46,11 @@
 
 
 <meta property="og:title" content="Create Stan Data Required for estimate_infections — create_stan_data" />
-<meta property="og:description" content="Create Stan Data Required for estimate_infections" />
+<meta property="og:description" content="
+
+Takes the output of stan_opts() and converts it into a list understood by stan. Internally
+calls the other create_ family of functions to construct a single list for input into stan
+with all data required present." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -135,26 +139,24 @@
     </div>
 
     <div class="ref-description">
-    <p>Create Stan Data Required for estimate_infections</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+Takes the output of <code><a href='stan_opts.html'>stan_opts()</a></code> and converts it into a list understood by <code>stan</code>. Internally
+calls the other <code>create_</code> family of functions to construct a single list for input into stan
+with all data required present.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_stan_data</span><span class='op'>(</span>
   <span class='va'>reported_cases</span>,
-  <span class='va'>shifted_reported_cases</span>,
-  <span class='va'>horizon</span>,
-  <span class='va'>no_delays</span>,
-  <span class='va'>mean_shift</span>,
   <span class='va'>generation_time</span>,
-  <span class='va'>rt_prior</span>,
-  <span class='va'>estimate_rt</span>,
-  <span class='va'>week_effect</span>,
-  <span class='va'>stationary</span>,
-  <span class='va'>fixed</span>,
-  <span class='va'>break_no</span>,
-  <span class='va'>future_rt</span>,
+  <span class='va'>rt</span>,
   <span class='va'>gp</span>,
-  <span class='va'>family</span>,
-  <span class='va'>delays</span>
+  <span class='va'>obs</span>,
+  <span class='va'>delays</span>,
+  <span class='va'>horizon</span>,
+  <span class='va'>backcalc</span>,
+  <span class='va'>shifted_cases</span>,
+  <span class='va'>truncation</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -166,88 +168,52 @@
 in date format.</p></td>
     </tr>
     <tr>
-      <th>shifted_reported_cases</th>
-      <td><p>A dataframe of delay shifted reported cases</p></td>
-    </tr>
-    <tr>
-      <th>horizon</th>
-      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
-    </tr>
-    <tr>
-      <th>no_delays</th>
-      <td><p>Numeric, number of delays</p></td>
-    </tr>
-    <tr>
-      <th>mean_shift</th>
-      <td><p>Numeric, mean delay shift</p></td>
-    </tr>
-    <tr>
       <th>generation_time</th>
       <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
 standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
 generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
-      <th>rt_prior</th>
-      <td><p>A list contain the mean and standard deviation (sd) of the lognormally distributed prior for
-Rt. By default this is assumed to be mean 1 with a standard deviation of 1 (note in model these will be mapped to
-log space). To infer infections only using non-parametric backcalculation set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>estimate_rt</th>
-      <td><p>Logical, should Rt be estimated.</p></td>
-    </tr>
-    <tr>
-      <th>week_effect</th>
-      <td><p>Logical, defaults TRUE. Should weekly reporting effects be estimated.</p></td>
-    </tr>
-    <tr>
-      <th>stationary</th>
-      <td><p>Logical, defaults to FALSE. Should Rt be estimated with a global mean. When estimating Rt
-this should substantially improve run times but will revert to the global average for real time and forecasted estimates.
-This setting is most appropriate when estimating historic Rt or when combined with breakpoints.</p></td>
-    </tr>
-    <tr>
-      <th>fixed</th>
-      <td><p>Logical, should the gaussian process be used for non-parametric
-change over time.</p></td>
-    </tr>
-    <tr>
-      <th>break_no</th>
-      <td><p>Numeric, number of breakpoints</p></td>
-    </tr>
-    <tr>
-      <th>future_rt</th>
-      <td><p>A character string or integer. This argument indicates how to set future Rt values. Supported
-options are to project using the Rt model ("project"), to use the latest estimate based on partial data ("latest"),
-to use the latest estimate based on data that is over 50% complete ("estimate"). If an integer is supplied then the Rt estimate
-from this many days into the future (or past if negative) past will be used forwards in time.</p></td>
+      <th>rt</th>
+      <td><p>A list of options as generated by <code><a href='rt_opts.html'>rt_opts()</a></code> defining Rt estimation.
+Defaults to <code><a href='rt_opts.html'>rt_opts()</a></code>. Set to <code>NULL</code> to switch to using  back calculation
+rather than generating infections using Rt.</p></td>
     </tr>
     <tr>
       <th>gp</th>
-      <td><p>List controlling the Gaussian process approximation if set to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> then <code>Rt</code> is assumed to be constant unless
-other settings introduce variation. If set must contain the <code>basis_prop</code> (number of basis functions based on scaling the time points)
-which defaults to 0.3 and must be between 0 and 1 (increasing this increases the accuracy of the approximation and the cost of
-additional compute. Must also contain the <code>boundary_scale</code> (multiplied by half the range of the input time series). Increasing this
-increases the accuracy of the approximation at the cost of additional compute.
-See here: https://arxiv.org/abs/2004.11408 for more information on setting these parameters.
-Must also contain the  <code>lengthscale_alpha</code> and <code>lengthscale_beta</code>. These tune the prior of the lengthscale. Principled
-values can be obtained using <code>tune_inv_gamma</code> which optimises based on the desired truncation (which should be based on the scale
-of the observed data). The default is tuned to have 98% of the density of the distribution between 2 and 21 days. Finally the list must
-contain <code>alpha_sd</code> the standard deviation for the alpha parameter of the gaussian process. This defaults to 0.1.</p></td>
+      <td><p>A list of options as generated by <code><a href='gp_opts.html'>gp_opts()</a></code> to define the
+Gaussian process. Defaults to <code><a href='gp_opts.html'>gp_opts()</a></code>.Set to NULL to disable the
+Gaussian process.</p></td>
     </tr>
     <tr>
-      <th>family</th>
-      <td><p>A character string indicating the reporting model to use. Defaults to negative
-binomial ("negbin") with poisson ("poisson") also supported.</p></td>
+      <th>obs</th>
+      <td><p>A list of options as generated by <code><a href='obs_opts.html'>obs_opts()</a></code> defining the
+observation model. Defaults to <code><a href='obs_opts.html'>obs_opts()</a></code>.</p></td>
     </tr>
     <tr>
       <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <td><p>A call to <code>delay_opts</code> defining delay distributions and options. See the documentation of <code>delay_opts</code>
+and the examples below for details.</p></td>
+    </tr>
+    <tr>
+      <th>horizon</th>
+      <td><p>Numeric, forecast horizon.</p></td>
+    </tr>
+    <tr>
+      <th>backcalc</th>
+      <td><p>A list of options as generated by <code><a href='backcalc_opts.html'>backcalc_opts()</a></code> to define the
+back calculation. Defaults to <code><a href='backcalc_opts.html'>backcalc_opts()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>shifted_cases</th>
+      <td><p>A dataframe of delay shifted cases</p></td>
+    </tr>
+    <tr>
+      <th>truncation</th>
+      <td><p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ A list of options as generated by <code><a href='trunc_opts.html'>trunc_opts()</a></code>
+defining the truncation of observed data. Defaults to <code><a href='trunc_opts.html'>trunc_opts()</a></code>. See <code><a href='estimate_truncation.html'>estimate_truncation()</a></code>
+for an approach to estimating truncation from data.</p></td>
     </tr>
     </table>
 
@@ -266,7 +232,7 @@ on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

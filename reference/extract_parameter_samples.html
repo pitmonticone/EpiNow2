@@ -46,7 +46,10 @@
 
 
 <meta property="og:title" content="Extract Parameter Samples from a Stan Model — extract_parameter_samples" />
-<meta property="og:description" content="Extract Parameter Samples from a Stan Model" />
+<meta property="og:description" content="
+
+Extracts a custom set of parameters from a stan object and adds stratification and
+dates where appropriate." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -135,10 +138,20 @@
     </div>
 
     <div class="ref-description">
-    <p>Extract Parameter Samples from a Stan Model</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+
+Extracts a custom set of parameters from a stan object and adds stratification and
+dates where appropriate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_parameter_samples</span><span class='op'>(</span><span class='va'>stan_fit</span>, <span class='va'>data</span>, <span class='va'>reported_dates</span>, <span class='va'>reported_inf_dates</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>extract_parameter_samples</span><span class='op'>(</span>
+  <span class='va'>stan_fit</span>,
+  <span class='va'>data</span>,
+  <span class='va'>reported_dates</span>,
+  <span class='va'>reported_inf_dates</span>,
+  drop_length_1 <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  merge <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,6 +172,16 @@
       <th>reported_inf_dates</th>
       <td><p>A vector of dates to report infection estimates for.</p></td>
     </tr>
+    <tr>
+      <th>drop_length_1</th>
+      <td><p>Logical; whether the first dimension should be dropped if it
+is if length 1; this is necessary when processing simulation results</p></td>
+    </tr>
+    <tr>
+      <th>merge</th>
+      <td><p>if TRUE, merge samples and data so that parameters can be
+extracted from data</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -176,7 +199,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

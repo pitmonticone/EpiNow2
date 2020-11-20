@@ -46,10 +46,13 @@
 
 
 <meta property="og:title" content="Real-time Rt Estimation, Forecasting and Reporting — epinow" />
-<meta property="og:description" content="This function wraps the functionality of estimate_infections and forecast_infections in order
+<meta property="og:description" content="
+
+This function wraps the functionality of estimate_infections and forecast_infections in order
 to estimate Rt and cases by date of infection, forecast into these infections into the future. It also contains
 additional functionality to convert forecasts to date of report and produce summary output useful for reporting
-results and interpreting them." />
+results and interpreting them. See here for an
+example of using epinow to estimate Rt for Covid-19 in a country from the ECDC data source." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -86,7 +89,7 @@ results and interpreting them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -138,28 +141,35 @@ results and interpreting them." />
     </div>
 
     <div class="ref-description">
-    <p>This function wraps the functionality of <code>estimate_infections</code> and <code>forecast_infections</code> in order
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>
+
+This function wraps the functionality of <code>estimate_infections</code> and <code>forecast_infections</code> in order
 to estimate Rt and cases by date of infection, forecast into these infections into the future. It also contains
 additional functionality to convert forecasts to date of report and produce summary output useful for reporting
-results and interpreting them.</p>
+results and interpreting them. See <a href='https://gist.github.com/seabbs/163d0f195892cde685c70473e1f5e867'>here</a> for an
+example of using <code>epinow</code> to estimate Rt for Covid-19 in a country from the ECDC data source.</p>
     </div>
 
     <pre class="usage"><span class='fu'>epinow</span><span class='op'>(</span>
   <span class='va'>reported_cases</span>,
-  samples <span class='op'>=</span> <span class='fl'>1000</span>,
-  horizon <span class='op'>=</span> <span class='fl'>7</span>,
   <span class='va'>generation_time</span>,
-  delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  truncation <span class='op'>=</span> <span class='fu'><a href='trunc_opts.html'>trunc_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  backcalc <span class='op'>=</span> <span class='fu'><a href='backcalc_opts.html'>backcalc_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  gp <span class='op'>=</span> <span class='fu'><a href='gp_opts.html'>gp_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  obs <span class='op'>=</span> <span class='fu'><a href='obs_opts.html'>obs_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  stan <span class='op'>=</span> <span class='fu'><a href='stan_opts.html'>stan_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
+  horizon <span class='op'>=</span> <span class='fl'>7</span>,
   CrIs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.9</span><span class='op'>)</span>,
   return_output <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"samples"</span>, <span class='st'>"plots"</span>, <span class='st'>"latest"</span><span class='op'>)</span>,
+  output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"samples"</span>, <span class='st'>"plots"</span>, <span class='st'>"latest"</span>, <span class='st'>"fit"</span>, <span class='st'>"timing"</span><span class='op'>)</span>,
   target_folder <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>target_date</span>,
   forecast_args <span class='op'>=</span> <span class='cn'>NULL</span>,
   logs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>,
   id <span class='op'>=</span> <span class='st'>"epinow"</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,14 +181,6 @@ results and interpreting them.</p>
 in date format.</p></td>
     </tr>
     <tr>
-      <th>samples</th>
-      <td><p>Numeric, defaults to 1000. Number of samples post warmup.</p></td>
-    </tr>
-    <tr>
-      <th>horizon</th>
-      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
-    </tr>
-    <tr>
       <th>generation_time</th>
       <td><p>A list containing the mean, standard deviation of the mean (mean_sd),
 standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
@@ -186,11 +188,46 @@ generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
       <th>delays</th>
-      <td><p>A list of delays (i.e incubation period/reporting delay) between infection and report.
-Each list entry must also be a list containing the mean, standard deviation of the mean (mean_sd),
-standard deviation (sd), standard deviation of the standard deviation and the maximum allowed value for the
-that delay (assuming a lognormal distribution with all parameters excepting the max allowed value
-on the log scale). To use no delays set this to <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code>.</p></td>
+      <td><p>A call to <code>delay_opts</code> defining delay distributions and options. See the documentation of <code>delay_opts</code>
+and the examples below for details.</p></td>
+    </tr>
+    <tr>
+      <th>truncation</th>
+      <td><p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ A list of options as generated by <code><a href='trunc_opts.html'>trunc_opts()</a></code>
+defining the truncation of observed data. Defaults to <code><a href='trunc_opts.html'>trunc_opts()</a></code>. See <code><a href='estimate_truncation.html'>estimate_truncation()</a></code>
+for an approach to estimating truncation from data.</p></td>
+    </tr>
+    <tr>
+      <th>rt</th>
+      <td><p>A list of options as generated by <code><a href='rt_opts.html'>rt_opts()</a></code> defining Rt estimation.
+Defaults to <code><a href='rt_opts.html'>rt_opts()</a></code>. Set to <code>NULL</code> to switch to using  back calculation
+rather than generating infections using Rt.</p></td>
+    </tr>
+    <tr>
+      <th>backcalc</th>
+      <td><p>A list of options as generated by <code><a href='backcalc_opts.html'>backcalc_opts()</a></code> to define the
+back calculation. Defaults to <code><a href='backcalc_opts.html'>backcalc_opts()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>gp</th>
+      <td><p>A list of options as generated by <code><a href='gp_opts.html'>gp_opts()</a></code> to define the
+Gaussian process. Defaults to <code><a href='gp_opts.html'>gp_opts()</a></code>.Set to NULL to disable the
+Gaussian process.</p></td>
+    </tr>
+    <tr>
+      <th>obs</th>
+      <td><p>A list of options as generated by <code><a href='obs_opts.html'>obs_opts()</a></code> defining the
+observation model. Defaults to <code><a href='obs_opts.html'>obs_opts()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>stan</th>
+      <td><p>A list of stan options as generated by <code><a href='stan_opts.html'>stan_opts()</a></code>. Defaults to <code><a href='stan_opts.html'>stan_opts()</a></code>. Can be used to override
+<code>data</code>, <code>init</code>, and <code>verbose</code> settings if desired.</p></td>
+    </tr>
+    <tr>
+      <th>horizon</th>
+      <td><p>Numeric, defaults to 7. Number of days into the future to forecast.</p></td>
     </tr>
     <tr>
       <th>CrIs</th>
@@ -205,8 +242,7 @@ if no directory for saving is specified.</p></td>
       <th>output</th>
       <td><p>A character vector of optional output to return. Supported options are samples ("samples"),
 plots ("plots"), the run time ("timing"), copying the dated folder into a latest folder (if <code>target_folder</code> is not null</p><ul>
-<li><p>set using "latest"), and the stan fit ("fit"). The default is to return samples and plots alongside summarised estimates
-and summary statistics. This argument uses partial matching so for example passing "sam" will lead to samples
+<li><p>set using "latest"), and the stan fit ("fit"). The default is to return all options. This argument uses partial matching so for example passing "sam" will lead to samples
 being reported.</p></li>
 </ul></td>
     </tr>
@@ -234,284 +270,205 @@ place to start.</p></td>
     <tr>
       <th>id</th>
       <td><p>A character string used to assign logging information on error. Used by <code>regional_epinow</code>
-to assign <code>epinow</code> errors to regions.</p></td>
+to assign errors to regions. Alter the default to run with error catching.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Logical, defaults to <code>FALSE</code>. Should verbose debug progress messages be printed. Corresponds to the "DEBUG" level from
+      <td><p>Logical, defaults to <code>TRUE</code> when used interactively and otherwise <code>FALSE</code>. Should verbose debug progress messages be printed. Corresponds to the "DEBUG" level from
 <code>futile.logger</code>. See <code>setup_logging</code> for more detailed logging options.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed to <code>estimate_infections</code>. See that functions documentation for options.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of output from estimate_infections, forecast_infections,  report_cases, and report_summary.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>estimate_infections simulate_infections forecast_infections regional_epinow</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'>#set number of cores to use</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>mc.cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># construct example distributions</span>
 <span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
 <span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bootstrapped_dist_fit.html'>bootstrapped_dist_fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='convert_to_logmean.html'>convert_to_logmean</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>, 
+                        mean_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
+                        sd <span class='op'>=</span> <span class='fu'><a href='convert_to_logsd.html'>convert_to_logsd</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>, 
+                        sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>, 
+                        max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 
 <span class='co'># example case data</span>
 <span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span> 
 
 <span class='co'># estimate Rt and nowcast/forecast cases by date of infection</span>
 <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-              delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-              stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>,
-              control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>adapt_delta <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 21:56:55] epinow: There were 5 divergent transitions after warmup. See
+              rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
+              delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpv4Oy7R/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpv4Oy7R/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-11-20 14:37:55] epinow: There were 7 divergent transitions after warmup. See
 #&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 #&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-19 21:56:55] epinow: Examine the pairs() plot to diagnose sampling problems
-#&gt;  - 
-#&gt; WARN [2020-10-19 21:56:56] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - </div><div class='input'><span class='va'>out</span>
-</div><div class='output co'>#&gt; $estimates
-#&gt; $estimates$samples
-#&gt;                 variable        parameter time       date sample       value
-#&gt;      1:       infections       infections    1 2020-02-08      1    2.159995
-#&gt;      2:       infections       infections    2 2020-02-09      1   10.099456
-#&gt;      3:       infections       infections    3 2020-02-10      1   16.630115
-#&gt;      4:       infections       infections    4 2020-02-11      1   32.412070
-#&gt;      5:       infections       infections    5 2020-02-12      1   49.750913
-#&gt;     ---                                                                     
-#&gt; 215057: prior_infections prior_infections   57 2020-04-04      1 4562.019565
-#&gt; 215058: prior_infections prior_infections   58 2020-04-05      1 4517.391996
-#&gt; 215059: prior_infections prior_infections   59 2020-04-06      1 4473.200993
-#&gt; 215060: prior_infections prior_infections   60 2020-04-07      1 4429.442284
-#&gt; 215061: prior_infections prior_infections   61 2020-04-08      1 4386.111642
-#&gt;         strat     type
-#&gt;      1:  &lt;NA&gt; estimate
-#&gt;      2:  &lt;NA&gt; estimate
-#&gt;      3:  &lt;NA&gt; estimate
-#&gt;      4:  &lt;NA&gt; estimate
-#&gt;      5:  &lt;NA&gt; estimate
-#&gt;     ---               
-#&gt; 215057:  &lt;NA&gt; forecast
-#&gt; 215058:  &lt;NA&gt; forecast
-#&gt; 215059:  &lt;NA&gt; forecast
-#&gt; 215060:  &lt;NA&gt; forecast
-#&gt; 215061:  &lt;NA&gt; forecast
-#&gt; 
-#&gt; $estimates$summarised
-#&gt;            date       variable strat     type      median        mean
-#&gt;   1: 2020-02-22              R  &lt;NA&gt; estimate    1.341517    1.349248
-#&gt;   2: 2020-02-23              R  &lt;NA&gt; estimate    1.398188    1.399167
-#&gt;   3: 2020-02-24              R  &lt;NA&gt; estimate    1.453684    1.453116
-#&gt;   4: 2020-02-25              R  &lt;NA&gt; estimate    1.507008    1.509397
-#&gt;   5: 2020-02-26              R  &lt;NA&gt; estimate    1.566167    1.565963
-#&gt;  ---                                                                 
-#&gt; 272: 2020-04-04 reported_cases  &lt;NA&gt; forecast 3891.000000 4827.220000
-#&gt; 273: 2020-04-05 reported_cases  &lt;NA&gt; forecast 4355.500000 5721.663000
-#&gt; 274: 2020-04-06 reported_cases  &lt;NA&gt; forecast 4070.500000 5953.404000
-#&gt; 275: 2020-04-07 reported_cases  &lt;NA&gt; forecast 3426.500000 6067.144000
-#&gt; 276: 2020-04-08 reported_cases  &lt;NA&gt; forecast 2741.500000 9174.799000
-#&gt;                sd     lower_90    lower_50    lower_20    upper_20    upper_50
-#&gt;   1: 2.242618e-01    0.9761397    1.199982    1.289523    1.401169    1.504581
-#&gt;   2: 1.835833e-01    1.0881845    1.283318    1.350390    1.443638    1.521694
-#&gt;   3: 1.460253e-01    1.2134707    1.357536    1.412748    1.487038    1.551086
-#&gt;   4: 1.145277e-01    1.3170887    1.433303    1.482498    1.536220    1.584285
-#&gt;   5: 9.393055e-02    1.4095891    1.505698    1.544819    1.588178    1.624596
-#&gt;  ---                                                                          
-#&gt; 272: 3.833202e+03 1374.0000000 2592.500000 3324.000000 4553.600000 6121.250000
-#&gt; 273: 5.290093e+03 1416.8500000 2795.000000 3642.000000 5281.000000 6950.000000
-#&gt; 274: 1.230668e+04 1377.0000000 2540.000000 3347.400000 4764.200000 6771.750000
-#&gt; 275: 2.543575e+04 1003.8000000 2151.750000 2861.600000 4058.000000 5755.750000
-#&gt; 276: 1.274545e+05  893.1500000 1697.000000 2236.200000 3368.600000 4891.000000
-#&gt;          upper_90
-#&gt;   1:     1.708593
-#&gt;   2:     1.694195
-#&gt;   3:     1.690742
-#&gt;   4:     1.696275
-#&gt;   5:     1.719823
-#&gt;  ---             
-#&gt; 272: 10980.950000
-#&gt; 273: 13390.150000
-#&gt; 274: 14367.750000
-#&gt; 275: 12410.600000
-#&gt; 276: 14268.000000
-#&gt; 
-#&gt; 
-#&gt; $estimated_reported_cases
-#&gt; $estimated_reported_cases$samples
-#&gt;              date sample cases  type
-#&gt;     1: 2020-02-22      1    58 gp_rt
-#&gt;     2: 2020-02-23      1   144 gp_rt
-#&gt;     3: 2020-02-24      1   134 gp_rt
-#&gt;     4: 2020-02-25      1   235 gp_rt
-#&gt;     5: 2020-02-26      1   252 gp_rt
-#&gt;    ---                              
-#&gt; 46996: 2020-04-04   1000  1249 gp_rt
-#&gt; 46997: 2020-04-05   1000  2580 gp_rt
-#&gt; 46998: 2020-04-06   1000  1300 gp_rt
-#&gt; 46999: 2020-04-07   1000  1232 gp_rt
-#&gt; 47000: 2020-04-08   1000   817 gp_rt
-#&gt; 
-#&gt; $estimated_reported_cases$summarised
-#&gt;           date  type median     mean           sd lower_90 lower_50 lower_20
-#&gt;  1: 2020-02-22 gp_rt   71.0   77.645     39.91504    28.00    49.75     61.0
-#&gt;  2: 2020-02-23 gp_rt  106.0  116.893     57.21387    42.00    75.00     94.0
-#&gt;  3: 2020-02-24 gp_rt  134.5  147.251     74.12028    51.95    94.75    117.0
-#&gt;  4: 2020-02-25 gp_rt  146.0  157.373     77.17274    57.00   101.00    129.6
-#&gt;  5: 2020-02-26 gp_rt  145.0  160.152     83.01261    57.95   100.00    126.6
-#&gt;  6: 2020-02-27 gp_rt  198.0  217.519    107.69495    79.00   144.00    177.6
-#&gt;  7: 2020-02-28 gp_rt  288.0  312.342    149.68136   120.95   202.75    253.0
-#&gt;  8: 2020-02-29 gp_rt  253.0  277.871    141.99473    93.95   180.00    221.0
-#&gt;  9: 2020-03-01 gp_rt  335.0  388.120    215.29911   143.95   241.75    291.0
-#&gt; 10: 2020-03-02 gp_rt  384.0  424.994    213.12274   161.95   276.75    342.0
-#&gt; 11: 2020-03-03 gp_rt  400.5  449.371    235.00720   155.00   283.00    354.6
-#&gt; 12: 2020-03-04 gp_rt  404.5  448.511    229.62266   164.95   284.00    358.0
-#&gt; 13: 2020-03-05 gp_rt  562.0  639.072    357.89280   220.85   387.75    493.2
-#&gt; 14: 2020-03-06 gp_rt  849.5  939.788    467.98195   365.00   599.00    741.0
-#&gt; 15: 2020-03-07 gp_rt  748.0  829.603    436.53165   291.75   506.00    650.6
-#&gt; 16: 2020-03-08 gp_rt 1132.0 1201.036    561.96009   445.85   791.25    993.6
-#&gt; 17: 2020-03-09 gp_rt 1246.5 1387.595    712.50375   499.65   867.25   1100.2
-#&gt; 18: 2020-03-10 gp_rt 1311.5 1470.919    767.52286   541.00   940.25   1163.8
-#&gt; 19: 2020-03-11 gp_rt 1355.0 1478.004    767.08078   511.95   942.75   1191.6
-#&gt; 20: 2020-03-12 gp_rt 1777.0 1971.824   1064.34751   690.00  1240.75   1530.6
-#&gt; 21: 2020-03-13 gp_rt 2768.5 3022.203   1562.02570  1008.90  1895.75   2453.6
-#&gt; 22: 2020-03-14 gp_rt 2278.0 2595.960   1344.07937  1004.95  1631.75   2102.0
-#&gt; 23: 2020-03-15 gp_rt 3257.5 3601.642   1866.18477  1265.10  2269.75   2848.6
-#&gt; 24: 2020-03-16 gp_rt 3593.0 3988.457   2049.67037  1464.70  2500.25   3156.2
-#&gt; 25: 2020-03-17 gp_rt 3486.5 3851.348   1919.16882  1372.75  2447.25   3109.6
-#&gt; 26: 2020-03-18 gp_rt 3405.0 3666.603   1891.18133  1210.75  2273.00   2925.2
-#&gt; 27: 2020-03-19 gp_rt 4200.5 4684.007   2534.48724  1630.55  2966.75   3708.6
-#&gt; 28: 2020-03-20 gp_rt 5621.0 6236.110   3385.16801  2327.55  3840.00   4909.0
-#&gt; 29: 2020-03-21 gp_rt 4385.5 4912.028   2556.10366  1733.85  3127.50   3854.2
-#&gt; 30: 2020-03-22 gp_rt 5398.5 5915.984   3128.15757  2038.85  3669.75   4696.6
-#&gt; 31: 2020-03-23 gp_rt 5623.5 6244.245   3165.12126  2343.30  4041.00   4956.4
-#&gt; 32: 2020-03-24 gp_rt 5159.0 5741.545   3003.14821  2017.50  3564.25   4521.8
-#&gt; 33: 2020-03-25 gp_rt 4516.5 4973.925   2530.73872  1944.65  3171.75   3915.0
-#&gt; 34: 2020-03-26 gp_rt 5170.0 5668.940   2856.01626  2039.85  3669.25   4543.6
-#&gt; 35: 2020-03-27 gp_rt 6575.5 7330.578   3960.48266  2619.35  4657.75   5786.4
-#&gt; 36: 2020-03-28 gp_rt 4932.5 5369.318   2794.42671  1862.90  3416.00   4225.8
-#&gt; 37: 2020-03-29 gp_rt 5623.0 6312.478   3377.73728  2245.35  3976.25   4951.2
-#&gt; 38: 2020-03-30 gp_rt 5250.5 5924.340   3388.54639  2023.25  3564.50   4566.0
-#&gt; 39: 2020-03-31 gp_rt 4593.0 5162.158   2769.17961  1757.85  3199.00   3927.8
-#&gt; 40: 2020-04-01 gp_rt 3794.5 4304.636   2414.89162  1394.90  2623.50   3298.6
-#&gt; 41: 2020-04-02 gp_rt 4433.0 5116.818   3208.23590  1640.40  2931.50   3800.2
-#&gt; 42: 2020-04-03 gp_rt 5356.0 6568.032   4857.76690  1893.90  3466.50   4573.2
-#&gt; 43: 2020-04-04 gp_rt 3891.0 4827.220   3833.20248  1374.00  2592.50   3324.0
-#&gt; 44: 2020-04-05 gp_rt 4355.5 5721.663   5290.09347  1416.85  2795.00   3642.0
-#&gt; 45: 2020-04-06 gp_rt 4070.5 5953.404  12306.67839  1377.00  2540.00   3347.4
-#&gt; 46: 2020-04-07 gp_rt 3426.5 6067.144  25435.75030  1003.80  2151.75   2861.6
-#&gt; 47: 2020-04-08 gp_rt 2741.5 9174.799 127454.51257   893.15  1697.00   2236.2
-#&gt;           date  type median     mean           sd lower_90 lower_50 lower_20
-#&gt;     upper_20 upper_50 upper_90
-#&gt;  1:     79.4    98.00   155.00
-#&gt;  2:    120.0   148.25   224.15
-#&gt;  3:    153.0   183.00   280.00
-#&gt;  4:    163.0   194.00   300.15
-#&gt;  5:    167.0   203.00   303.00
-#&gt;  6:    221.0   271.25   423.20
-#&gt;  7:    325.4   390.25   583.10
-#&gt;  8:    287.0   347.00   540.00
-#&gt;  9:    394.4   486.25   770.30
-#&gt; 10:    427.8   525.25   853.05
-#&gt; 11:    461.0   565.25   920.45
-#&gt; 12:    465.0   567.50   872.05
-#&gt; 13:    649.4   798.25  1313.20
-#&gt; 14:    970.0  1197.25  1831.60
-#&gt; 15:    844.0  1046.50  1683.20
-#&gt; 16:   1272.2  1507.00  2235.40
-#&gt; 17:   1419.0  1767.25  2731.60
-#&gt; 18:   1504.2  1835.00  2856.35
-#&gt; 19:   1519.4  1847.25  2960.50
-#&gt; 20:   2035.8  2453.25  3938.55
-#&gt; 21:   3164.0  3790.25  5921.15
-#&gt; 22:   2593.8  3191.75  5307.10
-#&gt; 23:   3716.8  4494.50  7098.45
-#&gt; 24:   4184.4  4991.25  7786.20
-#&gt; 25:   3984.4  4826.50  7333.70
-#&gt; 26:   3794.0  4572.00  7202.45
-#&gt; 27:   4843.8  5810.75  9429.45
-#&gt; 28:   6342.8  7664.50 12769.40
-#&gt; 29:   4960.6  6133.25  9867.90
-#&gt; 30:   6034.2  7406.50 11907.15
-#&gt; 31:   6443.6  7787.50 12123.90
-#&gt; 32:   5837.0  7217.25 11572.90
-#&gt; 33:   5102.2  6312.25  9551.20
-#&gt; 34:   5872.4  7110.00 11106.10
-#&gt; 35:   7531.0  9136.25 14080.55
-#&gt; 36:   5481.0  6703.75 10460.25
-#&gt; 37:   6420.2  7774.75 12689.85
-#&gt; 38:   5974.2  7317.25 11903.50
-#&gt; 39:   5220.0  6634.75 10482.55
-#&gt; 40:   4382.0  5497.75  8501.65
-#&gt; 41:   5014.2  6215.25 11209.30
-#&gt; 42:   6324.4  8318.50 15025.80
-#&gt; 43:   4553.6  6121.25 10980.95
-#&gt; 44:   5281.0  6950.00 13390.15
-#&gt; 45:   4764.2  6771.75 14367.75
-#&gt; 46:   4058.0  5755.75 12410.60
-#&gt; 47:   3368.6  4891.00 14268.00
-#&gt;     upper_20 upper_50 upper_90
-#&gt; 
-#&gt; 
-#&gt; $summary
-#&gt;                                  measure              estimate
-#&gt; 1: New confirmed cases by infection date   2513 (195 -- 19646)
+#&gt; WARN [2020-11-20 14:37:55] epinow: Examine the pairs() plot to diagnose sampling problems
+#&gt;  - </div><div class='input'><span class='co'># summary of the latest estimates</span>
+<span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>     
+</div><div class='output co'>#&gt;                                  measure              estimate
+#&gt; 1: New confirmed cases by infection date    2857 (977 -- 7488)
 #&gt; 2:        Expected change in daily cases                Unsure
-#&gt; 3:            Effective reproduction no.      0.7 (0.2 -- 1.7)
-#&gt; 4:                        Rate of growth -0.08 (-0.27 -- 0.17)
-#&gt; 5:          Doubling/halving time (days)    -8.7 (4.1 -- -2.6)
-#&gt;     numeric_estimate
-#&gt; 1: &lt;data.table[1x9]&gt;
-#&gt; 2:              0.74
-#&gt; 3: &lt;data.table[1x9]&gt;
-#&gt; 4: &lt;data.table[1x9]&gt;
-#&gt; 5: &lt;data.table[1x9]&gt;
-#&gt; 
-#&gt; $plots
-#&gt; $plots$infections</div><div class='img'><img src='epinow-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $plots$reports</div><div class='img'><img src='epinow-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $plots$reff</div><div class='img'><img src='epinow-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $plots$growth_rate</div><div class='img'><img src='epinow-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $plots$summary</div><div class='img'><img src='epinow-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; </div><div class='input'>
-<span class='co'># optional forecasting using EpiSoon plug-in</span>
-<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"EpiSoon"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-   <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"forecastHybrid"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-   <span class='co'># report Rt along with forecasts</span>
-   <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>epinow</span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>reported_cases</span>, samples <span class='op'>=</span> <span class='fl'>200</span>,
-                 generation_time <span class='op'>=</span> <span class='va'>generation_time</span>, 
-                 delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                 forecast_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-                     forecast_model <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
-                     <span class='fu'>EpiSoon</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/EpiSoon/man/forecastHybrid_model.html'>forecastHybrid_model</a></span><span class='op'>(</span>
-                          y <span class='op'>=</span> <span class='va'>y</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>21</span><span class='op'>)</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>]</span>,
-                          model_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>models <span class='op'>=</span> <span class='st'>"aefz"</span>, weights <span class='op'>=</span> <span class='st'>"equal"</span><span class='op'>)</span>,
-                          forecast_params <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>PI.combination <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>}</span>
-                          <span class='op'>)</span>,
-                 stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>warmup <span class='op'>=</span> <span class='fl'>200</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-    <span class='va'>out</span>
-   <span class='op'>}</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: EpiSoon</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: forecastHybrid</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
-#&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/regional-epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow/2020-04-01.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow.estimate_infections logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow.estimate_infections logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmpsi8KuW/epinow-estimate-infections/2020-04-01.log</span></div><div class='output co'>#&gt; WARN [2020-10-19 22:01:54] epinow: There were 1 divergent transitions after warmup. See
-#&gt; http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
-#&gt; to find out why this is a problem and how to eliminate them. - 
-#&gt; WARN [2020-10-19 22:01:54] epinow: Examine the pairs() plot to diagnose sampling problems
-#&gt;  - 
-#&gt; WARN [2020-10-19 22:01:55] epinow: The largest R-hat is 1.08, indicating chains have not mixed.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#r-hat - 
-#&gt; WARN [2020-10-19 22:01:55] epinow: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#bulk-ess - 
-#&gt; WARN [2020-10-19 22:01:55] epinow: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
-#&gt; Running the chains for more iterations may help. See
-#&gt; http://mc-stan.org/misc/warnings.html#tail-ess - </div><div class='output co'>#&gt; <span class='error'>Error in data.table::rbindlist(list(reported_cases_rt$samples[, `:=`(type,     "rt")], reported_cases_cases$samples[, `:=`(type, "case")],     reported_cases_ensemble$samples[, `:=`(type, "ensemble")],     estimates$samples[variable == "reported_cases"][, .(date,         sample, cases = value, type = "gp_rt")]), use.names = TRUE): Column 3 ['cases'] of item 4 is missing in item 1. Use fill=TRUE to fill with NA (NULL for list columns), or use.names=FALSE to ignore column names.</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 311.9 0.363 312.3</span></div><div class='input'><span class='co'># }</span>
-
+#&gt; 3:            Effective reproduction no.      0.7 (0.4 -- 1.1)
+#&gt; 4:                        Rate of growth -0.07 (-0.18 -- 0.04)
+#&gt; 5:          Doubling/halving time (days)   -9.4 (19.5 -- -3.9)</div><div class='input'><span class='co'># plot estimates        </span>
+<span class='fu'><a href='plot.estimate_infections.html'>plot</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>
+</div><div class='img'><img src='epinow-1.png' alt='' width='864' height='864' /></div><div class='input'>
+<span class='co'># summary of R estimates</span>
+<span class='fu'><a href='summary.epinow.html'>summary</a></span><span class='op'>(</span><span class='va'>out</span>, type <span class='op'>=</span> <span class='st'>"parameters"</span>, params <span class='op'>=</span> <span class='st'>"R"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           date variable strat                           type    median
+#&gt;  1: 2020-02-22        R  &lt;NA&gt;                       estimate 2.0398636
+#&gt;  2: 2020-02-23        R  &lt;NA&gt;                       estimate 2.0249467
+#&gt;  3: 2020-02-24        R  &lt;NA&gt;                       estimate 2.0115019
+#&gt;  4: 2020-02-25        R  &lt;NA&gt;                       estimate 1.9904432
+#&gt;  5: 2020-02-26        R  &lt;NA&gt;                       estimate 1.9695104
+#&gt;  6: 2020-02-27        R  &lt;NA&gt;                       estimate 1.9421232
+#&gt;  7: 2020-02-28        R  &lt;NA&gt;                       estimate 1.9136320
+#&gt;  8: 2020-02-29        R  &lt;NA&gt;                       estimate 1.8814019
+#&gt;  9: 2020-03-01        R  &lt;NA&gt;                       estimate 1.8498092
+#&gt; 10: 2020-03-02        R  &lt;NA&gt;                       estimate 1.8151811
+#&gt; 11: 2020-03-03        R  &lt;NA&gt;                       estimate 1.7787788
+#&gt; 12: 2020-03-04        R  &lt;NA&gt;                       estimate 1.7416583
+#&gt; 13: 2020-03-05        R  &lt;NA&gt;                       estimate 1.7022881
+#&gt; 14: 2020-03-06        R  &lt;NA&gt;                       estimate 1.6598428
+#&gt; 15: 2020-03-07        R  &lt;NA&gt;                       estimate 1.6173668
+#&gt; 16: 2020-03-08        R  &lt;NA&gt;                       estimate 1.5724184
+#&gt; 17: 2020-03-09        R  &lt;NA&gt;                       estimate 1.5281824
+#&gt; 18: 2020-03-10        R  &lt;NA&gt;                       estimate 1.4822639
+#&gt; 19: 2020-03-11        R  &lt;NA&gt;                       estimate 1.4352401
+#&gt; 20: 2020-03-12        R  &lt;NA&gt;                       estimate 1.3897002
+#&gt; 21: 2020-03-13        R  &lt;NA&gt;                       estimate 1.3426339
+#&gt; 22: 2020-03-14        R  &lt;NA&gt;                       estimate 1.2970879
+#&gt; 23: 2020-03-15        R  &lt;NA&gt;                       estimate 1.2509256
+#&gt; 24: 2020-03-16        R  &lt;NA&gt;                       estimate 1.2066268
+#&gt; 25: 2020-03-17        R  &lt;NA&gt;                       estimate 1.1629189
+#&gt; 26: 2020-03-18        R  &lt;NA&gt;                       estimate 1.1190335
+#&gt; 27: 2020-03-19        R  &lt;NA&gt;                       estimate 1.0790154
+#&gt; 28: 2020-03-20        R  &lt;NA&gt;                       estimate 1.0395846
+#&gt; 29: 2020-03-21        R  &lt;NA&gt;                       estimate 1.0025510
+#&gt; 30: 2020-03-22        R  &lt;NA&gt;                       estimate 0.9668938
+#&gt; 31: 2020-03-23        R  &lt;NA&gt;                       estimate 0.9345083
+#&gt; 32: 2020-03-24        R  &lt;NA&gt;                       estimate 0.9021720
+#&gt; 33: 2020-03-25        R  &lt;NA&gt; estimate based on partial data 0.8758125
+#&gt; 34: 2020-03-26        R  &lt;NA&gt; estimate based on partial data 0.8500032
+#&gt; 35: 2020-03-27        R  &lt;NA&gt; estimate based on partial data 0.8279960
+#&gt; 36: 2020-03-28        R  &lt;NA&gt; estimate based on partial data 0.8073959
+#&gt; 37: 2020-03-29        R  &lt;NA&gt; estimate based on partial data 0.7873714
+#&gt; 38: 2020-03-30        R  &lt;NA&gt; estimate based on partial data 0.7699648
+#&gt; 39: 2020-03-31        R  &lt;NA&gt; estimate based on partial data 0.7535368
+#&gt; 40: 2020-04-01        R  &lt;NA&gt; estimate based on partial data 0.7420974
+#&gt; 41: 2020-04-02        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 42: 2020-04-03        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 43: 2020-04-04        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 44: 2020-04-05        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 45: 2020-04-06        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 46: 2020-04-07        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt; 47: 2020-04-08        R  &lt;NA&gt;                       forecast 0.7420974
+#&gt;           date variable strat                           type    median
+#&gt;          mean         sd  lower_90  lower_50  lower_20  upper_20  upper_50
+#&gt;  1: 2.0434529 0.09050512 1.8991883 1.9833556 2.0156622 2.0613860 2.1046506
+#&gt;  2: 2.0289979 0.07857340 1.9040784 1.9768527 2.0065212 2.0464373 2.0810030
+#&gt;  3: 2.0121184 0.07239086 1.8963752 1.9636649 1.9933806 2.0293361 2.0585181
+#&gt;  4: 1.9925809 0.07029607 1.8798460 1.9453933 1.9741439 2.0088064 2.0378767
+#&gt;  5: 1.9702425 0.06997711 1.8627362 1.9228727 1.9510724 1.9850392 2.0125677
+#&gt;  6: 1.9450649 0.06966798 1.8400691 1.8991106 1.9263303 1.9589123 1.9857215
+#&gt;  7: 1.9171129 0.06857324 1.8139035 1.8712328 1.8978509 1.9307277 1.9569010
+#&gt;  8: 1.8865387 0.06668095 1.7847764 1.8437014 1.8667718 1.8993592 1.9268879
+#&gt;  9: 1.8535533 0.06439157 1.7528608 1.8114989 1.8337292 1.8656504 1.8927138
+#&gt; 10: 1.8183957 0.06216332 1.7212423 1.7773390 1.8000185 1.8311866 1.8575588
+#&gt; 11: 1.7813055 0.06026965 1.6844737 1.7413951 1.7640550 1.7947237 1.8193379
+#&gt; 12: 1.7425052 0.05873021 1.6481545 1.7020890 1.7264361 1.7557309 1.7809137
+#&gt; 13: 1.7021937 0.05740172 1.6110584 1.6636024 1.6872150 1.7160724 1.7401042
+#&gt; 14: 1.6605467 0.05613189 1.5688825 1.6223607 1.6453864 1.6743048 1.6973838
+#&gt; 15: 1.6177233 0.05486916 1.5320407 1.5813691 1.6029746 1.6304003 1.6531849
+#&gt; 16: 1.5738731 0.05367859 1.4890601 1.5381506 1.5594417 1.5866268 1.6067670
+#&gt; 17: 1.5291446 0.05267674 1.4454815 1.4932585 1.5147906 1.5400504 1.5621030
+#&gt; 18: 1.4836935 0.05193740 1.4031337 1.4484024 1.4695522 1.4934480 1.5160094
+#&gt; 19: 1.4376917 0.05143183 1.3588606 1.4032513 1.4243907 1.4469960 1.4704044
+#&gt; 20: 1.3913354 0.05104129 1.3141260 1.3565849 1.3766948 1.4012247 1.4221694
+#&gt; 21: 1.3448512 0.05062690 1.2666099 1.3105398 1.3310050 1.3553075 1.3749099
+#&gt; 22: 1.2984969 0.05010719 1.2206028 1.2653052 1.2837957 1.3084954 1.3283227
+#&gt; 23: 1.2525564 0.04950551 1.1765026 1.2202163 1.2396897 1.2625524 1.2820072
+#&gt; 24: 1.2073304 0.04896728 1.1305612 1.1748357 1.1946427 1.2181350 1.2362063
+#&gt; 25: 1.1631246 0.04877032 1.0859830 1.1312528 1.1508068 1.1735108 1.1934279
+#&gt; 26: 1.1202376 0.04933710 1.0401066 1.0883364 1.1085711 1.1308429 1.1518188
+#&gt; 27: 1.0789522 0.05121533 0.9970866 1.0464371 1.0664100 1.0899100 1.1114811
+#&gt; 28: 1.0395283 0.05497489 0.9508524 1.0046081 1.0253255 1.0522130 1.0745159
+#&gt; 29: 1.0021983 0.06103408 0.9016948 0.9636531 0.9862237 1.0170424 1.0406279
+#&gt; 30: 0.9671627 0.06952938 0.8542547 0.9216787 0.9494639 0.9841656 1.0098598
+#&gt; 31: 0.9345861 0.08032282 0.8029135 0.8813176 0.9135075 0.9546710 0.9844160
+#&gt; 32: 0.9045942 0.09311124 0.7537247 0.8423337 0.8800529 0.9264909 0.9642777
+#&gt; 33: 0.8772718 0.10754837 0.7007049 0.8062622 0.8485615 0.9007504 0.9459512
+#&gt; 34: 0.8526635 0.12333353 0.6500003 0.7718382 0.8206947 0.8785778 0.9310143
+#&gt; 35: 0.8307751 0.14025979 0.6031867 0.7380663 0.7933299 0.8596261 0.9177392
+#&gt; 36: 0.8115761 0.15822486 0.5591607 0.7076141 0.7679589 0.8430509 0.9057642
+#&gt; 37: 0.7950016 0.17720955 0.5232109 0.6799313 0.7451932 0.8282425 0.8966683
+#&gt; 38: 0.7809529 0.19722892 0.4860212 0.6521479 0.7261082 0.8132704 0.8917956
+#&gt; 39: 0.7692975 0.21826065 0.4530880 0.6283960 0.7081275 0.8028537 0.8863341
+#&gt; 40: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 41: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 42: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 43: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 44: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 45: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 46: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt; 47: 0.7598703 0.24015960 0.4170123 0.6056166 0.6891521 0.7940585 0.8849657
+#&gt;          mean         sd  lower_90  lower_50  lower_20  upper_20  upper_50
+#&gt;     upper_90
+#&gt;  1: 2.197568
+#&gt;  2: 2.160341
+#&gt;  3: 2.132215
+#&gt;  4: 2.105675
+#&gt;  5: 2.087310
+#&gt;  6: 2.060575
+#&gt;  7: 2.030402
+#&gt;  8: 1.996818
+#&gt;  9: 1.961551
+#&gt; 10: 1.923585
+#&gt; 11: 1.882699
+#&gt; 12: 1.841030
+#&gt; 13: 1.798795
+#&gt; 14: 1.751760
+#&gt; 15: 1.708348
+#&gt; 16: 1.665799
+#&gt; 17: 1.618957
+#&gt; 18: 1.571807
+#&gt; 19: 1.526429
+#&gt; 20: 1.478917
+#&gt; 21: 1.433550
+#&gt; 22: 1.383465
+#&gt; 23: 1.335807
+#&gt; 24: 1.287883
+#&gt; 25: 1.241018
+#&gt; 26: 1.198599
+#&gt; 27: 1.163203
+#&gt; 28: 1.132300
+#&gt; 29: 1.105829
+#&gt; 30: 1.085168
+#&gt; 31: 1.072583
+#&gt; 32: 1.067818
+#&gt; 33: 1.055754
+#&gt; 34: 1.058223
+#&gt; 35: 1.063623
+#&gt; 36: 1.071354
+#&gt; 37: 1.078838
+#&gt; 38: 1.092957
+#&gt; 39: 1.111464
+#&gt; 40: 1.129632
+#&gt; 41: 1.129632
+#&gt; 42: 1.129632
+#&gt; 43: 1.129632
+#&gt; 44: 1.129632
+#&gt; 45: 1.129632
+#&gt; 46: 1.129632
+#&gt; 47: 1.129632
+#&gt;     upper_90</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -524,7 +481,7 @@ to assign <code>epinow</code> errors to regions.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

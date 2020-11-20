@@ -46,7 +46,9 @@
 
 
 <meta property="og:title" content="Forecast Infections and the Time-Varying Reproduction Number — forecast_infections" />
-<meta property="og:description" content="This function provides optional tools for forecasting cases and Rt estimates using the timeseries methods
+<meta property="og:description" content="
+
+Provides optional tools for forecasting cases and Rt estimates using the timeseries methods
 (via the EpiSoon package). It requires the Episoon package. Installation instructions for the EpiSoon package are
 available here." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
@@ -85,7 +87,7 @@ available here." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -137,7 +139,9 @@ available here." />
     </div>
 
     <div class="ref-description">
-    <p>This function provides optional tools for forecasting cases and Rt estimates using the timeseries methods
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+
+Provides optional tools for forecasting cases and Rt estimates using the timeseries methods
 (via the <code>EpiSoon</code> package). It requires the <code>Episoon</code> package. Installation instructions for the EpiSoon package are
 available <a href='https://epiforecasts.io/EpiSoon/'>here</a>.</p>
     </div>
@@ -216,14 +220,12 @@ summarised forecasts.</p>
  
 <span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
 <span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='bootstrapped_dist_fit.html'>bootstrapped_dist_fit</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='estimate_delay.html'>estimate_delay</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
 
 <span class='co'># estimate Rt and infections from data</span>
 <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                           delays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                           gp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, samples <span class='op'>=</span> <span class='fl'>100</span>,
-                           stan_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span>, 
-                                            warmup <span class='op'>=</span> <span class='fl'>100</span>, chains <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+                           delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+                           rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># forecast Rt and infections from estimates</span>
 <span class='va'>forecast</span> <span class='op'>&lt;-</span> <span class='fu'>forecast_infections</span><span class='op'>(</span>
@@ -242,9 +244,182 @@ summarised forecasts.</p>
 <span class='va'>forecast</span><span class='op'>$</span><span class='va'>summarised</span>
   <span class='op'>}</span>
  <span class='op'>}</span>
-</div><div class='output co'>#&gt; Error in new_CppObject_xp(fields$.module, fields$.pointer, ...) : 
-#&gt;   Exception: variable does not exist; processing stage=data initialization; variable name=lengthscale_alpha; base type=double  (in 'model_estimate_infections' at line 33)
-#&gt; </div><div class='output co'>#&gt; <span class='message'>failed to create the sampler; sampling not done</span></div><div class='output co'>#&gt; <span class='error'>Error: $ operator is invalid for atomic vectors</span></div><div class='input'><span class='co'># }                              </span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: EpiSoon</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: forecastHybrid</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
+#&gt; <span class='message'>  method            from</span>
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt;           date type forecast_type       median         mean           sd
+#&gt;  1: 2020-04-09 case          case 1.776636e+06 2.082225e+06 1.591176e+06
+#&gt;  2: 2020-04-10 case          case 1.735215e+06 2.003079e+06 1.521136e+06
+#&gt;  3: 2020-04-11 case          case 1.791595e+06 2.065749e+06 1.530145e+06
+#&gt;  4: 2020-04-12 case          case 1.721582e+06 1.968858e+06 1.491868e+06
+#&gt;  5: 2020-04-13 case          case 1.603266e+06 1.954564e+06 1.551541e+06
+#&gt;  6: 2020-04-14 case          case 1.742724e+06 2.042099e+06 1.524501e+06
+#&gt;  7: 2020-04-15 case          case 1.856584e+06 2.132966e+06 1.577674e+06
+#&gt;  8: 2020-04-16 case          case 1.789935e+06 2.106887e+06 1.532531e+06
+#&gt;  9: 2020-04-17 case          case 1.797132e+06 2.114532e+06 1.580442e+06
+#&gt; 10: 2020-04-18 case          case 1.748817e+06 2.164008e+06 1.657490e+06
+#&gt; 11: 2020-04-19 case          case 1.932625e+06 2.182807e+06 1.553635e+06
+#&gt; 12: 2020-04-20 case          case 1.807078e+06 2.139904e+06 1.579102e+06
+#&gt; 13: 2020-04-21 case          case 1.836899e+06 2.167833e+06 1.618158e+06
+#&gt; 14: 2020-04-22 case          case 1.967912e+06 2.270348e+06 1.677207e+06
+#&gt; 15: 2020-04-09 case      ensemble 1.963525e+06 2.075161e+06 1.074761e+06
+#&gt; 16: 2020-04-10 case      ensemble 1.908562e+06 2.043219e+06 1.077150e+06
+#&gt; 17: 2020-04-11 case      ensemble 1.903835e+06 2.049050e+06 1.080442e+06
+#&gt; 18: 2020-04-12 case      ensemble 1.876022e+06 1.977930e+06 1.044559e+06
+#&gt; 19: 2020-04-13 case      ensemble 1.864306e+06 1.983997e+06 1.071474e+06
+#&gt; 20: 2020-04-14 case      ensemble 1.952977e+06 2.083853e+06 1.099531e+06
+#&gt; 21: 2020-04-15 case      ensemble 1.945720e+06 2.048227e+06 1.089079e+06
+#&gt; 22: 2020-04-16 case      ensemble 1.926599e+06 2.050040e+06 1.070827e+06
+#&gt; 23: 2020-04-17 case      ensemble 1.962985e+06 2.123198e+06 1.158066e+06
+#&gt; 24: 2020-04-18 case      ensemble 1.962787e+06 2.126073e+06 1.182823e+06
+#&gt; 25: 2020-04-19 case      ensemble 2.008611e+06 2.114130e+06 1.107119e+06
+#&gt; 26: 2020-04-20 case      ensemble 1.957156e+06 2.083999e+06 1.150183e+06
+#&gt; 27: 2020-04-21 case      ensemble 1.928920e+06 2.094157e+06 1.136640e+06
+#&gt; 28: 2020-04-22 case      ensemble 2.054067e+06 2.166225e+06 1.151797e+06
+#&gt; 29: 2020-04-09 case            rt 1.780814e+06 2.068097e+06 1.529170e+06
+#&gt; 30: 2020-04-10 case            rt 1.820998e+06 2.083359e+06 1.579941e+06
+#&gt; 31: 2020-04-11 case            rt 1.716210e+06 2.032351e+06 1.490280e+06
+#&gt; 32: 2020-04-12 case            rt 1.722278e+06 1.987003e+06 1.483801e+06
+#&gt; 33: 2020-04-13 case            rt 1.670448e+06 2.013430e+06 1.545984e+06
+#&gt; 34: 2020-04-14 case            rt 1.813832e+06 2.125607e+06 1.586064e+06
+#&gt; 35: 2020-04-15 case            rt 1.664020e+06 1.963488e+06 1.509789e+06
+#&gt; 36: 2020-04-16 case            rt 1.689530e+06 1.993192e+06 1.510324e+06
+#&gt; 37: 2020-04-17 case            rt 1.708850e+06 2.131865e+06 1.659893e+06
+#&gt; 38: 2020-04-18 case            rt 1.742571e+06 2.088137e+06 1.627956e+06
+#&gt; 39: 2020-04-19 case            rt 1.711077e+06 2.045453e+06 1.563873e+06
+#&gt; 40: 2020-04-20 case            rt 1.623200e+06 2.028093e+06 1.616086e+06
+#&gt; 41: 2020-04-21 case            rt 1.706247e+06 2.020480e+06 1.553156e+06
+#&gt; 42: 2020-04-22 case            rt 1.764849e+06 2.062101e+06 1.570835e+06
+#&gt; 43: 2020-04-09   rt          &lt;NA&gt; 7.353000e-01 7.467501e-01 3.446927e-01
+#&gt; 44: 2020-04-10   rt          &lt;NA&gt; 7.462711e-01 7.545947e-01 3.607627e-01
+#&gt; 45: 2020-04-11   rt          &lt;NA&gt; 7.560482e-01 7.698181e-01 3.400042e-01
+#&gt; 46: 2020-04-12   rt          &lt;NA&gt; 7.410916e-01 7.527304e-01 3.568994e-01
+#&gt; 47: 2020-04-13   rt          &lt;NA&gt; 7.292240e-01 7.474057e-01 3.614675e-01
+#&gt; 48: 2020-04-14   rt          &lt;NA&gt; 7.590997e-01 7.584752e-01 3.447281e-01
+#&gt; 49: 2020-04-15   rt          &lt;NA&gt; 7.597667e-01 7.476602e-01 3.520890e-01
+#&gt; 50: 2020-04-16   rt          &lt;NA&gt; 7.301300e-01 7.424956e-01 3.644847e-01
+#&gt; 51: 2020-04-17   rt          &lt;NA&gt; 7.148582e-01 7.474728e-01 3.514511e-01
+#&gt; 52: 2020-04-18   rt          &lt;NA&gt; 7.459056e-01 7.724692e-01 3.749733e-01
+#&gt; 53: 2020-04-19   rt          &lt;NA&gt; 7.431205e-01 7.473705e-01 3.616688e-01
+#&gt; 54: 2020-04-20   rt          &lt;NA&gt; 7.327619e-01 7.465425e-01 3.437127e-01
+#&gt; 55: 2020-04-21   rt          &lt;NA&gt; 7.402466e-01 7.477081e-01 3.439596e-01
+#&gt; 56: 2020-04-22   rt          &lt;NA&gt; 7.319415e-01 7.376827e-01 3.557898e-01
+#&gt;           date type forecast_type       median         mean           sd
+#&gt;         lower_90     lower_50     lower_20     upper_20     upper_50
+#&gt;  1: 1.867693e+05 8.040707e+05 1.362654e+06 2.212298e+06 2.959667e+06
+#&gt;  2: 1.646452e+05 7.611393e+05 1.320155e+06 2.108182e+06 2.916111e+06
+#&gt;  3: 1.626160e+05 8.548851e+05 1.397100e+06 2.193094e+06 2.968672e+06
+#&gt;  4: 1.394514e+05 7.861941e+05 1.307316e+06 2.117994e+06 2.832055e+06
+#&gt;  5: 1.263171e+05 7.405379e+05 1.268160e+06 2.068725e+06 2.835247e+06
+#&gt;  6: 1.667941e+05 7.940202e+05 1.351654e+06 2.167392e+06 3.026188e+06
+#&gt;  7: 1.751544e+05 8.646527e+05 1.406150e+06 2.302933e+06 3.038491e+06
+#&gt;  8: 2.107333e+05 8.994811e+05 1.388142e+06 2.277530e+06 3.006936e+06
+#&gt;  9: 1.815804e+05 8.414743e+05 1.411830e+06 2.211321e+06 3.029502e+06
+#&gt; 10: 1.619212e+05 8.949617e+05 1.338236e+06 2.248492e+06 3.136364e+06
+#&gt; 11: 2.004879e+05 9.416596e+05 1.527723e+06 2.352311e+06 3.091929e+06
+#&gt; 12: 1.697369e+05 8.569853e+05 1.436436e+06 2.278086e+06 3.139246e+06
+#&gt; 13: 1.717548e+05 8.776544e+05 1.431734e+06 2.332810e+06 3.187526e+06
+#&gt; 14: 1.870020e+05 9.633145e+05 1.515359e+06 2.371792e+06 3.211059e+06
+#&gt; 15: 5.798649e+05 1.269131e+06 1.694137e+06 2.220233e+06 2.741357e+06
+#&gt; 16: 4.589710e+05 1.256539e+06 1.674035e+06 2.232549e+06 2.718045e+06
+#&gt; 17: 5.541884e+05 1.231191e+06 1.634391e+06 2.222616e+06 2.699552e+06
+#&gt; 18: 4.917064e+05 1.169636e+06 1.608187e+06 2.131771e+06 2.639655e+06
+#&gt; 19: 4.838755e+05 1.183137e+06 1.589242e+06 2.126975e+06 2.656788e+06
+#&gt; 20: 5.343889e+05 1.248094e+06 1.688025e+06 2.248092e+06 2.784290e+06
+#&gt; 21: 5.073095e+05 1.219340e+06 1.647611e+06 2.226023e+06 2.707738e+06
+#&gt; 22: 5.324918e+05 1.254863e+06 1.630925e+06 2.217390e+06 2.744381e+06
+#&gt; 23: 5.586310e+05 1.225433e+06 1.680943e+06 2.254928e+06 2.820721e+06
+#&gt; 24: 5.085754e+05 1.236274e+06 1.679483e+06 2.283420e+06 2.753601e+06
+#&gt; 25: 5.223566e+05 1.298744e+06 1.758892e+06 2.327871e+06 2.747455e+06
+#&gt; 26: 4.936069e+05 1.208394e+06 1.645382e+06 2.198908e+06 2.803169e+06
+#&gt; 27: 5.515848e+05 1.255832e+06 1.694262e+06 2.226975e+06 2.764972e+06
+#&gt; 28: 5.604629e+05 1.282274e+06 1.714545e+06 2.351499e+06 2.892183e+06
+#&gt; 29: 1.763219e+05 8.517658e+05 1.408626e+06 2.161923e+06 2.972369e+06
+#&gt; 30: 1.528161e+05 7.825070e+05 1.368349e+06 2.251181e+06 2.992172e+06
+#&gt; 31: 1.808432e+05 8.643432e+05 1.382336e+06 2.141470e+06 2.871693e+06
+#&gt; 32: 1.685662e+05 7.998882e+05 1.310876e+06 2.058876e+06 2.809624e+06
+#&gt; 33: 1.541551e+05 8.227760e+05 1.282643e+06 2.112341e+06 2.866404e+06
+#&gt; 34: 1.925910e+05 8.422290e+05 1.397032e+06 2.262484e+06 3.048185e+06
+#&gt; 35: 1.539526e+05 7.716830e+05 1.243320e+06 2.045548e+06 2.766302e+06
+#&gt; 36: 1.624999e+05 7.717045e+05 1.315157e+06 2.130555e+06 2.899376e+06
+#&gt; 37: 1.618463e+05 8.628158e+05 1.354131e+06 2.189345e+06 3.075442e+06
+#&gt; 38: 1.538187e+05 7.721838e+05 1.331329e+06 2.216904e+06 3.082654e+06
+#&gt; 39: 1.445470e+05 8.064095e+05 1.344729e+06 2.139564e+06 2.932979e+06
+#&gt; 40: 1.566802e+05 7.109350e+05 1.225942e+06 2.160769e+06 2.937090e+06
+#&gt; 41: 1.232652e+05 7.826888e+05 1.287132e+06 2.099089e+06 3.004886e+06
+#&gt; 42: 1.460586e+05 7.578945e+05 1.355004e+06 2.142834e+06 3.047744e+06
+#&gt; 43: 1.908115e-01 4.996735e-01 6.507990e-01 8.218957e-01 9.831312e-01
+#&gt; 44: 1.923861e-01 4.925977e-01 6.470594e-01 8.322484e-01 1.005767e+00
+#&gt; 45: 2.212415e-01 5.140665e-01 6.650383e-01 8.555118e-01 9.949768e-01
+#&gt; 46: 1.869265e-01 5.030294e-01 6.535336e-01 8.322740e-01 9.844651e-01
+#&gt; 47: 1.672986e-01 4.942298e-01 6.459279e-01 8.294579e-01 9.814643e-01
+#&gt; 48: 2.090722e-01 5.088397e-01 6.640191e-01 8.446762e-01 9.956243e-01
+#&gt; 49: 1.667893e-01 4.856612e-01 6.544183e-01 8.435727e-01 9.733945e-01
+#&gt; 50: 1.777895e-01 4.763696e-01 6.418061e-01 8.139311e-01 9.746445e-01
+#&gt; 51: 2.036084e-01 5.035441e-01 6.377275e-01 8.169047e-01 9.730557e-01
+#&gt; 52: 2.021355e-01 4.923429e-01 6.428635e-01 8.613308e-01 1.016436e+00
+#&gt; 53: 1.643359e-01 4.767489e-01 6.412220e-01 8.370388e-01 9.931494e-01
+#&gt; 54: 2.033288e-01 4.914138e-01 6.490494e-01 8.293839e-01 9.917225e-01
+#&gt; 55: 1.913949e-01 4.974005e-01 6.506887e-01 8.316310e-01 9.763893e-01
+#&gt; 56: 1.650207e-01 4.789133e-01 6.378976e-01 8.269707e-01 9.854131e-01
+#&gt;         lower_90     lower_50     lower_20     upper_20     upper_50
+#&gt;         upper_90
+#&gt;  1: 5.464039e+06
+#&gt;  2: 4.926378e+06
+#&gt;  3: 5.046002e+06
+#&gt;  4: 4.774411e+06
+#&gt;  5: 4.943864e+06
+#&gt;  6: 4.936961e+06
+#&gt;  7: 5.061791e+06
+#&gt;  8: 5.032354e+06
+#&gt;  9: 5.035970e+06
+#&gt; 10: 5.410600e+06
+#&gt; 11: 5.228445e+06
+#&gt; 12: 5.213967e+06
+#&gt; 13: 5.154527e+06
+#&gt; 14: 5.414187e+06
+#&gt; 15: 3.997080e+06
+#&gt; 16: 3.949414e+06
+#&gt; 17: 4.046997e+06
+#&gt; 18: 3.904286e+06
+#&gt; 19: 3.927698e+06
+#&gt; 20: 4.087840e+06
+#&gt; 21: 4.106225e+06
+#&gt; 22: 4.001176e+06
+#&gt; 23: 4.304488e+06
+#&gt; 24: 4.472705e+06
+#&gt; 25: 4.072883e+06
+#&gt; 26: 4.180405e+06
+#&gt; 27: 4.243651e+06
+#&gt; 28: 4.255391e+06
+#&gt; 29: 4.961848e+06
+#&gt; 30: 5.176057e+06
+#&gt; 31: 5.037886e+06
+#&gt; 32: 4.898015e+06
+#&gt; 33: 4.998655e+06
+#&gt; 34: 5.162258e+06
+#&gt; 35: 5.108131e+06
+#&gt; 36: 4.799199e+06
+#&gt; 37: 5.374636e+06
+#&gt; 38: 5.176958e+06
+#&gt; 39: 5.152191e+06
+#&gt; 40: 5.203858e+06
+#&gt; 41: 4.999653e+06
+#&gt; 42: 5.155873e+06
+#&gt; 43: 1.312943e+00
+#&gt; 44: 1.339406e+00
+#&gt; 45: 1.348487e+00
+#&gt; 46: 1.416540e+00
+#&gt; 47: 1.378715e+00
+#&gt; 48: 1.333386e+00
+#&gt; 49: 1.348028e+00
+#&gt; 50: 1.372637e+00
+#&gt; 51: 1.371805e+00
+#&gt; 52: 1.444895e+00
+#&gt; 53: 1.370357e+00
+#&gt; 54: 1.320913e+00
+#&gt; 55: 1.320076e+00
+#&gt; 56: 1.354759e+00
+#&gt;         upper_90</div><div class='input'><span class='co'># }                              </span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -257,7 +432,7 @@ summarised forecasts.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

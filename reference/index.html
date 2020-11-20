@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -160,15 +160,27 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="plot.epinow.html">plot(<i>&lt;epinow&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot method for epinow</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="regional_epinow.html">regional_epinow()</a></code> </p>
         </td>
         <td><p>Real-time Rt Estimation, Forecasting and Reporting by Region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summary.epinow.html">summary(<i>&lt;epinow&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summary output from epinow</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-estimate-parameters" class="hasAnchor"><a href="#section-estimate-parameters" class="anchor"></a>Estimate Parameters</h2>
-          <p class="section-desc"><p>Function to estimate time-varying parameters of interest.</p></p>
+          <p class="section-desc"><p>Function to estimate parameters of interest.</p></p>
         </th>
       </tr>
       
@@ -191,15 +203,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="growth_to_R.html">growth_to_R()</a></code> </p>
+          <p><code><a href="estimate_delay.html">estimate_delay()</a></code> </p>
         </td>
-        <td><p>Convert Growth Rates to Reproduction numbers.</p></td>
+        <td><p>Estimate a Delay Distribution</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="R_to_growth.html">R_to_growth()</a></code> </p>
+          <p><code><a href="estimate_truncation.html">estimate_truncation()</a></code> </p>
         </td>
-        <td><p>Convert Reproduction Numbers to Growth Rates</p></td>
+        <td><p>Estimate Truncation of Observed Data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -260,7 +272,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-internal-estimate-infections-functions" class="hasAnchor"><a href="#section-internal-estimate-infections-functions" class="anchor"></a>Internal estimate_infections Functions</h2>
-          <p class="section-desc"><p>Functions used internally by estimate_infections</p></p>
+          <p class="section-desc"><p>Functions used by estimate_infections</p></p>
         </th>
       </tr>
       
@@ -269,6 +281,84 @@
       
       
       <tr>
+        
+        <td>
+          <p><code><a href="backcalc_opts.html">backcalc_opts()</a></code> </p>
+        </td>
+        <td><p>Back Calculation Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="delay_opts.html">delay_opts()</a></code> </p>
+        </td>
+        <td><p>Delay Distribution Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_opts.html">filter_opts()</a></code> </p>
+        </td>
+        <td><p>Filter Options for a Target Region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gp_opts.html">gp_opts()</a></code> </p>
+        </td>
+        <td><p>Approximate Gaussian Process Settings</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="obs_opts.html">obs_opts()</a></code> </p>
+        </td>
+        <td><p>Observation Model Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rstan_opts.html">rstan_opts()</a></code> </p>
+        </td>
+        <td><p>Rstan Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rstan_sampling_opts.html">rstan_sampling_opts()</a></code> </p>
+        </td>
+        <td><p>Rstan Sampling Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rstan_vb_opts.html">rstan_vb_opts()</a></code> </p>
+        </td>
+        <td><p>Rstan Variational Bayes Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rt_opts.html">rt_opts()</a></code> </p>
+        </td>
+        <td><p>Time-Varying Reproduction Number Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stan_opts.html">stan_opts()</a></code> </p>
+        </td>
+        <td><p>Stan Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trunc_opts.html">trunc_opts()</a></code> </p>
+        </td>
+        <td><p>Truncation Distribution Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="opts_list.html">opts_list()</a></code> </p>
+        </td>
+        <td><p>Return an _opts List per Region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_backcalc_data.html">create_backcalc_data()</a></code> </p>
+        </td>
+        <td><p>Create Back Calculation Data</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="create_clean_reported_cases.html">create_clean_reported_cases()</a></code> </p>
@@ -283,15 +373,33 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="create_gp_data.html">create_gp_data()</a></code> </p>
+        </td>
+        <td><p>Create Gaussian Process Data</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="create_initial_conditions.html">create_initial_conditions()</a></code> </p>
         </td>
         <td><p>Create Initial Conditions Generating Function</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="create_obs_model.html">create_obs_model()</a></code> </p>
+        </td>
+        <td><p>Create Observation Model Settings</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_rt_data.html">create_rt_data()</a></code> </p>
+        </td>
+        <td><p>Create Time-varying Reproduction Number Data</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="create_shifted_cases.html">create_shifted_cases()</a></code> </p>
         </td>
-        <td><p>Create a Data Frame of Mean Delay Shifted Cases</p></td>
+        <td><p>Create Delay Shifted Cases</p></td>
       </tr><tr>
         
         <td>
@@ -310,6 +418,12 @@
           <p><code><a href="allocate_delays.html">allocate_delays()</a></code> </p>
         </td>
         <td><p>Allocate Delays into Required Stan Format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="allocate_empty.html">allocate_empty()</a></code> </p>
+        </td>
+        <td><p>Allocate Empty Parameters to a List</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -353,13 +467,171 @@
         <td>
           <p><code><a href="regional_summary.html">regional_summary()</a></code> </p>
         </td>
-        <td><p>Generate Regional Summary Output</p></td>
+        <td><p>Regional Summary Output</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="regional_runtimes.html">regional_runtimes()</a></code> </p>
         </td>
         <td><p>Summarise Regional Runtimes</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-summarise-results" class="hasAnchor"><a href="#section-summarise-results" class="anchor"></a>Summarise results</h2>
+          <p class="section-desc"><p>Functions from summarising results</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="summary.epinow.html">summary(<i>&lt;epinow&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summary output from epinow</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summary.estimate_infections.html">summary(<i>&lt;estimate_infections&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summary output from estimate_infections</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summarise_key_measures.html">summarise_key_measures()</a></code> </p>
+        </td>
+        <td><p>Summarise rt and cases</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summarise_results.html">summarise_results()</a></code> </p>
+        </td>
+        <td><p>Summarise Real-time Results</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="backcalc_opts.html">backcalc_opts()</a></code> </p>
+        </td>
+        <td><p>Back Calculation Options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_CrI.html">calc_CrI()</a></code> </p>
+        </td>
+        <td><p>Calculate Credible Interval</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_CrIs.html">calc_CrIs()</a></code> </p>
+        </td>
+        <td><p>Calculate Credible Intervals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_summary_measures.html">calc_summary_measures()</a></code> </p>
+        </td>
+        <td><p>Calculate All Summary Measures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_summary_stats.html">calc_summary_stats()</a></code> </p>
+        </td>
+        <td><p>Calculate Summary Statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_backcalc_data.html">create_backcalc_data()</a></code> </p>
+        </td>
+        <td><p>Create Back Calculation Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_region.html">process_region()</a></code> </p>
+        </td>
+        <td><p>Process regional estimate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_regions.html">process_regions()</a></code> </p>
+        </td>
+        <td><p>Process all Region Estimates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_fit.html">format_fit()</a></code> </p>
+        </td>
+        <td><p>Format Posterior Samples</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_conf.html">make_conf()</a></code> </p>
+        </td>
+        <td><p>Format Credible Intervals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="map_prob_change.html">map_prob_change()</a></code> </p>
+        </td>
+        <td><p>Categorise the Probability of Change for Rt</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plot-results" class="hasAnchor"><a href="#section-plot-results" class="anchor"></a>Plot Results</h2>
+          <p class="section-desc"><p>Plot generated results</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="plot.epinow.html">plot(<i>&lt;epinow&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot method for epinow</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.estimate_infections.html">plot(<i>&lt;estimate_infections&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot method for estimate_infections</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.estimate_truncation.html">plot(<i>&lt;estimate_truncation&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot method for estimate_truncation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_CrIs.html">plot_CrIs()</a></code> </p>
+        </td>
+        <td><p>Plot EpiNow2 Credible Intervals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_estimates.html">plot_estimates()</a></code> </p>
+        </td>
+        <td><p>Plot Estimates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_summary.html">plot_summary()</a></code> </p>
+        </td>
+        <td><p>Plot a Summary of the Latest Results</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="report_plots.html">report_plots()</a></code> </p>
+        </td>
+        <td><p>Report plots</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -391,85 +663,6 @@
           <p><code><a href="report_summary.html">report_summary()</a></code> </p>
         </td>
         <td><p>Provide Summary Statistics for Estimated Infections and Rt</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-summarise-results" class="hasAnchor"><a href="#section-summarise-results" class="anchor"></a>Summarise results</h2>
-          <p class="section-desc"><p>Functions from summarising results</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="summarise_key_measures.html">summarise_key_measures()</a></code> </p>
-        </td>
-        <td><p>Summarise rt and cases</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="summarise_results.html">summarise_results()</a></code> </p>
-        </td>
-        <td><p>Summarise Real-time Results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calc_CrI.html">calc_CrI()</a></code> </p>
-        </td>
-        <td><p>Calculate Credible Interval</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calc_CrIs.html">calc_CrIs()</a></code> </p>
-        </td>
-        <td><p>Calculate Credible Intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calc_summary_measures.html">calc_summary_measures()</a></code> </p>
-        </td>
-        <td><p>Calculate All Summary Measures</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calc_summary_stats.html">calc_summary_stats()</a></code> </p>
-        </td>
-        <td><p>Calculate Summary Statistics</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="process_region.html">process_region()</a></code> </p>
-        </td>
-        <td><p>Process regional estimate</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="process_regions.html">process_regions()</a></code> </p>
-        </td>
-        <td><p>Process all Region Estimates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="format_fit.html">format_fit()</a></code> </p>
-        </td>
-        <td><p>Format Posterior Samples</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="make_conf.html">make_conf()</a></code> </p>
-        </td>
-        <td><p>Format Credible Intervals</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="map_prob_change.html">map_prob_change()</a></code> </p>
-        </td>
-        <td><p>Categorise the Probability of Change for Rt</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -535,37 +728,6 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-plot-results" class="hasAnchor"><a href="#section-plot-results" class="anchor"></a>Plot Results</h2>
-          <p class="section-desc"><p>Plot generated results</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="plot_estimates.html">plot_estimates()</a></code> </p>
-        </td>
-        <td><p>Plot Estimates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_summary.html">plot_summary()</a></code> </p>
-        </td>
-        <td><p>Plot a Summary of the Latest Results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="report_plots.html">report_plots()</a></code> </p>
-        </td>
-        <td><p>Report plots</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-simulate" class="hasAnchor"><a href="#section-simulate" class="anchor"></a>Simulate</h2>
           <p class="section-desc"><p>Functions to help with simulating data or mapping to reported cases</p></p>
         </th>
@@ -576,6 +738,12 @@
       
       
       <tr>
+        
+        <td>
+          <p><code><a href="simulate_infections.html">simulate_infections()</a></code> </p>
+        </td>
+        <td><p>Simulate infections using a given trajectory of the time-varying reproduction number</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="simulate_cases.html">simulate_cases()</a></code> </p>
@@ -666,7 +834,7 @@
         <td>
           <p><code><a href="get_regions.html">get_regions()</a></code> </p>
         </td>
-        <td><p>Get Folders with Nowcast Results</p></td>
+        <td><p>Get Folders with Results</p></td>
       </tr><tr>
         
         <td>
@@ -826,19 +994,49 @@
         <td>
           <p><code><a href="match_output_arguments.html">match_output_arguments()</a></code> </p>
         </td>
-        <td><p>Match Input Output Arguments with Supported Options</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stop_timeout.html">stop_timeout()</a></code> </p>
-        </td>
-        <td><p>Timeout Error</p></td>
+        <td><p>Match User Supplied Arguments with Supported Options</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="run_region.html">run_region()</a></code> </p>
         </td>
         <td><p>Run epinow with Regional Processing Code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="expose_stan_fns.html">expose_stan_fns()</a></code> </p>
+        </td>
+        <td><p>Expose internal package stan functions in R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_to_logmean.html">convert_to_logmean()</a></code> </p>
+        </td>
+        <td><p>Convert mean and sd to log mean for a log normal distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_to_logsd.html">convert_to_logsd()</a></code> </p>
+        </td>
+        <td><p>Convert mean and sd to log standard deviation for a log normal distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="growth_to_R.html">growth_to_R()</a></code> </p>
+        </td>
+        <td><p>Convert Growth Rates to Reproduction numbers.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="R_to_growth.html">R_to_growth()</a></code> </p>
+        </td>
+        <td><p>Convert Reproduction Numbers to Growth Rates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="update_list.html">update_list()</a></code> </p>
+        </td>
+        <td><p>Update a List</p></td>
       </tr>
     </tbody>
     </table>
@@ -854,7 +1052,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

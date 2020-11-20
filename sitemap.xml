@@ -4,6 +4,9 @@
     <loc>epiforecasts.io/EpiNow2//index.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/EpiNow2-package.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/R_to_growth.html</loc>
   </url>
   <url>
@@ -11,6 +14,12 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/allocate_delays.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/allocate_empty.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/backcalc_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/bootstrapped_dist_fit.html</loc>
@@ -37,10 +46,19 @@
     <loc>epiforecasts.io/EpiNow2//reference/construct_output.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/convert_to_logmean.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/convert_to_logsd.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/copy_results_to_latest.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/country_map.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_backcalc_data.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_clean_reported_cases.html</loc>
@@ -49,7 +67,16 @@
     <loc>epiforecasts.io/EpiNow2//reference/create_future_rt.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_gp_data.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_initial_conditions.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_obs_model.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/create_rt_data.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/create_shifted_cases.html</loc>
@@ -61,6 +88,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/create_stan_data.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/delay_opts.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/dist_fit.html</loc>
   </url>
   <url>
@@ -70,13 +100,22 @@
     <loc>epiforecasts.io/EpiNow2//reference/epinow.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/estimate_delay.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/estimate_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/estimate_truncation.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/estimates_by_report_date.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/example_confirmed.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/expose_stan_fns.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/extract_CrIs.html</loc>
@@ -89,6 +128,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/extract_static_parameter.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/filter_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/fit_model_with_nuts.html</loc>
@@ -133,6 +175,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/global_map.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/gp_opts.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/growth_to_R.html</loc>
   </url>
   <url>
@@ -149,6 +194,24 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/match_output_arguments.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/obs_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/opts_list.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/plot.epinow.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/plot.estimate_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/plot.estimate_truncation.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/plot_CrIs.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/plot_estimates.html</loc>
@@ -179,6 +242,18 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/report_summary.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_sampling_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rstan_vb_opts.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/rt_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/run_region.html</loc>
@@ -214,7 +289,10 @@
     <loc>epiforecasts.io/EpiNow2//reference/simulate_cases.html</loc>
   </url>
   <url>
-    <loc>epiforecasts.io/EpiNow2//reference/stop_timeout.html</loc>
+    <loc>epiforecasts.io/EpiNow2//reference/simulate_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/stan_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/summarise_key_measures.html</loc>
@@ -223,12 +301,24 @@
     <loc>epiforecasts.io/EpiNow2//reference/summarise_results.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/summary.epinow.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/summary.estimate_infections.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/theme_map.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/trunc_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/tune_inv_gamma.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/update_horizon.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/update_list.html</loc>
   </url>
 </urlset>

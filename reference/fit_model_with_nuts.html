@@ -46,7 +46,10 @@
 
 
 <meta property="og:title" content="Fit a Stan Model using the NUTs sampler — fit_model_with_nuts" />
-<meta property="og:description" content="Fit a Stan Model using the NUTs sampler" />
+<meta property="og:description" content="
+
+Fits a stan model using rstan::sampling. Provides the optional ability to run chains using
+future with error catching, timeouts and merging of completed chains." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -135,13 +138,17 @@
     </div>
 
     <div class="ref-description">
-    <p>Fit a Stan Model using the NUTs sampler</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a>
+
+Fits a stan model using <code><a href='https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html'>rstan::sampling</a></code>. Provides the optional ability to run chains using
+<code>future</code> with error catching, timeouts and merging of completed chains.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fit_model_with_nuts</span><span class='op'>(</span>
   <span class='va'>args</span>,
   future <span class='op'>=</span> <span class='cn'>FALSE</span>,
   max_execution_time <span class='op'>=</span> <span class='cn'>Inf</span>,
+  id <span class='op'>=</span> <span class='st'>"stan"</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -160,6 +167,11 @@
       <th>max_execution_time</th>
       <td><p>Numeric, defaults to Inf. What is the maximum execution time per chain in seconds.
 Results will still be returned as long as at least 2 chains complete successfully within the timelimit.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>A character string used to assign logging information on error. Used by <code>regional_epinow</code>
+to assign errors to regions. Alter the default to run with error catching.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -182,7 +194,7 @@ Results will still be returned as long as at least 2 chains complete successfull
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">
