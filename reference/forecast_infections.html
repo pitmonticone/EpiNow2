@@ -47,7 +47,6 @@
 
 <meta property="og:title" content="Forecast Infections and the Time-Varying Reproduction Number — forecast_infections" />
 <meta property="og:description" content="
-
 Provides optional tools for forecasting cases and Rt estimates using the timeseries methods
 (via the EpiSoon package). It requires the Episoon package. Installation instructions for the EpiSoon package are
 available here." />
@@ -140,7 +139,6 @@ available here." />
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
-
 Provides optional tools for forecasting cases and Rt estimates using the timeseries methods
 (via the <code>EpiSoon</code> package). It requires the <code>Episoon</code> package. Installation instructions for the EpiSoon package are
 available <a href='https://epiforecasts.io/EpiSoon/'>here</a>.</p>
@@ -216,11 +214,11 @@ summarised forecasts.</p>
 <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"EpiSoon"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
    <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"forecastHybrid"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'># example case data</span>
-<span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
+<span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='va'>example_confirmed</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>]</span>
  
 <span class='va'>generation_time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_generation_time.html'>get_generation_time</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"ganyani"</span><span class='op'>)</span>
 <span class='va'>incubation_period</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_incubation_period.html'>get_incubation_period</a></span><span class='op'>(</span>disease <span class='op'>=</span> <span class='st'>"SARS-CoV-2"</span>, source <span class='op'>=</span> <span class='st'>"lauer"</span><span class='op'>)</span>
-<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='fu'><a href='estimate_delay.html'>estimate_delay</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+<span class='va'>reporting_delay</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_delay.html'>estimate_delay</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>, max_value <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
 
 <span class='co'># estimate Rt and infections from data</span>
 <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='estimate_infections.html'>estimate_infections</a></span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
