@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.1</span>
       </span>
     </div>
 
@@ -132,13 +132,29 @@
       
     </div>
 
-    <div id="epinow2-130" class="section level1">
-<h1 class="page-header" data-toc-text="1.3.0">
-<a href="#epinow2-130" class="anchor"></a>EpiNow2 1.3.0<small> Unreleased </small>
+    <div id="epinow2-132" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.2">
+<a href="#epinow2-132" class="anchor"></a>EpiNow2 1.3.2<small> Unreleased </small>
 </h1>
+<p>This release is under development and features listed below may change.</p>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added a new argument, <code>prior</code>, to <code>backcalc_opts</code>. This allows the use of different priors for the underlying latent infections when estimating using deconvolution/back-calculation rather than the package default of using a generated Rt model (enable this option by setting <code>rt = NULL</code>). The default prior remains smoothed mean delay shifted reported cases but optionally no prior can now also be used (for scenarios when the data is very untrustworthy but likely to perform extremely poorly in realtime).In addition, the previously estimated infections can be used (i.e infections[t] = infections[t-1] * exp(GP)) with this being an approximate version of the generative Rt model that does not weight previous infections using the generation time.</li>
+<li>Updates the smoothing applied to mean shifted reported cases used as a prior for back calculation when <code>prior = "reports"</code> to be a partial centered moving average rather than a right aligned moving average. This choice means that increasing the <code>prior</code> window does not alter the location of epidemic peaks as when using a right alighted moving average.</li>
+<li>Updates the default smoothing applied to mean shifted reported cases to be 14 days rather than 7 as usage indicates this provided too much weight to small scale changes. This remains user set able.</li>
+</ul>
+</div>
+</div>
+    <div id="epinow2-131" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.1">
+<a href="#epinow2-131" class="anchor"></a>EpiNow2 1.3.1<small> 2020-11-22 </small>
+</h1>
+<p>This release focusses on model stability, with a functional rewrite of the model implementation, finalising the interface across the package, and introducing additional tooling. The additional tooling includes: support for adjusting for and estimating data truncation, multiple approaches for estimating Rt (including the default generative Rt approach, de-convolution coupled with Rt calculation, and <code>EpiEstim</code> like estimation on observed cases but with a robust observation model), optional scaling of observed data, and optional adjustment of future forecasts based on population susceptibility. The examples have also been expanded with links out to Covid-19 specific work flows that may be of interest to users. The implementation and model options are now considered to be maturing with the next release planned to contain documentation on the underlying approach, case studies, validation, evaluation the various supported options, and tools for dealing with secondary reports that are dependent on a primary report (i.e hospital admissions and hospital bed usage). If interested in contributing to any of these features please contact the package authors or submit a PR. User contributions are warmly welcomed.</p>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Rewritten the interface for <code>estimate_infections</code> to be divided into calls to <code>_opts</code> functions. Options are now divided by type for delays (<code>delay_opts</code>), Rt (<code>rt_opts</code>), backcalculation (<code>backcalc_opts</code>), the Gaussian process (<code>gp_opts</code>), and stan arguments (<code>stan_opts</code>). This has resulted in a larger number of the arguments from <code>estimate_infections</code> being folded into the related <code>_opts</code> function. Please see the function documentation and examples for details.</li>
 <li>Added support for region specific settings for all arguments that take an <code>_opts</code> function in <code>regional_epinow</code> using the helper functions <code>opts_list</code> and <code>update_list</code> or alternatively by constructing a named list with an entry for each region to be estimated.</li>
@@ -181,9 +197,9 @@
 <a href="#epinow2-121" class="anchor"></a>EpiNow2 1.2.1<small> 2020-10-20 </small>
 </h1>
 <p>This release introduces multiple breaking interface changes. Please see the README for examples of the new interface. It adds a range of quality of life improvements including updating the <code>stan</code> interface to support fitting each chain independently and offering variational inference as an alternative, experimental, fitting option. Notably it also adds support for nesting logging and a parallel enabled progress bar via the <code>progressr</code> package. Minor bugs have been fixed in the core model implementation focussing on stability and several already implemented features have been extended. Major model developments are planned for the next release of <code>EpiNow2</code>.</p>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
 <li>Update the prior on the initial Rt estimate to be lognormal rather than gamma distributed. For users the interface remains unchanged but this parameterisation should be more numerically stable.</li>

@@ -47,7 +47,6 @@
 
 <meta property="og:title" content="Approximate Sampling a Distribution using Counts — sample_approx_dist" />
 <meta property="og:description" content="
-
 Convolves cases by a PMF function. This function will soon be removed or replaced with a
 more robust stan implementation." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
@@ -86,7 +85,7 @@ more robust stan implementation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.0.7</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.1</span>
       </span>
     </div>
 
@@ -139,7 +138,6 @@ more robust stan implementation." />
 
     <div class="ref-description">
     <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
-
 Convolves cases by a PMF function. This function will soon be removed or replaced with a
 more robust <code>stan</code> implementation.</p>
     </div>
@@ -199,7 +197,7 @@ Defaults to <code>TRUE</code>.</p></td>
     <p>A <code>data.table</code> of cases by date of onset</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>EpiNow2</span><span class='fu'>::</span><span class='va'><a href='example_confirmed.html'>example_confirmed</a></span>
+    <pre class="examples"><div class='input'><span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='va'>example_confirmed</span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>cases</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>confirm</span><span class='op'>)</span><span class='op'>]</span> 
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date confirm cases
@@ -231,24 +229,24 @@ Defaults to <code>TRUE</code>.</p></td>
 <span class='co'># estimated onset distribution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>onsets</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
-#&gt;   1: 2020-02-16     1
-#&gt;   2: 2020-02-17     1
-#&gt;   3: 2020-02-18     2
-#&gt;   4: 2020-02-19     7
-#&gt;   5: 2020-02-20    17
+#&gt;   1: 2020-02-19     6
+#&gt;   2: 2020-02-20    17
+#&gt;   3: 2020-02-21    44
+#&gt;   4: 2020-02-22    51
+#&gt;   5: 2020-02-23    82
 #&gt;  ---                 
-#&gt; 132: 2020-06-26   233
-#&gt; 133: 2020-06-27   170
-#&gt; 134: 2020-06-28   123
-#&gt; 135: 2020-06-29    99
-#&gt; 136: 2020-06-30    25</div><div class='input'>  
+#&gt; 129: 2020-06-26   201
+#&gt; 130: 2020-06-27   166
+#&gt; 131: 2020-06-28   139
+#&gt; 132: 2020-06-29    94
+#&gt; 133: 2020-06-30    28</div><div class='input'>  
 <span class='co'># check that sum is equal to reported cases</span>
 <span class='va'>total_onsets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, 
                   <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                   dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span><span class='op'>)</span><span class='op'>$</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
 <span class='va'>total_onsets</span>
-</div><div class='output co'>#&gt; [1] 240535.5</div><div class='input'> 
+</div><div class='output co'>#&gt; [1] 240528.5</div><div class='input'> 
                    
 <span class='co'># map from onset cases to reported                  </span>
 <span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
