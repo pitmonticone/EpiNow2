@@ -144,7 +144,13 @@ backend functions via <code>rstan_sampling_opts</code> and <code>rstan_vb_opts</
 can be supplied which override the defaults.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stan_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>2000</span>, backend <span class='op'>=</span> <span class='st'>"rstan"</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>stan_opts</span><span class='op'>(</span>
+  samples <span class='op'>=</span> <span class='fl'>2000</span>,
+  backend <span class='op'>=</span> <span class='st'>"rstan"</span>,
+  init_fit <span class='op'>=</span> <span class='cn'>NULL</span>,
+  return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +164,17 @@ When using multiple chains iterations per chain is samples / chains.</p></td>
       <th>backend</th>
       <td><p>Character string indicating the backend to use for fitting stan models.
 Currently only "rstan" is supported.</p></td>
+    </tr>
+    <tr>
+      <th>init_fit</th>
+      <td><p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+Character string or <code>stanfit</code> object, defaults to NULL. Should an initial fit be used to
+initialise the full fit. An example scenario would be using a national level fit to parametrise
+regional level fits. Optionally a character string can be passed with the currently supported
+option being "cumulative". This fits the model to cumulative cases and may be useful for certain
+data sets where the sampler gets stuck or struggles to initialise. See <code><a href='init_cumulative_fit.html'>init_cumulative_fit()</a></code> for details.
+This implementation is based on the approach taken in <a href='https://github.com/ImperialCollegeLondon/epidemia/'>epidemia</a>
+authored by James Scott.</p></td>
     </tr>
     <tr>
       <th>return_fit</th>
@@ -189,14 +206,17 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   vector[n] pmf;
 #&gt;   real trunc_pmf;
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   real c_sigma = sigma + 1e-5;
-#&gt;   real alpha = ((mu)/ c_sigma)^2;
-#&gt;   real beta = (mu) / (c_sigma^2);
-#&gt;   //account for numerical issues
-#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   real small = 1e-5;
+#&gt;   real large = 1e9;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
+#&gt;   real alpha = ((c_mu) / c_sigma)^2;
+#&gt;   real beta = (c_mu) / (c_sigma^2);
+#&gt;   // account for numerical issues
+#&gt;   alpha = alpha &lt; small ? small : alpha;
+#&gt;   alpha = alpha &gt; large ? large : alpha;
+#&gt;   beta = beta &lt; small ? small : beta;
+#&gt;   beta = beta &gt; large ? large : beta;
 #&gt;   // calculate pmf
 #&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
 #&gt;   for (i in 1:n){
@@ -211,8 +231,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
-#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
-#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
 #&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
 #&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
@@ -958,14 +978,17 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   vector[n] pmf;
 #&gt;   real trunc_pmf;
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   real c_sigma = sigma + 1e-5;
-#&gt;   real alpha = ((mu)/ c_sigma)^2;
-#&gt;   real beta = (mu) / (c_sigma^2);
-#&gt;   //account for numerical issues
-#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   real small = 1e-5;
+#&gt;   real large = 1e9;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
+#&gt;   real alpha = ((c_mu) / c_sigma)^2;
+#&gt;   real beta = (c_mu) / (c_sigma^2);
+#&gt;   // account for numerical issues
+#&gt;   alpha = alpha &lt; small ? small : alpha;
+#&gt;   alpha = alpha &gt; large ? large : alpha;
+#&gt;   beta = beta &lt; small ? small : beta;
+#&gt;   beta = beta &gt; large ? large : beta;
 #&gt;   // calculate pmf
 #&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
 #&gt;   for (i in 1:n){
@@ -980,8 +1003,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
-#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
-#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
 #&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
 #&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;

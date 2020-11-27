@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def • EpiNow2</title>
+<title>Generate initial conditions by fitting to cumulative cases — init_cumulative_fit • EpiNow2</title>
 
 
 <!-- jquery -->
@@ -45,10 +45,15 @@
 
 
 
-<meta property="og:title" content="Generate a Log Normal Distribution Definition Based on Parameter Estimates — lognorm_dist_def" />
+<meta property="og:title" content="Generate initial conditions by fitting to cumulative cases — init_cumulative_fit" />
 <meta property="og:description" content="
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See rlnorm for distribution information." />
+Fits a model to cumulative cases. This may be a useful approach to initialising
+a full model fit for certain data sets where the sampler gets stuck or cannot easily
+be initialised as fitting to cumulative cases changes the shape of the posterior
+distribution. In estimate_infections(), epinow() and regional_epinow() this option can be
+engaged by setting stan_opts(init_fit = &quot;cumulative&quot;).
+This implementation is based on the approach taken in epidemia
+authored by James Scott." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -131,101 +136,60 @@ are available for log normal distributed parameters. See rlnorm for distribution
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Log Normal Distribution Definition Based on Parameter Estimates</h1>
+    <h1>Generate initial conditions by fitting to cumulative cases</h1>
     
-    <div class="hidden name"><code>lognorm_dist_def.Rd</code></div>
+    <div class="hidden name"><code>init_cumulative_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
-Generates a distribution definition when only parameter estimates
-are available for log normal distributed parameters. See <code>rlnorm</code> for distribution information.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+Fits a model to cumulative cases. This may be a useful approach to initialising
+a full model fit for certain data sets where the sampler gets stuck or cannot easily
+be initialised as fitting to cumulative cases changes the shape of the posterior
+distribution. In <code><a href='estimate_infections.html'>estimate_infections()</a></code>, <code><a href='epinow.html'>epinow()</a></code> and <code><a href='regional_epinow.html'>regional_epinow()</a></code> this option can be
+engaged by setting <code><a href='stan_opts.html'>stan_opts(init_fit = "cumulative")</a></code>.</p>
+<p>This implementation is based on the approach taken in <a href='https://github.com/ImperialCollegeLondon/epidemia/'>epidemia</a>
+authored by James Scott.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lognorm_dist_def</span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>mean_sd</span>, <span class='va'>sd</span>, <span class='va'>sd_sd</span>, <span class='va'>max_value</span>, <span class='va'>samples</span>, to_log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>init_cumulative_fit</span><span class='op'>(</span>
+  <span class='va'>args</span>,
+  samples <span class='op'>=</span> <span class='fl'>50</span>,
+  warmup <span class='op'>=</span> <span class='fl'>50</span>,
+  id <span class='op'>=</span> <span class='st'>"init"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mean</th>
-      <td><p>Numeric, log mean parameter of the gamma distribution.</p></td>
-    </tr>
-    <tr>
-      <th>mean_sd</th>
-      <td><p>Numeric, standard deviation of the log mean parameter.</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>Numeric, log sd parameter of the gamma distribution.</p></td>
-    </tr>
-    <tr>
-      <th>sd_sd</th>
-      <td><p>Numeric, standard deviation of the log sd parameter.</p></td>
-    </tr>
-    <tr>
-      <th>max_value</th>
-      <td><p>Numeric, the maximum value to allow. Defaults to 120. Samples outside
-of this range are resampled.</p></td>
+      <th>args</th>
+      <td><p>List of stan arguments</p></td>
     </tr>
     <tr>
       <th>samples</th>
-      <td><p>Numeric, number of sample distributions to generate.</p></td>
+      <td><p>Numeric, defaults to 50. Number of posterior samples.</p></td>
     </tr>
     <tr>
-      <th>to_log</th>
-      <td><p>Logical, should parameters be logged before use.</p></td>
+      <th>warmup</th>
+      <td><p>Numeric, defaults to 50. Number of warmup samples.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>A character string used to assign logging information on error. Used by <code>regional_epinow</code>
+to assign errors to regions. Alter the default to run with error catching.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Logical, defaults to <code>FALSE</code>. Should verbose progress information be returned.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.table defining the distribution as used by <code>dist_skel</code></p>
+    <p>A stanfit object</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1.621</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.0640</span>,
-                        sd <span class='op'>=</span> <span class='fl'>0.418</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.0691</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.635073
-#&gt; 
-#&gt; $sd
-#&gt; [1] 0.3618869
-#&gt; </div><div class='input'>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>,
-                        to_log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       model    params max_value
-#&gt;  1: lognorm &lt;list[2]&gt;        20
-#&gt;  2: lognorm &lt;list[2]&gt;        20
-#&gt;  3: lognorm &lt;list[2]&gt;        20
-#&gt;  4: lognorm &lt;list[2]&gt;        20
-#&gt;  5: lognorm &lt;list[2]&gt;        20
-#&gt;  6: lognorm &lt;list[2]&gt;        20
-#&gt;  7: lognorm &lt;list[2]&gt;        20
-#&gt;  8: lognorm &lt;list[2]&gt;        20
-#&gt;  9: lognorm &lt;list[2]&gt;        20
-#&gt; 10: lognorm &lt;list[2]&gt;        20</div><div class='input'><span class='va'>def</span><span class='op'>$</span><span class='va'>params</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; $mean
-#&gt; [1] 1.16114
-#&gt; 
-#&gt; $sd
-#&gt; [1] 0.6894315
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
