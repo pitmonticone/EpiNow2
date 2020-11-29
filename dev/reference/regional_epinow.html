@@ -140,7 +140,7 @@ progressr::handlers and enable it in batch by setting R_PROGRESSR_ENABLE=TRUE as
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Real-time Rt Estimation, Forecasting and Reporting by Region</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/epiforecasts/EpiNow2/blob/master/R/regional_epinow.R'><code>R/regional_epinow.R</code></a></small>
     <div class="hidden name"><code>regional_epinow.Rd</code></div>
     </div>
 
@@ -322,19 +322,19 @@ place to start.</p></td>
                        rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>prior <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>2</span>, sd <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>,
                        stan <span class='op'>=</span> <span class='fu'><a href='stan_opts.html'>stan_opts</a></span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>100</span>, warmup <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>,
                        verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-11-28 05:17:00] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpD3SZPg/regional-epinow/2020-04-21.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpD3SZPg/epinow/2020-04-21.log</span></div><div class='output co'>#&gt; INFO [2020-11-28 05:17:00] Reporting estimates using data up to: 2020-04-21
-#&gt; INFO [2020-11-28 05:17:00] No target directory specified so returning output
-#&gt; INFO [2020-11-28 05:17:00] Producing estimates for: testland, realland
-#&gt; INFO [2020-11-28 05:17:00] Regions excluded: none
-#&gt; INFO [2020-11-28 05:17:00] Showing progress using progressr.
-#&gt; INFO [2020-11-28 05:23:34] Completed estimates for: testland
-#&gt; INFO [2020-11-28 05:30:52] Completed estimates for: realland
-#&gt; INFO [2020-11-28 05:30:52] Completed regional estimates
-#&gt; INFO [2020-11-28 05:30:52] Regions with estimates: 2
-#&gt; INFO [2020-11-28 05:30:52] Regions with runtime errors: 0
-#&gt; INFO [2020-11-28 05:30:52] Producing summary
-#&gt; INFO [2020-11-28 05:30:52] No summary directory specified so returning summary output
-#&gt; INFO [2020-11-28 05:30:53] No target directory specified so returning timings</div><div class='input'>                       
+</div><div class='output co'>#&gt; INFO [2020-11-29 01:58:39] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7d12Wd/regional-epinow/2020-04-21.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7d12Wd/epinow/2020-04-21.log</span></div><div class='output co'>#&gt; INFO [2020-11-29 01:58:39] Reporting estimates using data up to: 2020-04-21
+#&gt; INFO [2020-11-29 01:58:39] No target directory specified so returning output
+#&gt; INFO [2020-11-29 01:58:39] Producing estimates for: testland, realland
+#&gt; INFO [2020-11-29 01:58:39] Regions excluded: none
+#&gt; INFO [2020-11-29 01:58:39] Showing progress using progressr.
+#&gt; INFO [2020-11-29 02:05:11] Completed estimates for: testland
+#&gt; INFO [2020-11-29 02:11:39] Completed estimates for: realland
+#&gt; INFO [2020-11-29 02:11:39] Completed regional estimates
+#&gt; INFO [2020-11-29 02:11:39] Regions with estimates: 2
+#&gt; INFO [2020-11-29 02:11:39] Regions with runtime errors: 0
+#&gt; INFO [2020-11-29 02:11:39] Producing summary
+#&gt; INFO [2020-11-29 02:11:39] No summary directory specified so returning summary output
+#&gt; INFO [2020-11-29 02:11:39] No target directory specified so returning timings</div><div class='input'>                       
 <span class='co'># apply a different rt method per region</span>
 <span class='co'># (here a gaussian process and a weekly random walk)</span>
 <span class='va'>gp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='opts_list.html'>opts_list</a></span><span class='op'>(</span><span class='fu'><a href='gp_opts.html'>gp_opts</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>cases</span><span class='op'>)</span>
@@ -346,19 +346,19 @@ place to start.</p></td>
                              rt <span class='op'>=</span> <span class='va'>rt</span>, gp <span class='op'>=</span> <span class='va'>gp</span>,
                              stan <span class='op'>=</span> <span class='fu'><a href='stan_opts.html'>stan_opts</a></span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>100</span>, warmup <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>,
                              verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-11-28 05:30:53] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpD3SZPg/regional-epinow/2020-04-21.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpD3SZPg/epinow/2020-04-21.log</span></div><div class='output co'>#&gt; INFO [2020-11-28 05:30:53] Reporting estimates using data up to: 2020-04-21
-#&gt; INFO [2020-11-28 05:30:53] No target directory specified so returning output
-#&gt; INFO [2020-11-28 05:30:53] Producing estimates for: testland, realland
-#&gt; INFO [2020-11-28 05:30:53] Regions excluded: none
-#&gt; INFO [2020-11-28 05:30:53] Showing progress using progressr.
-#&gt; INFO [2020-11-28 05:37:51] Completed estimates for: testland
-#&gt; INFO [2020-11-28 05:39:31] Completed estimates for: realland
-#&gt; INFO [2020-11-28 05:39:31] Completed regional estimates
-#&gt; INFO [2020-11-28 05:39:31] Regions with estimates: 2
-#&gt; INFO [2020-11-28 05:39:31] Regions with runtime errors: 0
-#&gt; INFO [2020-11-28 05:39:31] Producing summary
-#&gt; INFO [2020-11-28 05:39:31] No summary directory specified so returning summary output
-#&gt; INFO [2020-11-28 05:39:32] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; INFO [2020-11-29 02:11:39] Producing following optional outputs: regions, summary, samples, plots, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7d12Wd/regional-epinow/2020-04-21.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp7d12Wd/epinow/2020-04-21.log</span></div><div class='output co'>#&gt; INFO [2020-11-29 02:11:39] Reporting estimates using data up to: 2020-04-21
+#&gt; INFO [2020-11-29 02:11:39] No target directory specified so returning output
+#&gt; INFO [2020-11-29 02:11:39] Producing estimates for: testland, realland
+#&gt; INFO [2020-11-29 02:11:39] Regions excluded: none
+#&gt; INFO [2020-11-29 02:11:39] Showing progress using progressr.
+#&gt; INFO [2020-11-29 02:18:25] Completed estimates for: testland
+#&gt; INFO [2020-11-29 02:20:06] Completed estimates for: realland
+#&gt; INFO [2020-11-29 02:20:06] Completed regional estimates
+#&gt; INFO [2020-11-29 02:20:06] Regions with estimates: 2
+#&gt; INFO [2020-11-29 02:20:06] Regions with runtime errors: 0
+#&gt; INFO [2020-11-29 02:20:06] Producing summary
+#&gt; INFO [2020-11-29 02:20:06] No summary directory specified so returning summary output
+#&gt; INFO [2020-11-29 02:20:07] No target directory specified so returning timings</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -371,7 +371,7 @@ place to start.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

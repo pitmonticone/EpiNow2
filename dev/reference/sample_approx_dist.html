@@ -132,7 +132,7 @@ more robust stan implementation." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Approximate Sampling a Distribution using Counts</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/epiforecasts/EpiNow2/blob/master/R/dist.R'><code>R/dist.R</code></a></small>
     <div class="hidden name"><code>sample_approx_dist.Rd</code></div>
     </div>
 
@@ -229,24 +229,24 @@ Defaults to <code>TRUE</code>.</p></td>
 <span class='co'># estimated onset distribution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>onsets</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
-#&gt;   1: 2020-02-15     1
-#&gt;   2: 2020-02-16     1
-#&gt;   3: 2020-02-17     2
-#&gt;   4: 2020-02-18     7
-#&gt;   5: 2020-02-19     3
+#&gt;   1: 2020-02-17     2
+#&gt;   2: 2020-02-18     4
+#&gt;   3: 2020-02-19     7
+#&gt;   4: 2020-02-20    14
+#&gt;   5: 2020-02-21    31
 #&gt;  ---                 
-#&gt; 133: 2020-06-26   221
-#&gt; 134: 2020-06-27   180
-#&gt; 135: 2020-06-28   155
-#&gt; 136: 2020-06-29    89
-#&gt; 137: 2020-06-30    34</div><div class='input'>  
+#&gt; 131: 2020-06-26   240
+#&gt; 132: 2020-06-27   163
+#&gt; 133: 2020-06-28   132
+#&gt; 134: 2020-06-29    85
+#&gt; 135: 2020-06-30    26</div><div class='input'>  
 <span class='co'># check that sum is equal to reported cases</span>
 <span class='va'>total_onsets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span>
    <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, 
                   <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
                   dist_fn <span class='op'>=</span> <span class='va'>delay_fn</span><span class='op'>)</span><span class='op'>$</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> 
 <span class='va'>total_onsets</span>
-</div><div class='output co'>#&gt; [1] 240601</div><div class='input'> 
+</div><div class='output co'>#&gt; [1] 240576</div><div class='input'> 
                    
 <span class='co'># map from onset cases to reported                  </span>
 <span class='va'>reports</span> <span class='op'>&lt;-</span> <span class='fu'>sample_approx_dist</span><span class='op'>(</span>cases <span class='op'>=</span> <span class='va'>cases</span>,
@@ -271,7 +271,7 @@ Defaults to <code>TRUE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">
