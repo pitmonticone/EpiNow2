@@ -54,7 +54,9 @@ observation model. See the examples and function arguments for the details of al
 may not be sufficient for your use case so the number of warmup samples (stan_args = list(warmup)) may need to
 be increased as may the overall number of samples. Follow the links provided by any warnings messages to diagnose
 issues with the MCMC fit. It is recommended to explore several of the Rt estimation approaches supported as not all
-of them may be suited to users own use cases." />
+of them may be suited to users own use cases. See here
+for an example of using estimate_infections with the epinow wrapper to estimate Rt for Covid-19 in a country from
+the ECDC data source." />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -91,7 +93,7 @@ of them may be suited to users own use cases." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.3</span>
       </span>
     </div>
 
@@ -151,7 +153,9 @@ observation model. See the examples and function arguments for the details of al
 may not be sufficient for your use case so the number of warmup samples (<code>stan_args = list(warmup)</code>) may need to
 be increased as may the overall number of samples. Follow the links provided by any warnings messages to diagnose
 issues with the MCMC fit. It is recommended to explore several of the Rt estimation approaches supported as not all
-of them may be suited to users own use cases.</p>
+of them may be suited to users own use cases. See <a href='https://gist.github.com/seabbs/163d0f195892cde685c70473e1f5e867'>here</a>
+for an example of using <code>estimate_infections</code> with the <code>epinow</code> wrapper to estimate Rt for Covid-19 in a country from
+the ECDC data source.</p>
     </div>
 
     <pre class="usage"><span class='fu'>estimate_infections</span><span class='op'>(</span>
@@ -186,7 +190,7 @@ generation time (assuming a gamma distribution).</p></td>
     </tr>
     <tr>
       <th>delays</th>
-      <td><p>A call to <code>delay_opts</code> defining delay distributions and options. See the documentation of <code>delay_opts</code>
+      <td><p>A call to <code><a href='delay_opts.html'>delay_opts()</a></code> defining delay distributions and options. See the documentation of <code><a href='delay_opts.html'>delay_opts()</a></code>
 and the examples below for details.</p></td>
     </tr>
     <tr>

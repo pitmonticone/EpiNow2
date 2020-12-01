@@ -106,6 +106,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/estimate_infections.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/estimate_secondary.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/estimate_truncation.html</loc>
   </url>
   <url>
@@ -130,6 +133,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/extract_parameter_samples.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/extract_stan_param.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/extract_static_parameter.html</loc>
   </url>
   <url>
@@ -143,6 +149,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/forecast_infections.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/forecast_secondary.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/format_fit.html</loc>
@@ -214,6 +223,9 @@
     <loc>epiforecasts.io/EpiNow2//reference/plot.estimate_infections.html</loc>
   </url>
   <url>
+    <loc>epiforecasts.io/EpiNow2//reference/plot.estimate_secondary.html</loc>
+  </url>
+  <url>
     <loc>epiforecasts.io/EpiNow2//reference/plot.estimate_truncation.html</loc>
   </url>
   <url>
@@ -275,6 +287,9 @@
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/save_input.html</loc>
+  </url>
+  <url>
+    <loc>epiforecasts.io/EpiNow2//reference/secondary_opts.html</loc>
   </url>
   <url>
     <loc>epiforecasts.io/EpiNow2//reference/setup_default_logging.html</loc>
