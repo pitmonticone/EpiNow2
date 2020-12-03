@@ -321,7 +321,8 @@ to assign errors to regions. Alter the default to run with error catching.</p></
 <span class='co'># this model is in the order of 10 ~ 100 faster than the gaussian process method</span>
 <span class='co'># it is likely robust for retrospective Rt but less reliable for real time estimates</span>
 <span class='co'># the width of the prior window controls the reliance on observed data and can be </span>
-<span class='co'># optionally switched off using backcalc_opts(prior = "none")</span>
+<span class='co'># optionally switched off using backcalc_opts(prior = "none"), see ?backcalc_opts for </span>
+<span class='co'># other options</span>
 <span class='va'>backcalc</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_infections</span><span class='op'>(</span><span class='va'>reported_cases</span>, generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
                                 delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
                                 rt <span class='op'>=</span> <span class='cn'>NULL</span>, backcalc <span class='op'>=</span> <span class='fu'><a href='backcalc_opts.html'>backcalc_opts</a></span><span class='op'>(</span><span class='op'>)</span>,
