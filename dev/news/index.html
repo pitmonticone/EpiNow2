@@ -154,7 +154,9 @@
 <ul>
 <li>Updates <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) and <code>discretised_lognormal_pmf</code> (discretised truncated lognormal PMF) to limit/clip the values of the parameters by prespecified lower and upper bounds.</li>
 <li>Tightens the initialisation of fitting in <code>estimate_infections</code> by reducing all standard deviations used by a scaling factor of 0.1 in <code>create_initial_conditions</code>.</li>
-<li>Adds boundary checking on <code>gt_mean</code> (the mean of the generation time) to reject samples with a mean greater than <code>gt_max</code> (the maximum allowed generation time). Adds boundary checking to reject standard deviations that are negative. Adds a boundary check on R values to reject them if 10 times greater than the mean of the initial prior. In some scenarios this will require users to supply a prior not is not completely misspecified (i.e if the prior has a mean of 1 and the posterior has a mean of 50).</li>
+<li>Adds boundary checking on <code>gt_mean</code> (the mean of the generation time) to reject samples with a mean greater than <code>gt_max</code> (the maximum allowed generation time). Adds boundary checking to reject standard deviations that are negative. Adds a boundary check on R values to reject them if 10 times greater than the mean of the initial prior. In some scenarios this will require users to supply a prior not is not completely misspecified (i.e if the prior has a mean of 1 and the posterior has a mean of 50).<br>
+</li>
+<li>Switched to reporting two significant figures in all summary measures.</li>
 </ul>
 </div>
 </div>
