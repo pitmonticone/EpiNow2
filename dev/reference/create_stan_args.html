@@ -86,7 +86,7 @@ will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.3</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.4</span>
       </span>
     </div>
 
@@ -378,75 +378,43 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; // Update an individual breakpoint effect
-#&gt; real update_breakpoints(real input_R, real[] bp_effects,
-#&gt;                         int bp_index, int at_bp,
-#&gt;                         int stationary) {
-#&gt;   real R = input_R;
-#&gt;   if (stationary) {
-#&gt;     if (bp_index &gt; 0) {
-#&gt;       R += sum(bp_effects[1:bp_index]);
-#&gt;       }
-#&gt;   }else{
-#&gt;     if (at_bp) {
-#&gt;       R += bp_effects[bp_index];
-#&gt;     }
-#&gt;   }               
-#&gt;   return(R);
-#&gt; }
-#&gt; // update an individual R
-#&gt; real update_R(vector R, vector noise, int noise_terms,
-#&gt;               int index, int stationary) {
-#&gt;   real cR = R[index];
-#&gt;   if (noise_terms &gt; 0) {
-#&gt;     if (stationary){
-#&gt;       if (index &lt;= noise_terms) {
-#&gt;         cR += noise[index];
-#&gt;       }else{
-#&gt;         if (index &gt; 1) {
-#&gt;            cR = R[index - 1];
-#&gt;         }
-#&gt;       }
-#&gt;     }else{
-#&gt;       if (index &lt;= (noise_terms + 1)) {
-#&gt;         cR = R[index - 1] + noise[index - 1];
-#&gt;       }else{
-#&gt;         cR = R[index - 1];
-#&gt;       }
-#&gt;     }
-#&gt;   }
-#&gt;   return(cR);
-#&gt; }
 #&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
-#&gt;   int noise_terms = num_elements(noise);
-#&gt;   int i_stationary = noise_terms &gt; 0 ? stationary : 1;
 #&gt;   int t = num_elements(input_R);
 #&gt;   int bp_n = num_elements(bp_effects);
-#&gt;   int bp_in = 0;
-#&gt;   int at_bp = 0;
-#&gt;   int index;
+#&gt;   int bp_c = 0;
+#&gt;   int gp_n = num_elements(noise);
+#&gt;   // define result vectors
+#&gt;   vector[t] bp = rep_vector(0, t);
+#&gt;   vector[t] gp = rep_vector(0, t);
 #&gt;   vector[t] R;
-#&gt;   // initialise Rt
-#&gt;   if (i_stationary) {
-#&gt;     R = rep_vector(log_R, t);
-#&gt;     index = 1;
-#&gt;   }else{
-#&gt;     R[1] = log_R;
-#&gt;     index = 2;
+#&gt;   // initialise breakpoints
+#&gt;   if (bp_n) {
+#&gt;     for (s in 1:t) {
+#&gt;       if (bps[s]) {
+#&gt;         bp_c += bps[s];
+#&gt;         bp[s] = bp_effects[bp_c];
+#&gt;       }
+#&gt;     }
+#&gt;     bp = cumulative_sum(bp);
 #&gt;   }
-#&gt;   // iteratively update Rt
-#&gt;   for (s in index:t) {
-#&gt;     R[s] = update_R(R, noise, noise_terms, s, i_stationary);
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       at_bp = bps[s];
-#&gt;       bp_in += at_bp;
-#&gt;       R[s] = update_breakpoints(R[s], bp_effects, bp_in, at_bp, i_stationary);
+#&gt;   //initialise gaussian process
+#&gt;   if (gp_n) {
+#&gt;     if (stationary) {
+#&gt;       gp[1:gp_n] = noise;
+#&gt;       // fix future gp based on last estimated
+#&gt;       if (t &gt; gp_n) {
+#&gt;         gp[(gp_n + 1):t] = rep_vector(noise[gp_n], t - gp_n);
+#&gt;       }
+#&gt;     }else{
+#&gt;       gp[2:(gp_n + 1)] = noise;
+#&gt;       gp = cumulative_sum(gp);
 #&gt;     }
 #&gt;   }
-#&gt;   // convert to correct scale
+#&gt;   // Calculate Rt
+#&gt;   R = rep_vector(log_R, t) + bp + gp;
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
@@ -1156,75 +1124,43 @@ as supplied by <code>create_intitial_conditions</code>).</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; // Update an individual breakpoint effect
-#&gt; real update_breakpoints(real input_R, real[] bp_effects,
-#&gt;                         int bp_index, int at_bp,
-#&gt;                         int stationary) {
-#&gt;   real R = input_R;
-#&gt;   if (stationary) {
-#&gt;     if (bp_index &gt; 0) {
-#&gt;       R += sum(bp_effects[1:bp_index]);
-#&gt;       }
-#&gt;   }else{
-#&gt;     if (at_bp) {
-#&gt;       R += bp_effects[bp_index];
-#&gt;     }
-#&gt;   }               
-#&gt;   return(R);
-#&gt; }
-#&gt; // update an individual R
-#&gt; real update_R(vector R, vector noise, int noise_terms,
-#&gt;               int index, int stationary) {
-#&gt;   real cR = R[index];
-#&gt;   if (noise_terms &gt; 0) {
-#&gt;     if (stationary){
-#&gt;       if (index &lt;= noise_terms) {
-#&gt;         cR += noise[index];
-#&gt;       }else{
-#&gt;         if (index &gt; 1) {
-#&gt;            cR = R[index - 1];
-#&gt;         }
-#&gt;       }
-#&gt;     }else{
-#&gt;       if (index &lt;= (noise_terms + 1)) {
-#&gt;         cR = R[index - 1] + noise[index - 1];
-#&gt;       }else{
-#&gt;         cR = R[index - 1];
-#&gt;       }
-#&gt;     }
-#&gt;   }
-#&gt;   return(cR);
-#&gt; }
 #&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
-#&gt;   int noise_terms = num_elements(noise);
-#&gt;   int i_stationary = noise_terms &gt; 0 ? stationary : 1;
 #&gt;   int t = num_elements(input_R);
 #&gt;   int bp_n = num_elements(bp_effects);
-#&gt;   int bp_in = 0;
-#&gt;   int at_bp = 0;
-#&gt;   int index;
+#&gt;   int bp_c = 0;
+#&gt;   int gp_n = num_elements(noise);
+#&gt;   // define result vectors
+#&gt;   vector[t] bp = rep_vector(0, t);
+#&gt;   vector[t] gp = rep_vector(0, t);
 #&gt;   vector[t] R;
-#&gt;   // initialise Rt
-#&gt;   if (i_stationary) {
-#&gt;     R = rep_vector(log_R, t);
-#&gt;     index = 1;
-#&gt;   }else{
-#&gt;     R[1] = log_R;
-#&gt;     index = 2;
+#&gt;   // initialise breakpoints
+#&gt;   if (bp_n) {
+#&gt;     for (s in 1:t) {
+#&gt;       if (bps[s]) {
+#&gt;         bp_c += bps[s];
+#&gt;         bp[s] = bp_effects[bp_c];
+#&gt;       }
+#&gt;     }
+#&gt;     bp = cumulative_sum(bp);
 #&gt;   }
-#&gt;   // iteratively update Rt
-#&gt;   for (s in index:t) {
-#&gt;     R[s] = update_R(R, noise, noise_terms, s, i_stationary);
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       at_bp = bps[s];
-#&gt;       bp_in += at_bp;
-#&gt;       R[s] = update_breakpoints(R[s], bp_effects, bp_in, at_bp, i_stationary);
+#&gt;   //initialise gaussian process
+#&gt;   if (gp_n) {
+#&gt;     if (stationary) {
+#&gt;       gp[1:gp_n] = noise;
+#&gt;       // fix future gp based on last estimated
+#&gt;       if (t &gt; gp_n) {
+#&gt;         gp[(gp_n + 1):t] = rep_vector(noise[gp_n], t - gp_n);
+#&gt;       }
+#&gt;     }else{
+#&gt;       gp[2:(gp_n + 1)] = noise;
+#&gt;       gp = cumulative_sum(gp);
 #&gt;     }
 #&gt;   }
-#&gt;   // convert to correct scale
+#&gt;   // Calculate Rt
+#&gt;   R = rep_vector(log_R, t) + bp + gp;
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
