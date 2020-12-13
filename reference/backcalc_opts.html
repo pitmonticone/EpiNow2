@@ -85,7 +85,7 @@ of cases. Only used if rt = NULL." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ of cases. Only used if rt = NULL." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Back Calculation Options</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/epiforecasts/EpiNow2/blob/master/R/opts.R'><code>R/opts.R</code></a></small>
     <div class="hidden name"><code>backcalc_opts.Rd</code></div>
     </div>
 
@@ -142,16 +142,27 @@ Defines a list specifying the optional arguments for the back calculation
 of cases. Only used if <code>rt = NULL</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>backcalc_opts</span><span class='op'>(</span>prior_window <span class='op'>=</span> <span class='fl'>7</span>, rt_window <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>backcalc_opts</span><span class='op'>(</span>prior <span class='op'>=</span> <span class='st'>"reports"</span>, prior_window <span class='op'>=</span> <span class='fl'>14</span>, rt_window <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>prior</th>
+      <td><p>A character string defaulting to "reports". Defines the prior to use
+when deconvolving. Currently implemented options are to use smoothed mean delay
+shifted reported cases ("reports"), to use the estimated infections from the
+previous time step seeded for the first time step using mean shifted reported cases
+("infections"), or no prior ("none"). Using no prior will result in poor real time performance.
+No prior and using infections are only supported when a Gaussian process is present. If observed
+data is not reliable then it a sensible first step is to explore increasing the <code>prior_window</code> with
+a sensible second step being to no longer use reported cases as a prior (i.e set <code>prior = "none"</code>).</p></td>
+    </tr>
+    <tr>
       <th>prior_window</th>
-      <td><p>Integer, defaults to 7 days. The mean smoothing window to apply
-to mean shifted reports (used as a prior during back calculation). 7 days is the default
-as this smooths day of the week effects but depending on the quality of the data and the
+      <td><p>Integer, defaults to 14 days. The mean centred smoothing window
+to apply to mean shifted reports (used as a prior during back calculation). 7 days is minimum recommended
+settings as this smooths day of the week effects but depending on the quality of the data and the
 amount of information users wish to use as a prior (higher values equalling a less informative prior).</p></td>
     </tr>
     <tr>
@@ -168,8 +179,11 @@ Rt. This must be odd so that the central estimate is included.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># default settings</span>
 <span class='fu'>backcalc_opts</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $prior_window
-#&gt; [1] 7
+</div><div class='output co'>#&gt; $prior
+#&gt; [1] "reports"
+#&gt; 
+#&gt; $prior_window
+#&gt; [1] 14
 #&gt; 
 #&gt; $rt_window
 #&gt; [1] 1
@@ -185,7 +199,7 @@ Rt. This must be odd so that the central estimate is included.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

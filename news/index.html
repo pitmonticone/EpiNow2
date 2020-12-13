@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -129,17 +129,47 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      
+      <small>Source: <a href='https://github.com/epiforecasts/EpiNow2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="epinow2-132" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.2">
+<a href="#epinow2-132" class="anchor"></a>EpiNow2 1.3.2<small> Unreleased </small>
+</h1>
+<p>In this release model run times have been reduced using a combination of code optimisation and testing to reduce the likelihood of long running edge cases. Model flexibility has also been increased, particularly for the back calculation approach which now supports an increased range of prior choices. A significant development in this release is the edition of the experimental <code>estimate_secondary</code> model (and supporting <code>forecast</code> and <code>plot</code> functions). This allows a downstream target to be forecast from an observation. Example use cases include forecasting deaths from test postive cases and hospital bed usage from hospital admissions. This approach is intended to provide an alternative to larget latent machines in which multiple targets are estimated jointly.</p>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added a new argument, <code>prior</code>, to <code>backcalc_opts</code>. This allows the use of different priors for the underlying latent infections when estimating using deconvolution/back-calculation rather than the package default of using a generated Rt model (enable this option by setting <code>rt = NULL</code>). The default prior remains smoothed mean delay shifted reported cases but optionally no prior can now also be used (for scenarios when the data is very untrustworthy but likely to perform extremely poorly in real time).In addition, the previously estimated infections can be used (i.e infections[t] = infections[t-1] * exp(GP)) with this being an approximate version of the generative Rt model that does not weight previous infections using the generation time.</li>
+<li>Updates the smoothing applied to mean shifted reported cases used as a prior for back calculation when <code>prior = "reports"</code> to be a partial centred moving average rather than a right aligned moving average. This choice means that increasing the <code>prior</code> window does not alter the location of epidemic peaks as when using a right alighted moving average.</li>
+<li>Updates the default smoothing applied to mean shifted reported cases to be 14 days rather than 7 as usage indicates this provided too much weight to small scale changes. This remains user set able.</li>
+<li>Adds a new argument <code>init_fit</code> to <code><a href="../reference/stan_opts.html">stan_opts()</a></code> that enables the user to pass in a <code>stanfit</code> to use to initialise a model fit in <code><a href="../reference/estimate_infections.html">estimate_infections()</a></code>. Optionally <code>init_fit = "cumulative"</code> can also be passed which first fits to cumulative data and then uses the result to initialise the full fit on incidence data. This approach is based on the approach used in <a href="https://github.com/ImperialCollegeLondon/epidemia/">epidemia</a> authored by James Scott. Currently <code>stan</code> warnings from this initial fit are broadcast to the user and may cause concern as the short run time and approximate settings often lead to poor convergence.</li>
+<li>Adds <code>estimate_secondary</code> and <code>forecast_secondary</code> along with a <code>plot</code> method and a new option function (<code>secondary_opts</code>). These functions implement a generic model for forecasting a secondary observation (such as hospital bed usage, deaths in hospital) that entirely depends on a primary observation (such as hospital admissions) via a combination of convolving over a delay and adding/subtracting current observations. They share the same observation model and optional features used by <code>estimate_infections</code> and so support data truncation, scaling (between primary and secondary observations), multiple log normal delays, a day of the week effect, and various error models. <code>stationary_opts</code> allows for easy specification of the most common use cases (incidence and prevalence variables). See the documentation and examples for model details.</li>
+</ul>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other changes</h2>
+<ul>
+<li>Updates <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) and <code>discretised_lognormal_pmf</code> (discretised truncated lognormal PMF) to limit/clip the values of the parameters by prespecified lower and upper bounds.</li>
+<li>Tightens the initialisation of fitting in <code>estimate_infections</code> by reducing all standard deviations used by a scaling factor of 0.1 in <code>create_initial_conditions</code>.</li>
+<li>Adds boundary checking on <code>gt_mean</code> (the mean of the generation time) to reject samples with a mean greater than <code>gt_max</code> (the maximum allowed generation time). Adds boundary checking to reject standard deviations that are negative. Adds a boundary check on R values to reject them if 10 times greater than the mean of the initial prior. In some scenarios this will require users to supply a prior not is not completely misspecified (i.e if the prior has a mean of 1 and the posterior has a mean of 50).<br>
+</li>
+<li>Refactor of <code>update_rt</code> (an internal <code>stan</code> function found in <code>inst/stan/functions/rt.stan</code>) to be vectorised. This change reduces run times by approximately 1- ~ 20% (though only tested on a small subset of examples) and opens the way for future model extensions (such as additive rather than multiplicative random walks, introducing covariates etc).</li>
+<li>Switched to reporting two significant figures in all summary tables</li>
+<li>Reduced minimum default Gaussian process length scale to 3 days from 7 based on experience running the model at scale.</li>
+</ul>
+</div>
+</div>
     <div id="epinow2-131" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.1">
 <a href="#epinow2-131" class="anchor"></a>EpiNow2 1.3.1<small> 2020-11-22 </small>
 </h1>
 <p>This release focusses on model stability, with a functional rewrite of the model implementation, finalising the interface across the package, and introducing additional tooling. The additional tooling includes: support for adjusting for and estimating data truncation, multiple approaches for estimating Rt (including the default generative Rt approach, de-convolution coupled with Rt calculation, and <code>EpiEstim</code> like estimation on observed cases but with a robust observation model), optional scaling of observed data, and optional adjustment of future forecasts based on population susceptibility. The examples have also been expanded with links out to Covid-19 specific work flows that may be of interest to users. The implementation and model options are now considered to be maturing with the next release planned to contain documentation on the underlying approach, case studies, validation, evaluation the various supported options, and tools for dealing with secondary reports that are dependent on a primary report (i.e hospital admissions and hospital bed usage). If interested in contributing to any of these features please contact the package authors or submit a PR. User contributions are warmly welcomed.</p>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Rewritten the interface for <code>estimate_infections</code> to be divided into calls to <code>_opts</code> functions. Options are now divided by type for delays (<code>delay_opts</code>), Rt (<code>rt_opts</code>), backcalculation (<code>backcalc_opts</code>), the Gaussian process (<code>gp_opts</code>), and stan arguments (<code>stan_opts</code>). This has resulted in a larger number of the arguments from <code>estimate_infections</code> being folded into the related <code>_opts</code> function. Please see the function documentation and examples for details.</li>
 <li>Added support for region specific settings for all arguments that take an <code>_opts</code> function in <code>regional_epinow</code> using the helper functions <code>opts_list</code> and <code>update_list</code> or alternatively by constructing a named list with an entry for each region to be estimated.</li>
@@ -147,7 +177,7 @@
 <li>Reduced the default maximum generation time and incubation period allowed in the truncated distribution (from 30 days to 15). This decreases the model run time substantially at a marginal accuracy cost. This new default is not suitable for longer generation times and should be modified by the user if these are used.</li>
 <li>Adds basic S3 plot and summary measures for <code>epinow</code> and <code>estimate_infections</code>.</li>
 <li>Updates the initialisation of the generative Rt model (the default) so that initial infections that occur in unobserved time (i.e before the first reported case) are generated using an exponential growth model with priors based on fitting the same model to the first week of data. This replaces the previous approach which was to use delay shifted reported cases multiplied by independent noise terms. It reduces degrees of freedom and fitting time at the cost of some model flexibility. Alternatives such as using the generative Rt model were considered but ultimately these approaches were not used as they introduced spurious variation to the gaussian process and result in unreliable Rt estimates due to the lack of historic infections.</li>
-<li>New <code>simulate_infections</code> function from @sbfnk which allows the simulation of different Rt traces when combined with estimates as produced by <code>estimate_infections</code>. This function is likely to form the basis for moving all forecasting out of <code>estimate_infections</code> which may improve model stability.</li>
+<li>New <code>simulate_infections</code> function from <a href='https://github.com/sbfnk'>@sbfnk</a> which allows the simulation of different Rt traces when combined with estimates as produced by <code>estimate_infections</code>. This function is likely to form the basis for moving all forecasting out of <code>estimate_infections</code> which may improve model stability.</li>
 <li>Updates the implementation of the Gaussian process to support the Matern 3/2 Kernel (and set this as the default) in addition to the squared exponential kernel. Updates the handling of Gaussian process arguments so that only overridden settings need to be passed by the user when making changes. Settings are now defined, and documented, in <code>gp_opts</code>. The length scale is now defined using a log normal truncated prior with a mean of 21 days and a standard deviation of 7 days truncated at 3 days and the length of the data by default. This prior is an area of active research and so may change in future releases.</li>
 <li>Updates the over dispersion prior to be <code>1 / sqrt(half_normal(0, rho_prior))</code> based on <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">this</a> advice and as the over dispersion being measured is in reports and not infections and hence a priori there is not strong evidence for over dispersion (which may be the case for infections) so the previous prior was overly weighted towards this.</li>
 <li>Updates the interface for the observation model with arguments now passed using <code>obs_opts</code>. This removes <code>week_effect</code> and <code>family</code> from the main argument list which will allow for future extensions. Also adds a new argument <code>scale</code> which controls the uncertain fraction of cases that are eventually observed (defined as normally distributed). Setting this parameter will not impact Rt estimates.</li>
@@ -157,14 +187,14 @@
 <li>Adds <code>estimate_delay</code> as a user friendly wrapper around <code>bootstrapped_dist_fit</code>.</li>
 </ul>
 </div>
-<div id="other-changes" class="section level2">
+<div id="other-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other changes</h2>
+<a href="#other-changes-1" class="anchor"></a>Other changes</h2>
 <ul>
 <li>Recoded the core stan model to be functional with the aim of making the code modular and extendable.</li>
 <li>Added unit tests for the internal stan update_rt function.</li>
 <li>Reworked the package logging system to improve the reporting of issues both in <code>epinow</code> and in <code>regional_epinow</code> for large batch runs.</li>
-<li>Fix from @hsbadr to prevent overflow when overdispersion is larger (by switching to a Poisson approximation). Hitting this issue may indicate a bug in other model code that will need further work to explore.</li>
+<li>Fix from <a href='https://github.com/hsbadr'>@hsbadr</a> to prevent overflow when overdispersion is larger (by switching to a Poisson approximation). Hitting this issue may indicate a bug in other model code that will need further work to explore.</li>
 <li>Moved default verbosity for all functions (excepting <code>regional_epinow</code>) to be based on whether or not usage is interactive.</li>
 <li>Removed the <code>burn_in</code> argument of <code>estimate_infections</code> as updates to model initialisation mean that this feature is likely no longer needed. Please contact the developers if you feel you have a use case for this argument.</li>
 <li>Adds utility functions to map between mean and standard deviation and the log mean and log standard deviation for a log normal distribution (<code>convert_to_logmean</code> and <code>convert_to_logsd</code>).</li>
@@ -182,13 +212,13 @@
 <a href="#epinow2-121" class="anchor"></a>EpiNow2 1.2.1<small> 2020-10-20 </small>
 </h1>
 <p>This release introduces multiple breaking interface changes. Please see the README for examples of the new interface. It adds a range of quality of life improvements including updating the <code>stan</code> interface to support fitting each chain independently and offering variational inference as an alternative, experimental, fitting option. Notably it also adds support for nesting logging and a parallel enabled progress bar via the <code>progressr</code> package. Minor bugs have been fixed in the core model implementation focussing on stability and several already implemented features have been extended. Major model developments are planned for the next release of <code>EpiNow2</code>.</p>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>Added support for either NUTs sampling (<code>method = "exact"</code>) or Variational inference (<code>method = "approximate"</code>).</li>
 <li>Update the prior on the initial Rt estimate to be lognormal rather than gamma distributed. For users the interface remains unchanged but this parameterisation should be more numerically stable.</li>
-<li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from @pearsonca. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
+<li>Added <code>get_dist</code>, <code>get_generation_time</code>, <code>get_incubation_period</code> based on ideas from <a href='https://github.com/pearsonca'>@pearsonca</a>. (This leads to breaking changes with the removal of <code>covid_generation_times</code> and <code>covid_incubation_periods</code>).</li>
 <li>Added <code>setup_logging</code> to enable users to specify the level and location of logging (wrapping functionality from <code>futile.logger</code>). Also added <code>setup_default_logging</code> to give users sensible defaults and embedded this function in <code>regional_epinow</code> and <code>epinow</code>.</li>
 <li>Added <code>setup_future</code> to making using nested futures easier (required when using <code>future = TRUE</code>).</li>
 <li>Implemented progress bar support using <code>progressr</code>.</li>
@@ -208,15 +238,15 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed y axis max for <code>plot_summary</code>.</li>
-<li>Fix to normalisation of delay and generation time distributions from @sbfnk. This will impact nowcast infections but not reproduction number estimate.</li>
+<li>Fix to normalisation of delay and generation time distributions from <a href='https://github.com/sbfnk'>@sbfnk</a>. This will impact nowcast infections but not reproduction number estimate.</li>
 <li>Updated <code>discretised_gamma_pmf</code> (discretised truncated Gamma PMF) to constrain gamma shape and (inverse) scale parameters to be positive and finite (<code>alpha &gt; 0</code> and <code>beta &gt; 0</code>).</li>
 <li>Fixed <code>readLines</code> incomplete final line warnings.</li>
-<li>Fix from @medewitt from the internal <code>fit_chain</code> function where an interaction between <code>rstan</code> and timing out may have introduced an exception that caused whole regions to fail. This did not show on current unit tests or exploration using examples indicating a gap in testing.</li>
+<li>Fix from <a href='https://github.com/medewitt'>@medewitt</a> from the internal <code>fit_chain</code> function where an interaction between <code>rstan</code> and timing out may have introduced an exception that caused whole regions to fail. This did not show on current unit tests or exploration using examples indicating a gap in testing.</li>
 </ul>
 </div>
-<div id="other-changes-1" class="section level2">
+<div id="other-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-changes-1" class="anchor"></a>Other changes</h2>
+<a href="#other-changes-2" class="anchor"></a>Other changes</h2>
 <ul>
 <li>Updates the interface for specifying how output is returned.</li>
 <li>Moved all inherited from stan arguments into <code>create_stan_args</code> with the option to override using <code>stan_args</code>. This leads to breaking changes - see the examples for details of the new interface.</li>
@@ -225,7 +255,7 @@
 <li>Cleaned up wrapper functions to move individual jobs into functions.</li>
 <li>Adds testing of high level functions and some low level unit testing.</li>
 <li>Adds a csv download button the interactive table in the regional summary table.</li>
-<li>Makevars updated to remove the dependency on GNU Make by @hsbadr</li>
+<li>Makevars updated to remove the dependency on GNU Make by <a href='https://github.com/hsbadr'>@hsbadr</a></li>
 </ul>
 </div>
 </div>
@@ -237,15 +267,15 @@
 <li>Implemented reporting templates</li>
 <li>Bug fix of estimate reporting</li>
 <li>Added additional reporting of runtime errors</li>
-<li>Examples for <code>global_map</code> and <code>country_map</code> expanded by @ellisp</li>
-<li>Improved ISO code matching in <code>global_map</code> from @ellisp</li>
+<li>Examples for <code>global_map</code> and <code>country_map</code> expanded by <a href='https://github.com/ellisp'>@ellisp</a></li>
+<li>Improved ISO code matching in <code>global_map</code> from <a href='https://github.com/ellisp'>@ellisp</a></li>
 <li>Improvements so that data frames and tibbles are supported as inputs.</li>
 <li>Updated reporting templates</li>
 <li>Updated reporting of estimates to clearly summarise cases by infection and report date.</li>
 <li>Made all region summary plots optional.</li>
 <li>Made reporting of decimal places more standardised across metrics.</li>
-<li>README updated by @kathsherratt</li>
-<li>Logging added by @joeHickson</li>
+<li>README updated by <a href='https://github.com/kathsherratt'>@kathsherratt</a></li>
+<li>Logging added by <a href='https://github.com/joeHickson'>@joeHickson</a></li>
 <li>Updated plotting to be limited to a scaling of reported data (prevents upper CIs from skewing the plot).</li>
 <li>Added uncertainty plot bounds to control y axis on plots for clarity purposes.</li>
 <li>
@@ -277,7 +307,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">

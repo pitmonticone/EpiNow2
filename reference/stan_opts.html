@@ -86,7 +86,7 @@ can be supplied which override the defaults." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@ can be supplied which override the defaults." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Stan Options</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/epiforecasts/EpiNow2/blob/master/R/opts.R'><code>R/opts.R</code></a></small>
     <div class="hidden name"><code>stan_opts.Rd</code></div>
     </div>
 
@@ -144,7 +144,13 @@ backend functions via <code>rstan_sampling_opts</code> and <code>rstan_vb_opts</
 can be supplied which override the defaults.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stan_opts</span><span class='op'>(</span>samples <span class='op'>=</span> <span class='fl'>2000</span>, backend <span class='op'>=</span> <span class='st'>"rstan"</span>, return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>stan_opts</span><span class='op'>(</span>
+  samples <span class='op'>=</span> <span class='fl'>2000</span>,
+  backend <span class='op'>=</span> <span class='st'>"rstan"</span>,
+  init_fit <span class='op'>=</span> <span class='cn'>NULL</span>,
+  return_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +164,17 @@ When using multiple chains iterations per chain is samples / chains.</p></td>
       <th>backend</th>
       <td><p>Character string indicating the backend to use for fitting stan models.
 Currently only "rstan" is supported.</p></td>
+    </tr>
+    <tr>
+      <th>init_fit</th>
+      <td><p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+Character string or <code>stanfit</code> object, defaults to NULL. Should an initial fit be used to
+initialise the full fit. An example scenario would be using a national level fit to parametrise
+regional level fits. Optionally a character string can be passed with the currently supported
+option being "cumulative". This fits the model to cumulative cases and may be useful for certain
+data sets where the sampler gets stuck or struggles to initialise. See <code><a href='init_cumulative_fit.html'>init_cumulative_fit()</a></code> for details.
+This implementation is based on the approach taken in <a href='https://github.com/ImperialCollegeLondon/epidemia/'>epidemia</a>
+authored by James Scott.</p></td>
     </tr>
     <tr>
       <th>return_fit</th>
@@ -189,14 +206,17 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   vector[n] pmf;
 #&gt;   real trunc_pmf;
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   real c_sigma = sigma + 1e-5;
-#&gt;   real alpha = ((mu)/ c_sigma)^2;
-#&gt;   real beta = (mu) / (c_sigma^2);
-#&gt;   //account for numerical issues
-#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   real small = 1e-5;
+#&gt;   real large = 1e8;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
+#&gt;   real alpha = ((c_mu) / c_sigma)^2;
+#&gt;   real beta = (c_mu) / (c_sigma^2);
+#&gt;   // account for numerical issues
+#&gt;   alpha = alpha &lt; small ? small : alpha;
+#&gt;   alpha = alpha &gt; large ? large : alpha;
+#&gt;   beta = beta &lt; small ? small : beta;
+#&gt;   beta = beta &gt; large ? large : beta;
 #&gt;   // calculate pmf
 #&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
 #&gt;   for (i in 1:n){
@@ -211,8 +231,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
-#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
-#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
 #&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
 #&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
@@ -364,75 +384,43 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; // Update an individual breakpoint effect
-#&gt; real update_breakpoints(real input_R, real[] bp_effects,
-#&gt;                         int bp_index, int at_bp,
-#&gt;                         int stationary) {
-#&gt;   real R = input_R;
-#&gt;   if (stationary) {
-#&gt;     if (bp_index &gt; 0) {
-#&gt;       R += sum(bp_effects[1:bp_index]);
-#&gt;       }
-#&gt;   }else{
-#&gt;     if (at_bp) {
-#&gt;       R += bp_effects[bp_index];
-#&gt;     }
-#&gt;   }               
-#&gt;   return(R);
-#&gt; }
-#&gt; // update an individual R
-#&gt; real update_R(vector R, vector noise, int noise_terms,
-#&gt;               int index, int stationary) {
-#&gt;   real cR = R[index];
-#&gt;   if (noise_terms &gt; 0) {
-#&gt;     if (stationary){
-#&gt;       if (index &lt;= noise_terms) {
-#&gt;         cR += noise[index];
-#&gt;       }else{
-#&gt;         if (index &gt; 1) {
-#&gt;            cR = R[index - 1];
-#&gt;         }
-#&gt;       }
-#&gt;     }else{
-#&gt;       if (index &lt;= (noise_terms + 1)) {
-#&gt;         cR = R[index - 1] + noise[index - 1];
-#&gt;       }else{
-#&gt;         cR = R[index - 1];
-#&gt;       }
-#&gt;     }
-#&gt;   }
-#&gt;   return(cR);
-#&gt; }
 #&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
-#&gt;   int noise_terms = num_elements(noise);
-#&gt;   int i_stationary = noise_terms &gt; 0 ? stationary : 1;
 #&gt;   int t = num_elements(input_R);
 #&gt;   int bp_n = num_elements(bp_effects);
-#&gt;   int bp_in = 0;
-#&gt;   int at_bp = 0;
-#&gt;   int index;
+#&gt;   int bp_c = 0;
+#&gt;   int gp_n = num_elements(noise);
+#&gt;   // define result vectors
+#&gt;   vector[t] bp = rep_vector(0, t);
+#&gt;   vector[t] gp = rep_vector(0, t);
 #&gt;   vector[t] R;
-#&gt;   // initialise Rt
-#&gt;   if (i_stationary) {
-#&gt;     R = rep_vector(log_R, t);
-#&gt;     index = 1;
-#&gt;   }else{
-#&gt;     R[1] = log_R;
-#&gt;     index = 2;
+#&gt;   // initialise breakpoints
+#&gt;   if (bp_n) {
+#&gt;     for (s in 1:t) {
+#&gt;       if (bps[s]) {
+#&gt;         bp_c += bps[s];
+#&gt;         bp[s] = bp_effects[bp_c];
+#&gt;       }
+#&gt;     }
+#&gt;     bp = cumulative_sum(bp);
 #&gt;   }
-#&gt;   // iteratively update Rt
-#&gt;   for (s in index:t) {
-#&gt;     R[s] = update_R(R, noise, noise_terms, s, i_stationary);
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       at_bp = bps[s];
-#&gt;       bp_in += at_bp;
-#&gt;       R[s] = update_breakpoints(R[s], bp_effects, bp_in, at_bp, i_stationary);
+#&gt;   //initialise gaussian process
+#&gt;   if (gp_n) {
+#&gt;     if (stationary) {
+#&gt;       gp[1:gp_n] = noise;
+#&gt;       // fix future gp based on last estimated
+#&gt;       if (t &gt; gp_n) {
+#&gt;         gp[(gp_n + 1):t] = rep_vector(noise[gp_n], t - gp_n);
+#&gt;       }
+#&gt;     }else{
+#&gt;       gp[2:(gp_n + 1)] = noise;
+#&gt;       gp = cumulative_sum(gp);
 #&gt;     }
 #&gt;   }
-#&gt;   // convert to correct scale
+#&gt;   // Calculate Rt
+#&gt;   R = rep_vector(log_R, t) + bp + gp;
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
@@ -514,11 +502,22 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   return(infections);
 #&gt; }
 #&gt; // backcalculate infections using mean shifted cases and non-parametric noise
-#&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed) {
+#&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed,
+#&gt;                              int prior) {
 #&gt;   int t = num_elements(shifted_cases);
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
 #&gt;   if(!fixed) {
-#&gt;     infections = infections + shifted_cases .* exp(noise);
+#&gt;     vector[t] exp_noise = exp(noise);
+#&gt;     if (prior == 1) {
+#&gt;       infections = infections + shifted_cases .* exp_noise;
+#&gt;     }else if (prior == 0) {
+#&gt;      infections = infections + exp_noise; 
+#&gt;     }else if (prior == 2) {
+#&gt;       infections[1] = infections[1] + shifted_cases[1] * exp_noise[1];
+#&gt;       for (i in 2:t) {
+#&gt;         infections[i] = infections[i - 1] * exp_noise[i];
+#&gt;       }
+#&gt;     }
 #&gt;   }else{
 #&gt;     infections = infections + shifted_cases;
 #&gt;   }
@@ -641,6 +640,30 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   }
 #&gt;   return(log_lik);
 #&gt; }
+#&gt; // sample reported cases from the observation model
+#&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
+#&gt;   int t = num_elements(reports);
+#&gt;   int sampled_reports[t];
+#&gt;   real sqrt_phi;
+#&gt;   if (model_type) {
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
+#&gt;     for (s in 1:t) {
+#&gt;       // defer to poisson if phi is large, to avoid overflow
+#&gt;       if (sqrt_phi &gt; 1e4) {
+#&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
+#&gt;       } else {
+#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
+#&gt;       }
+#&gt;     }
+#&gt;   }else {
+#&gt;     for (s in 1:t) {
+#&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
+#&gt;     }
+#&gt;   }
+#&gt;   return(sampled_reports);
+#&gt; }
+#&gt; 
+#&gt; 
 #&gt; 
 #&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
@@ -688,30 +711,6 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   } 
 #&gt;   return(r);
 #&gt; }
-#&gt; // sample reported cases from the observation model
-#&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
-#&gt;   int t = num_elements(reports);
-#&gt;   int sampled_reports[t];
-#&gt;   real sqrt_phi;
-#&gt;   if (model_type) {
-#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
-#&gt;     for (s in 1:t) {
-#&gt;       // defer to poisson if phi is large, to avoid overflow
-#&gt;       if (sqrt_phi &gt; 1e4) {
-#&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
-#&gt;       } else {
-#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
-#&gt;       }
-#&gt;     }
-#&gt;   }else {
-#&gt;     for (s in 1:t) {
-#&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
-#&gt;     }
-#&gt;   }
-#&gt;   return(sampled_reports);
-#&gt; }
-#&gt; 
-#&gt; 
 #&gt; }
 #&gt; 
 #&gt; 
@@ -758,6 +757,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
 #&gt;   int pop;                           // Initial susceptible population
+#&gt; 
+#&gt;   int backcalc_prior;                // Prior type to use for backcalculation
 #&gt;   int rt_half_window;                // Half the moving average window used when calculating Rt
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
@@ -790,32 +791,32 @@ Currently only "rstan" is supported.</p></td>
 #&gt; parameters{
 #&gt;   // gaussian process
 #&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
-#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];     // scale of of noise GP
-#&gt;   vector[fixed ? 0 : M] eta;                // unconstrained noise
+#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];    // scale of of noise GP
+#&gt;   vector[fixed ? 0 : M] eta;               // unconstrained noise
 #&gt;   // Rt
-#&gt;   vector[estimate_r] log_R;                 // baseline reproduction number estimate (log)
-#&gt;   real initial_infections[estimate_r] ;     // seed infections 
+#&gt;   vector[estimate_r] log_R;                // baseline reproduction number estimate (log)
+#&gt;   real initial_infections[estimate_r] ;    // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
-#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];     // mean of generation time
+#&gt;   real&lt;lower = 0, upper = max_gt&gt; gt_mean[estimate_r]; // mean of generation time
 #&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];       // sd of generation time
 #&gt;   real&lt;lower = 0&gt; bp_sd[bp_n &gt; 0 ? 1 : 0]; // standard deviation of breakpoint effect
-#&gt;   real bp_effects[bp_n];                  // Rt breakpoint effects
+#&gt;   real bp_effects[bp_n];                   // Rt breakpoint effects
 #&gt;   // observation model
-#&gt;   real delay_mean[delays];                // mean of delays
-#&gt;   real delay_sd[delays];                 // sd of delays
+#&gt;   real delay_mean[delays];                 // mean of delays
+#&gt;   real&lt;lower = 0&gt; delay_sd[delays];        // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
-#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];   // fraction of cases that are ultimately observed
-#&gt;   real truncation_mean[truncation];      // mean of truncation
-#&gt;   real truncation_sd[truncation];        // sd of truncation
-#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];   // overdispersion of the reporting process
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];     // fraction of cases that are ultimately observed
+#&gt;   real truncation_mean[truncation];        // mean of truncation
+#&gt;   real&lt;lower = 0&gt; truncation_sd[truncation]; // sd of truncation
+#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];     // overdispersion of the reporting process
 #&gt; }
 #&gt; 
 #&gt; transformed parameters {
-#&gt;   vector[fixed ? 0 : noise_terms] noise;                  // noise  generated by the gaussian process
-#&gt;   vector[estimate_r &gt; 0 ? ot_h : 0] R;                    // reproduction number
-#&gt;   vector[t] infections;                                   // latent infections
-#&gt;   vector[ot_h] reports;                                   // estimated reported cases
-#&gt;   vector[ot] obs_reports;                                 // observed estimated reported cases
+#&gt;   vector[fixed ? 0 : noise_terms] noise;                    // noise  generated by the gaussian process
+#&gt;   vector&lt;upper = 10 * r_mean&gt;[estimate_r &gt; 0 ? ot_h : 0] R; // reproduction number
+#&gt;   vector[t] infections;                                     // latent infections
+#&gt;   vector[ot_h] reports;                                     // estimated reported cases
+#&gt;   vector[ot] obs_reports;                                   // observed estimated reported cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
 #&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
@@ -829,7 +830,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;                                      pop, future_time);
 #&gt;   }else{
 #&gt;     // via deconvolution
-#&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed);
+#&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed, backcalc_prior);
 #&gt;   }
 #&gt;   // convolve from latent infections to mean of observations
 #&gt;   reports = convolve_to_report(infections, delay_mean, delay_sd, max_delay, seeding_time);
@@ -911,7 +912,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $seed
-#&gt; [1] 31958539
+#&gt; [1] 95578591
 #&gt; 
 #&gt; $future
 #&gt; [1] FALSE
@@ -945,14 +946,17 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   vector[n] pmf;
 #&gt;   real trunc_pmf;
 #&gt;   // calculate alpha and beta for gamma distribution
-#&gt;   real c_sigma = sigma + 1e-5;
-#&gt;   real alpha = ((mu)/ c_sigma)^2;
-#&gt;   real beta = (mu) / (c_sigma^2);
-#&gt;   //account for numerical issues
-#&gt;   alpha = alpha &lt;= 0 ? 1e-5 : alpha;
-#&gt;   beta = beta &lt;= 0 ? 1e-5 : beta;
-#&gt;   alpha = is_inf(alpha) ? 1e8 : alpha;
-#&gt;   beta = is_inf(beta) ? 1e8 : beta; 
+#&gt;   real small = 1e-5;
+#&gt;   real large = 1e8;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
+#&gt;   real alpha = ((c_mu) / c_sigma)^2;
+#&gt;   real beta = (c_mu) / (c_sigma^2);
+#&gt;   // account for numerical issues
+#&gt;   alpha = alpha &lt; small ? small : alpha;
+#&gt;   alpha = alpha &gt; large ? large : alpha;
+#&gt;   beta = beta &lt; small ? small : beta;
+#&gt;   beta = beta &gt; large ? large : beta;
 #&gt;   // calculate pmf
 #&gt;   trunc_pmf = gamma_cdf(max_val + 1, alpha, beta) - gamma_cdf(1, alpha, beta);
 #&gt;   for (i in 1:n){
@@ -967,8 +971,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int n = num_elements(y);
 #&gt;   vector[n] pmf;
 #&gt;   real small = 1e-5;
-#&gt;   real c_sigma = sigma &lt;= 0 ? small : sigma;
-#&gt;   real c_mu = mu &lt;= 0 ? small : mu;
+#&gt;   real c_sigma = sigma &lt; small ? small : sigma;
+#&gt;   real c_mu = mu &lt; small ? small : mu;
 #&gt;   vector[n] adj_y = to_vector(y) + small;
 #&gt;   vector[n] upper_y = (log(adj_y + 1) - c_mu) / c_sigma;
 #&gt;   vector[n] lower_y = (log(adj_y) - c_mu) / c_sigma;
@@ -1120,75 +1124,43 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   eta ~ std_normal();
 #&gt; }
 #&gt; 
-#&gt; // Update an individual breakpoint effect
-#&gt; real update_breakpoints(real input_R, real[] bp_effects,
-#&gt;                         int bp_index, int at_bp,
-#&gt;                         int stationary) {
-#&gt;   real R = input_R;
-#&gt;   if (stationary) {
-#&gt;     if (bp_index &gt; 0) {
-#&gt;       R += sum(bp_effects[1:bp_index]);
-#&gt;       }
-#&gt;   }else{
-#&gt;     if (at_bp) {
-#&gt;       R += bp_effects[bp_index];
-#&gt;     }
-#&gt;   }               
-#&gt;   return(R);
-#&gt; }
-#&gt; // update an individual R
-#&gt; real update_R(vector R, vector noise, int noise_terms,
-#&gt;               int index, int stationary) {
-#&gt;   real cR = R[index];
-#&gt;   if (noise_terms &gt; 0) {
-#&gt;     if (stationary){
-#&gt;       if (index &lt;= noise_terms) {
-#&gt;         cR += noise[index];
-#&gt;       }else{
-#&gt;         if (index &gt; 1) {
-#&gt;            cR = R[index - 1];
-#&gt;         }
-#&gt;       }
-#&gt;     }else{
-#&gt;       if (index &lt;= (noise_terms + 1)) {
-#&gt;         cR = R[index - 1] + noise[index - 1];
-#&gt;       }else{
-#&gt;         cR = R[index - 1];
-#&gt;       }
-#&gt;     }
-#&gt;   }
-#&gt;   return(cR);
-#&gt; }
 #&gt; // update a vector of Rts
 #&gt; vector update_Rt(vector input_R, real log_R, vector noise, int[] bps,
 #&gt;                  real[] bp_effects, int stationary) {
 #&gt;   // define control parameters
-#&gt;   int noise_terms = num_elements(noise);
-#&gt;   int i_stationary = noise_terms &gt; 0 ? stationary : 1;
 #&gt;   int t = num_elements(input_R);
 #&gt;   int bp_n = num_elements(bp_effects);
-#&gt;   int bp_in = 0;
-#&gt;   int at_bp = 0;
-#&gt;   int index;
+#&gt;   int bp_c = 0;
+#&gt;   int gp_n = num_elements(noise);
+#&gt;   // define result vectors
+#&gt;   vector[t] bp = rep_vector(0, t);
+#&gt;   vector[t] gp = rep_vector(0, t);
 #&gt;   vector[t] R;
-#&gt;   // initialise Rt
-#&gt;   if (i_stationary) {
-#&gt;     R = rep_vector(log_R, t);
-#&gt;     index = 1;
-#&gt;   }else{
-#&gt;     R[1] = log_R;
-#&gt;     index = 2;
+#&gt;   // initialise breakpoints
+#&gt;   if (bp_n) {
+#&gt;     for (s in 1:t) {
+#&gt;       if (bps[s]) {
+#&gt;         bp_c += bps[s];
+#&gt;         bp[s] = bp_effects[bp_c];
+#&gt;       }
+#&gt;     }
+#&gt;     bp = cumulative_sum(bp);
 #&gt;   }
-#&gt;   // iteratively update Rt
-#&gt;   for (s in index:t) {
-#&gt;     R[s] = update_R(R, noise, noise_terms, s, i_stationary);
-#&gt;     if (bp_n &gt; 0) {
-#&gt;       at_bp = bps[s];
-#&gt;       bp_in += at_bp;
-#&gt;       R[s] = update_breakpoints(R[s], bp_effects, bp_in, at_bp, i_stationary);
+#&gt;   //initialise gaussian process
+#&gt;   if (gp_n) {
+#&gt;     if (stationary) {
+#&gt;       gp[1:gp_n] = noise;
+#&gt;       // fix future gp based on last estimated
+#&gt;       if (t &gt; gp_n) {
+#&gt;         gp[(gp_n + 1):t] = rep_vector(noise[gp_n], t - gp_n);
+#&gt;       }
+#&gt;     }else{
+#&gt;       gp[2:(gp_n + 1)] = noise;
+#&gt;       gp = cumulative_sum(gp);
 #&gt;     }
 #&gt;   }
-#&gt;   // convert to correct scale
+#&gt;   // Calculate Rt
+#&gt;   R = rep_vector(log_R, t) + bp + gp;
 #&gt;   R = exp(R);
 #&gt;   return(R);
 #&gt; }
@@ -1270,11 +1242,22 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   return(infections);
 #&gt; }
 #&gt; // backcalculate infections using mean shifted cases and non-parametric noise
-#&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed) {
+#&gt; vector deconvolve_infections(vector shifted_cases, vector noise, int fixed,
+#&gt;                              int prior) {
 #&gt;   int t = num_elements(shifted_cases);
 #&gt;   vector[t] infections = rep_vector(1e-5, t);
 #&gt;   if(!fixed) {
-#&gt;     infections = infections + shifted_cases .* exp(noise);
+#&gt;     vector[t] exp_noise = exp(noise);
+#&gt;     if (prior == 1) {
+#&gt;       infections = infections + shifted_cases .* exp_noise;
+#&gt;     }else if (prior == 0) {
+#&gt;      infections = infections + exp_noise; 
+#&gt;     }else if (prior == 2) {
+#&gt;       infections[1] = infections[1] + shifted_cases[1] * exp_noise[1];
+#&gt;       for (i in 2:t) {
+#&gt;         infections[i] = infections[i - 1] * exp_noise[i];
+#&gt;       }
+#&gt;     }
 #&gt;   }else{
 #&gt;     infections = infections + shifted_cases;
 #&gt;   }
@@ -1397,6 +1380,30 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   }
 #&gt;   return(log_lik);
 #&gt; }
+#&gt; // sample reported cases from the observation model
+#&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
+#&gt;   int t = num_elements(reports);
+#&gt;   int sampled_reports[t];
+#&gt;   real sqrt_phi;
+#&gt;   if (model_type) {
+#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
+#&gt;     for (s in 1:t) {
+#&gt;       // defer to poisson if phi is large, to avoid overflow
+#&gt;       if (sqrt_phi &gt; 1e4) {
+#&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
+#&gt;       } else {
+#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
+#&gt;       }
+#&gt;     }
+#&gt;   }else {
+#&gt;     for (s in 1:t) {
+#&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
+#&gt;     }
+#&gt;   }
+#&gt;   return(sampled_reports);
+#&gt; }
+#&gt; 
+#&gt; 
 #&gt; 
 #&gt; // calculate Rt directly from inferred infections
 #&gt; vector calculate_Rt(vector infections, int seeding_time,
@@ -1444,30 +1451,6 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   } 
 #&gt;   return(r);
 #&gt; }
-#&gt; // sample reported cases from the observation model
-#&gt; int[] report_rng(vector reports, real[] rep_phi, int model_type) {
-#&gt;   int t = num_elements(reports);
-#&gt;   int sampled_reports[t];
-#&gt;   real sqrt_phi;
-#&gt;   if (model_type) {
-#&gt;     sqrt_phi = 1 / sqrt(rep_phi[model_type]);
-#&gt;     for (s in 1:t) {
-#&gt;       // defer to poisson if phi is large, to avoid overflow
-#&gt;       if (sqrt_phi &gt; 1e4) {
-#&gt;         sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
-#&gt;       } else {
-#&gt;         sampled_reports[s] = neg_binomial_2_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s], sqrt_phi);
-#&gt;       }
-#&gt;     }
-#&gt;   }else {
-#&gt;     for (s in 1:t) {
-#&gt;       sampled_reports[s] = poisson_rng(reports[s] &gt; 1e8 ? 1e8 : reports[s]);
-#&gt;     }
-#&gt;   }
-#&gt;   return(sampled_reports);
-#&gt; }
-#&gt; 
-#&gt; 
 #&gt; }
 #&gt; 
 #&gt; 
@@ -1514,6 +1497,8 @@ Currently only "rstan" is supported.</p></td>
 #&gt;   int future_fixed;                  // is underlying future Rt assumed to be fixed
 #&gt;   int fixed_from;                    // Reference date for when Rt estimation should be fixed
 #&gt;   int pop;                           // Initial susceptible population
+#&gt; 
+#&gt;   int backcalc_prior;                // Prior type to use for backcalculation
 #&gt;   int rt_half_window;                // Half the moving average window used when calculating Rt
 #&gt; 
 #&gt;   int day_of_week[t - seeding_time]; // day of the week indicator (1 - 7)
@@ -1546,32 +1531,32 @@ Currently only "rstan" is supported.</p></td>
 #&gt; parameters{
 #&gt;   // gaussian process
 #&gt;   real&lt;lower = ls_min,upper=ls_max&gt; rho[fixed ? 0 : 1];  // length scale of noise GP
-#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];     // scale of of noise GP
-#&gt;   vector[fixed ? 0 : M] eta;                // unconstrained noise
+#&gt;   real&lt;lower = 0&gt; alpha[fixed ? 0 : 1];    // scale of of noise GP
+#&gt;   vector[fixed ? 0 : M] eta;               // unconstrained noise
 #&gt;   // Rt
-#&gt;   vector[estimate_r] log_R;                 // baseline reproduction number estimate (log)
-#&gt;   real initial_infections[estimate_r] ;     // seed infections 
+#&gt;   vector[estimate_r] log_R;                // baseline reproduction number estimate (log)
+#&gt;   real initial_infections[estimate_r] ;    // seed infections 
 #&gt;   real initial_growth[estimate_r &amp;&amp; seeding_time &gt; 1 ? 1 : 0]; // seed growth rate
-#&gt;   real&lt;lower = 0&gt; gt_mean[estimate_r];     // mean of generation time
+#&gt;   real&lt;lower = 0, upper = max_gt&gt; gt_mean[estimate_r]; // mean of generation time
 #&gt;   real&lt;lower = 0&gt; gt_sd[estimate_r];       // sd of generation time
 #&gt;   real&lt;lower = 0&gt; bp_sd[bp_n &gt; 0 ? 1 : 0]; // standard deviation of breakpoint effect
-#&gt;   real bp_effects[bp_n];                  // Rt breakpoint effects
+#&gt;   real bp_effects[bp_n];                   // Rt breakpoint effects
 #&gt;   // observation model
-#&gt;   real delay_mean[delays];                // mean of delays
-#&gt;   real delay_sd[delays];                 // sd of delays
+#&gt;   real delay_mean[delays];                 // mean of delays
+#&gt;   real&lt;lower = 0&gt; delay_sd[delays];        // sd of delays
 #&gt;   simplex[week_effect ? 7 : 1] day_of_week_simplex;   // day of week reporting effect 
-#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];   // fraction of cases that are ultimately observed
-#&gt;   real truncation_mean[truncation];      // mean of truncation
-#&gt;   real truncation_sd[truncation];        // sd of truncation
-#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];   // overdispersion of the reporting process
+#&gt;   real&lt;lower = 0&gt; frac_obs[obs_scale];     // fraction of cases that are ultimately observed
+#&gt;   real truncation_mean[truncation];        // mean of truncation
+#&gt;   real&lt;lower = 0&gt; truncation_sd[truncation]; // sd of truncation
+#&gt;   real&lt;lower = 0&gt; rep_phi[model_type];     // overdispersion of the reporting process
 #&gt; }
 #&gt; 
 #&gt; transformed parameters {
-#&gt;   vector[fixed ? 0 : noise_terms] noise;                  // noise  generated by the gaussian process
-#&gt;   vector[estimate_r &gt; 0 ? ot_h : 0] R;                    // reproduction number
-#&gt;   vector[t] infections;                                   // latent infections
-#&gt;   vector[ot_h] reports;                                   // estimated reported cases
-#&gt;   vector[ot] obs_reports;                                 // observed estimated reported cases
+#&gt;   vector[fixed ? 0 : noise_terms] noise;                    // noise  generated by the gaussian process
+#&gt;   vector&lt;upper = 10 * r_mean&gt;[estimate_r &gt; 0 ? ot_h : 0] R; // reproduction number
+#&gt;   vector[t] infections;                                     // latent infections
+#&gt;   vector[ot_h] reports;                                     // estimated reported cases
+#&gt;   vector[ot] obs_reports;                                   // observed estimated reported cases
 #&gt;   // GP in noise - spectral densities
 #&gt;   if (!fixed) {
 #&gt;     noise = update_gp(PHI, M, L, alpha[1], rho[1], eta, gp_type);
@@ -1585,7 +1570,7 @@ Currently only "rstan" is supported.</p></td>
 #&gt;                                      pop, future_time);
 #&gt;   }else{
 #&gt;     // via deconvolution
-#&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed);
+#&gt;     infections = deconvolve_infections(shifted_cases, noise, fixed, backcalc_prior);
 #&gt;   }
 #&gt;   // convolve from latent infections to mean of observations
 #&gt;   reports = convolve_to_report(infections, delay_mean, delay_sd, max_delay, seeding_time);
@@ -1677,7 +1662,7 @@ Currently only "rstan" is supported.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Robin Thompson, Katelyn Gostic, Katharine Sherratt, Hamada S. Badr, Michael DeWitt, Sophie Meakin, James Munday, Nikos Bosse, Joe Hickson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
+  <p>Developed by <a href='https://www.samabbott.co.uk/'>Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href='https://www.lshtm.ac.uk/aboutus/people/funk.sebastian'>Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">
