@@ -127,14 +127,14 @@
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
-<p><a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a> is designed to be used with a single function call or to be used in an ad-hoc fashion via individual function calls. The core functions of <a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a> are the two single-call functions <a href="https://epiforecasts.io/EpiNow2/reference/epinow.html"><code>epinow</code></a>, <a href="https://epiforecasts.io/EpiNow2/reference/regional_epinow.html"><code>regional_epinow</code></a>, plus functions <a href="https://epiforecasts.io/EpiNow2/reference/estimate_infections.html"><code>estimate_infections</code></a>, and <a href="https://epiforecasts.io/EpiNow2/reference/forecast_infections.html"><code>forecast_infections</code></a>. In the following section we give an overview of the simple use case for <code>epinow</code> and <code>regional_epinow</code>. <a href="https://epiforecasts.io/EpiNow2/reference/estimate_infections.html"><code>estimate_infections</code></a> can be use on its own to infer the underlying infection case curve from reported cases and estimate Rt. Estimating the underlying infection case curve via back-calculation (and then calculating Rt) is substantially less computationally demanding than generating using default settings but may result in less reliable estimates of Rt. For more details on using each function see the <a href="https://epiforecasts.io/EpiNow2/reference/index.html">function documentation</a>.</p>
+<p><a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a> is designed to be used with a single function call or to be used in an ad-hoc fashion via individual function calls. The core functions of <a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a> are the two single-call functions <a href="https://epiforecasts.io/EpiNow2/reference/epinow.html"><code>epinow</code></a>, <a href="https://epiforecasts.io/EpiNow2/reference/regional_epinow.html"><code>regional_epinow</code></a>, plus functions <a href="https://epiforecasts.io/EpiNow2/reference/estimate_infections.html"><code>estimate_infections</code></a>, and <a href="https://epiforecasts.io/EpiNow2/reference/forecast_infections.html"><code>forecast_infections</code></a>. In the following section we give an overview of the simple use case for <code>epinow</code> and <code>regional_epinow</code>. <a href="https://epiforecasts.io/EpiNow2/reference/estimate_infections.html"><code>estimate_infections</code></a> can be use on its own to infer the underlying infection case curve from reported cases and estimate Rt. Estimating the underlying infection case curve via back-calculation (and then calculating Rt) is substantially less computationally demanding than generating using default settings but may result in less reliable estimates of Rt. For more details on using each function see the <a href="https://epiforecasts.io/EpiNow2/reference/index.html">function documentation</a>.</p>
 <p>The first step to using the package is to load it as follows.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a></span><span class="op">)</span></code></pre></div>
 <div id="reporting-delays-incubation-period-and-generation-time" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reporting-delays-incubation-period-and-generation-time" class="anchor"></a>Reporting delays, incubation period and generation time</h3>
-<p>Distributions can either be fitted using package functionality or determined elsewhere and then defined with uncertainty for use in <a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a>. When data is supplied a subsampled bootstrapped lognormal will be fit (to account for uncertainty in the observed data without being biased by changes in incidence). An arbitrary number of delay distributions are supported with the most common use case likely to be a incubation period followed by a reporting delay.</p>
+<p>Distributions can either be fitted using package functionality or determined elsewhere and then defined with uncertainty for use in <a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a>. When data is supplied a subsampled bootstrapped lognormal will be fit (to account for uncertainty in the observed data without being biased by changes in incidence). An arbitrary number of delay distributions are supported with the most common use case likely to be a incubation period followed by a reporting delay.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">reporting_delay</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/estimate_delay.html">estimate_delay</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html">rlnorm</a></span><span class="op">(</span><span class="fl">1000</span>,  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,
                                   max_value <span class="op">=</span> <span class="fl">15</span>, bootstraps <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
@@ -148,7 +148,7 @@
 <a href="#epinow" class="anchor"></a><a href="https://epiforecasts.io/EpiNow2/reference/epinow.html">epinow</a>
 </h3>
 <p>This function represents the core functionality of the package and includes results reporting, plotting and optional saving. It requires a data frame of cases by date of report and the distributions defined above. An additional forecasting module is supported via <code>EpiSoon</code> and companion packages (see documentation for an example).</p>
-<p>Load example case data from <a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a>.</p>
+<p>Load example case data from <a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">reported_cases</span> <span class="op">&lt;-</span> <span class="va">example_confirmed</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">90</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">reported_cases</span><span class="op">)</span>
@@ -327,13 +327,13 @@
 <div id="reporting-templates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reporting-templates" class="anchor"></a>Reporting templates</h3>
-<p>Rmarkdown templates are provided in the package (<code>templates</code>) for semi-automated reporting of estimates. These are currently undocumented but an example integration can be seen <a href="https://github.com/epiforecasts/covid/blob/master/_posts/national/united-kingdom/united-kingdom.Rmd">here</a>. If using these templates to report your results please highlight our <a href="https://doi.org/10.12688/wellcomeopenres.16006.1">limitations</a> as these are key to understanding the results from <a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a> .</p>
+<p>Rmarkdown templates are provided in the package (<code>templates</code>) for semi-automated reporting of estimates. These are currently undocumented but an example integration can be seen <a href="https://github.com/epiforecasts/covid/blob/master/_posts/national/united-kingdom/united-kingdom.Rmd">here</a>. If using these templates to report your results please highlight our <a href="https://doi.org/10.12688/wellcomeopenres.16006.1">limitations</a> as these are key to understanding the results from <a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a> .</p>
 </div>
 </div>
 <div id="interactive-figures" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interactive-figures" class="anchor"></a>Interactive figures</h2>
-<p><a href="https:/epiforecasts.io/EpiNow2/">EpiNow2</a> is integrated with the <code>{RtD3}</code> package which provides interactive visualisations of Rt estimates. See the package <a href="https://epiforecasts.io/RtD3/">documentation</a> for details.</p>
+<p><a href="https://epiforecasts.io/EpiNow2/">EpiNow2</a> is integrated with the <code>{RtD3}</code> package which provides interactive visualisations of Rt estimates. See the package <a href="https://epiforecasts.io/RtD3/">documentation</a> for details.</p>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
@@ -379,7 +379,6 @@
 <li>Joe Hickson <br><small class="roles"> Author </small>  </li>
 <li>Hamada S. Badr <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9808-2344" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Michael DeWitt <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-8940-1967" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Robin Thompson <br><small class="roles"> Author </small>  </li>
 <li>EpiForecasts <br><small class="roles"> Author </small>  </li>
 <li>
 <a href="https://www.lshtm.ac.uk/aboutus/people/funk.sebastian">Sebastian Funk</a> <br><small class="roles"> Author </small>  </li>
@@ -401,7 +400,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.samabbott.co.uk/">Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, Robin Thompson, EpiForecasts, <a href="https://www.lshtm.ac.uk/aboutus/people/funk.sebastian">Sebastian Funk</a>.</p>
+  <p>Developed by <a href="https://www.samabbott.co.uk/">Sam Abbott</a>, Joel Hellewell, Katharine Sherratt, Katelyn Gostic, Joe Hickson, Hamada S. Badr, Michael DeWitt, EpiForecasts, <a href="https://www.lshtm.ac.uk/aboutus/people/funk.sebastian">Sebastian Funk</a>.</p>
 </div>
 
 <div class="pkgdown">
