@@ -48,7 +48,7 @@
 <meta property="og:title" content="Categorise the Probability of Change for Rt — map_prob_change" />
 <meta property="og:description" content="
 Categorises a numeric variable into &quot;Increasing&quot; (&amp;lt; 0.05),
-&quot;Likely increasing&quot; (&amp;lt;0.2), &quot;Unsure&quot; (&amp;lt; 0.8), &quot;Likely decreasing&quot; (&amp;lt; 0.95), &quot;Decreasing&quot; (&amp;lt;= 1)" />
+&quot;Likely increasing&quot; (&amp;lt;0.4), &quot;Stable&quot; (&amp;lt; 0.6), &quot;Likely decreasing&quot; (&amp;lt; 0.95), &quot;Decreasing&quot; (&amp;lt;= 1)" />
 <meta property="og:image" content="epiforecasts.io/EpiNow2/reference/figures/unnamed-chunk-13-1.png" />
 <meta property="og:image:alt" content="Example estimates produced by EpiNow2 of the reproduction number, cases by date of infection and cases by date of report" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -85,7 +85,7 @@ Categorises a numeric variable into &quot;Increasing&quot; (&amp;lt; 0.05),
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EpiNow2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.3.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.3.2</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ Categorises a numeric variable into &quot;Increasing&quot; (&amp;lt; 0.05),
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
+    <span class="fas fa-file-code-o"></span>
      
     Functions
   </a>
@@ -108,7 +108,7 @@ Categorises a numeric variable into &quot;Increasing&quot; (&amp;lt; 0.05),
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/epiforecasts/EpiNow2">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -139,7 +139,7 @@ Categorises a numeric variable into &quot;Increasing&quot; (&amp;lt; 0.05),
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
 Categorises a numeric variable into "Increasing" (&lt; 0.05),
-"Likely increasing" (&lt;0.2), "Unsure" (&lt; 0.8), "Likely decreasing" (&lt; 0.95), "Decreasing" (&lt;= 1)</p>
+"Likely increasing" (&lt;0.4), "Stable" (&lt; 0.6), "Likely decreasing" (&lt; 0.95), "Decreasing" (&lt;= 1)</p>
     </div>
 
     <pre class="usage"><span class='fu'>map_prob_change</span><span class='op'>(</span><span class='va'>var</span><span class='op'>)</span></pre>
@@ -172,28 +172,28 @@ Categorises a numeric variable into "Increasing" (&lt; 0.05),
 #&gt;   [5] Likely increasing Likely increasing Likely increasing Likely increasing
 #&gt;   [9] Likely increasing Likely increasing Likely increasing Likely increasing
 #&gt;  [13] Likely increasing Likely increasing Likely increasing Likely increasing
-#&gt;  [17] Likely increasing Likely increasing Likely increasing Unsure           
-#&gt;  [21] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [25] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [29] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [33] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [37] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [41] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [45] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [49] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [53] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [57] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [61] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [65] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [69] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [73] Unsure            Unsure            Unsure            Unsure           
-#&gt;  [77] Unsure            Unsure            Unsure            Likely decreasing
+#&gt;  [17] Likely increasing Likely increasing Likely increasing Likely increasing
+#&gt;  [21] Likely increasing Likely increasing Likely increasing Likely increasing
+#&gt;  [25] Likely increasing Likely increasing Likely increasing Likely increasing
+#&gt;  [29] Likely increasing Likely increasing Likely increasing Likely increasing
+#&gt;  [33] Likely increasing Likely increasing Likely increasing Likely increasing
+#&gt;  [37] Likely increasing Likely increasing Likely increasing Stable           
+#&gt;  [41] Stable            Stable            Stable            Stable           
+#&gt;  [45] Stable            Stable            Stable            Stable           
+#&gt;  [49] Stable            Stable            Stable            Stable           
+#&gt;  [53] Stable            Stable            Stable            Stable           
+#&gt;  [57] Stable            Stable            Stable            Likely decreasing
+#&gt;  [61] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
+#&gt;  [65] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
+#&gt;  [69] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
+#&gt;  [73] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
+#&gt;  [77] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
 #&gt;  [81] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
 #&gt;  [85] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
 #&gt;  [89] Likely decreasing Likely decreasing Likely decreasing Likely decreasing
 #&gt;  [93] Likely decreasing Likely decreasing Decreasing        Decreasing       
 #&gt;  [97] Decreasing        Decreasing        Decreasing        Decreasing       
-#&gt; Levels: Increasing Likely increasing Unsure Likely decreasing Decreasing</div></pre>
+#&gt; Levels: Increasing Likely increasing Stable Likely decreasing Decreasing</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
