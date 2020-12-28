@@ -193,28 +193,31 @@ data for. Defaults to "latest" which finds the latest results available.</p></td
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='va'>example_confirmed</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>]</span>
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
   <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"testland"</span><span class='op'>]</span>,
-  <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-  
+  <span class='va'>cases</span><span class='op'>[</span>, <span class='va'>region</span> <span class='op'>:=</span> <span class='st'>"realland"</span><span class='op'>]</span>
+<span class='op'>)</span><span class='op'>)</span>
+
 <span class='co'># save results to tmp folder</span>
 <span class='va'>dir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span>check <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='st'>"results"</span><span class='op'>)</span>
 <span class='co'># run multiregion estimates</span>
-<span class='va'>regional_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='regional_epinow.html'>regional_epinow</a></span><span class='op'>(</span>reported_cases <span class='op'>=</span> <span class='va'>cases</span>,
-                                generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
-                                delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
-                                rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>, gp <span class='op'>=</span> <span class='cn'>NULL</span>,
-                                output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regions"</span>, <span class='st'>"latest"</span><span class='op'>)</span>, 
-                                target_folder <span class='op'>=</span> <span class='va'>dir</span>, 
-                                return_output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2020-12-18 00:22:17] Producing following optional outputs: regions, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to the console and: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpXLeAmi/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpXLeAmi/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-12-18 00:22:17] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2020-12-18 00:22:17] Saving estimates to : /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpXLeAmi/results
-#&gt; INFO [2020-12-18 00:22:17] Producing estimates for: testland, realland
-#&gt; INFO [2020-12-18 00:22:17] Regions excluded: none
-#&gt; INFO [2020-12-18 00:23:17] Completed estimates for: testland
-#&gt; INFO [2020-12-18 00:24:23] Completed estimates for: realland
-#&gt; INFO [2020-12-18 00:24:23] Completed regional estimates
-#&gt; INFO [2020-12-18 00:24:23] Regions with estimates: 2
-#&gt; INFO [2020-12-18 00:24:23] Regions with runtime errors: 0
-#&gt; INFO [2020-12-18 00:24:23] Saving timings information to : /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpXLeAmi/results</div><div class='input'><span class='co'># from output</span>
+<span class='va'>regional_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='regional_epinow.html'>regional_epinow</a></span><span class='op'>(</span>
+  reported_cases <span class='op'>=</span> <span class='va'>cases</span>,
+  generation_time <span class='op'>=</span> <span class='va'>generation_time</span>,
+  delays <span class='op'>=</span> <span class='fu'><a href='delay_opts.html'>delay_opts</a></span><span class='op'>(</span><span class='va'>incubation_period</span>, <span class='va'>reporting_delay</span><span class='op'>)</span>,
+  rt <span class='op'>=</span> <span class='fu'><a href='rt_opts.html'>rt_opts</a></span><span class='op'>(</span>rw <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>, gp <span class='op'>=</span> <span class='cn'>NULL</span>,
+  output <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regions"</span>, <span class='st'>"latest"</span><span class='op'>)</span>,
+  target_folder <span class='op'>=</span> <span class='va'>dir</span>,
+  return_output <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; INFO [2020-12-28 19:52:41] Producing following optional outputs: regions, latest</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to the console and: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpxWrbDn/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpxWrbDn/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2020-12-28 19:52:41] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2020-12-28 19:52:41] Saving estimates to : /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpxWrbDn/results
+#&gt; INFO [2020-12-28 19:52:41] Producing estimates for: testland, realland
+#&gt; INFO [2020-12-28 19:52:41] Regions excluded: none
+#&gt; INFO [2020-12-28 19:53:41] Completed estimates for: testland
+#&gt; INFO [2020-12-28 19:54:48] Completed estimates for: realland
+#&gt; INFO [2020-12-28 19:54:48] Completed regional estimates
+#&gt; INFO [2020-12-28 19:54:48] Regions with estimates: 2
+#&gt; INFO [2020-12-28 19:54:48] Regions with runtime errors: 0
+#&gt; INFO [2020-12-28 19:54:48] Saving timings information to : /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpxWrbDn/results</div><div class='input'><span class='co'># from output</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>get_regional_results</span><span class='op'>(</span><span class='va'>regional_out</span><span class='op'>$</span><span class='va'>regional</span>, samples <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "estimates"</div><div class='input'>

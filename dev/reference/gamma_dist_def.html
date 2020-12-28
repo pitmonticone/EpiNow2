@@ -207,9 +207,11 @@ of this range are resampled.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># using estimated shape and scale</span>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>gamma_dist_def</span><span class='op'>(</span>shape <span class='op'>=</span> <span class='fl'>5.807</span>, shape_sd <span class='op'>=</span> <span class='fl'>0.2</span>,
-               scale <span class='op'>=</span> <span class='fl'>0.9</span>, scale_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
-               max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>gamma_dist_def</span><span class='op'>(</span>
+  shape <span class='op'>=</span> <span class='fl'>5.807</span>, shape_sd <span class='op'>=</span> <span class='fl'>0.2</span>,
+  scale <span class='op'>=</span> <span class='fl'>0.9</span>, scale_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
+  max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     model    params max_value
 #&gt;  1: gamma &lt;list[2]&gt;        20
@@ -229,9 +231,11 @@ of this range are resampled.</p></td>
 #&gt; [1] 1.109493
 #&gt; </div><div class='input'>
 <span class='co'># using mean and sd</span>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>gamma_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>3</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.5</span>,
-               sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
-               max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>gamma_dist_def</span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='fl'>3</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.5</span>,
+  sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
+  max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;     model    params max_value
 #&gt;  1: gamma &lt;list[2]&gt;        20

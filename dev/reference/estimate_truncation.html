@@ -237,40 +237,48 @@ observed data (<code>last_obs</code>, useful for plotting and validation), the d
 (<code>data</code>) and the fit object (<code>fit</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#set number of cores to use</span>
+    <pre class="examples"><div class='input'><span class='co'># set number of cores to use</span>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>mc.cores <span class='op'>=</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='fl'>4</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># get example case counts</span>
 <span class='va'>reported_cases</span> <span class='op'>&lt;-</span> <span class='va'>example_confirmed</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>60</span><span class='op'>]</span>
 
 <span class='co'># define example truncation distribution (note not integer adjusted)</span>
-<span class='va'>trunc_dist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'><a href='convert_to_logmean.html'>convert_to_logmean</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>,
-                   mean_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
-                   sd <span class='op'>=</span> <span class='fu'><a href='convert_to_logsd.html'>convert_to_logsd</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>,
-                   sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
-                   max <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>trunc_dist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='fu'><a href='convert_to_logmean.html'>convert_to_logmean</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  mean_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
+  sd <span class='op'>=</span> <span class='fu'><a href='convert_to_logsd.html'>convert_to_logsd</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  sd_sd <span class='op'>=</span> <span class='fl'>0.1</span>,
+  max <span class='op'>=</span> <span class='fl'>10</span>
+<span class='op'>)</span>
 
 <span class='co'># apply truncation to example data</span>
 <span class='va'>construct_truncation</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>index</span>, <span class='va'>cases</span>, <span class='va'>dist</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span>
   <span class='va'>cmf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span>
-     <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>dlnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>dist</span><span class='op'>$</span><span class='va'>max</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>, 
-            <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>mean</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>mean_sd</span><span class='op'>)</span>,
-            <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>sd</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>sd_sd</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>dlnorm</a></span><span class='op'>(</span>
+      <span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>dist</span><span class='op'>$</span><span class='va'>max</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>,
+      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>mean</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>mean_sd</span><span class='op'>)</span>,
+      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>sd</span>, <span class='va'>dist</span><span class='op'>$</span><span class='va'>sd_sd</span><span class='op'>)</span>
+    <span class='op'>)</span>
+  <span class='op'>)</span>
   <span class='va'>cmf</span> <span class='op'>&lt;-</span> <span class='va'>cmf</span> <span class='op'>/</span> <span class='va'>cmf</span><span class='op'>[</span><span class='va'>dist</span><span class='op'>$</span><span class='va'>max</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>]</span>
   <span class='va'>cmf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>cmf</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>
   <span class='va'>trunc_cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>.N</span> <span class='op'>-</span> <span class='va'>index</span><span class='op'>)</span><span class='op'>]</span>
   <span class='va'>trunc_cases</span><span class='op'>[</span><span class='op'>(</span><span class='va'>.N</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>cmf</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>:</span><span class='va'>.N</span>, <span class='va'>confirm</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>confirm</span> <span class='op'>*</span> <span class='va'>cmf</span><span class='op'>)</span><span class='op'>]</span>
   <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>trunc_cases</span><span class='op'>)</span>
- <span class='op'>}</span>
-<span class='va'>example_data</span> <span class='op'>&lt;-</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>15</span>, <span class='fl'>10</span>, <span class='fl'>0</span><span class='op'>)</span>, 
-                           <span class='va'>construct_truncation</span>,
-                           cases <span class='op'>=</span> <span class='va'>reported_cases</span>,
-                           dist <span class='op'>=</span> <span class='va'>trunc_dist</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>example_data</span> <span class='op'>&lt;-</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>15</span>, <span class='fl'>10</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  <span class='va'>construct_truncation</span>,
+  cases <span class='op'>=</span> <span class='va'>reported_cases</span>,
+  dist <span class='op'>=</span> <span class='va'>trunc_dist</span>
+<span class='op'>)</span>
 
 <span class='co'># fit model to example data</span>
-<span class='va'>est</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_truncation</span><span class='op'>(</span><span class='va'>example_data</span>, verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
-                           chains <span class='op'>=</span> <span class='fl'>2</span>, iter <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span>
-                           
+<span class='va'>est</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_truncation</span><span class='op'>(</span><span class='va'>example_data</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  chains <span class='op'>=</span> <span class='fl'>2</span>, iter <span class='op'>=</span> <span class='fl'>2000</span>
+<span class='op'>)</span>
+
 <span class='co'># summary of the distribution</span>
 <span class='va'>est</span><span class='op'>$</span><span class='va'>dist</span>
 </div><div class='output co'>#&gt; $mean
@@ -311,7 +319,7 @@ observed data (<code>last_obs</code>, useful for plotting and validation), the d
 #&gt;  8: 0.6872303 0.6926734 0.7013039 0.7232266
 #&gt;  9: 0.4919453 0.4964692 0.5032356 0.5217425
 #&gt; 10: 0.1928419 0.1955930 0.2005729 0.2136926</div><div class='input'><span class='co'># observations linked to truncation adjusted estimates</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>est</span><span class='op'>$</span><span class='va'>obs</span><span class='op'>)</span>    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>est</span><span class='op'>$</span><span class='va'>obs</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           date confirm last_confirm report_date mean se_mean  sd lower_20
 #&gt;  1: 2020-03-24    4751         4789  2020-04-01 4800       0  12     4782
 #&gt;  2: 2020-03-25    5163         5249  2020-04-01 5293       1  30     5248

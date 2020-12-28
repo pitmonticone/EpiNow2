@@ -183,9 +183,11 @@ of this range are resampled.</p></td>
     <p>A data.table defining the distribution as used by <code>dist_skel</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>1.621</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.0640</span>,
-                        sd <span class='op'>=</span> <span class='fl'>0.418</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.0691</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='fl'>1.621</span>, mean_sd <span class='op'>=</span> <span class='fl'>0.0640</span>,
+  sd <span class='op'>=</span> <span class='fl'>0.418</span>, sd_sd <span class='op'>=</span> <span class='fl'>0.0691</span>,
+  max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       model    params max_value
 #&gt;  1: lognorm &lt;list[2]&gt;        20
@@ -204,10 +206,12 @@ of this range are resampled.</p></td>
 #&gt; $sd
 #&gt; [1] 0.429595
 #&gt; </div><div class='input'>
-<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                        max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>,
-                        to_log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>def</span> <span class='op'>&lt;-</span> <span class='fu'>lognorm_dist_def</span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>,
+  sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
+  max_value <span class='op'>=</span> <span class='fl'>20</span>, samples <span class='op'>=</span> <span class='fl'>10</span>,
+  to_log <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>def</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       model    params max_value
 #&gt;  1: lognorm &lt;list[2]&gt;        20

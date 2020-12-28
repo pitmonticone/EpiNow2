@@ -195,19 +195,23 @@ a third variable <code>reference</code> which indicates what the date variable r
 <span class='va'>cases</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/copy.html'>copy</a></span><span class='op'>(</span><span class='va'>example_confirmed</span><span class='op'>)</span><span class='op'>[</span>, <span class='va'>cases</span> <span class='op'>:=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>confirm</span><span class='op'>)</span><span class='op'>]</span>
 
 <span class='co'># define a single report delay distribution</span>
-<span class='va'>delay_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
-                             max_value <span class='op'>=</span> <span class='fl'>30</span>, samples <span class='op'>=</span> <span class='fl'>1</span>, to_log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-                                       
+<span class='va'>delay_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='fl'>5</span>, mean_sd <span class='op'>=</span> <span class='fl'>1</span>, sd <span class='op'>=</span> <span class='fl'>3</span>, sd_sd <span class='op'>=</span> <span class='fl'>1</span>,
+  max_value <span class='op'>=</span> <span class='fl'>30</span>, samples <span class='op'>=</span> <span class='fl'>1</span>, to_log <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+
 <span class='co'># define a single incubation period</span>
-<span class='va'>incubation_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
-                                   mean_sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
-                                   sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
-                                   sd_sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
-                                   max_value <span class='op'>=</span> <span class='fl'>30</span>, samples <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-                                           
+<span class='va'>incubation_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lognorm_dist_def.html'>lognorm_dist_def</a></span><span class='op'>(</span>
+  mean <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean</span>,
+  mean_sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>mean_sd</span>,
+  sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd</span>,
+  sd_sd <span class='op'>=</span> <span class='va'>incubation_periods</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span><span class='op'>$</span><span class='va'>sd_sd</span>,
+  max_value <span class='op'>=</span> <span class='fl'>30</span>, samples <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span>
+
 <span class='co'># simple mapping</span>
-<span class='va'>report</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span><span class='va'>cases</span>, delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span><span class='op'>)</span>   
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report</span><span class='op'>)</span>   
+<span class='va'>report</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span><span class='va'>cases</span>, delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
 #&gt;   1: 2020-02-24     2
 #&gt;   2: 2020-02-25     9
@@ -222,9 +226,11 @@ a third variable <code>reference</code> which indicates what the date variable r
 #&gt; 128: 2020-06-30   252</div><div class='input'>
 <span class='co'># mapping with a weekly reporting effect</span>
 <span class='va'>report_weekly</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span>
-                      <span class='va'>cases</span>, delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>,
-                      reporting_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fl'>0.95</span>, <span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span>          
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report_weekly</span><span class='op'>)</span> 
+  <span class='va'>cases</span>,
+  delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>,
+  reporting_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fl'>0.95</span>, <span class='fl'>0.95</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report_weekly</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
 #&gt;   1: 2020-02-23     2
 #&gt;   2: 2020-02-24     3
@@ -238,8 +244,10 @@ a third variable <code>reference</code> which indicates what the date variable r
 #&gt; 128: 2020-06-29   267
 #&gt; 129: 2020-06-30   253</div><div class='input'>
 <span class='co'># map using a deterministic median shift for both delays</span>
-<span class='va'>report_median</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span><span class='va'>cases</span>, delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>, 
-                                            type <span class='op'>=</span> <span class='st'>"median"</span><span class='op'>)</span>      
+<span class='va'>report_median</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span><span class='va'>cases</span>,
+  delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='st'>"median"</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report_median</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date confirm cases
 #&gt;   1: 2020-02-28      14    14
@@ -252,16 +260,18 @@ a third variable <code>reference</code> which indicates what the date variable r
 #&gt; 127: 2020-07-03     255   255
 #&gt; 128: 2020-07-04     175   175
 #&gt; 129: 2020-07-05     174   174
-#&gt; 130: 2020-07-06     126   126</div><div class='input'>                                                         
+#&gt; 130: 2020-07-06     126   126</div><div class='input'>
 <span class='co'># map with a weekly reporting effect and stochastic reporting model</span>
 <span class='va'>report_stochastic</span> <span class='op'>&lt;-</span> <span class='fu'>adjust_infection_to_report</span><span class='op'>(</span>
-                      <span class='va'>cases</span>, delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>,
-                      reporting_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fl'>0.95</span>, <span class='fl'>0.95</span><span class='op'>)</span>,
-                      reporting_model <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>{</span>
-                      <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/NegBinomial.html'>rnbinom</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
-                      <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>out</span><span class='op'>)</span>
-                      <span class='op'>}</span><span class='op'>)</span>          
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report_stochastic</span><span class='op'>)</span>         
+  <span class='va'>cases</span>,
+  delay_defs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>incubation_def</span>, <span class='va'>delay_def</span><span class='op'>)</span>,
+  reporting_effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.1</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fl'>0.95</span>, <span class='fl'>0.95</span><span class='op'>)</span>,
+  reporting_model <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/NegBinomial.html'>rnbinom</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='va'>out</span><span class='op'>)</span>
+  <span class='op'>}</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>report_stochastic</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            date cases
 #&gt;   1: 2020-02-22     0
 #&gt;   2: 2020-02-23     1
