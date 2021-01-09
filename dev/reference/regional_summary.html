@@ -57,6 +57,8 @@ Used to produce summary output either internally in regional_epinow or externall
 
 <meta name="robots" content="noindex">
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -229,21 +231,21 @@ on the maximum number of reported cases.</p></td>
   output <span class='op'>=</span> <span class='st'>"region"</span>,
   rt <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2021-01-05 20:26:10] Producing following optional outputs: regions</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to the console and: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpqjYGMJ/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpqjYGMJ/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2021-01-05 20:26:10] Reporting estimates using data up to: 2020-03-22
-#&gt; INFO [2021-01-05 20:26:10] No target directory specified so returning output
-#&gt; INFO [2021-01-05 20:26:10] Producing estimates for: testland, realland
-#&gt; INFO [2021-01-05 20:26:10] Regions excluded: none
-#&gt; INFO [2021-01-05 20:26:51] Completed estimates for: testland
-#&gt; INFO [2021-01-05 20:27:32] Completed estimates for: realland
-#&gt; INFO [2021-01-05 20:27:32] Completed regional estimates
-#&gt; INFO [2021-01-05 20:27:32] Regions with estimates: 2
-#&gt; INFO [2021-01-05 20:27:32] Regions with runtime errors: 0
-#&gt; INFO [2021-01-05 20:27:32] No target directory specified so returning timings</div><div class='input'>
+</div><div class='output co'>#&gt; INFO [2021-01-09 21:39:18] Producing following optional outputs: regions</div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2 logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2 logs to the console and: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKG8Q2N/regional-epinow/2020-03-22.log</span></div><div class='output co'>#&gt; <span class='message'>Logging threshold set at INFO for the EpiNow2.epinow logger</span></div><div class='output co'>#&gt; <span class='message'>Writing EpiNow2.epinow logs to: /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKG8Q2N/epinow/2020-03-22.log</span></div><div class='output co'>#&gt; INFO [2021-01-09 21:39:18] Reporting estimates using data up to: 2020-03-22
+#&gt; INFO [2021-01-09 21:39:18] No target directory specified so returning output
+#&gt; INFO [2021-01-09 21:39:18] Producing estimates for: testland, realland
+#&gt; INFO [2021-01-09 21:39:18] Regions excluded: none
+#&gt; INFO [2021-01-09 21:39:55] Completed estimates for: testland
+#&gt; INFO [2021-01-09 21:40:33] Completed estimates for: realland
+#&gt; INFO [2021-01-09 21:40:33] Completed regional estimates
+#&gt; INFO [2021-01-09 21:40:33] Regions with estimates: 2
+#&gt; INFO [2021-01-09 21:40:33] Regions with runtime errors: 0
+#&gt; INFO [2021-01-09 21:40:33] No target directory specified so returning timings</div><div class='input'>
 <span class='fu'>regional_summary</span><span class='op'>(</span>
   regional_output <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>regional</span>,
   reported_cases <span class='op'>=</span> <span class='va'>cases</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; INFO [2021-01-05 20:27:32] No summary directory specified so returning summary output</div><div class='output co'>#&gt; $latest_date
+</div><div class='output co'>#&gt; INFO [2021-01-09 21:40:33] No summary directory specified so returning summary output</div><div class='output co'>#&gt; $latest_date
 #&gt; [1] "2020-03-22"
 #&gt; 
 #&gt; $results
@@ -294,8 +296,8 @@ on the maximum number of reported cases.</p></td>
 #&gt; 1: realland                  6458 (3939 -- 10378)
 #&gt; 2: testland                  6414 (4012 -- 10206)
 #&gt;    Expected change in daily cases Effective reproduction no.
-#&gt; 1:              Likely increasing            1 (0.84 -- 1.2)
-#&gt; 2:              Likely increasing            1 (0.84 -- 1.2)
+#&gt; 1:                         Stable            1 (0.84 -- 1.2)
+#&gt; 2:                         Stable            1 (0.84 -- 1.2)
 #&gt;              Rate of growth Doubling/halving time (days)
 #&gt; 1: 0.0057 (-0.044 -- 0.048)              120 (14 -- -16)
 #&gt; 2: 0.0053 (-0.046 -- 0.052)              130 (13 -- -15)
@@ -311,11 +313,11 @@ on the maximum number of reported cases.</p></td>
 #&gt; 2:     6909   7744.0  10206.0 New confirmed cases by infection date
 #&gt; 3:        1      1.1      1.2            Effective reproduction no.
 #&gt; 4:        1      1.1      1.2            Effective reproduction no.
-#&gt;    Expected change in daily cases
-#&gt; 1:              Likely increasing
-#&gt; 2:              Likely increasing
-#&gt; 3:              Likely increasing
-#&gt; 4:              Likely increasing
+#&gt;    Expected change in daily cases prob_control
+#&gt; 1:                         Stable         0.42
+#&gt; 2:                         Stable         0.42
+#&gt; 3:                         Stable         0.42
+#&gt; 4:                         Stable         0.42
 #&gt; 
 #&gt; $summarised_results$regions_by_inc
 #&gt; [1] "realland" "testland"
